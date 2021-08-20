@@ -29,7 +29,7 @@ export default {
 		handleClick () {
 			// 要使用全等于  不能常用相比
 			// if (this.a === 1) {
-
+      console.log(1);
   
 			// }
 		}
