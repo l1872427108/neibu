@@ -1,11 +1,8 @@
 <template>
   <div id="app">
+    <i class="basic-icon basic-icon-lumaoshoutao" />
     <div id="nav">
-      <router-link to="/">
-        Home
-        123
-        132
-      </router-link> |
+      <router-link to="/" /> |
       <router-link to="/about">
         About
       </router-link>
@@ -29,11 +26,7 @@ export default {
 
 	methods: {
 		handleClick () {
-			// 要使用全等于  不能常用相比
-			// if (this.a === 1) {
-      console.log(1);
-  
-			// }
+		
 		}
 	}
 };
