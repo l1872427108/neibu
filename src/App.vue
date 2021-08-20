@@ -3,6 +3,8 @@
     <div id="nav">
       <router-link to="/">
         Home
+        123
+        132
       </router-link> |
       <router-link to="/about">
         About
