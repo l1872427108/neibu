@@ -1,56 +1,81 @@
 <template>
   <div id="app">
-    <i class="basic-icon basic-icon-lumaoshoutao" />
-    <div id="nav">
-      <router-link to="/" /> |
-      <router-link to="/about">
-        About
-      </router-link>
+    <!-- <top-bar /> -->
+    <div class="main">
+      <!-- <nav-bar /> -->
+      <keep-alive v-if="getKeepAlive">
+        <router-view
+          class="router-view"
+        />
+      </keep-alive>
+      <router-view
+        v-else
+        class="router-view"
+      />
     </div>
-    <router-view />
   </div>
 </template>
 
 <script>
+// import NavBar from './views/nav/TopBar.vue';
 export default {
-	// 不能混用 tab 和 空格 
-	// 函数前面要有空格
+
+  // components: {
+  //   NavBar,
+  // },
+
   data () {
     return {
-      a: 1,
+      value: new Date()
     };
   },
 
-	mounted () {
-	},
+  computed: {
+    getKeepAlive: {
+      get () {
+        return this.$route.meta.keepAlive;
+      }
+    }
+  },
 
-	methods: {
-		handleClick () {
-		
-		}
-	}
+  mounted () {
+    
+  },
+
+  methods: {
+    btn () {
+      this.$alert('这是一段内容', '标题名称', {
+          confirmButtonText: '确定',
+          callback: action => {
+            this.$message({
+              type: 'info',
+              message: `action: ${ action }`
+            });
+          }
+        });
+    }
+  }
+
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
+  /* background: $color-bgc-theme; */
+  .main {
+    display: flex;
+    overflow: hidden;
+    flex: 1;
+  }
+  .router-view {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+  }
 }
 </style>

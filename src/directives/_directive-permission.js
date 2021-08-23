@@ -1,32 +1,38 @@
+import store from '../store';
 
-// 在一些后台管理系统中， 我们可能需要根据用户角色进行一些操作权限的判断，很多时候都是简单粗暴的
-// 直接添加一个元素 v-if/v-else 来进行显示隐藏， 但如果判断条件繁琐且多个地方需要判断，
-// 这种方式的代码不仅优雅而且荣誉， 自定义指令。
-
-// 对权限判断的dom进行显示隐藏
-
-// 自定义一个权限数组， 
-// 判断用户的权限是否在这数组内， 
-
-function checkArray (key) {
-    let arr = ['1', '2', '3', '4'];
-    let index = arr.indexOf(key);
-    if(index > -1) {
-        return true;
-    } 
-        return false;
-    
+function checkPermission (el, binding) {
+    // 拿到之后等于号后面的
+    const {value} = binding;
+    // 拿去用户的当前角色   editor 数组
+    const roles = store.getters && store.getters.roles;
+    // 首先判断传入的确定是一个数组
+    if(value && value instanceof Array) {
+        // 判断传入的有长度length
+        if(value.length > 0) {
+            // ["admin"]
+            const permissionRoles = value;
+            // 判断是否有权限  roles.some  返回一个true
+            const hasPermission = roles.some(role => {
+                return permissionRoles.includes(role);
+            });
+            // 如果没有有权限, 判断是否已经插入父节点，从父亲上删除
+            if(!hasPermission) {
+                el.parentNode && el.parentNode.removeChild(el);
+            }
+        }
+    } else {
+        throw new Error(`need roles! Like v-permission="['admin','editor']"`);
+    }
 }
 
 const permission = {
     inserted (el, binding) {
-        let permission = binding.value;   // 获取到v-permission 的值
-        if(permission) {
-            let hasPermission = checkArray(permission);
-            if(!hasPermission) {
-                // 没有权限， 移除 dom 元素
-                el.parentNode && el.parentNode.removeChild(el);
-            }
-        }
+        console.log(el, binding);
+        checkPermission(el, binding);
+    },
+    update (el, binding) {
+        checkPermission(el, binding);
     }
 };
+
+export default permission;

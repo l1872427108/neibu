@@ -1,13 +1,16 @@
 <template>
-  <div />
+  <div>
+    public
+    123
+    {{ a }}
+  </div>
 </template>
 
 <script>
 export default {
-  data () {
-    return {
-      
-    };
+  mounted () {
+    // a = 1;
+
   }
 };
 </script>

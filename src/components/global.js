@@ -3,7 +3,6 @@ import Vue from 'vue';
 const requireComponent = require.context(
     '.',
     true,
-    // 包括 _base-  前缀的 .vue 文件
     /_Basic-[\w-]+\.vue$/
 );
 
@@ -11,7 +10,6 @@ requireComponent.keys().forEach((fileName) => {
    
     const componentConfig = requireComponent(fileName);
 
- 
     const componentName = fileName
    
         .replace(/^\.\/_/, '')

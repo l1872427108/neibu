@@ -4,6 +4,7 @@ module.exports = {
         "parser": 'babel-eslint',
         "sourceType": 'module'
       },
+	//   "parser": "babel-eslint",
     "env": {
         "browser": true,
         "node": true,
