@@ -1,53 +1,63 @@
 <template>
-  <div class="login_page fillcontain">
-    <transition
+  <div
+    id="login"
+    class="login_page fillcontain"
+  >
+    <!-- <transition
       name="form-fade"
+    > -->
+    
+    <section
+      class="login-weaper"
     >
-      <section
-        v-if="showLogin"
-        class="form_container"
-      >
-        <el-form
-          ref="loginForm"
-          :model="loginForm"
-          :rules="rules"
+      <div class="login-left">
+        <div class="login-time">
+          {{ time }}
+        </div>
+        <img
+          src="../../assets/img/logo.png"
+          class="img"
+          alt=""
         >
-          <el-form-item>
-            <div class="manage_tip">
-              <p>后台管理系统</p>
-            </div>
-          </el-form-item>
-          <el-form-item prop="username">
-            <el-input
-              v-model="loginForm.username"
-              placeholder="用户名"
-            />
-          </el-form-item>
-          <el-form-item prop="password">
-            <el-input
-              v-model="loginForm.password"
-              type="password"
-              placeholder="密码"
-            />
-          </el-form-item>
-          <el-form-item>
-            <el-button
-              type="primary"
-              class="submit_btn"
-              @click="submitForm('loginForm')"
-            >
-              登录
-            </el-button>
-          </el-form-item>
-        </el-form>
-      </section>
-    </transition>
+        <p class="title">
+          {{ $t('login.info') }}
+        </p>
+      </div>
+
+      <div class="login-border">
+        <div class="login-main">
+          <h4 class="login-title">
+            {{ $t('login.title') }}
+          </h4>
+          <user-login v-if="activeName === 'userLogin'" />
+          <third-login v-else-if="activeName === 'thirdLogin'" />
+
+          <div class="login-menu">
+            <a
+              href="#"
+              @click.stop="activeName === 'userLogin'"
+            >{{ $t('login.userLogin') }}</a>
+            <a
+              href="#"
+              @click.stop="activeName='third'"
+            >{{ $t('login.thirdLogin') }}</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- </transition> -->
   </div>
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import {dateFormat} from '../../utils/date';
+import UserLogin from './userLogin.vue';
+import CodeLogin from './codeLogin.vue';
+import ThirdLogin from './thirdLogin.vue';
 export default {
+  components: {
+    UserLogin
+  },
   data () {
     return {
       loginForm: {
@@ -60,26 +70,26 @@ export default {
         ],
         password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
       },
-      showLogin: false
+      showLogin: false,
+      time: '',
+      activeName: 'userLogin'
     };
   },
-
+  created () {
+    this.getTime();
+  },
   mounted () {
     this.showLogin = true;
   },
-
+  
   methods: {
-    submitForm () {
-      this.$refs.loginForm.validate(valid => {
-        if (valid) {
-          this.$store.dispatch('user/login', this.loginForm)
-            .then(() => {
-              this.$router.push('/');
-            });
-        } else {
-          console.log('error submit!!');
-          return false;
-        }
+    getTime () {
+      setInterval(() => {
+        this.time = dateFormat(new Date());
+      });
+
+      this.$once('hook:beforeDestroy', () => {
+        this.time = '';
       });
     }
   }
@@ -88,32 +98,108 @@ export default {
 
 <style lang="scss" scoped>
 .login_page {
-  background-color: #324057;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.form_container {
-  width: 320px;
-  height: 210px;
-  padding: 25px;
-  border-radius: 5px;
-  text-align: center;
-  background: #fff;
-  .submit_btn {
-    width: 100%;
-    font-size: 16px;
+    background-color: #324057;
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: url("http://www.17sucai.com/preview/242158/2015-01-10/%E7%99%BB%E5%BD%95/images/cloud.jpg") 0 bottom repeat-x #049ec4;
+    animation: animate-cloud 20s linear infinite;
   }
-}
-.manage_tip {
-  position: absolute;
-  width: 100%;
-  top: -120px;
-  left: 0;
-  p {
-    font-size: 34px;
+  
+  .login-weaper {
+    margin: 0 auto;
+    width: 1000px;
+    box-shadow: -4px 5px 10px rgba(0, 0, 0, 0.4);
+    .el-input-group__append {
+      border: none;
+    }
+  }
+  
+  .login-left, .login-border {
+    position: relative;
+    min-height: 500px;
+    align-items: center;
+    display: flex;
+  }
+  
+  .login-left {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #409EFF;
     color: #fff;
+    float: left;
+    width: 50%;
+    position: relative;
+  
+    .img {
+      width: 140px;
+    }
+  
+    .login-time {
+      position: absolute;
+      left: 25px;
+      top: 25px;
+      width: 100%;
+      color: #fff;
+      font-weight: 200;
+      opacity: 0.9;
+      font-size: 18px;
+      overflow: hidden;
+    }
+  
+    .title {
+      margin-top: 60px;
+      text-align: center;
+      color: #fff;
+      font-weight: 300;
+      letter-spacing: 2px;
+      font-size: 25px;
+    }
   }
-}
+  
+  .login-border {
+    border-left: none;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    color: #fff;
+    background-color: #fff;
+    width: 50%;
+    float: left;
+    box-sizing: border-box;
+  }
+  .login-main {
+    margin: 0 auto;
+    width: 65%;
+    box-sizing: border-box;
+  }
+  
+  .login-main > h4 {
+    margin-bottom: 20px;
+  }
+  
+  .login-main > p {
+    color: #76838f;
+  }
+  
+  .login-title {
+    color: #333;
+    margin-bottom: 40px;
+    font-weight: 500;
+    font-size: 22px;
+    text-align: center;
+    letter-spacing: 4px;
+  }
+  
+  .login-menu {
+    margin-top: 40px;
+    width: 100%;
+    text-align: center;
+    a {
+      color: #999;
+      font-size: 12px;
+      margin: 0px 8px;
+    }
+  }
 </style>

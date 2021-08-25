@@ -1,21 +1,23 @@
-import router from './router';
+import router, {lastRoute} from './router';
 import store from './store';
 import { Message } from 'element-ui';
+// import { NextLoading } from './utils/loading2';
 
 import { getToken } from './utils/auth';
 
 const whiteList = ['/login']; 
 
 router.beforeEach(async (to, from, next) => {
+  // NextLoading.start();
   const hasToken = getToken();
   console.log(hasToken);
   if (hasToken) {
     if (to.path === '/login') {
       next({ path: '/' });
     } else {
-      const hasAdmin = store.getters.roles.some(item => {
-        return item === 'admin';
-      });
+      // const hasAdmin = store.getters.roles.some(item => {
+      //   return item === 'admin';
+      // });
       const hasRoles = store.getters.roles && store.getters.roles.length > 0;
       if (hasRoles) {
         next();
@@ -24,7 +26,7 @@ router.beforeEach(async (to, from, next) => {
           const { roles } = await store.dispatch('user/getInfo');
           const accessRoutes = await store.dispatch('permission/generateRoutes', roles);
           accessRoutes.forEach(v => {
-            router.addRoute({...v});
+            router.addRoute({...v, ...lastRoute});
           });
           next({ ...to, replace: true });
         } catch (error) {
@@ -41,4 +43,8 @@ router.beforeEach(async (to, from, next) => {
       next(`/login`);
     }
   }
+});
+
+router.afterEach(() => {
+	// NextLoading.done();
 });

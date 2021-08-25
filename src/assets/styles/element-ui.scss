@@ -1,0 +1,10 @@
+// ::v-deep .el-dropdown-menu {
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+// }
+
+.el-dropdown-menu__item {
+    font-size: 12px !important;
+    line-height: 28px !important;
+}

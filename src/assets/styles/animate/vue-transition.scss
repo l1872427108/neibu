@@ -1,0 +1,46 @@
+.form-fade-enter-active, .form-fade-leave-active {
+    transition: all 1s;
+}
+.form-fade-enter, .form-fade-leave-to {
+    transform: scale(0);
+    opacity: 0;
+}
+
+.form-fade-leave, .form-fade-enter-to {
+    transform: scale(1);
+    opacity: 1;
+}
+
+@-webkit-keyframes animate-cloud {
+    from {
+        background-position: 600px 100%;
+    }
+    to {
+        background-position: 0 100%;
+    }
+}
+
+@-moz-keyframes animate-cloud {
+    from {
+        background-position: 600px 100%;
+    }
+    to {
+        background-position: 0 100%;
+    }
+}
+@-ms-keyframes animate-cloud {
+    from {
+      background-position: 600px 100%;
+    }
+    to {
+      background-position: 0 100%;
+    }
+  }
+  @-o-keyframes animate-cloud {
+    from {
+      background-position: 600px 100%;
+    }
+    to {
+      background-position: 0 100%;
+    }
+  }

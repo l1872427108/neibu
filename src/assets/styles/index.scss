@@ -10,3 +10,13 @@
 @import './media.scss';
 //通用配置
 @import './normalize.scss';
+
+@import './reset.scss';
+
+a{
+    text-decoration: none;
+    color:#333;
+}
+*{
+    outline: none;
+}

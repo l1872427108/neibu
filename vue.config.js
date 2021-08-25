@@ -10,10 +10,15 @@ const projectConfig = {
       template: './public/index.html',
       filename: 'index.html',
     }
+    // login: {
+    //   entry: './src/login.js',
+    //   template: './public/login.html',
+    //   filename: 'login.html',
+    // }
   },
   devServerProxy: {
     '/api': {
-      target: 'http://127.0.0.1:7001',
+      target: process.env.VUE_APP_BASE_API,
       changeOrigin: true,
       pathRewrite: {
         '^/api': ''
@@ -23,29 +28,31 @@ const projectConfig = {
 };
 
 module.exports = {
-    productionSourceMap: false,
+    // productionSourceMap: false,
     //  process.env.NODE_ENV === 'production' ? '/production/api' : 
     publicPath: './',    
-    outputDir: 'build',
-    assetsDir: 'static',
-    indexPath: 'index.html',
+    // outputDir: 'build',
+    // assetsDir: 'static',
+    // indexPath: 'index.html',
     lintOnSave: true,
-    filenameHashing: true,
+    // filenameHashing: true,
     // 是否使用包含运行时编译器的 Vue 构建版本
     // runtimeCompiler: process.env.NODE_ENV === 'development',
     // 构建后的文件是部署在 CDN 上的，启用该选项可以提供额外的安全性。
-    integrity: true,
-    css: {
-        extract: true,
-        sourceMap: false,
-    },
+    // sourceMap: 'source-map',
+    // devtool: process.env.NODE_ENV === 'dev' ? 'source-map' : undefined,
+    // integrity: true,
+    // css: {
+    //     extract: true,
+    //     sourceMap: false,
+    // },
     pages: {
       ...projectConfig.pages
     },
     devServer: {
         open: true,
         // host: '0.0.0.0',
-        port: 8080,
+        port: 1222,
         https: false,
         hotOnly: false,
         proxy: {
@@ -65,10 +72,19 @@ module.exports = {
       // .resolve.alias
       //   .set('~', resolve('./src'));
     },
-    configureWebpack: () => {
+    configureWebpack: (config) => {
+      // process.env.NODE_ENV === 'dev' ? 'source-map' : undefined,
         // 如果是对象，则会通过 webpack-merge 合并到最终的配置中
         // 值是一个函数，则会接收被解析的配置作为参数
         // 该函数及可以修改配置并不返回任何东西，也可以返回一个被克隆或合并过的配置版本。
+        config.resolve = {
+            extensions: ['.js', '.vue', '.json', ".css"],
+            alias: {
+                '@': resolve('./src'),
+                'assets': resolve('./src/assets'),
+                'components': resolve('./src/components')
+            }
+        };
     }
 };
   

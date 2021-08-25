@@ -1,7 +1,7 @@
 <template>
   <div class="top-bar">
     <!-- <div>{{ $t('m.Title') }}</div> -->
-    <change-lang />
+    <!-- <change-lang /> -->
   </div>
 </template>
 

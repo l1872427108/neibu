@@ -1,5 +1,5 @@
 const Mock = require('mockjs');
-const { param2Obj } = require('../src/utils');
+const { param2Obj } = require('../src/utils/util');
 // 设置拦截ajax请求的相应时间
 Mock.setup({
   timeout: '200-600'

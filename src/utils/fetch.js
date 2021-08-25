@@ -5,7 +5,7 @@ import { Message } from 'element-ui';
 import qs from 'qs';
 
 const service = axios.create({
-    baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
+    baseURL: process.env.BASE_URL, // url = base url + request url
     timeout: 5000
 });
 
