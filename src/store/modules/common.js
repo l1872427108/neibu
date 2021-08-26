@@ -3,6 +3,7 @@ import {setStorage, getStorage} from '../../utils/storage';
 const state = {
     language: getStorage('language') || 'zh',
     colorName: getStorage('themeName') || 'theme-default',
+    isCollapse: true  // 是否折叠
 };
 
 const mutations = {

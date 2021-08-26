@@ -31,15 +31,14 @@
           </h4>
           <user-login v-if="activeName === 'userLogin'" />
           <third-login v-else-if="activeName === 'thirdLogin'" />
-
           <div class="login-menu">
             <a
               href="#"
-              @click.stop="activeName === 'userLogin'"
+              @click.stop="activeName = 'userLogin'"
             >{{ $t('login.userLogin') }}</a>
             <a
               href="#"
-              @click.stop="activeName='third'"
+              @click.stop="activeName = 'thirdLogin'"
             >{{ $t('login.thirdLogin') }}</a>
           </div>
         </div>
@@ -56,7 +55,8 @@ import CodeLogin from './codeLogin.vue';
 import ThirdLogin from './thirdLogin.vue';
 export default {
   components: {
-    UserLogin
+    UserLogin,
+    ThirdLogin
   },
   data () {
     return {
@@ -97,6 +97,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../assets/styles/media';
 .login_page {
     background-color: #324057;
     position: relative;
@@ -202,4 +203,5 @@ export default {
       margin: 0px 8px;
     }
   }
+
 </style>

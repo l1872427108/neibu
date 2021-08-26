@@ -3,35 +3,72 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
+import Home from '../views/home/index.vue';
+
 export const publicRoutes = [
     {
         path: '/login',
         name: 'login',
         component: () => import('../views/login/index.vue'),
+        hidden: true,
         meta: {
-            // 在侧边栏和导航中的标题。
             title: '登陆',
-            // 国际化key, key不显示才是title
-            i18n: '',
-            // 侧边栏中显示的图标
-            icon: 'news',
-            // 侧边栏捣烂中激活时显示的图标
-            activeIcon: '',
-            // 是否显示在侧边栏中
-            sidebar: false,
-            // 是否显示在面包屑导航中
-            breadcrumb: false
+            icon: 'news'
         }
     },
     {
         path: '/',
-        component: () => import('../views/public/index.vue'),
+        redirect: '/home',
+        hidden: true
+    },
+    {
+        path: '/home',
+        name: '主页',
+        component: Home,
+        meta: {
+            title: '主页'
+        }
+    },
+    {
+        path: '/404',
+        component: () => import('../views/404.vue'),
+        hidden: true
     }
 ];
-// () => import()
+
 export const asyncRoutes = [
     {
         path: '/admin',
+        component: Home,
+        redirect: '/admin/page',
+        name: 'Admin',
+        meta: {
+            title: 'Admin',
+            icon: '',
+            roles: [],
+        },
+        children: [
+            {
+                path: 'page',
+                component: () => import('../views/admin/page.vue'),
+                meta: {
+                    title: '',
+                    icon: ''
+                }
+            },
+            {
+                path: 'a',
+                component: () => import('../views/admin/a.vue'),
+                meta: {
+                    title: '',
+                    icon: ''
+                }
+            }
+        ]
+    },
+    {
+        path: '/admin',
+        name: 'wwww',
         component: () => import('../views/admin/index.vue'),
         meta: {
             title: 'Role Permission',
@@ -42,11 +79,8 @@ export const asyncRoutes = [
 
 export const lastRoute = [{
     path: '*',
-    component: () => import('../views/404.vue'),
-    meta: {
-        title: '404',
-        sidebar: false
-    }
+    redirect: '/404',
+    hidden: true
 }];
 
 const createRouter = () => new VueRouter({

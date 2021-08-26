@@ -3,7 +3,8 @@ const getters = {
     roles: state => state.user.roles,
     routes: state => state.permission.routes,
     colorName: state => state.common.colorName,
-    language: state => state.common.language
+    language: state => state.common.language,
+    isCollapse: state => state.common.isCollapse
 };
 
 export default getters;
