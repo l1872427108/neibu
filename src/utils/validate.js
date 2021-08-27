@@ -36,24 +36,7 @@ export const isURL = (s) => {
 };
 
 
-/* 小写字母*/
-export const validateLowerCase = (str) => {
-    const reg = /^[a-z]+$/;
-    return reg.test(str);
-};
 
-
-/* 大写字母*/
-export const validateUpperCase = (str) => {
-    const reg = /^[A-Z]+$/;
-    return reg.test(str);
-};
-
-/* 大小写字母*/
-export const validatAlphabets = (str) => {
-    const reg = /^[A-Za-z]+$/;
-    return reg.test(str);
-};
 
 /**
  * 判断是否为空
