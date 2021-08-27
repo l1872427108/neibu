@@ -21,7 +21,8 @@ const messages = {
 
 const i18n = new VueI18n({
   locale: getStorage('language') || 'zh',
-  messages
+  messages,
+  silentTranslationWarn: true,
 });
 
 ElementLocale.i18n((key, value) => i18n.t(key, value));

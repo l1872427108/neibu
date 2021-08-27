@@ -3,7 +3,8 @@ import {setStorage, getStorage} from '../../utils/storage';
 const state = {
     language: getStorage('language') || 'zh',
     colorName: getStorage('themeName') || 'theme-default',
-    isCollapse: true  // 是否折叠
+    isCollapse: false,  // 是否折叠
+    isFullScren: false
 };
 
 const mutations = {
@@ -14,6 +15,14 @@ const mutations = {
     SET_COLOR_NAME: (state, colorName) => {
         state.colorName = colorName;
         setStorage('colorName', state.colorName);
+    },
+
+    SET_COLLAPSE: (state) => {
+        state.isCollapse = !state.isCollapse;
+    },
+    
+    SET_FULLSCREN: (state) => {
+        state.isFullScren = !state.isFullScren;
     }
 };
 

@@ -84,7 +84,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+// import { mapActions, mapState } from 'vuex';
 import website from '../../config/website';
 export default {
     data () {
@@ -119,7 +119,7 @@ export default {
                   });
                 this.$store.dispatch('user/login', this.loginForm)
                     .then(() => {
-                    this.$router.push({path: '/'});
+                    this.$router.push({path: '/'}).catch(() => {});
                     loading.close();
                     }).catch(() => {
                       loading.close();

@@ -16,7 +16,7 @@
         </div>
         <img
           src="../../assets/img/logo.png"
-          class="img"
+          class="login-img"
           alt=""
         >
         <p class="title">
@@ -134,7 +134,7 @@ export default {
     width: 50%;
     position: relative;
   
-    .img {
+    .login-img {
       width: 140px;
     }
   

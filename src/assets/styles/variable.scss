@@ -1,12 +1,36 @@
-$color-bgc-theme: #F1F5FB;
-$color-theme: #427CFF;
+// bg
+$bg:#f0f2f5;
 
+// base color
+$blue:#324157;
+$light-blue:#3A71A8;
+$red:#C03639;
+$pink: #E65D6E;
+$green: #30B08F;
+$tiffany: #4AB7BD;
+$yellow:#FEC171;
+$panGreen: #30B08F;
 
-$color-primary: #1890ff;
-$color-success: #13ce66;
-$color-warning: #ffba00;
-$color-danger: #ff4949;
+// sidebar
+$menuText:#bfcbd9;
+$menuActiveText:#409EFF;
+$subMenuActiveText:#f4f4f5; // https://github.com/ElemeFE/element/issues/12951
 
-$button-font-weight: 400;
+$menuBg:#304156;
+$menuHover:#263445;
 
-$table-border: 1px solid #dfe6ec;
+$subMenuBg:#1f2d3d;
+$subMenuHover:#001528;
+
+$sideBarWidth: 200px;
+$sideBarCollapseWidth: 54px;
+:export {
+    menuText: $menuText;
+    menuActiveText: $menuActiveText;
+    subMenuActiveText: $subMenuActiveText;
+    menuBg: $menuBg;
+    menuHover: $menuHover;
+    subMenuBg: $subMenuBg;
+    subMenuHover: $subMenuHover;
+    sideBarWidth: $sideBarWidth;
+}

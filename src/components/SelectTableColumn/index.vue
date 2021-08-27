@@ -5,6 +5,7 @@
     <template #header>
       <el-checkbox
         v-model="checkCurrentAll"
+        :disabled="!(bindData && bindData.length)"
         :indeterminate="checkAllIndeterminate"
         @change="onCheckCurrentAllChange"
       />
@@ -69,24 +70,21 @@ export default {
     },
 
     methods: {
-        setCheckAll () {
-            if (this.checkAll) {
-                this.selected = this.allDataId;
+        setCheckAll (checkAll) {
+            if (checkAll) {
+                this.selected = JSON.parse(JSON.stringify(this.allDataId));
                 this.checkCurrentAll = true;
-                this.$nextTick(() => {
-                    this.bindData.forEach(row => {
-                        row.select = true;
-                    });
+                this.bindData.forEach(row => {
+                    row.select = true;
                 });
             } else {
-                this.$nextTick(() => {
-                    this.selected = [];
-                    this.checkCurrentAll = false;
-                    this.bindData.forEach(row => {
-                        row.select = false;
-                    });
+                this.selected = [];
+                this.checkCurrentAll = false;
+                this.bindData.forEach(row => {
+                    row.select = false;
                 });
             }
+            this.$emit('select', this.selected);
         },
 
         onCheckCurrentAllChange (val) {
@@ -111,7 +109,7 @@ export default {
         },
 
         setCurrentAllStatus () {
-            this.checkCurrentAll = this.bindData.every(item => item.select);
+            this.checkCurrentAll = this.bindData.length ? this.bindData.every(item => item.select) : false;
             this.checkAllIndeterminate = this.checkCurrentAll ? false : this.bindData.some(item => item.select);
         },
 

@@ -20,6 +20,10 @@ export function param2Obj (url) {
  * 动态插入 css
  */
 
+export function isExternal (path) {
+  return /^(https?:|mailto:|tel:)/.test(path);
+}
+
 export const loadStyle = (url) => {
     const link = document.createElement('link');
     link.type = 'text/css';
@@ -174,4 +178,16 @@ export const listenerfullscreen = (callback) => {
     document.addEventListener("msfullscreenchange", function () {
         listen();
     });
+};
+
+
+/**
+ * 浏览器判断是否全屏
+ */
+ export const fullscreenToggel = () => {
+    if (fullscreenEnable()) {
+        exitFullScreen();
+    } else {
+        reqFullScreen();
+    }
 };

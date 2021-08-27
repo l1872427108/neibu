@@ -56,7 +56,6 @@ const actions = {
             removeToken();
             // 然后要重置
             resetRouter();
-            dispatch('tagsView/delAllViews', null, { root: true });
             resolve();
           }).catch(error => {
             reject(error);
