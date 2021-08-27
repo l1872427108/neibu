@@ -1,4 +1,4 @@
-import {setStorage, getStorage} from '../../utils/storage';
+import {setStorage, getStorage} from '~/utils/storage';
 
 const state = {
     language: getStorage('language') || 'zh',

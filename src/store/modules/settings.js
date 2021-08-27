@@ -1,4 +1,4 @@
-import setting from '../../setting';
+import setting from '~/setting';
 
 const state = {
     ...setting,

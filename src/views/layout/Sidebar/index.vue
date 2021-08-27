@@ -30,7 +30,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import SidebarItem from './sidebarItem.vue';
-import variables from '../../../assets/styles/variable.scss';
+import variables from '~/assets/styles/variable.scss';
 // import logo from './';
 
 export default {

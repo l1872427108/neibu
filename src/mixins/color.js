@@ -1,5 +1,5 @@
 import { mapGetters } from 'vuex';
-import {defaultColor} from '../config/common';
+import {defaultColor} from '~/config/common';
 
 export default {
     data () {

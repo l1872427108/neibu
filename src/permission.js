@@ -3,7 +3,7 @@ import store from './store';
 import { Message } from 'element-ui';
 // import { NextLoading } from './utils/loading2';
 
-import { getToken } from './utils/auth';
+import { getToken } from '~/utils/auth';
 
 const whiteList = ['/login']; 
 

@@ -1,4 +1,4 @@
-import store from '../store';
+import store from '~/store';
 
 // 查看用户是否有权限
 function hasPermission (permission) {

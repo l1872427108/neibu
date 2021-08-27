@@ -4,7 +4,7 @@ import elementEnLocale from 'element-ui/lib/locale/lang/en'; // element-ui lang
 import elementZhLocale from 'element-ui/lib/locale/lang/zh-CN';// element-ui lang
 import zhLocale from './zh';
 import enLocale from './en';
-import { getStorage } from '../utils/storage';
+import { getStorage } from '~/utils/storage';
 import ElementLocale from 'element-ui/lib/locale';
 Vue.use(VueI18n);
 

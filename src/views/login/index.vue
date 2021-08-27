@@ -51,7 +51,6 @@
 <script>
 import {dateFormat} from '../../utils/date';
 import UserLogin from './userLogin.vue';
-import CodeLogin from './codeLogin.vue';
 import ThirdLogin from './thirdLogin.vue';
 export default {
   components: {
@@ -97,7 +96,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/styles/media';
+@import '~/assets/styles/media';
 .login_page {
     background-color: #324057;
     position: relative;

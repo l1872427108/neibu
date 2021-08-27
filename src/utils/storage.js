@@ -1,4 +1,4 @@
-import website from '../config/website';
+import website from '~/config/website';
 
 const keyName = website.key + '-';
 

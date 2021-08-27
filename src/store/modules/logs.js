@@ -1,5 +1,5 @@
-import { dateFormat } from '../../utils/date';
-import { getStorage, setStorage } from '../../utils/storage';
+import { dateFormat } from '~/utils/date';
+import { getStorage, setStorage } from '~/utils/storage';
 const state = {
     logsList: getStorage('logsList') || [],
 };

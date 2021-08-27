@@ -3,13 +3,13 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
-import Layout from '../views/layout';
+import Layout from '~/views/layout';
 
 export const publicRoutes = [
     {
         path: '/login',
         name: 'Login',
-        component: () => import('../views/login'),
+        component: () => import('~/views/login'),
         hidden: true,
         meta: {
             title: '登陆'
@@ -27,7 +27,7 @@ export const publicRoutes = [
         children: [
             {
                 path: 'page',
-                component: () => import('../views/page/index'),
+                component: () => import('~/views/page/index'),
                 name: 'page1',
                 meta: {
                     title: '第一页',
@@ -51,7 +51,7 @@ export const publicRoutes = [
         children: [
             {
                 path: 'wc',
-                component: () => import('../views/public/index'),
+                component: () => import('~/views/public/index'),
                 name: 'wc1',
                 meta: {
 
@@ -65,7 +65,7 @@ export const publicRoutes = [
     },
     {
         path: '/404',
-        component: () => import('../views/err-page/404'),
+        component: () => import('~/views/err-page/404'),
         hidden: true
     }
 ];
@@ -83,7 +83,7 @@ export const asyncRoutes = [
         children: [
             {
                 path: 'ww',
-                component: () => import('../views/admin/index'),
+                component: () => import('~/views/admin/index'),
                 name: 'shoe',
                 meta: {
                     title: '公共',

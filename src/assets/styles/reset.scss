@@ -55,7 +55,7 @@ textarea { -webkit-appearance: none;}
 html,body, #app{
     height: 100%;
     width: 100%;
-    // background-color: #F5F5F5;
+    overflow: hidden;
 }
 
 
@@ -64,6 +64,7 @@ html,body, #app{
     height: 100%;
     width: 100%;
 }
+
 .clear:after{
     content: '';
     display: block;
@@ -74,33 +75,14 @@ html,body, #app{
     zoom:1;
 }
 
-.back_img{
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-}
-
-.margin{
-    margin: 0 auto;
-}
-
-.left{
-    float: left;
-}
-
-.right{
-    float: right;
-}
-
-.hide{
-    display: none;
-}
-
-.show{
-    display: block;
-}
-
 .ellipsis{
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+
+a{
+    text-decoration: none;
+    color:#333;
 }

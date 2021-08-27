@@ -61,7 +61,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../assets/styles/variable.scss';
+@import '~/assets/styles/variable.scss';
 .container-left,
 .container-header,
 .container-top,

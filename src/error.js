@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import store from './store';
+import store from '~/store';
 
 Vue.config.errorHandler = (err, vm, info) => {
     Vue.nextTick(() => {

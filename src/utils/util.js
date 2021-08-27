@@ -75,31 +75,6 @@ export const serialize = data => {
 };
 
 
-/**
- * 对象深拷贝
- */
-export const deepClone = data => {
-    let type = getObjType(data);
-    let obj;
-    if(type === 'array') {
-        obj = [];
-    } else if (type === 'object') {
-        obj = {};
-    } else {
-        return data;
-    }
-    if(type === 'array') {
-        for(let i = 0, len = data.length; i < len; i++) {
-            obj.push(deepClone(data[i]));
-        }
-    } else if (type === 'object') {
-        for(let key in data) {
-            obj[key] = deepClone(data[key]);
-        }
-    }
-    return obj;
-};
-
 export const fullscreenEnable = () => {
     let isFullscreen = document.isFullscreen || document.mozIsFullScreen || document.webkitIsFullScreen;
     return isFullscreen;

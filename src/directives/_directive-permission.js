@@ -1,4 +1,4 @@
-import store from '../store';
+import store from '~/store';
 
 function checkPermission (el, binding) {
     // 拿到之后等于号后面的

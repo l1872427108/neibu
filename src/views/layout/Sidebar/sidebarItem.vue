@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import {isExternal} from '../../../utils/util';
+import {isExternal} from '~/utils/util';
 import path from 'path';
 export default {
     name: 'SidebarItem',

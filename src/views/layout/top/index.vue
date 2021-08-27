@@ -113,7 +113,7 @@ import topLogs from './topLogs.vue';
 import topLock from './topLock.vue';
 import topTheme from './topTheme.vue';
 import topLang from './topLang.vue';
-import { fullscreenToggel, listenerfullscreen } from "../../../utils/util";
+import { fullscreenToggel, listenerfullscreen } from "~/utils/util";
 export default {
   components: {
     // topColor,

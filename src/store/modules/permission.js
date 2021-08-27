@@ -1,4 +1,4 @@
-import { asyncRoutes, publicRoutes } from '../../router';
+import { asyncRoutes, publicRoutes } from '~/router';
 
 
 function hasPermission (roles, route) {
