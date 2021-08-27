@@ -1,6 +1,6 @@
 <template>
   <el-table-column
-    width="50"  
+    width="50"
   >
     <template #header>
       <el-checkbox

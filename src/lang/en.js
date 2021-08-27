@@ -33,7 +33,7 @@ export default {
     phoneLogin: 'phoneLogin',
     thirdLogin: 'thirdLogin',
     msgText: 'send code',
-    msgSuccess: 'reissued code',
+    msgSuccess: 'reissued code'
   },
   navbar: {
     info: 'info',

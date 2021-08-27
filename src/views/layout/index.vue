@@ -38,12 +38,12 @@
 import top from './top';
 import SideBar from './Sidebar';
 // import tags from './TagsView/index.vue';
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex';
 export default {
-    name: "Home",
+    name: 'Home',
     components: {
         top,
-        SideBar,
+        SideBar
         // tags
     },
     computed: {
@@ -129,13 +129,9 @@ export default {
 
     .el-tooltip {
       padding: 0 !important;
-
-      /* .icon {
-        
-      } */
     }
   }
-    
+
   .el-submenu {
     overflow: hidden;
 
@@ -151,7 +147,7 @@ export default {
       }
     }
   }
-    
+
   .el-menu--collapse {
     .el-submenu {
       &>.el-submenu__title {

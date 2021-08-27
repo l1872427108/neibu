@@ -6,7 +6,7 @@ function hasPermission (roles, route) {
   if (route.meta && route.meta.roles) {
     // 判断是否匹配对应的角色,  有一个就返回true
     return roles.some(role => route.meta.roles.includes(role));
-  } 
+  }
     // 如果没有就代表可访问的，静态
     return true;
 }
@@ -18,7 +18,7 @@ export function filterAsyncRoutes (routes, roles) {
   // 便利所有的路由
   routes.forEach(route => {
     // 接收下来这条路由的key， 放入一个新的数组
-    const tmp = { ...route };   
+    const tmp = { ...route };
     // 判断是否有权限   roles 角色 temp 是这条路由信息
     if (hasPermission(roles, tmp)) {
       // 如果有角色了， 就走进来，继续判断他的孩子

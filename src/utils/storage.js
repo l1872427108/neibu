@@ -9,7 +9,7 @@ export const setStorage = (key, value) => {
 export const getStorage = (key) => {
   return localStorage.getItem(keyName + key);
 };
-  
+
 export const deleteStorage = (key) => {
   return localStorage.removeItem(keyName + key);
 };

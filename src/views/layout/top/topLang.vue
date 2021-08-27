@@ -25,14 +25,14 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex';
 export default {
-  name: "TopLang",
+  name: 'TopLang',
   data () {
     return {};
   },
   computed: {
-    ...mapGetters(["language"])
+    ...mapGetters(['language'])
   },
   methods: {
     handleSetLanguage (lang) {

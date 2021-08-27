@@ -20,9 +20,9 @@ service.interceptors.request.use(params => {
             'Access-Token': getStorage('token')
         }
     };
-    if(config.method === 'get') {
+    if (config.method === 'get') {
         config.paramsSerializer = (params) => {
-            return qs.stringify(params, {arrayFormat: 'repeat'});
+            return qs.stringify(params, { arrayFormat: 'repeat' });
         };
     }
     return config;
@@ -30,19 +30,18 @@ service.interceptors.request.use(params => {
 service.interceptors.response.use(response => {
     hideLoading();
     const res = response.data;
-    if(res.code !== 20000) {
+    if (res.code !== 20000) {
         Message({
             message: res.message || 'Error',
             type: 'error',
             duration: 5 * 1000
         });
         // if(res.code === 50008 || res.code === 50012) {
-            
+
         // }
         return Promise.reject(new Error(res.message || 'Error'));
-    } 
+    }
         return res;
-    
 },
 error => {
     hideLoading();
@@ -56,7 +55,7 @@ error => {
 });
 
 export const get = (url, config = {}, loading = true) => {
-    if(loading) {
+    if (loading) {
         showLoading();
     }
     return axios.get(url, config);

@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  name: "Error403"
+  name: 'Error403'
 };
 </script>
 <style lang="scss" scoped>

@@ -94,17 +94,17 @@ export default {
                 username: '',
                 password: '',
                 code: '',
-                image: "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+                image: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
             },
             rules: {
                 username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
                 password: [{ required: true, message: '请输入密码', trigger: 'blur' },
-                {min: 1, message: "密码长度最少为6位", trigger: "blur"}]
+                { min: 1, message: '密码长度最少为6位', trigger: 'blur' }]
             },
             passwordType: 'password'
         };
     },
-    
+
     methods: {
         showPassword () {
             this.passwordType === '' ? (this.passwordType = 'password') : (this.passwordType = '');
@@ -115,11 +115,11 @@ export default {
                   const loading = this.$loading({
                     lock: true,
                     text: '登录中,请稍后。。。',
-                    spinner: "el-icon-loading"
+                    spinner: 'el-icon-loading'
                   });
                 this.$store.dispatch('user/login', this.loginForm)
                     .then(() => {
-                    this.$router.push({path: '/'}).catch(() => {});
+                    this.$router.push({ path: '/' }).catch(() => {});
                     loading.close();
                     }).catch(() => {
                       loading.close();
@@ -128,7 +128,7 @@ export default {
             });
         },
         refreshCode () {
-          
+
         }
     }
 };

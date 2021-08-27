@@ -1,9 +1,9 @@
-import {setStorage, getStorage} from '~/utils/storage';
+import { setStorage, getStorage } from '~/utils/storage';
 
 const state = {
     language: getStorage('language') || 'zh',
     colorName: getStorage('themeName') || 'theme-default',
-    isCollapse: false,  // 是否折叠
+    isCollapse: false, // 是否折叠
     isFullScren: false
 };
 
@@ -20,7 +20,7 @@ const mutations = {
     SET_COLLAPSE: (state) => {
         state.isCollapse = !state.isCollapse;
     },
-    
+
     SET_FULLSCREN: (state) => {
         state.isFullScren = !state.isFullScren;
     }

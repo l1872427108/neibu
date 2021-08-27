@@ -1,11 +1,11 @@
-import router, {lastRoute} from './router';
+import router, { lastRoute } from './router';
 import store from './store';
 import { Message } from 'element-ui';
 // import { NextLoading } from './utils/loading2';
 
 import { getToken } from '~/utils/auth';
 
-const whiteList = ['/login']; 
+const whiteList = ['/login'];
 
 router.beforeEach(async (to, from, next) => {
   // NextLoading.start();
@@ -26,13 +26,13 @@ router.beforeEach(async (to, from, next) => {
           const { roles } = await store.dispatch('user/getInfo');
           const accessRoutes = await store.dispatch('permission/generateRoutes', roles);
           accessRoutes.forEach(v => {
-            router.addRoute({...v, ...lastRoute});
+            router.addRoute({ ...v, ...lastRoute });
           });
           next({ ...to, replace: true });
         } catch (error) {
           await store.dispatch('user/resetToken');
           Message.error(error || 'Has Error');
-          next(`/login`);
+          next('/login');
         }
       }
     }
@@ -40,7 +40,7 @@ router.beforeEach(async (to, from, next) => {
     if (whiteList.indexOf(to.path) !== -1) {
       next();
     } else {
-      next(`/login`);
+      next('/login');
     }
   }
 });

@@ -1,5 +1,5 @@
 import { mapGetters } from 'vuex';
-import {defaultColor} from '~/config/common';
+import { defaultColor } from '~/config/common';
 
 export default {
     data () {
@@ -11,7 +11,7 @@ export default {
         this.themeVal = this.colorName;
     },
     computed: {
-        ...mapGetters(["colorName"])
+        ...mapGetters(['colorName'])
     },
     watch: {
         themeVal (val, oldVal) {
@@ -20,6 +20,6 @@ export default {
         }
     },
     methods: {
-        
+
     }
 };

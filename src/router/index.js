@@ -1,7 +1,7 @@
 import Vue from 'vue';
-import VueRouter from 'vue-router';
+import Router from 'vue-router';
 
-Vue.use(VueRouter);
+Vue.use(Router);
 
 import Layout from '~/views/layout';
 
@@ -21,20 +21,20 @@ export const publicRoutes = [
         redirect: '/page',
         name: 'Page',
         meta: {
-            title: '首页',
-            icon: 'basic-icon-username',
+            title: 'home',
+            icon: 'basic-icon-home'
         },
         children: [
             {
                 path: 'page',
-                component: () => import('~/views/page/index'),
+                component: () => import('~/views/page'),
                 name: 'page1',
                 meta: {
-                    title: '第一页',
-                    icon: 'basic-icon-username',
+                    title: '主页',
+                    icon: 'basic-icon-maoshachan',
                     affix: true,
                     keepAlive: true,
-                    activeMenu: '/page'
+                    activeMenu: 'Page'
                 }
             }
         ]
@@ -45,8 +45,8 @@ export const publicRoutes = [
         name: 'Public',
         redirect: '/public/wc',
         meta: {
-            title: '公共',
-            icon: 'basic-icon-username',
+            title: 'public',
+            icon: 'basic-icon-tubiao'
         },
         children: [
             {
@@ -56,7 +56,7 @@ export const publicRoutes = [
                 meta: {
 
                     title: '公共',
-                    icon: 'basic-icon-tubiao',
+                    icon: 'basic-icon-xiyu',
                     // affix: true
                     keepAlive: true
                 }
@@ -77,8 +77,8 @@ export const asyncRoutes = [
         name: 'Admin',
         redirect: '/admin/ww',
         meta: {
-            title: '公共',
-            icon: 'basic-icon-username',
+            title: 'admin',
+            icon: 'basic-icon-yanzhengma'
         },
         children: [
             {
@@ -88,7 +88,7 @@ export const asyncRoutes = [
                 meta: {
                     title: '公共',
                     roles: ['admin'],
-                    icon: 'basic-icon-tubiao',
+                    icon: 'basic-icon-password',
                     // affix: true
                     keepAlive: true
                 }
@@ -104,8 +104,8 @@ export const lastRoute = [{
     keepAlive: true
 }];
 
-const createRouter = () => new VueRouter({
-    scrollBehavior: () => ({y: 0}),
+const createRouter = () => new Router({
+    scrollBehavior: () => ({ y: 0 }),
     routes: publicRoutes,
     mode: 'history'
 });
@@ -114,26 +114,12 @@ const router = createRouter();
 
 export const resetRouter = () => {
     const newRouter = createRouter();
-    router.matcher = newRouter.matcher;   // reset router
+    router.matcher = newRouter.matcher; // reset router
 };
 
-// const VueRouterPush = router.prototype.push
-// router.prototype.push = function push (to) {
-
-//     return VueRouterPush.call(this, to).catch(err => err)
-
-// }
-
-const VueRouterPush = VueRouter.prototype.push;
-VueRouter.prototype.push = function push (to) {
-  return VueRouterPush.call(this, to).catch(err => err);
+const RouterPush = Router.prototype.push;
+Router.prototype.push = function push (to) {
+  return RouterPush.call(this, to).catch(err => err);
 };
-
-//获取原型对象上的push函数
-// const originalPush = VueRouter.prototype.push;
-// //修改原型对象中的push方法
-// VueRouter.prototype.push = function push (location) {
-//    return originalPush.call(this, location);
-// };
 
 export default router;

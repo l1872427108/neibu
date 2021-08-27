@@ -107,13 +107,13 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from "vuex";
+import { mapGetters, mapState } from 'vuex';
 // import topColor from './topColor.vue';
 import topLogs from './topLogs.vue';
 import topLock from './topLock.vue';
 import topTheme from './topTheme.vue';
 import topLang from './topLang.vue';
-import { fullscreenToggel, listenerfullscreen } from "~/utils/util";
+import { fullscreenToggel, listenerfullscreen } from '~/utils/util';
 export default {
   components: {
     // topColor,
@@ -140,8 +140,8 @@ export default {
 
     }),
     ...mapGetters([
-      "isCollapse",
-      "isFullScren"
+      'isCollapse',
+      'isFullScren'
     ])
   },
 
@@ -151,23 +151,23 @@ export default {
 
   methods: {
     setCollapse () {
-      this.$store.commit("common/SET_COLLAPSE");
+      this.$store.commit('common/SET_COLLAPSE');
     },
 
     logout () {
-      this.$confirm(this.$t("logoutTip"), this.$t("tip"), {
-        confirmButtonText: this.$t("submitText"),
-        cancelButtonText: this.$t("cancelText"),
-        type: "warning"
+      this.$confirm(this.$t('logoutTip'), this.$t('tip'), {
+        confirmButtonText: this.$t('submitText'),
+        cancelButtonText: this.$t('cancelText'),
+        type: 'warning'
       }).then(() => {
-        this.$store.dispatch("user/logout").then(() => {
-          this.$router.push({path: '/login'});
+        this.$store.dispatch('user/logout').then(() => {
+          this.$router.push({ path: '/login' });
         });
       });
     },
 
     setScreen () {
-      this.$store.commit("common/SET_FULLSCREN");
+      this.$store.commit('common/SET_FULLSCREN');
     },
 
     handleScreen () {

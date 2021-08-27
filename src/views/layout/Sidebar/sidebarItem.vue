@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import {isExternal} from '~/utils/util';
+import { isExternal } from '~/utils/util';
 import path from 'path';
 export default {
     name: 'SidebarItem',
@@ -47,7 +47,6 @@ export default {
 
     methods: {
         resolvePath (routePath) {
-          console.log(routePath);
           if (isExternal(routePath)) {
             return routePath;
           }
@@ -55,7 +54,7 @@ export default {
             return this.basePath;
           }
           return path.resolve(this.basePath, routePath);
-        },
+        }
 
     }
 };

@@ -23,14 +23,14 @@
       padding: 0;
     }
 
-    .avue-home {
+    .app-home {
       background-color: #303133;
       height: 100%;
       display: flex;
       flex-direction: column;
     }
 
-    .avue-home__main {
+    .app-home__main {
       user-select: none;
       width: 100%;
       flex-grow: 1;
@@ -40,32 +40,32 @@
       flex-direction: column;
     }
 
-    .avue-home__footer {
+    .app-home__footer {
       width: 100%;
       flex-grow: 0;
       text-align: center;
       padding: 1em 0;
     }
 
-    .avue-home__footer > a {
+    .app-home__footer > a {
       font-size: 12px;
       color: #ABABAB;
       text-decoration: none;
     }
 
-    .avue-home__loading {
+    .app-home__loading {
       height: 32px;
       width: 32px;
       margin-bottom: 20px;
     }
 
-    .avue-home__title {
+    .app-home__title {
       color: #FFF;
       font-size: 14px;
       margin-bottom: 10px;
     }
 
-    .avue-home__sub-title {
+    .app-home__sub-title {
       color: #ABABAB;
       font-size: 12px;
     }
@@ -79,13 +79,13 @@
   </strong>
 </noscript>
 <div id="app">
-  <div class="avue-home">
-    <div class="avue-home__main">
-      <img class="avue-home__loading" src="<%= BASE_URL %>svg/loading-spin.svg" alt="loading">
-      <div class="avue-home__title">
+  <div class="app-home">
+    <div class="app-home__main">
+      <img class="app-home__loading" src="<%= BASE_URL %>svg/loading-spin.svg" alt="loading">
+      <div class="app-home__title">
         正在加载资源
       </div>
-      <div class="avue-home__sub-title d">
+      <div class="app-home__sub-title d">
         初次加载资源可能需要较多时间 请耐心等待
       </div>
     </div>

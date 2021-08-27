@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  name: "Error500"
+  name: 'Error500'
 };
 </script>
 <style lang="scss" scoped>

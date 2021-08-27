@@ -1,7 +1,6 @@
 <template>
   <div class="sidebar-container">
     <!-- <logo /> -->
-    {{ routes }}
     <el-scrollbar
       wrap-class="scrollbar-wrapper"
     >
@@ -47,17 +46,21 @@ export default {
     activeMenu () {
       const route = this.$route;
       const { meta, path } = route;
+      console.log('==>', meta, path);
       if (meta.activeMenu) {
         return meta.activeMenu;
       }
       return path;
     }
+  },
+
+  methods: {
   }
 };
 </script>
 
 <style lang="scss">
-@import '../../../assets/styles/variable.scss';
+@import '~/assets/styles/variable.scss';
 .sidebar-container {
   transition: width .4s;
   width: 100%;

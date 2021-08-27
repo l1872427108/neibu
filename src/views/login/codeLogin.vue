@@ -57,9 +57,9 @@
 </template>
 
 <script>
-import { isvalidatemobile } from "../../utils/validate";
+import { isvalidatemobile } from '../../utils/validate';
 export default {
-    name: "Codelogin",
+    name: 'Codelogin',
 
     props: [],
     data () {
@@ -72,31 +72,31 @@ export default {
         };
         const validateCode = (rule, value, callback) => {
             if (value.length !== 4) {
-                callback(new Error("请输入4位数的验证码"));
+                callback(new Error('请输入4位数的验证码'));
             } else {
                 callback();
             }
         };
         return {
             loginForm: {
-                phone: "",
-                code: ""
+                phone: '',
+                code: ''
             },
             loginRules: {
-                phone: [{ required: true, trigger: "blur", validator: validatePhone }],
-                code: [{ required: true, trigger: "blur", validator: validateCode }]
+                phone: [{ required: true, trigger: 'blur', validator: validatePhone }],
+                code: [{ required: true, trigger: 'blur', validator: validateCode }]
             },
             msgKey: false,
-            msgText: "",
-            msgTime: "",
+            msgText: '',
+            msgTime: ''
         };
     },
 
     computed: {
         config () {
             return {
-                MSGINIT: this.$t("login.msgText"),
-                MSGSCUCCESS: this.$t("login.msgSuccess"),
+                MSGINIT: this.$t('login.msgText'),
+                MSGSCUCCESS: this.$t('login.msgSuccess'),
                 MSGTIME: 60
             };
         }

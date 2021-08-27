@@ -4,7 +4,7 @@ const state = {
 
 const mutations = {
     ADD_VISITED_VIEW: (state, view) => {
-        if(state.visitedViews.some(v => v.path === view.path)) return;
+        if (state.visitedViews.some(v => v.path === view.path)) return;
         state.visitedViews.path(
             Object.assign({}, view, {
                 title: view.meta.title || 'no-name'
@@ -13,8 +13,8 @@ const mutations = {
     },
 
     DEL_VISITED_VIEW: (state, view) => {
-        for(const [i, v] of state.visitedViews.entries()) {
-            if(v.path === view.path) {
+        for (const [i, v] of state.visitedViews.entries()) {
+            if (v.path === view.path) {
                 state.visitedViews.splice(i, 1);
                 break;
             }
@@ -47,12 +47,12 @@ const actions = {
     addVisitedView ({ commit }, view) {
         commit('ADD_VISITED_VIEW', view);
     },
-    
+
     delView ({ dispatch, state }, view) {
         return new Promise(resolve => {
           dispatch('delVisitedView', view);
           resolve({
-            visitedViews: [...state.visitedViews],
+            visitedViews: [...state.visitedViews]
           });
         });
     },
@@ -67,7 +67,7 @@ const actions = {
         return new Promise(resolve => {
           dispatch('delAllVisitedViews', view);
           resolve({
-            visitedViews: [...state.visitedViews],
+            visitedViews: [...state.visitedViews]
           });
         });
     },

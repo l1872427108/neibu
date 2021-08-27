@@ -6,7 +6,7 @@ export default {
   cancelText: '取消',
   search: '请输入搜索内容',
   route: {
-    info: '个人信息',
+    info: '个人信息'
   },
   login: {
     title: '人力资源管理系统',
@@ -24,7 +24,7 @@ export default {
     phoneLogin: '手机号登录',
     thirdLogin: '第三方登录',
     msgText: '发送验证码',
-    msgSuccess: '秒后重发',
+    msgSuccess: '秒后重发'
   },
   navbar: {
     logOut: '退出登录',

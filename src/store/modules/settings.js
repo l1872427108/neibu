@@ -5,7 +5,7 @@ const state = {
     // 侧边栏是否收起  pc 模式下
     sidebarCollapseLastStatus: setting.sidebarCollapse,
     // 模式
-    mode: 'pc',
+    mode: 'pc'
 };
 
 export default {

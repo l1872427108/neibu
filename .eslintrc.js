@@ -1,16 +1,27 @@
 module.exports = {
     "root": true,
-    "parserOptions": {
-        "parser": 'babel-eslint',
-        "sourceType": 'module'
-      },
-	//   "parser": "babel-eslint",
     "env": {
-        "browser": true,
-        "node": true,
-        "es6": true,
+      "node": true
     },
-    "extends": ['plugin:vue/recommended', 'eslint:recommended'],
+    "extends": [
+      "plugin:vue/essential",
+      "@vue/standard"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {},
+    "overrides": [
+      {
+        "files": [
+          "**/__tests__/*.{j,t}s?(x)",
+          "**/tests/unit/**/*.spec.{j,t}s?(x)"
+        ],
+        "env": {
+          "jest": true
+        }
+      }
+    ],
     "rules": {
 		'prefer-promise-reject-errors': 0,
 		'space-unary-ops': 0,

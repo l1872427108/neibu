@@ -17,7 +17,7 @@ export default {
       type: [Number, String],
       default: () => {
         return [] || '';
-      },
+      }
     },
     color: {
       type: String,
@@ -25,10 +25,10 @@ export default {
     },
     fontStyle: {
       type: String,
-      default: () => 'normal',
+      default: () => 'normal'
     }
   },
-  computed : {
+  computed: {
     classes: {
       get () {
         return `${prefixClass} ${prefixClass}-${this.type}`;
@@ -36,15 +36,15 @@ export default {
     },
     styles: {
       get () {
-        let style = {};
-        style['font-style'] = `normal`;
-        if(this.size) {
+        const style = {};
+        style['font-style'] = 'normal';
+        if (this.size) {
           style['font-size'] = `${this.size}rem`;
         }
-        if(this.fontStyle) {
+        if (this.fontStyle) {
           style['font-style'] = this.fontStyle;
         }
-        if(this.color) {
+        if (this.color) {
           style.color = this.color;
         }
         return style;

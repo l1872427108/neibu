@@ -16,18 +16,18 @@ const endLoading = () => {
 };
 
 export const showLoading = () => {
-    if(loadingCount === 0) {
+    if (loadingCount === 0) {
         startLoading();
     }
     loadingCount += 1;
 };
 
 export const hideLoading = () => {
-    if(loadingCount <= 0) {
+    if (loadingCount <= 0) {
         return;
     }
     loadingCount -= 1;
-    if(loadingCount === 0) {
+    if (loadingCount === 0) {
         endLoading();
     }
 };

@@ -38,7 +38,7 @@ export const loadStyle = (url) => {
  */
 export const removeCss = (href) => {
     const links = document.getElementsByTagName('link');
-    for (let i = links.length ; i >= 0 ; i--) {
+    for (let i = links.length; i >= 0; i--) {
         const link = links[i];
         if (link && link.getAttribute('href') && link.getAttribute('href') === href) {
           link.parentNode.removeChild(link);
@@ -51,15 +51,15 @@ export const removeCss = (href) => {
  * 判断屏幕
  */
 export const getScreen = () => {
-    let width = document.body.clientWidth;
-    if(width >= 1200) {
+    const width = document.body.clientWidth;
+    if (width >= 1200) {
         return 3; // 大
     } else if (width >= 992) {
         return 2; //  中
     } else if (width >= 768) {
-        return 1;  // 小
-    } 
-    return 0;  // 超小
+        return 1; // 小
+    }
+    return 0; // 超小
 };
 
 
@@ -67,7 +67,7 @@ export const getScreen = () => {
  * 表单序列化
  */
 export const serialize = data => {
-    let list = [];
+    const list = [];
     Object.keys(data).forEach(ele => {
         list.push(`${ele}=${data[ele]}`);
     });
@@ -76,7 +76,7 @@ export const serialize = data => {
 
 
 export const fullscreenEnable = () => {
-    let isFullscreen = document.isFullscreen || document.mozIsFullScreen || document.webkitIsFullScreen;
+    const isFullscreen = document.isFullscreen || document.mozIsFullScreen || document.webkitIsFullScreen;
     return isFullscreen;
 };
 
@@ -84,7 +84,7 @@ export const fullscreenEnable = () => {
  * 判断是否全屏
  */
 export const fullscreen = () => {
-    if(fullscreenEnable()) {
+    if (fullscreenEnable()) {
         exitFullScreen();
     } else {
         reqFullScreen();
@@ -119,16 +119,16 @@ export const listenerfullscreen = (callback) => {
         callback();
     }
 
-    document.addEventListener("fullscreenchange", function () {
+    document.addEventListener('fullscreenchange', function () {
         listen();
     });
-    document.addEventListener("mozfullscreenchange", function () {
+    document.addEventListener('mozfullscreenchange', function () {
         listen();
     });
-    document.addEventListener("webkitfullscreenchange", function () {
+    document.addEventListener('webkitfullscreenchange', function () {
         listen();
     });
-    document.addEventListener("msfullscreenchange", function () {
+    document.addEventListener('msfullscreenchange', function () {
         listen();
     });
 };

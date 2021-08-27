@@ -6,7 +6,7 @@
     <!-- <transition
       name="form-fade"
     > -->
-    
+
     <section
       class="login-weaper"
     >
@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import {dateFormat} from '../../utils/date';
+import { dateFormat } from '../../utils/date';
 import UserLogin from './userLogin.vue';
 import ThirdLogin from './thirdLogin.vue';
 export default {
@@ -80,7 +80,7 @@ export default {
   mounted () {
     this.showLogin = true;
   },
-  
+
   methods: {
     getTime () {
       setInterval(() => {
@@ -105,7 +105,7 @@ export default {
     background: url("http://www.17sucai.com/preview/242158/2015-01-10/%E7%99%BB%E5%BD%95/images/cloud.jpg") 0 bottom repeat-x #049ec4;
     animation: animate-cloud 20s linear infinite;
   }
-  
+
   .login-weaper {
     margin: 0 auto;
     width: 1000px;
@@ -114,14 +114,14 @@ export default {
       border: none;
     }
   }
-  
+
   .login-left, .login-border {
     position: relative;
     min-height: 500px;
     align-items: center;
     display: flex;
   }
-  
+
   .login-left {
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
@@ -132,11 +132,11 @@ export default {
     float: left;
     width: 50%;
     position: relative;
-  
+
     .login-img {
       width: 140px;
     }
-  
+
     .login-time {
       position: absolute;
       left: 25px;
@@ -148,7 +148,7 @@ export default {
       font-size: 18px;
       overflow: hidden;
     }
-  
+
     .title {
       margin-top: 60px;
       text-align: center;
@@ -158,7 +158,7 @@ export default {
       font-size: 25px;
     }
   }
-  
+
   .login-border {
     border-left: none;
     border-top-right-radius: 5px;
@@ -174,15 +174,15 @@ export default {
     width: 65%;
     box-sizing: border-box;
   }
-  
+
   .login-main > h4 {
     margin-bottom: 20px;
   }
-  
+
   .login-main > p {
     color: #76838f;
   }
-  
+
   .login-title {
     color: #333;
     margin-bottom: 40px;
@@ -191,7 +191,7 @@ export default {
     text-align: center;
     letter-spacing: 4px;
   }
-  
+
   .login-menu {
     margin-top: 40px;
     width: 100%;

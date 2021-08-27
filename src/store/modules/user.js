@@ -1,6 +1,6 @@
-import {login, getInfo, logout} from '~/api/user';
-import {getToken, setToken, removeToken} from '~/utils/auth';
-import router, {resetRouter} from '~/router';
+import { login, getInfo, logout } from '~/api/user';
+import { getToken, setToken, removeToken } from '~/utils/auth';
+import router, { resetRouter } from '~/router';
 
 const state = {
     token: getToken(),
@@ -17,11 +17,11 @@ const mutations = {
 };
 
 const actions = {
-    login ({commit}, user) {
+    login ({ commit }, user) {
         const { username, password } = user;
         return new Promise((resolve, reject) => {
-            login({username: username.trim(), password: password}).then((response) => {
-                const {data} = response;
+            login({ username: username.trim(), password: password }).then((response) => {
+                const { data } = response;
                 commit('SET_TOKEN', data.token);
                 setToken(data.token);
                 resolve();
@@ -37,8 +37,8 @@ const actions = {
                 if (!data) {
                     reject('Verification failed, please Login again.');
                 }
-                const {roles} = data;
-                if(!roles || roles.length <= 0) {
+                const { roles } = data;
+                if (!roles || roles.length <= 0) {
                     reject('roles must be a non-null array!');
                 }
                 commit('SET_ROLES', roles);
@@ -63,7 +63,7 @@ const actions = {
         });
     },
 
-    resetToken ({commit}) {
+    resetToken ({ commit }) {
         return new Promise(resolve => {
             commit('SET_TOKEN', '');
             commit('SET_ROLES', []);

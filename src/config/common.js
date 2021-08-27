@@ -1,3 +1,3 @@
 export default {
-    defaultColor: "#409EFF"
+    defaultColor: '#409EFF'
 };

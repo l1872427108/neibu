@@ -13,7 +13,7 @@ export default {
     name: 'TopColor',
     data () {
         return {
-            chalk: ""
+            chalk: ''
         };
     }
 };

@@ -2,7 +2,7 @@
   <div class="error-page">
     <div
       class="img"
-      style=" background-image: url('/public/img/bg/404.svg');"
+      style=" background-image: url('/img/bg/404.svg');"
     />
     <div class="content">
       <h1>404</h1>
@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  name: "Error404"
+  name: 'Error404'
 };
 </script>
 <style lang="scss" scoped>

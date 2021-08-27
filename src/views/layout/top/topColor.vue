@@ -11,11 +11,11 @@
 <script>
 // import color from "../../../mixins/color";
 export default {
-  name: "TopColor",
+  name: 'TopColor',
   // mixins: [color()],
   data () {
     return {
-      themeVal: "#ccc"
+      themeVal: '#ccc'
     };
   }
 };

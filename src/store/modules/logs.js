@@ -1,11 +1,11 @@
 import { dateFormat } from '~/utils/date';
 import { getStorage, setStorage } from '~/utils/storage';
 const state = {
-    logsList: getStorage('logsList') || [],
+    logsList: getStorage('logsList') || []
 };
 
 const mutations = {
-    ADD_LOGS (state, {type, message, stack, info}) {
+    ADD_LOGS (state, { type, message, stack, info }) {
         state.logsList.push(Object.assign({
             url: window.location.href,
             time: dateFormat(new Date())

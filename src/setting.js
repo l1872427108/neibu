@@ -1,5 +1,5 @@
-let globalSettings = {
-    //是否开启权限
+const globalSettings = {
+    // 是否开启权限
     openPermission: true,
     // 是否显示头部
     showHeader: false,
@@ -10,7 +10,7 @@ let globalSettings = {
     // 是否显示底部版权信息，同时在路由 meta 对象里可以单独设置某个路由是否显示底部版权信息
     showCopyright: true,
     // 是否开启全屏
-    enableFullscreen: false,
+    enableFullscreen: false
 };
 
 export default globalSettings;
