@@ -1,7 +1,6 @@
 <template>
   <div>
-    <Upload></Upload>
-    123
+    <Upload :url="image" action="#" name="image" :width="250" :height="150" :data="{'token':'1'}" @success="handleSuccess"></Upload>
   </div>
 </template>
 
@@ -10,6 +9,16 @@ import Upload from '../../components/Upload';
 export default {
   components: {
     Upload
+  },
+  data () {
+    return {
+      image: ''
+    };
+  },
+  methods: {
+    handleSuccess (res) {
+      console.log(res);
+    }
   }
 };
 </script>

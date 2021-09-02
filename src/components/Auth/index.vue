@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { auth } from '../../utils';
+import { auth } from '~/utils';
 export default {
     name: 'Auth',
     props: {

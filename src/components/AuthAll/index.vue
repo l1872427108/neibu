@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { authAll } from '../../utils';
+import { authAll } from '~/utils';
 
 export default {
     name: 'AuthAll',

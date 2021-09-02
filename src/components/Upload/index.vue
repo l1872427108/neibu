@@ -1,13 +1,28 @@
 <template>
   <div class="upload-container">
+      <div>
+          <el-image v-if="url" :style="`width:${width}px;height:${height}px;`" fit="cover" />
+          <!-- <div class="mask">
+              <div class="actions"> -->
+                    <!-- <span title="预览" @click="preview(index)">
+                        <i class="el-icon-zoom-in" />
+                    </span>
+                    <span title="移除" @click="remove(index)">
+                        <i class="el-icon-delete" />
+                    </span> -->
+              <!-- </div>
+          </div> -->
+      </div>
       <el-upload
-        :data="dataObj"
-        :multiple="false"
-        :show-file-list="false"
+        :action="action"
+        :data="data"
+        :name="name"
+        :before-upload="beforeUpload"
         :on-success="handleImageSuccess"
-        action="https://httpbin.org/post"
+        :show-file-list="false"
+        :headers="headers"
       >
-        <el-button class="el-icon-upload btn">上传头像</el-button>
+        <el-button class="el-icon-upload">上传头像</el-button>
       </el-upload>
   </div>
 </template>
@@ -16,28 +31,58 @@
 export default {
     name: 'Upload',
     props: {
-        value: {
+        action: {
+            type: String,
+            required: true
+        },
+        headers: {
+            type: Object,
+            default: () => {}
+        },
+        data: {
+            type: Object,
+            default: () => {}
+        },
+        name: {
+            type: String,
+            default: 'image'
+        },
+        url: {
             type: String,
             default: ''
-        }
-    },
-    data () {
-        return {
-            tempUrl: '',
-            dataObj: { token: '', key: '' }
-        };
-    },
-    computed: {
-        imageUrl () {
-            return this.value;
+        },
+        ext: {
+            type: Array,
+            default: () => ['jpg', 'png', 'gif', 'bmp']
+        },
+        width: {
+            type: Number,
+            default: 150
+        },
+        height: {
+            type: Number,
+            default: 150
         }
     },
     methods: {
-        emitInput (val) {
-            this.$emit('input', val);
+        beforeUpload (file) {
+            const fileName = file.name.split('.');
+            const fileExt = fileName[fileName.length - 1];
+            const isTypeOk = this.ext.indexOf(fileExt) >= 0;
+            const isSizeOk = file.size / 1024 / 1024 < this.size;
+            if (!isTypeOk) {
+                this.$message.error(`上传图片只支持 ${this.ext.join(' / ')} 格式！`);
+            }
+            if (!isSizeOk) {
+                this.$message.error(`上传图片大小不能超过 ${this.size}MB！`);
+            }
+            if (isTypeOk && isSizeOk) {
+                this.progress.preview = URL.createObjectURL(file);
+            }
+            return isTypeOk && isSizeOk;
         },
-        handleImageSuccess () {
-            this.emitInput(this.tempUrl);
+        onSuccess (res) {
+            this.$emit('on-success', res);
         }
     }
 };
