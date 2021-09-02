@@ -18,47 +18,35 @@ export const publicRoutes = [
     {
         path: '/',
         component: Layout,
-        redirect: '/page',
-        name: 'Page',
+        redirect: '/zh',
+        name: 'Wel',
         meta: {
-            title: 'home',
+            title: '个人设置',
             icon: 'basic-icon-home'
         },
         children: [
             {
-                path: 'page',
+                path: 'zh',
                 component: () => import('~/views/page'),
-                name: 'page1',
+                name: 'Zh',
                 meta: {
-                    title: '主页',
+                    title: '账号信息',
                     icon: 'basic-icon-maoshachan',
                     affix: true,
                     keepAlive: true,
                     activeMenu: 'Page'
                 }
-            }
-        ]
-    },
-    {
-        path: '/public',
-        component: Layout,
-        name: 'Public',
-        redirect: '/public/wc',
-        meta: {
-            title: 'public',
-            icon: 'basic-icon-tubiao'
-        },
-        children: [
+            },
             {
-                path: 'wc',
-                component: () => import('~/views/public/index'),
-                name: 'wc1',
+                path: 'gr',
+                component: () => import('~/views/public'),
+                name: 'Gr',
                 meta: {
-
-                    title: '公共',
-                    icon: 'basic-icon-xiyu',
-                    // affix: true
-                    keepAlive: true
+                    title: '个人信息',
+                    icon: 'basic-icon-maoshachan',
+                    affix: true,
+                    keepAlive: true,
+                    activeMenu: 'Page'
                 }
             }
         ]

@@ -37,7 +37,7 @@
 <script>
 import top from './top';
 import SideBar from './Sidebar';
-// import tags from './TagsView/index.vue';
+// import tags from './TagsView/index';
 import { mapGetters } from 'vuex';
 export default {
     name: 'Home',
@@ -96,7 +96,8 @@ export default {
   position: absolute;
   left: $sideBarWidth;
   padding: 0;
-  width: calc(100% - $sideBarWidth);
+  /* width: calc(100% - $sideBarWidth); */
+  width: 100%;
   height: calc(100% - 65px);
   box-sizing: border-box;
   overflow: hidden;
