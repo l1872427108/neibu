@@ -5,14 +5,13 @@
       wrap-class="scrollbar-wrapper"
     >
       <el-menu
-        :text-color="variables.menuText"
-        :background-color="variables.menuBg"
-        :unique-opened="true"
-        :active-text-color="variables.menuActiveText"
-        mode="vertical"
-        :collapse-transition="false"
         :collapse="isCollapse"
-        :router="true"
+        :background-color="variables.menuBg"
+        :text-color="variables.menuText"
+        :unique-opened="false"
+        :active-text-color="variables.menuActiveText"
+        :collapse-transition="false"
+        mode="vertical"
       >
         <sidebar-item
           v-for="route in routes"
@@ -34,6 +33,11 @@ import variables from '~/assets/styles/variable.scss';
 
 export default {
   components: { SidebarItem },
+  data () {
+    return {
+      activeMenu: ''
+    };
+  },
   computed: {
     ...mapGetters([
       'routes',
@@ -41,20 +45,24 @@ export default {
     ]),
     variables () {
       return variables;
-    },
-
-    activeMenu () {
-      const route = this.$route;
-      const { meta, path } = route;
-      console.log('==>', meta, path);
-      if (meta.activeMenu) {
-        return meta.activeMenu;
-      }
-      return path;
     }
+
+    // activeMenu () {
+    //   const route = this.$route;
+    //   const { meta, path } = route;
+    //   console.log('==>', meta, path);
+    //   if (meta.activeMenu) {
+    //     return meta.activeMenu;
+    //   }
+    //   return path;
+    // }
   },
 
   methods: {
+    selectmenu (index, indexPath) {
+      this.activeMenu = index;
+      window.localStorage.setItem('activeMenu', this.activeMenu);
+    }
   }
 };
 </script>
