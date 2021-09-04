@@ -96,11 +96,10 @@ export default {
   position: absolute;
   left: $sideBarWidth;
   padding: 0;
-  /* width: calc(100% - $sideBarWidth); */
   width: 100%;
   height: calc(100% - 65px);
   box-sizing: border-box;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .container-view {
