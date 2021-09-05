@@ -10,7 +10,7 @@ import './components/global';
 import '~/plugins/element';
 import '~/config/vueConfig';
 import '~/assets/styles/index.scss';
-// import '~/permission';
+import '~/permission';
 import '~/directives';
 process.env.NODE_ENV === 'development' ? require('../mock') : '';
 

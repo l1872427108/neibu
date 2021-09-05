@@ -30,11 +30,13 @@
         v-else
         :index="item.path"
       >
-       <i
+      <template slot="title">
+         <i
           class="basic-icon item-icon"
           :class="item.meta && item.meta.icon"
         />
         <span>{{ item.meta && item.meta.title }}</span>
+      </template>
     </el-menu-item>
   </div>
 </template>
