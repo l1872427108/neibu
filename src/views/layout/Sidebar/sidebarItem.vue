@@ -1,9 +1,9 @@
 <template>
   <div v-if="!item.hidden">
     <el-submenu
+      v-if="'children' in item && item.children.length > 1"
       ref="subMenu"
-      :index="item.name"
-      popper-append-to-body
+      :index="item.path"
     >
       <template slot="title">
         <i
@@ -15,7 +15,7 @@
       <el-menu-item
         v-for="items in item.children"
         :key="items.path"
-        :index="resolvePath(item.path)"
+        :index="resolvePath(items.path)"
       >
         <template slot="title">
           <i
@@ -26,6 +26,16 @@
         </template>
       </el-menu-item>
     </el-submenu>
+     <el-menu-item
+        v-else
+        :index="item.path"
+      >
+       <i
+          class="basic-icon item-icon"
+          :class="item.meta && item.meta.icon"
+        />
+        <span>{{ item.meta && item.meta.title }}</span>
+    </el-menu-item>
   </div>
 </template>
 
@@ -47,12 +57,13 @@ export default {
 
     methods: {
         resolvePath (routePath) {
-          if (isExternal(routePath)) {
-            return routePath;
-          }
-          if (isExternal(this.basePath)) {
-            return this.basePath;
-          }
+          // if (isExternal(routePath)) {
+          //   return routePath;
+          // }
+          // if (isExternal(this.basePath)) {
+          //   return this.basePath;
+          // }
+          // console.log('==>', path.resolve(this.basePath, routePath));
           return path.resolve(this.basePath, routePath);
         }
 

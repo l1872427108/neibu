@@ -2,16 +2,16 @@
   <div class="upload-container">
       <div>
           <el-image v-if="url" :style="`width:${width}px;height:${height}px;`" fit="cover" />
-          <!-- <div class="mask">
-              <div class="actions"> -->
-                    <!-- <span title="预览" @click="preview(index)">
+          <div class="mask">
+              <div class="actions">
+                    <span title="预览" @click="preview(index)">
                         <i class="el-icon-zoom-in" />
                     </span>
                     <span title="移除" @click="remove(index)">
                         <i class="el-icon-delete" />
-                    </span> -->
-              <!-- </div>
-          </div> -->
+                    </span>
+                </div>
+          </div>
       </div>
       <el-upload
         :action="action"

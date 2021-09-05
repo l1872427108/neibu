@@ -12,6 +12,8 @@
         :active-text-color="variables.menuActiveText"
         :collapse-transition="false"
         mode="vertical"
+        router
+        default-active="/"
       >
         <sidebar-item
           v-for="route in routes"
@@ -46,16 +48,6 @@ export default {
     variables () {
       return variables;
     }
-
-    // activeMenu () {
-    //   const route = this.$route;
-    //   const { meta, path } = route;
-    //   console.log('==>', meta, path);
-    //   if (meta.activeMenu) {
-    //     return meta.activeMenu;
-    //   }
-    //   return path;
-    // }
   },
 
   methods: {

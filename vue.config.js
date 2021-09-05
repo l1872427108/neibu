@@ -24,6 +24,7 @@ const projectConfig = {
 
 module.exports = {
     lintOnSave: true,
+    runtimeCompiler: true,
     pages: {
       ...projectConfig.pages
     },
