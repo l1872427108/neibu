@@ -24,7 +24,7 @@ const projectConfig = {
 
 module.exports = {
     lintOnSave: true,
-    runtimeCompiler: true,
+    // runtimeCompiler: true,
     pages: {
       ...projectConfig.pages
     },
@@ -42,6 +42,7 @@ module.exports = {
 
     },
     configureWebpack: {
+        devtool: process.env.NODE_ENV === 'dev' ? 'cheap-module-eval-source-map' : 'source-map',
         resolve: {
             extensions: ['.js', '.vue', '.json', '.css'],
             alias: {

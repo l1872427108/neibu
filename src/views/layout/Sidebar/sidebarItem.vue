@@ -1,7 +1,7 @@
 <template>
   <div v-if="!item.hidden">
     <el-submenu
-      v-if="'children' in item && item.children.length > 1"
+      v-if="'children' in item"
       ref="subMenu"
       :index="item.path"
     >
@@ -28,7 +28,7 @@
     </el-submenu>
      <el-menu-item
         v-else
-        :index="item.path"
+        :index="'/' + item.name"
       >
       <template slot="title">
          <i
@@ -42,7 +42,6 @@
 </template>
 
 <script>
-import { isExternal } from '~/utils/util';
 import path from 'path';
 export default {
     name: 'SidebarItem',
@@ -59,13 +58,6 @@ export default {
 
     methods: {
         resolvePath (routePath) {
-          // if (isExternal(routePath)) {
-          //   return routePath;
-          // }
-          // if (isExternal(this.basePath)) {
-          //   return this.basePath;
-          // }
-          // console.log('==>', path.resolve(this.basePath, routePath));
           return path.resolve(this.basePath, routePath);
         }
 

@@ -8,7 +8,7 @@ import iconfont from '~/config/iconfontSite';
 import './components/global';
 // import '~/error';
 import '~/plugins/element';
-import '~/config/vueConfig';
+// import '~/config/vueConfig';
 import '~/assets/styles/index.scss';
 import '~/permission';
 import '~/directives';
