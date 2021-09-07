@@ -1,3 +1,5 @@
+
+
 export const validateUrl = (val) => {
     const urlRegex = /^(https?|ftp):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/;
     return urlRegex.test(val);
@@ -6,17 +8,47 @@ export const validateUrl = (val) => {
 /**
  * 邮箱
  */
-export const isEmail = (s) => {
+ export const isEmail = (s) => {
     return /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((.[a-zA-Z0-9_-]{2,3}){1,2})$/.test(s);
-};
-
+ };
 
 /**
+ * 邮箱
+ */
+export const checkEmail = (rule, value, callback) => {
+    const mailReg = /^[a-z0-9_-]{1,5}@puge\.email$/;
+    if (!value) {
+      return callback(new Error('请输入邮箱'));
+    }
+    setTimeout(() => {
+      if (mailReg.test(value)) {
+        callback();
+      }
+    }, 100);
+  };
+
+
+  /**
  * 手机号码
  * @param {*} s
  */
 export const isMobile = (s) => {
     return /^1[0-9]{10}$/.test(s);
+};
+
+/**
+ * 手机号码
+ * @param {*} s
+ */
+export const checkPhone = (rule, value, callback) => {
+    if (!value) {
+      return callback(new Error('请输入手机号'));
+    }
+      const reg = /^1[3|4|5|7|8][0-9]\d{8}$/;
+      console.log(reg.test(value));
+      if (reg.test(value)) {
+        callback();
+      }
 };
 
 /**

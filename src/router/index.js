@@ -19,7 +19,7 @@ export const publicRoutes = [
         path: '/',
         component: Layout,
         redirect: '/welcome',
-        name: 'Welcome',
+        name: 'welcome',
         meta: {
             title: '主页',
             icon: 'basic-icon-home'
@@ -62,6 +62,28 @@ export const publicRoutes = [
                 component: () => import('~/views/public'),
                 meta: {
                     title: '个人信息',
+                    icon: 'basic-icon-maoshachan',
+                    affix: true,
+                    keepAlive: true
+                }
+            }
+        ]
+    },
+    {
+        path: '/hy',
+        component: Layout,
+        redirect: '/hy/ht',
+        name: 'Hy',
+        meta: {
+            title: '签约合同',
+            icon: 'basic-icon-home'
+        },
+        children: [
+            {
+                path: 'ht',
+                component: () => import('~/views/ht'),
+                meta: {
+                    title: '合同管理',
                     icon: 'basic-icon-maoshachan',
                     affix: true,
                     keepAlive: true

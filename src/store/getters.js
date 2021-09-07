@@ -5,7 +5,8 @@ const getters = {
     colorName: state => state.common.colorName,
     language: state => state.common.language,
     isCollapse: state => state.common.isCollapse,
-    isFullScren: state => state.common.isFullScren
+    isFullScren: state => state.common.isFullScren,
+    themeName: state => state.common.themeName
 };
 
 export default getters;

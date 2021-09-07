@@ -26,7 +26,7 @@
       <el-tooltip
         v-if="showDebug"
         effect="dark"
-        :content="logsFlag?$t('navbar.bug'):logsLen+$t('navbar.bugs')"
+        :content="$t('navbar.bug')"
         placement="bottom"
       >
         <div class="top-item">

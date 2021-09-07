@@ -4,7 +4,8 @@ const state = {
     language: getStorage('language') || 'zh',
     colorName: getStorage('themeName') || 'theme-default',
     isCollapse: false, // 是否折叠
-    isFullScren: false
+    isFullScren: false,
+    themeName: getStorage('themeName') || 'theme-default'
 };
 
 const mutations = {
@@ -23,6 +24,10 @@ const mutations = {
 
     SET_FULLSCREN: (state) => {
         state.isFullScren = !state.isFullScren;
+    },
+    SET_THEME_NAME: (state, themeName) => {
+        state.themeName = themeName;
+        setStorage('themeName', state.themeName);
     }
 };
 

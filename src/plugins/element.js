@@ -38,6 +38,7 @@ import {
   TimelineItem,
   Popover,
   Tooltip,
+  Scrollbar,
   //   Breadcrumb,
   //   BreadcrumbItem,
   Form,
@@ -81,7 +82,7 @@ import {
 
 // Vue.use(PageHeader);
 // Vue.use(Pagination);
-// Vue.use(Dialog);
+Vue.use(Dialog);
 // Vue.use(Autocomplete);
 Vue.use(Dropdown);
 Vue.use(DropdownMenu);
@@ -99,6 +100,7 @@ Vue.use(Checkbox);
 // Vue.use(CheckboxButton);
 Vue.use(CheckboxGroup);
 Vue.use(CheckboxButton);
+Vue.use(Scrollbar);
 Vue.use(Switch);
 Vue.use(Select);
 Vue.use(Option);

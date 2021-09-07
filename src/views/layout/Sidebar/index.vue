@@ -1,6 +1,5 @@
 <template>
   <div class="sidebar-container">
-    <!-- <logo /> -->
     <el-scrollbar
       wrap-class="scrollbar-wrapper"
     >
@@ -8,12 +7,12 @@
         :collapse="isCollapse"
         :background-color="variables.menuBg"
         :text-color="variables.menuText"
-        :unique-opened="false"
+        :unique-opened="true"
         :active-text-color="variables.menuActiveText"
         :collapse-transition="false"
         mode="vertical"
         router
-        default-active="/"
+        :default-active="defaultActive"
       >
         <sidebar-item
           v-for="route in routes"
@@ -31,7 +30,6 @@
 import { mapGetters } from 'vuex';
 import SidebarItem from './sidebarItem.vue';
 import variables from '~/assets/styles/variable.scss';
-// import logo from './';
 
 export default {
   components: { SidebarItem },
@@ -47,13 +45,9 @@ export default {
     ]),
     variables () {
       return variables;
-    }
-  },
-
-  methods: {
-    selectmenu (index, indexPath) {
-      this.activeMenu = index;
-      window.localStorage.setItem('activeMenu', this.activeMenu);
+    },
+    defaultActive () {
+      return this.$route.path;
     }
   }
 };
@@ -89,8 +83,7 @@ export default {
     & .nest-menu .el-submenu>.el-submenu__title,
     & .el-submenu .el-menu-item {
       min-width: $sideBarWidth !important;
-      background-color: $subMenuBg !important;
-
+      /* background-color: $subMenuBg !important; */
       &:hover {
         background-color: $subMenuHover !important;
       }
