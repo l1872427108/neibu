@@ -1,6 +1,5 @@
 <template>
   <div id="tags-container" class="tags-container">
-    <!-- <scroll-pane> -->
       <router-link
       v-for="(tag, index) in visitedViews"
       :key="index"
@@ -9,20 +8,14 @@
       :class="isActive(tag)?'active':''"
       :to="tag.path"
     >
-      <!-- {{tag}} -->
       {{tag.meta.title}}
-      <span class="el-icon-close" />
+      <span @click="closeTag(tag)" class="el-icon-close" />
     </router-link>
-    <!-- </scroll-pane> -->
   </div>
 </template>
 
 <script>
-// import ScrollPane from './ScrollPane';
 export default {
-  components: {
-    // ScrollPane
-  },
   data () {
     return {
       visible: false
@@ -34,9 +27,13 @@ export default {
     }
   },
   watch: {
-    $route () {
-      this.addTags();
-      this.moveToCurrentTag();
+    $route: {
+      handler () {
+        this.addTags();
+        this.moveToCurrentTag();
+      },
+      immediate: true,
+      deep: true
     }
   },
   methods: {
@@ -45,6 +42,26 @@ export default {
     },
     addTags () {
       this.$store.dispatch('tag/addVisitedView', this.$route);
+    },
+    closeTag (view) {
+      this.$store.dispatch('tag/delVisitedView', view).then(res => {
+        // console.log(res);
+      });
+    },
+    moveToCurrentTag () {
+      const tags = this.$refs.tag;
+      this.$nextTick(() => {
+        for (const tag of tags) {
+          if (tag.to.path === this.$route.path) {
+            this.$refs.scrollPane.moveToTarget(tag);
+            // when query is different then update
+            if (tag.to.fullPath !== this.$route.fullPath) {
+              this.$store.dispatch('tag/updateVisitedView', this.$route);
+            }
+            break;
+          }
+        }
+      });
     }
   }
 };

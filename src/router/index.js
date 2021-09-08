@@ -18,8 +18,30 @@ export const publicRoutes = [
     {
         path: '/',
         component: Layout,
-        redirect: '/zh',
-        name: 'Wel',
+        redirect: '/welcome',
+        name: 'welcome',
+        meta: {
+            title: '主页',
+            icon: 'basic-icon-home'
+        },
+        children: [
+            {
+                path: 'welcome',
+                component: () => import('~/views/welcome'),
+                meta: {
+                    title: '首页',
+                    icon: 'basic-icon-home',
+                    affix: true,
+                    keepAlive: true
+                }
+            }
+        ]
+    },
+    {
+        path: '/pz',
+        component: Layout,
+        redirect: '/pz/zh',
+        name: 'Pz',
         meta: {
             title: '个人设置',
             icon: 'basic-icon-home'
@@ -28,25 +50,43 @@ export const publicRoutes = [
             {
                 path: 'zh',
                 component: () => import('~/views/page'),
-                name: 'Zh',
                 meta: {
                     title: '账号信息',
                     icon: 'basic-icon-maoshachan',
                     affix: true,
-                    keepAlive: true,
-                    activeMenu: 'Page'
+                    keepAlive: true
                 }
             },
             {
                 path: 'gr',
                 component: () => import('~/views/public'),
-                name: 'Gr',
                 meta: {
                     title: '个人信息',
                     icon: 'basic-icon-maoshachan',
                     affix: true,
-                    keepAlive: true,
-                    activeMenu: 'Page'
+                    keepAlive: true
+                }
+            }
+        ]
+    },
+    {
+        path: '/hy',
+        component: Layout,
+        redirect: '/hy/ht',
+        name: 'Hy',
+        meta: {
+            title: '签约合同',
+            icon: 'basic-icon-home'
+        },
+        children: [
+            {
+                path: 'ht',
+                component: () => import('~/views/ht'),
+                meta: {
+                    title: '合同管理',
+                    icon: 'basic-icon-maoshachan',
+                    affix: true,
+                    keepAlive: true
                 }
             }
         ]

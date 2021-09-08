@@ -46,6 +46,12 @@ export const removeCss = (href) => {
     }
 };
 
+/**
+ * 设置主题
+ */
+export const setTheme = (name) => {
+    document.body.className = name;
+};
 
 /**
  * 判断屏幕

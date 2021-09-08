@@ -1,0 +1,50 @@
+.theme-hk{
+  .el-menu{
+    background-color: #67C23A !important;
+    box-shadow: 0 1px 4px rgba(0,21,41,.08);
+    .nest-menu {
+      background-color: #67C23A !important;
+    }
+    & .nest-menu .el-submenu>.el-submenu__title,
+    & .el-submenu .el-menu-item {
+      background-color: #67C23A !important;
+      &:hover {
+        background-color: #67C23A !important;
+      }
+    }
+    .el-menu-item,.el-submenu__title{
+      i,span{
+        color: #fff;
+      }
+      &:hover{
+          background: transparent;
+          i,span{
+             color:#409eff;
+          }
+      }
+      &.is-active {
+          &:before {
+            left:auto;
+            right: 0 ;
+          }
+          background-color: #f0f6ff;
+          i,span{
+              color:#409eff;
+          }
+      }
+    }
+  }
+  .top {
+    background-color: #67C23A !important;
+  }
+  // .tags-container{
+  //   background: #f3f6f8;
+  //   .el-tabs__item{
+  //     color: rgba(0,0,0,.65) !important;
+  //   }
+  //   .is-active{
+  //     background-color: #fff;
+  //     border-bottom: none !important;
+  //   }
+  // }
+}

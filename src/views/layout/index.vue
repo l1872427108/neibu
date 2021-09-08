@@ -15,7 +15,7 @@
       <div class="container-main">
         <!-- <tags /> -->
 
-        <el-scrollbar style="height: 100%">
+        <el-scrollbar style="height:100%">
           <keep-alive>
             <router-view
               v-if="$route.meta.keepAlive"
@@ -87,7 +87,7 @@ export default {
 
 .container-header {
   padding-left: $sideBarWidth;
-  width: calc(100%-$sideBarWidth);
+  width: calc(100%-60px);
   background-color: #fff;
   box-sizing: border-box;
 }
@@ -96,7 +96,7 @@ export default {
   position: absolute;
   left: $sideBarWidth;
   padding: 0;
-  width: 100%;
+  width: calc(100% - 200px);
   height: calc(100% - 65px);
   box-sizing: border-box;
   overflow: auto;
@@ -105,6 +105,10 @@ export default {
 .container-view {
   width: 100%;
   box-sizing: border-box;
+}
+.el-scrollbar__wrap{
+  overflow-x: hidden;
+
 }
 
 .container-collapse {
