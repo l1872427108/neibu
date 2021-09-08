@@ -110,4 +110,4 @@ export const validatenull = (val) => {
     list.push(result);
     list.push(msg);
     return list;
-}
+};
