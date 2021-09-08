@@ -1,26 +1,22 @@
 <template>
-  <div>
-    <div class="u10_state0" data-label="账号信息" style="position: absolute">
-      <div class="u11">
-
-        <span>账号信息</span>
-      </div>
-      <div class="u12">
-        <img class="u12_img" src="~/assets/img/u17.png" />
-      </div>
+  <div class="wrap">
+    <div class="u11">
+      <span>账号信息</span>
+    </div>
+    <div class="u10_state0" data-label="账号信息">
       <div class="u13">
-        <Upload></Upload>
+        <Upload action="htttp://123.com"></Upload>
       </div>
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="u14">
         <el-row>
-          <el-col>git
+          <el-col>
             <el-form-item label="账  号:" prop="name" :span="18" style="font-size: 17px !important">
               <el-input v-model="ruleForm.name" label-width="100px" :span="18"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-form-item label="普歌网名:" prop="pugename">
-          <el-input v-model="ruleForm.pugename"></el-input>
+          <el-input maxlength="300" label-width="100px" v-model="ruleForm.pugename"></el-input>
         </el-form-item>
         <el-form-item label="普歌工号:" prop="number">
           <el-input v-model="ruleForm.number"></el-input>
@@ -117,7 +113,7 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert('submit!');
+          console.log('submit');
         } else {
           console.log('error submit!!');
           return false;
@@ -131,85 +127,67 @@ export default {
 };
 </script>
 
-<style>
-.u10_state0 {
+<style lang="scss" scoped>
+.wrap {
   width: 100%;
-  height: 100%;
-}
-.el-button {
-  width: 150px;
-  margin-right: 30px;
-}
-.el-form-item__label {
-  font-size: 17px;
-}
-.el-col-11 {
-  width: 100%;
-}
+  .u10_state0 {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    text-align: center;
+    justify-content: center;
+    margin-top: 50px;
+  }
+  .u11 {
+    width: 81px;
+    height: 28px;
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.847058823529412);
+    margin: 50px 0 0 107px;
+  }
+  .u13 {
+    line-height: 22px;
+    margin-bottom: 20px;
+  }
 
-element.style {
-  min-height: 97px;
-}
+  .u14 {
+    margin-right: 70px;
+    width: 500px;
+    height: 23px;
+    font-family: 'Arial Normal', 'Arial';
+    font-weight: 400;
+    font-style: normal;
+    color: #000000;
+  }
 
-.el-radio__label {
-  font-size: 15px;
-}
+  .sum {
+    margin-top: 45px;
+    height: 150px;
+  }
+  .el-button {
+    width: 150px;
+    margin-right: 30px;
+  }
+  .el-form-item__label {
+    font-size: 17px;
+  }
+  .el-col-11 {
+    width: 100%;
+  }
 
-.el-radio__input.is-checked + .el-radio__label {
-  color: #606266 !important;
-}
-.label {
-  font-size: 14px;
-}
-.u11 {
-  position: absolute;
-  left: 107px;
-  top: 50px;
-  width: 81px;
-  height: 28px;
-  font-size: 20px;
-  color: rgba(0, 0, 0, 0.847058823529412);
-}
 
-.u12 {
-  position: absolute;
-  left: 516px;
-  top: 115px;
-  width: 144px;
-  height: 144px;
-}
+  .el-radio__label {
+    font-size: 15px;
+  }
 
-.u12_img {
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  width: 144px;
-  height: 144px;
+  .el-radio__input.is-checked + .el-radio__label {
+    color: #606266 !important;
+  }
+  .label {
+    font-size: 14px;
+  }
 }
-
-.u13 {
-  position: absolute;
-  left: 513px;
-  top: 277px;
-  line-height: 22px;
-}
-
-.u14 {
-  position: absolute;
-  left: 318px;
-  top: 398px;
-  width: 500px;
-  height: 23px;
-  font-family: 'Arial Normal', 'Arial';
-  font-weight: 400;
-  font-style: normal;
-  color: #000000;
-}
-
-.sum {
-  margin-top: 45px;
-  height: 150px;
-}
-
 
 </style>

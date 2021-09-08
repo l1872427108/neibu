@@ -1,16 +1,16 @@
 <template>
   <div class="upload-container">
       <div>
-          <el-image v-if="url" :style="`width:${width}px;height:${height}px;`" fit="cover" />
+          <el-image src="~/assets/img/u17.png" :style="`width:${width}px;height:${height}px;`" fit="cover" />
           <div class="mask">
-              <div class="actions">
+              <!-- <div class="actions">
                     <span title="预览" @click="preview(index)">
                         <i class="el-icon-zoom-in" />
                     </span>
                     <span title="移除" @click="remove(index)">
                         <i class="el-icon-delete" />
                     </span>
-                </div>
+                </div> -->
           </div>
       </div>
       <el-upload
@@ -33,35 +33,42 @@ export default {
     props: {
         action: {
             type: String,
-            required: true
+            required: false
         },
         headers: {
             type: Object,
-            default: () => {}
+            default: () => {},
+            required: false
         },
         data: {
             type: Object,
-            default: () => {}
+            default: () => {},
+            required: false
         },
         name: {
             type: String,
-            default: 'image'
+            default: 'image',
+            required: false
         },
         url: {
             type: String,
-            default: ''
+            default: '',
+            required: false
         },
         ext: {
             type: Array,
-            default: () => ['jpg', 'png', 'gif', 'bmp']
+            default: () => ['jpg', 'png', 'gif', 'bmp'],
+            required: false
         },
         width: {
             type: Number,
-            default: 150
+            default: 150,
+            required: false
         },
         height: {
             type: Number,
-            default: 150
+            default: 150,
+            required: false
         }
     },
     methods: {
@@ -83,6 +90,9 @@ export default {
         },
         onSuccess (res) {
             this.$emit('on-success', res);
+        },
+        handleImageSuccess () {
+
         }
     }
 };
@@ -93,6 +103,9 @@ export default {
     position: relative;
     .el-icon-upload {
         margin-right: 10px;
+    }
+    .mask {
+        margin-top: 10px;
     }
 }
 </style>
