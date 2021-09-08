@@ -1,7 +1,7 @@
 <template>
   <div class="upload-container">
       <div>
-          <el-image src="~/assets/img/u17.png" :style="`width:${width}px;height:${height}px;`" fit="cover" />
+          <el-image src="~/assets/img/avator.png" :style="`width:${width}px;height:${height}px;`" fit="cover" />
           <div class="mask">
               <!-- <div class="actions">
                     <span title="预览" @click="preview(index)">

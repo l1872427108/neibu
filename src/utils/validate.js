@@ -8,69 +8,28 @@ export const validateUrl = (val) => {
 /**
  * 邮箱
  */
- export const isEmail = (s) => {
-    return /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((.[a-zA-Z0-9_-]{2,3}){1,2})$/.test(s);
- };
-
-/**
- * 邮箱
- */
-export const checkEmail = (rule, value, callback) => {
-    const mailReg = /^[a-z0-9_-]{1,5}@puge\.email$/;
-    if (!value) {
-      return callback(new Error('请输入邮箱'));
-    }
-    setTimeout(() => {
-      if (mailReg.test(value)) {
-        callback();
-      }
-    }, 100);
-  };
-
-
-  /**
- * 手机号码
- * @param {*} s
- */
-export const isMobile = s => {
-  return /^1[0-9]{10}$/.test(s);
+export const checkEmail = function (rule, value, callback) {
+if (/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((.[a-zA-Z0-9_-]{2,3}){1,2})$/.test(value) === false) {
+    callback(new Error('请输入正确的邮箱'));
+  } else {
+    callback();
+  }
 };
 
-/**
- * 手机号码
- * @param {*} s
- */
+
+/* 手机号 */
 export const checkPhone = (rule, value, callback) => {
-    if (!value) {
-      return callback(new Error('请输入手机号'));
-    }
-      const reg = /^1[3|4|5|7|8][0-9]\d{8}$/;
-      console.log(reg.test(value));
-      if (reg.test(value)) {
-        callback();
-      }
-};
-
-/**
- * 电话号码
- * @param {*} s
- */
-export const isPhone = s => {
-  return /^([0-9]{3,4}-)?[0-9]{7,8}$/.test(s);
-};
-
-/**
- * URL地址
- * @param {*} s
- */
-export const isURL = s => {
-  return /^http[s]?:\/\/.*/.test(s);
+  if (/^1[34578]\d{9}$/.test(value) === false) {
+    callback(new Error('请输入正确的手机号'));
+  } else {
+    callback();
+  }
 };
 
 /**
  * 判断是否为空
  */
-export const validatenull = val => {
+export const isNull = val => {
   if (typeof val === 'boolean') return false;
   if (typeof val === 'number') return false;
   if (val instanceof Array) {
@@ -84,26 +43,13 @@ export const validatenull = val => {
   return false;
 };
 
-/**
- * 判断手机号码是否正确
+/*
+ * 身份证号
  */
-export function isvalidatemobile(phone) {
-  const list = [];
-  let result = true;
-  let msg = '';
-  const isPhone = /^0\d{2,3}-?\d{7,8}$/;
-  // 增加134 减少|1349[0-9]{7}，增加181,增加145，增加17[678]
-  if (!validatenull(phone)) {
-    if (phone.length === 11) {
-      if (isPhone.test(phone)) {
-        msg = '手机号码格式不正确';
-      } else {
-        result = false;
-      }
-    } else {
-      msg = '手机号码长度不为11位';
-    }
-    list.push(result);
-    list.push(msg);
-    return list;
+export const identity = (rule, value, callback) => {
+  if (/(^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$)|(^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{2}$)/.test(value)) {
+    callback(new Error('请输入正确的身份证号'));
+  } else {
+    callback();
+  }
 };

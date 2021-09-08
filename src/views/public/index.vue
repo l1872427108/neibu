@@ -20,7 +20,7 @@
         </el-form-item>
         <el-form-item label="所在省市:" class="shengshi" prop="shengshi">
           <el-cascader
-            v-model="area"
+            v-model="ruleform.area"
             :options="areaList"
             :props="optionProps"
             filterable
@@ -91,31 +91,26 @@
       </el-form>
     </div>
     <div class="gr-right">
-      <img class="touxiang" src="./images/img.png" alt="" />
-      <Upload></Upload>
+      <img class="touxiang" src="~/assets/img/picture.png" alt="" />
     </div>
   </div>
 </template>
 
 <script>
-import Upload from '~/components/Upload';
-import { checkPhone, sfz, email } from '~/utils/validate';
+import { identity, checkPhone, checkEmail } from '~/utils/validate';
 export default {
-  components: {
-    Upload,
-  },
   name: 'Page',
-  data() {
+  data () {
     return {
       renshu: 1,
       text: '',
       textarea: '',
-
+      // eslint-disable-next-line
       areaList: rawCitiesData,
       optionProps: {
         value: 'code',
         label: 'name',
-        children: 'sub',
+        children: 'sub'
       },
       ruleform: {
         namess: '',
@@ -128,7 +123,7 @@ export default {
         imageUrl: '',
         danqin: '否',
         area: [],
-        email: '',
+        email: ''
       },
 
       rules: {
@@ -138,66 +133,52 @@ export default {
             min: 3,
             max: 5,
             message: '长度在 3 到 5 个字符',
-            trigger: 'blur',
-          },
+            trigger: 'blur'
+          }
         ],
         shengshi: [{ required: true, message: '请填写所在省市', trigger: 'blur' }],
         dress: [{ required: true, message: '请填写地址', trigger: 'blur' }],
         gonghao: [{ required: true, message: '请填写工号', trigger: 'blur' }],
         jidi: [{ required: true, message: '请填写正确的基地', trigger: 'blur' }],
         gangwei: [{ required: true, message: '请填写所在岗位', trigger: 'blur' }],
-        phone: [{ required: true, message: '请输入手机号码', trigger: 'blur', validator: checkPhone }],
-        sfz: [{ required: true, message: '请填写证件号码', trigger: 'blur', validator: sfz }],
+        email: [{ required: true, validator: checkEmail, trigger: 'blur' }],
+        phone: [{ required: true, validator: checkPhone, trigger: 'blur' }],
+        sfz: [{ required: true, message: '请填写证件号码', trigger: 'blur', validator: identity }],
         xueyuan: [{ required: true, message: '请填写所在学院', trigger: 'blur' }],
         banji: [{ required: true, message: '请填写所在班级', trigger: 'blur' }],
-        email: [{ required: true, message: '请填写正确的邮箱', trigger: 'blur', validator: email }],
         brithday: [
           {
             type: 'date',
             required: true,
             message: '请选择日期',
-            trigger: 'change',
-          },
-        ],
-      },
+            trigger: 'change'
+          }
+        ]
+      }
     };
   },
   methods: {
-    submitForm(formName) {
+    submitForm (formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert('submit!');
+          console.log('submit');
         } else {
           console.log('error submit!!');
           return false;
         }
       });
     },
-    resetForm(formName) {
+    resetForm (formName) {
       this.$refs[formName].resetFields();
     },
-    handleChange(value) {
+    handleChange (value) {
       console.log(value);
-    },
-    submitForm(formName) {
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          alert('submit!');
-        } else {
-          console.log('error submit!!');
-          return false;
-        }
-      });
-    },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
-    },
-  },
+    }
+  }
 };
 </script>
 
-<style>
-@import url('./css/font');
+<style lang="scss" scoped>
 .gr-left {
   float: left;
 }
@@ -218,6 +199,9 @@ export default {
 .el-input-number.is-controls-right .el-input__inner {
   width: 180px;
 }
+::v-deep .el-form-item__label {
+    font-size: 17px;
+  }
 .el-input .renshu {
   width: 100px;
 }
@@ -227,9 +211,6 @@ export default {
 .touxiang {
   width: 200px;
   height: 205px;
-}
-.el-form-item__label {
-  font-size: 20px;
 }
 .el-button el-button--primary {
   height: 40px;
