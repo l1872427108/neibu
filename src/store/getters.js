@@ -6,7 +6,13 @@ const getters = {
     language: state => state.common.language,
     isCollapse: state => state.common.isCollapse,
     isFullScren: state => state.common.isFullScren,
-    themeName: state => state.common.themeName
+    themeName: state => state.common.themeName,
+    visitedViews: state => state.tagsView.visitedViews,
+
+    // 菜单按钮权限
+    init: state => state.menu.init,
+    menuList: state => state.menu.menuList,
+    buttonList: state => state.menu.buttonList
 };
 
 export default getters;

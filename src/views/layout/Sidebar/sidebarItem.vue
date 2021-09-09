@@ -1,9 +1,10 @@
 <template>
   <div v-if="!item.hidden">
     <el-submenu
-      v-if="'children' in item"
+      v-if="'children' in item && item.meta"
       ref="subMenu"
-      :index="item.path"
+      :index="resolvePath(item.path)"
+      popper-append-to-body
     >
       <template slot="title">
         <i
@@ -28,14 +29,14 @@
     </el-submenu>
      <el-menu-item
         v-else
-        :index="'/' + item.name"
+        :index="resolvePath(item.redirect)"
       >
       <template slot="title">
          <i
           class="basic-icon item-icon"
-          :class="item.meta && item.meta.icon"
+          :class="item.children[0].meta && item.children[0].meta.icon"
         />
-        <span>{{ item.meta && item.meta.title }}</span>
+        <span>{{ item.children[0].meta && item.children[0].meta.title }}</span>
       </template>
     </el-menu-item>
   </div>
@@ -43,8 +44,11 @@
 
 <script>
 import path from 'path';
+import { isExternal } from '@/utils/validate';
 export default {
     name: 'SidebarItem',
+    components: {
+    },
     props: {
          item: {
             type: Object,
@@ -58,6 +62,12 @@ export default {
 
     methods: {
         resolvePath (routePath) {
+          if (isExternal(routePath)) {
+            return routePath;
+          }
+          if (isExternal(this.basePath)) {
+            return this.basePath;
+          }
           return path.resolve(this.basePath, routePath);
         }
 

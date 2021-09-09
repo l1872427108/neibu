@@ -5,7 +5,7 @@
     :data="tableData"
     tooltip-effect="dark"
     :listLoading="loading"
-    :paddingBottom="20"
+    :paddingBottom="70"
     @activeIndex="activeIndex"
     :default-sort = "{prop: 'date', order: 'descending'}">
         <el-table-column prop="name" align="center" label="名字" min-width="20%">
@@ -177,7 +177,7 @@ export default {
         },
 
         handleKeyupEvent (event) {
-            event.preventDefault();
+            // event.preventDefault();
             if (this.tableData.length === 0) {
                 return;
             }
