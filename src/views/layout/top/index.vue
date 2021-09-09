@@ -9,6 +9,7 @@
           class="basic-icon basic-icon-navicon-round"
           @click="setCollapse"
         />
+        <breadcrumb class="breadcrumb-container" />
       </div>
     </div>
     <div class="top-right">
@@ -109,6 +110,7 @@
 <script>
 import { mapGetters, mapState } from 'vuex';
 // import topColor from './topColor.vue';
+import Breadcrumb from '~/components/Breadcrumb';
 import topLogs from './topLogs.vue';
 import topLock from './topLock.vue';
 import topTheme from './topTheme.vue';
@@ -120,7 +122,8 @@ export default {
     topLogs,
     topLock,
     topTheme,
-    topLang
+    topLang,
+    Breadcrumb
   },
   data () {
     return {
@@ -160,9 +163,10 @@ export default {
         cancelButtonText: this.$t('cancelText'),
         type: 'warning'
       }).then(() => {
-        this.$store.dispatch('user/logout').then(() => {
-          this.$router.push({ path: '/login' });
-        });
+        // this.$store.dispatch('user/logout').then(() => {
+        //   this.$router.push({ path: '/login' });
+        // });
+        window.location.href = `${process.env.VUE_APP_AUTH_URL}?redirectURL=${window.location.href}`;
       });
     },
 
@@ -182,7 +186,6 @@ export default {
     width: 100%;
     padding: 0 25px;
     position: relative;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
     color: rgba(0, 0, 0, .65);
     font-size: 28px;
     height: 64px;
@@ -193,6 +196,9 @@ export default {
             font-size: 13px;
         }
     }
+}
+.breadcrumb-container {
+  /* background: red; */
 }
 
 .top-left,

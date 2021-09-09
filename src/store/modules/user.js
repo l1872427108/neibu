@@ -1,9 +1,9 @@
 import { login, getInfo, logout } from '~/api/user';
-import { getToken, setToken, removeToken } from '~/utils/auth';
+import { setToken, getToken, removeToken } from '~/utils/auth';
 import router, { resetRouter } from '~/router';
 
 const state = {
-    token: getToken(),
+    token: getToken('Admin-Token'),
     roles: []
 };
 
@@ -13,7 +13,11 @@ const mutations = {
     },
     SET_ROLES: (state, roles) => {
         state.roles = roles;
+    },
+    SET_USER_STATE (state, data) {
+
     }
+    // 重置用户状
 };
 
 const actions = {
@@ -53,7 +57,7 @@ const actions = {
           logout(state.token).then(() => {
             commit('SET_TOKEN', '');
             commit('SET_ROLES', []);
-            removeToken();
+            // removeToken();
             // 然后要重置
             resetRouter();
             resolve();
@@ -67,7 +71,7 @@ const actions = {
         return new Promise(resolve => {
             commit('SET_TOKEN', '');
             commit('SET_ROLES', []);
-            removeToken();
+            // removeToken();
             resolve();
         });
     }

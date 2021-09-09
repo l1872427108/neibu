@@ -3,6 +3,11 @@ import { getStorage } from './storage';
 import { showLoading, hideLoading } from './loading';
 import { Message } from 'element-ui';
 import qs from 'qs';
+import {
+    Cookie,
+    Key
+} from './cookie';
+
 
 const service = axios.create({
     baseURL: process.env.BASE_URL, // url = base url + request url
@@ -46,12 +51,27 @@ service.interceptors.response.use(response => {
 error => {
     hideLoading();
     console.log('err' + error); // for debug
-    Message({
-        message: error.message,
-        type: 'error',
-        duration: 5 * 1000
-    });
-    return Promise.reject(error);
+
+    if (error.response && error.response.status !== 401) {
+        Message({
+            message: error.message,
+            type: 'error',
+            duration: 5 * 1000
+        });
+        return Promise.reject(error);
+    }
+
+    // 401 发送刷新令牌请求
+    let isLock = true;
+
+    if (isLock && Cookie.get(Key.refreshTokenKey)) {
+        // 有刷新令牌
+        isLock = false;
+        window.location.href = `${process.env.VUE_APP_AUTH_URL}/refresh?redirectURL=${window.location.href}`;
+    } else {
+        window.location.href = `${process.env.VUE_APP_AUTH_URL}?redirectURL=${window.location.href}`;
+    }
+    return Promise.reject('令牌过期，重新认证');
 });
 
 export const get = (url, config = {}, loading = true) => {

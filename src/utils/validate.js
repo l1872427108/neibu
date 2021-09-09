@@ -53,3 +53,8 @@ export const identity = (rule, value, callback) => {
     callback();
   }
 };
+
+
+export function isExternal (path) {
+  return /^(https?:|mailto:|tel:)/.test(path);
+}

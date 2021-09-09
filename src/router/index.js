@@ -19,14 +19,10 @@ export const publicRoutes = [
         path: '/',
         component: Layout,
         redirect: '/welcome',
-        name: 'welcome',
-        meta: {
-            title: '主页',
-            icon: 'basic-icon-home'
-        },
         children: [
             {
                 path: 'welcome',
+                name: 'Welcome',
                 component: () => import('~/views/welcome'),
                 meta: {
                     title: '首页',
@@ -38,54 +34,54 @@ export const publicRoutes = [
         ]
     },
     {
-        path: '/pz',
+        path: '/setting',
         component: Layout,
-        redirect: '/pz/zh',
-        name: 'Pz',
+        redirect: '/setting/account',
+        name: 'Setting',
         meta: {
             title: '个人设置',
             icon: 'basic-icon-home'
         },
         children: [
             {
-                path: 'zh',
-                component: () => import('~/views/page'),
+                path: 'account',
+                component: () => import('~/views/account'),
+                name: 'Account',
                 meta: {
                     title: '账号信息',
                     icon: 'basic-icon-maoshachan',
-                    affix: true,
                     keepAlive: true
                 }
             },
             {
-                path: 'gr',
-                component: () => import('~/views/public'),
+                path: 'personage',
+                component: () => import('~/views/personage'),
+                name: 'Personage',
                 meta: {
                     title: '个人信息',
                     icon: 'basic-icon-maoshachan',
-                    affix: true,
                     keepAlive: true
                 }
             }
         ]
     },
     {
-        path: '/hy',
+        path: '/compact',
         component: Layout,
-        redirect: '/hy/ht',
-        name: 'Hy',
+        redirect: '/compact/management',
+        name: 'Compact',
         meta: {
             title: '签约合同',
             icon: 'basic-icon-home'
         },
         children: [
             {
-                path: 'ht',
-                component: () => import('~/views/ht'),
+                path: 'management',
+                name: 'Management',
+                component: () => import('~/views/management/index'),
                 meta: {
                     title: '合同管理',
                     icon: 'basic-icon-maoshachan',
-                    affix: true,
                     keepAlive: true
                 }
             }
@@ -95,42 +91,9 @@ export const publicRoutes = [
         path: '/404',
         component: () => import('~/views/err-page/404'),
         hidden: true
-    }
+    },
+    { path: '*', redirect: '/404', hidden: true }
 ];
-
-export const asyncRoutes = [
-    {
-        path: '/admin',
-        component: Layout,
-        name: 'Admin',
-        redirect: '/admin/ww',
-        meta: {
-            title: 'admin',
-            icon: 'basic-icon-yanzhengma'
-        },
-        children: [
-            {
-                path: 'ww',
-                component: () => import('~/views/admin/index'),
-                name: 'shoe',
-                meta: {
-                    title: '公共',
-                    roles: ['admin'],
-                    icon: 'basic-icon-password',
-                    // affix: true
-                    keepAlive: true
-                }
-            }
-        ]
-    }
-];
-
-export const lastRoute = [{
-    path: '*',
-    redirect: '/404',
-    hidden: true,
-    keepAlive: true
-}];
 
 const createRouter = () => new Router({
     scrollBehavior: () => ({ y: 0 }),
