@@ -12,11 +12,11 @@ const projectConfig = {
     }
   },
   devServerProxy: {
-    '/api': {
+    [process.env.BASE_URL]: {
       target: process.env.VUE_APP_BASE_API,
       changeOrigin: true,
       pathRewrite: {
-        '^/api': ''
+        ['^' + process.env.BASE_URL]: ''
       }
     }
   }
@@ -31,7 +31,7 @@ module.exports = {
     devServer: {
         open: true,
         host: '0.0.0.0',
-        port: 1222,
+        port: 8888,
         https: false,
         hotOnly: false,
         proxy: {

@@ -5,6 +5,7 @@
   >
     <div class="container-header">
       <top />
+      <tags class="container-tags" />
     </div>
 
     <div class="container-layout">
@@ -13,7 +14,6 @@
       </div>
 
       <div class="container-main">
-        <!-- <tags /> -->
 
         <el-scrollbar style="height:100%">
           <keep-alive>
@@ -37,14 +37,14 @@
 <script>
 import top from './top';
 import SideBar from './Sidebar';
-// import tags from './TagsView/index';
+import tags from './TagsView/index';
 import { mapGetters } from 'vuex';
 export default {
     name: 'Home',
     components: {
         top,
-        SideBar
-        // tags
+        SideBar,
+        tags
     },
     computed: {
       ...mapGetters(['isCollapse']),
@@ -90,6 +90,9 @@ export default {
   width: calc(100%-60px);
   background-color: #fff;
   box-sizing: border-box;
+  .container-tags {
+    border: 1px solid Transparent;
+  }
 }
 
 .container-main {

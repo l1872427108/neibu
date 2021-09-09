@@ -1,41 +1,42 @@
-import router, { lastRoute } from './router';
+import router from './router';
+import getPageTitle from './utils/getPageTitle';
+import {
+  Cookie,
+  Key
+} from './utils/cookie';
 import store from './store';
-import { Message } from 'element-ui';
-
-import { getToken } from '~/utils/auth';
 
 const whiteList = ['/login'];
 
 router.beforeEach(async (to, from, next) => {
-  const hasToken = getToken();
-  console.log(hasToken);
+  document.title = getPageTitle(to.meta.title);
+  const hasToken = Cookie.get(Key.accessTokenKey);
   if (hasToken) {
     if (to.path === '/login') {
       next({ path: '/' });
     } else {
-      const hasRoles = store.getters.roles && store.getters.roles.length > 0;
-      if (hasRoles) {
-        next();
-      } else {
-        try {
-          const { roles } = await store.dispatch('user/getInfo');
-          const accessRoutes = await store.dispatch('permission/generateRoutes', roles);
-          accessRoutes.forEach(v => {
-            router.addRoute({ ...v, ...lastRoute });
+      const hasGetUserInfo = Cookie.get(Key.userInfoKey);
+      console.log(JSON.parse(hasGetUserInfo));
+      if (hasGetUserInfo) {
+        // 有用户信息,  并且是已经初始化权限菜单
+        if (store.getters.init === false) {
+          store.dispatch('menu/GetUserMenu').then(() => {
+            // 继承访问目标路由且不会留下history记录
+            next({ ...to, replace: true });
           });
-          next({ ...to, replace: true });
-        } catch (error) {
-          await store.dispatch('user/resetToken');
-          Message.error(error || 'Has Error');
-          next('/login');
+        } else {
+          // 继承访问目标路由
+          next();
         }
+      } else {
+        window.location.href = `${process.env.VUE_APP_AUTH_URL}?redirectURL=${window.location.href}`;
       }
     }
   } else {
     if (whiteList.indexOf(to.path) !== -1) {
       next();
     } else {
-      next('/login');
+      window.location.href = `${process.env.VUE_APP_AUTH_URL}?redirectURL=${window.location.href}`;
     }
   }
 });

@@ -39,8 +39,8 @@ import {
   Popover,
   Tooltip,
   Scrollbar,
-  //   Breadcrumb,
-  //   BreadcrumbItem,
+  Breadcrumb,
+  BreadcrumbItem,
   Form,
   FormItem,
   Tabs,
@@ -107,6 +107,8 @@ Vue.use(Option);
 Vue.use(OptionGroup);
 Vue.use(Button);
 Vue.use(Calendar);
+Vue.use(Breadcrumb);
+Vue.use(BreadcrumbItem);
 // Vue.use(ButtonGroup);
 // Vue.use(Link);
 Vue.use(Table);

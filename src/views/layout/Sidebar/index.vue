@@ -40,7 +40,6 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'routes',
       'isCollapse'
     ]),
     variables () {
@@ -48,6 +47,9 @@ export default {
     },
     defaultActive () {
       return this.$route.path;
+    },
+    routes () {
+      return this.$router.options.routes;
     }
   }
 };
