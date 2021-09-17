@@ -16,6 +16,12 @@ export const publicRoutes = [
         }
     },
     {
+        path: '/pdf',
+        name: 'Pdf',
+        component: () => import('~/views/pdf'),
+        hidden: true
+    },
+    {
         path: '/',
         component: Layout,
         redirect: '/welcome',

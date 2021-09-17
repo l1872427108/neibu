@@ -1,13 +1,9 @@
 <template>
   <div class="container-wrap">
-    <basic-table
+    <el-table
     ref="multipleTable"
     :data="tableData"
-    tooltip-effect="dark"
-    :listLoading="loading"
-    :paddingBottom="70"
-    @activeIndex="activeIndex"
-    :default-sort = "{prop: 'date', order: 'descending'}">
+    tooltip-effect="dark">
         <el-table-column prop="name" align="center" label="名字" min-width="20%">
             <template slot-scope="scope">
             {{ scope.row.name }}
@@ -43,7 +39,7 @@
                 </el-tooltip>
             </template>
         </el-table-column>
-  </basic-table>
+  </el-table>
   </div>
 </template>
 
@@ -51,7 +47,7 @@
 import BasicTable from '~/components/Table/BasicTable.vue';
 export default {
     components: {
-        BasicTable
+        // BasicTable
     },
     data () {
         return {
@@ -83,119 +79,52 @@ export default {
                 bh: '1234333',
                 ht: '123'
 
-             }, {
-                status: '有效',
-                name: '王小虎',
-                ht: '123321',
-                bh: '1234333'
-             }, {
-                status: '有效',
-                name: '王小虎',
-                ht: '113',
-                bh: '1234333'
-             }, {
-                status: '有效',
-                name: '王小虎',
-                ht: '113',
-                bh: '1234333'
-             }, {
-                status: '有效',
-                name: '王小虎',
-                ht: '113',
-                bh: '1234333'
-             }, {
-                status: '有效',
-                name: '王小虎',
-                ht: '113',
-                bh: '1234333'
-             }, {
-                status: '有效',
-                name: '王小虎',
-                ht: '113',
-                bh: '1234333'
-             }, {
-                status: '有效',
-                name: '王小虎',
-                ht: '113',
-                bh: '1234333'
-             }, {
-                status: '有效',
-                name: '王小虎',
-                ht: '113',
-                bh: '1234333'
-             }, {
-                status: '有效',
-                name: '王小虎',
-                ht: '113',
-                bh: '1234333'
-             }, {
-                status: '有效',
-                name: '王小虎',
-                ht: '113',
-                bh: '1234333'
-             }, {
-                status: '有效',
-                name: '王小虎',
-                ht: '113',
-                bh: '1234333'
-             }, {
-                status: '有效',
-                name: '王小虎',
-                ht: '113',
-                bh: '1234333'
-             }, {
-                status: '有效',
-                name: '王小虎',
-                ht: '113',
-                bh: '1234333'
-             }, {
-                status: '有效',
-                name: '王小虎',
-                ht: '113',
-                bh: '1234333'
-             }, {
-                status: '有效',
-                name: '王小虎',
-                ht: '113',
-                bh: '1234333'
              }],
             clickIndex: -1
         };
     },
     mounted () {
-        setTimeout(() => {
-           this.loading = false;
-        }, 2000);
-        window.addEventListener('keydown', this.handleKeyupEvent);
+        // setTimeout(() => {
+        //    this.loading = false;
+        // }, 2000);
+        // api.searchInfo();
+        // searchInfo().then(res => {
+        //     console.log(res);
+        this.fetchData();
+        // });
+        // window.addEventListener('keydown', this.handleKeyupEvent);
     },
-    beforeDestroy () {
-        window.removeEventListener('keydown', this.handleKeyupEvent);
-    },
+    // beforeDestroy () {
+        // window.removeEventListener('keydown', this.handleKeyupEvent);
+    // },
     methods: {
-        activeIndex (activeIndexNumber) {
-            this.clickIndex = activeIndexNumber;
-        },
-
-        handleKeyupEvent (event) {
-            // event.preventDefault();
-            if (this.tableData.length === 0) {
-                return;
-            }
-            if (event.keyCode === 38) {
-                if (this.clickIndex !== 0) {
-                    this.toggleOffset(-1);
-                }
-            } else if (event.keyCode === 40) {
-                if (this.clickIndex !== this.tableData.length - 1) {
-                    this.toggleOffset(1);
-                }
-            }
-        },
-
-        toggleOffset (offset) {
-            this.clickIndex = this.clickIndex + offset;
-            this.$refs.multipleTable.setActiveRow(this.tableData[this.clickIndex]);
+        async fetchData () {
+            // api.searchInfo();
         }
+        // activeIndex (activeIndexNumber) {
+        //     this.clickIndex = activeIndexNumber;
+        // },
+
+        // handleKeyupEvent (event) {
+        //     // event.preventDefault();
+        //     if (this.tableData.length === 0) {
+        //         return;
+        //     }
+        //     if (event.keyCode === 38) {
+        //         if (this.clickIndex !== 0) {
+        //             this.toggleOffset(-1);
+        //         }
+        //     } else if (event.keyCode === 40) {
+        //         if (this.clickIndex !== this.tableData.length - 1) {
+        //             this.toggleOffset(1);
+        //         }
+        //     }
+        // },
+
+        // toggleOffset (offset) {
+        //     this.clickIndex = this.clickIndex + offset;
+        //     this.$refs.multipleTable.setActiveRow(this.tableData[this.clickIndex]);
+        // }
     }
 };
 </script>

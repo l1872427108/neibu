@@ -15,7 +15,7 @@
 
       <div class="container-main">
 
-        <el-scrollbar style="height:100%">
+        <!-- <el-scrollbar style="height:100%"> -->
           <keep-alive>
             <router-view
               v-if="$route.meta.keepAlive"
@@ -28,7 +28,7 @@
             :key="key"
             class="container-view"
           />
-        </el-scrollbar>
+        <!-- </el-scrollbar> -->
       </div>
     </div>
   </div>

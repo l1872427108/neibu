@@ -1,5 +1,6 @@
-
-
+/**
+ * 地址
+ */
 export const validateUrl = (val) => {
     const urlRegex = /^(https?|ftp):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/;
     return urlRegex.test(val);
@@ -57,4 +58,25 @@ export const identity = (rule, value, callback) => {
 
 export function isExternal (path) {
   return /^(https?:|mailto:|tel:)/.test(path);
+}
+
+
+/**
+ * 字符串
+ */
+ export function isString (str) {
+  if (typeof str === 'string' || str instanceof String) {
+    return true;
+  }
+  return false;
+}
+
+/**
+ * 数组
+ */
+export function isArray (arg) {
+  if (typeof Array.isArray === 'undefined') {
+    return Object.prototype.toString.call(arg) === '[object Array]';
+  }
+  return Array.isArray(arg);
 }
