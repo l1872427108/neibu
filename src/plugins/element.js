@@ -5,6 +5,7 @@ import {
   Pagination,
   Dialog,
   //   Autocomplete,
+  ColorPicker,
   Dropdown,
   DropdownMenu,
   DropdownItem,
@@ -93,6 +94,7 @@ Vue.use(MenuItem);
 Vue.use(MenuItemGroup);
 Vue.use(Input);
 Vue.use(InputNumber);
+Vue.use(TimePicker);
 Vue.use(Radio);
 Vue.use(RadioGroup);
 Vue.use(RadioButton);
@@ -115,7 +117,6 @@ Vue.use(Table);
 Vue.use(TableColumn);
 Vue.use(DatePicker);
 // Vue.use(TimeSelect);
-Vue.use(TimePicker);
 Vue.use(Timeline);
 Vue.use(TimelineItem);
 Vue.use(Popover);
@@ -129,6 +130,7 @@ Vue.use(TabPane);
 Vue.use(Tag);
 Vue.use(Tree);
 // Vue.use(Alert);
+Vue.use(ColorPicker);
 Vue.use(Slider);
 // Vue.use(Icon);
 Vue.use(Row);

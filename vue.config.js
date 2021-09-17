@@ -16,7 +16,14 @@ const projectConfig = {
       target: process.env.VUE_APP_BASE_API,
       changeOrigin: true,
       pathRewrite: {
-        ['^' + process.env.BASE_URL]: ''
+        // ['^' + process.env.BASE_URL + '$']: ''
+      }
+    },
+    '/inside': {
+      target: process.env.VUE_APP_BASE_API,
+      changeOrigin: true,
+      pathRewrite: {
+        // '^/inside$': ''
       }
     }
   }

@@ -1,8 +1,8 @@
 <template>
   <div class="sidebar-container">
-    <el-scrollbar
+    <!-- <el-scrollbar
       wrap-class="scrollbar-wrapper"
-    >
+    > -->
       <el-menu
         :collapse="isCollapse"
         :background-color="variables.menuBg"
@@ -22,7 +22,7 @@
           :base-path="route.path"
         />
       </el-menu>
-    </el-scrollbar>
+    <!-- </el-scrollbar> -->
   </div>
 </template>
 

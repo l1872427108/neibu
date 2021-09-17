@@ -5,6 +5,13 @@ export default {
   submitText: '确定',
   cancelText: '取消',
   search: '请输入搜索内容',
+  err: {
+    message: '消息',
+    stack: '堆栈',
+    info: ' 信息',
+    time: '时间',
+    title: '错误日志'
+  },
   route: {
     info: '个人信息'
   },

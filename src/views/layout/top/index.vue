@@ -13,16 +13,16 @@
       </div>
     </div>
     <div class="top-right">
-      <!-- <el-tooltip
+      <el-tooltip
         v-if="showColor"
         effect="dark"
         :content="$t('navbar.color')"
         placement="bottom"
       >
         <div class="top-item">
-          <top-color />
+          <!-- <top-color class="top-color" /> -->
         </div>
-      </el-tooltip> -->
+      </el-tooltip>
 
       <el-tooltip
         v-if="showDebug"
@@ -32,17 +32,6 @@
       >
         <div class="top-item">
           <top-logs />
-        </div>
-      </el-tooltip>
-
-      <el-tooltip
-        v-if="showLock"
-        effect="dark"
-        :content="$t('navbar.lock')"
-        placement="bottom"
-      >
-        <div class="top-item">
-          <top-lock />
         </div>
       </el-tooltip>
 
@@ -112,7 +101,6 @@ import { mapGetters, mapState } from 'vuex';
 // import topColor from './topColor.vue';
 import Breadcrumb from '~/components/Breadcrumb';
 import topLogs from './topLogs.vue';
-import topLock from './topLock.vue';
 import topTheme from './topTheme.vue';
 import topLang from './topLang.vue';
 import { fullscreenToggel, listenerfullscreen } from '~/utils/util';
@@ -120,7 +108,6 @@ export default {
   components: {
     // topColor,
     topLogs,
-    topLock,
     topTheme,
     topLang,
     Breadcrumb
@@ -129,7 +116,6 @@ export default {
     return {
       showColor: true,
       showDebug: true,
-      showLock: true,
       showTheme: true,
       showFullScren: true,
       userInfo: {
@@ -197,9 +183,7 @@ export default {
         }
     }
 }
-.breadcrumb-container {
-  /* background: red; */
-}
+
 
 .top-left,
 .top-right {
@@ -244,5 +228,6 @@ export default {
   border: 1px solid #eee;
   vertical-align: middle;
 }
+
 
 </style>
