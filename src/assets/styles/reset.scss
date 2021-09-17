@@ -55,7 +55,7 @@ textarea { -webkit-appearance: none;}
 html,body, #app{
     height: 100%;
     width: 100%;
-    overflow: hidden;
+    // overflow: hidden;
 }
 
 
@@ -76,7 +76,7 @@ html,body, #app{
 }
 
 .ellipsis{
-    overflow: hidden;
+    // overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }

@@ -5,6 +5,13 @@ export default {
   submitText: 'submit',
   cancelText: 'cancel',
   search: 'Please input search content',
+  err: {
+    message: 'Message',
+    stack: 'Stack',
+    info: ' Info',
+    time: 'Time',
+    title: 'Error Log'
+  },
   route: {
     info: 'info',
     tags: 'tags',

@@ -2,6 +2,7 @@ const getters = {
     token: state => state.user.token,
     roles: state => state.user.roles,
     routes: state => state.permission.routes,
+    logsList: state => state.logs.logsList,
     colorName: state => state.common.colorName,
     language: state => state.common.language,
     isCollapse: state => state.common.isCollapse,

@@ -10,13 +10,12 @@ import {
 
 
 const service = axios.create({
-    baseURL: process.env.BASE_URL, // url = base url + request url
-    timeout: 5000
+    baseURL: process.env.VUE_APP_BASE_API + process.env.BASE_URL // url = base url + request url
+    // timeout: 5000
 });
 
 
 service.interceptors.request.use(params => {
-    console.log(params);
     showLoading();
     const config = {
         ...params,
@@ -61,17 +60,17 @@ error => {
         return Promise.reject(error);
     }
 
-    // 401 发送刷新令牌请求
-    let isLock = true;
+    // // 401 发送刷新令牌请求
+    // let isLock = true;
 
-    if (isLock && Cookie.get(Key.refreshTokenKey)) {
-        // 有刷新令牌
-        isLock = false;
-        window.location.href = `${process.env.VUE_APP_AUTH_URL}/refresh?redirectURL=${window.location.href}`;
-    } else {
-        window.location.href = `${process.env.VUE_APP_AUTH_URL}?redirectURL=${window.location.href}`;
-    }
-    return Promise.reject('令牌过期，重新认证');
+    // if (isLock && Cookie.get(Key.refreshTokenKey)) {
+    //     // 有刷新令牌
+    //     isLock = false;
+    //     window.location.href = `${process.env.VUE_APP_AUTH_URL}/refresh?redirectURL=${window.location.href}`;
+    // } else {
+    //     window.location.href = `${process.env.VUE_APP_AUTH_URL}?redirectURL=${window.location.href}`;
+    // }
+    // return Promise.reject('令牌过期，重新认证');
 });
 
 export const get = (url, config = {}, loading = true) => {
