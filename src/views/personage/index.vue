@@ -4,97 +4,65 @@
       <el-form ref="ruleForm" :model="ruleform" :rules="rules" label-width="100px">
         <span class="xinxi">基本信息</span>
         <div class="lbiaodan">
-          <el-form-item label="姓 名:" class="name " prop="names">
-            <el-input v-model="ruleform.names" size="medium"></el-input>
+          <el-form-item label="姓 名:" class="name " prop="name">
+            <el-input :disabled="flag" v-model="ruleform.name" size="medium"></el-input>
           </el-form-item>
-          <el-form-item label="性 别:" class="zuo" prop="sex">
-            <el-radio-group v-model="ruleform.sex">
-              <el-radio label="男"></el-radio>
-              <el-radio label="女"></el-radio>
+          <el-form-item label="性 别:" class="zuo" prop="pugeSex">
+            <el-radio-group v-model="ruleform.pugeSex">
+              <el-radio :disabled="flag" label="男"></el-radio>
+              <el-radio :disabled="flag" label="女"></el-radio>
             </el-radio-group>
           </el-form-item>
-          <el-form-item label="手机号:" class="phone" prop="phone">
-            <el-input v-model="ruleform.phone" size="medium"></el-input>
+          <el-form-item label="手机号:" class="phone" prop="mobile">
+            <el-input :disabled="flag" v-model="ruleform.mobile" size="medium"></el-input>
           </el-form-item>
-          <el-form-item label="身份证号:" class="sfz" prop="sfz">
-            <el-input v-model="ruleform.sfz" size="medium"></el-input>
+          <el-form-item label="身份证号:" class="sfz" prop="nubmerInfo">
+            <el-input :disabled="flag" v-model="ruleform.nubmerInfo" size="medium"></el-input>
           </el-form-item>
-          <el-form-item label="所在省市:" class="zuo" prop="shengshi">
-            <el-cascader
-              v-model="ruleform.area"
-              :options="areaList"
-              :props="optionProps"
-              filterable
-              ref="myCascader"
-            ></el-cascader>
+          <el-form-item label="家庭地址:" class="dress" prop="nativeInfo">
+            <el-input :disabled="flag" v-model="ruleform.nativeInfo" size="medium"></el-input>
           </el-form-item>
-          <el-form-item label="街道地址:" class="dress" prop="dress">
-            <el-input v-model="ruleform.dress" size="medium"></el-input>
+          <el-form-item label="家庭状况:" class="family" prop="familyMoneyInfo">
+            <el-input :disabled="flag" v-model="ruleform.nativeInfo" size="medium"></el-input>
           </el-form-item>
-          <el-form-item label="家庭人数:" class="zuo" prop="renshu">
+          <el-form-item label="家庭人数:" class="zuo" prop="familyNumber">
             <el-input-number
               class="jiating"
-              v-model="ruleform.renshu"
+              v-model="ruleform.familyNumber"
+              :disabled="flag"
               controls-position="right"
               @change="handleChange"
               :min="1"
               :max="10"
-            ></el-input-number>  
+            ></el-input-number>
           </el-form-item>
           <el-form-item label="是否单亲:" class="zuo">
-            <el-radio-group v-model="ruleform.danqin">
-              <el-radio label="是"></el-radio>
-              <el-radio label="否"></el-radio>
+            <el-radio-group v-model="ruleform.yesnoInfo">
+              <el-radio :label="'1'" :disabled="flag">是</el-radio>
+              <el-radio :label="'0'" :disabled="flag">否</el-radio>
             </el-radio-group>
           </el-form-item>
         </div>
         <span class="xinxi">更多信息</span>
         <div class="rbiaodan">
-          <el-form-item label="普歌工号:" class="gonghao" prop="gonghao">
-            <el-input v-model="ruleform.gonghao" size="medium"></el-input>
+          <el-form-item label="普歌工号:" class="gonghao" prop="pugeNumber">
+            <el-input :disabled="flag" v-model="ruleform.pugeNumber" size="medium"></el-input>
           </el-form-item>
-          <el-form-item label="分配基地:" class="jidi" prop="jidi">
-            <el-input v-model="ruleform.jidi" size="medium"></el-input>
+          <el-form-item label="邮 箱:" class="email" prop="pugeEmail">
+            <el-input :disabled="flag" v-model="ruleform.pugeEmail" size="medium"></el-input>
           </el-form-item>
-          <el-form-item label="岗 位:" class="gangwei" prop="gangwei">
-            <el-select v-model="ruleform.gangwei" placeholder="请选择岗位">
-              <el-option label="校区总监" value="shanghai"></el-option>
-              <el-option label="校区副总监" value="beijing"></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="学 院:" class="xueyuan" prop="xueyuan">
-            <el-input v-model="ruleform.xueyuan" size="medium"></el-input>
-          </el-form-item>
-          <el-form-item label="班 级:" class="banji" prop="banji">
-            <el-input v-model="ruleform.banji" size="medium"></el-input>
-          </el-form-item>
-          <el-form-item label="邮 箱:" class="email" prop="email">
-            <el-input v-model="ruleform.email" size="medium"></el-input>
-          </el-form-item>
-          <el-form-item label="生 日:" class="brithday" prop="brithday">
-            <el-date-picker
-              type="date"
-              placeholder="选择日期"
-              v-model="ruleform.brithday"
-              style="width: 100%"
-            ></el-date-picker>
-          </el-form-item>
-          <el-form-item label="个性签名:" class="qianming">
-            <el-input type="textarea" placeholder="请输入内容" v-model="textarea" maxlength="300" show-word-limit>
-            </el-input>
-          </el-form-item>
-          <el-form-item label="用户密码:" prop="mima">
-            <el-input type="password" v-model="ruleform.mima" size="medium"></el-input>
+          <el-form-item label="生 日:" class="brithday" prop="pugeBirthday">
+            <el-date-picker :disabled="flag" v-model="ruleform.pugeBirthday" type="date" placeholder="选择日期">
+            </el-date-picker>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm')">保存</el-button>
-            <el-button @click="dialogForm = false">取消</el-button>
+            <el-button @click="handleEdit()">修改</el-button>
+            <el-button type="primary" @click="submitForm('ruleForm')" :disabled="fa">保存</el-button>
           </el-form-item>
         </div>
       </el-form>
     </div>
     <div class="gr-right">
-      <!-- <img src="~/assets/img/picture.png" alt="" /> -->
       <Upload class="shangchuan" action="http://123.com"></Upload>
     </div>
   </div>
@@ -103,93 +71,122 @@
 <script>
 import Upload from '~/components/Upload';
 import { identity, checkPhone, checkEmail, sfz } from '~/utils/validate';
+import { searchInfo, putInfo } from '@/api/info';
 export default {
   components: {
-    Upload,
+    Upload
   },
   name: 'Page',
-  data() {
+  data () {
     return {
-      // renshu: 1,
+      pickerOptions: {
+        disabledDate (time) {
+          return time.getTime() > Date.now();
+        }
+      },
+      list: [],
       text: '',
       textarea: '',
-      // eslint-disable-next-line
-      areaList: rawCitiesData,
+      flag: true,
+      fa: true,
       optionProps: {
         value: 'code',
         label: 'name',
-        children: 'sub',
+        children: 'sub'
       },
-      ruleform: {
-        renshu: 1,
-        namess: '',
-        region: '',
-        sex: '男',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: '',
-        imageUrl: '',
-        danqin: '否',
-        area: [],
-        email: '',
-      },
+      ruleform: {},
 
       rules: {
-        names: [
+        name: [
           { required: true, message: '请输入姓名', trigger: 'blur' },
           {
             min: 3,
             max: 5,
             message: '长度在 3 到 5 个字符',
-            trigger: 'blur',
-          },
-        ],
-        shengshi: [
-          {
-            required: true,
-            message: '请填写所在省市',
-            trigger: 'blur',
-          },
+            trigger: 'blur'
+          }
         ],
         dress: [{ required: true, message: '请填写地址', trigger: 'blur' }],
         gonghao: [{ required: true, message: '请填写工号', trigger: 'blur' }],
-        jidi: [{ required: true, message: '请填写正确的基地', trigger: 'blur' }],
-        gangwei: [{ required: true, message: '请填写所在岗位', trigger: 'blur' }],
-        email: [{ required: true, validator: checkEmail, trigger: 'blur' }],
-        phone: [{ required: true, validator: checkPhone, trigger: 'blur' }],
+        email: [{ required: true, message: '请填写正确的邮箱', validator: checkEmail, trigger: 'blur' }],
+        phone: [{ required: true, message: '请填写手机号', validator: checkPhone, trigger: 'blur' }],
         sfz: [{ required: true, validator: sfz, message: '请填写正确的证件号码', trigger: 'blur' }],
-        xueyuan: [{ required: true, message: '请填写所在学院', trigger: 'blur' }],
-        banji: [{ required: true, message: '请填写所在班级', trigger: 'blur' }],
+        nativeInfo: [{ required: true, message: '请填写家庭地址', trigger: 'blur' }],
+        familyMoneyInfo: [{ required: true, message: '请填写家庭状况', trigger: 'blur' }],
         brithday: [
           {
             required: true,
             type: 'date',
             message: '请选择日期',
-            trigger: 'change',
-          },
-        ],
-      },
+            trigger: 'change'
+          }
+        ]
+      }
     };
   },
+  created () {
+    // 初始化获取列表数据
+    this.fetchData();
+  },
   methods: {
-    submitForm(formName) {
+    fetchData () {
+      searchInfo()
+        .then(res => {
+          console.log(res.data);
+          this.ruleform = res.data.peopleInfo;
+          console.log(this.ruleform);
+        })
+        .catch(() => {
+          this.$message.erro('加载失败');
+        });
+    },
+
+    resetForm (formName) {
+      this.$refs[formName].resetFields();
+    },
+
+    handleChange (value) {
+      console.log(value);
+    },
+    // 修改
+    handleEdit () {
+      this.flag = false;
+      this.fa = false;
+    },
+
+    // 修改用户信息
+    async submitData () {
+      let res = null;
+      if (this.ruleform.id) {
+        res = await putInfo(this.ruleform);
+      }
+      if (res.code === 20000) {
+        this.$message({
+          message: '保存成功',
+          type: 'success'
+        });
+      } else {
+        this.$message({
+          message: '保存失败,请重新输入',
+          type: 'error'
+        });
+      }
+      this.fetchData();
+    },
+    // 保存
+    submitForm (formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          console.log('submit');
+          this.submitData();
+          this.flag = true;
+          this.fa = true;
         } else {
           console.log('error submit!!');
           return false;
         }
       });
-    },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
-    },
-    handleChange(value) {
-      console.log(value);
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -199,7 +196,7 @@ export default {
 }
 .gr-right {
   float: right;
-  margin-top: 70px;
+  margin-top: 100px;
   margin-right: 260px;
 }
 .lbiaodan {
@@ -211,7 +208,7 @@ export default {
 .rbiaodan {
   margin-top: 50px;
   margin-left: 100px;
-  margin-bottom: 100px;
+  margin-bottom: 80px;
 }
 .el-form-item__label {
   color: #000;
