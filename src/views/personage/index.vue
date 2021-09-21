@@ -1,31 +1,90 @@
 <template>
   <div class="gr">
     <div class="gr-left">
-      <el-form ref="ruleForm" :model="ruleform" :rules="rules" label-width="100px">
+      <el-form
+        ref="ruleForm"
+        :model="ruleform"
+        :rules="rules"
+        label-width="100px"
+      >
         <span class="xinxi">基本信息</span>
         <div class="lbiaodan">
-          <el-form-item label="姓 名:" class="name " prop="name">
-            <el-input :disabled="flag" v-model="ruleform.name" size="medium"></el-input>
+          <el-form-item
+            label="姓 名:"
+            class="name "
+            prop="name"
+          >
+            <el-input
+              :disabled="flag"
+              v-model="ruleform.name"
+              size="medium"
+            ></el-input>
           </el-form-item>
-          <el-form-item label="性 别:" class="zuo" prop="pugeSex">
+          <el-form-item
+            label="性 别:"
+            class="zuo"
+            prop="pugeSex"
+          >
             <el-radio-group v-model="ruleform.pugeSex">
-              <el-radio :disabled="flag" label="男"></el-radio>
-              <el-radio :disabled="flag" label="女"></el-radio>
+              <el-radio
+                :disabled="flag"
+                label="男"
+              ></el-radio>
+              <el-radio
+                :disabled="flag"
+                label="女"
+              ></el-radio>
             </el-radio-group>
           </el-form-item>
-          <el-form-item label="手机号:" class="phone" prop="mobile">
-            <el-input :disabled="flag" v-model="ruleform.mobile" size="medium"></el-input>
+          <el-form-item
+            label="手机号:"
+            class="phone"
+            prop="mobile"
+          >
+            <el-input
+              :disabled="flag"
+              v-model="ruleform.mobile"
+              size="medium"
+            ></el-input>
           </el-form-item>
-          <el-form-item label="身份证号:" class="sfz" prop="nubmerInfo">
-            <el-input :disabled="flag" v-model="ruleform.nubmerInfo" size="medium"></el-input>
+          <el-form-item
+            label="身份证号:"
+            class="sfz"
+            prop="nubmerInfo"
+          >
+            <el-input
+              :disabled="flag"
+              v-model="ruleform.nubmerInfo"
+              size="medium"
+            ></el-input>
           </el-form-item>
-          <el-form-item label="家庭地址:" class="dress" prop="nativeInfo">
-            <el-input :disabled="flag" v-model="ruleform.nativeInfo" size="medium"></el-input>
+          <el-form-item
+            label="家庭地址:"
+            class="dress"
+            prop="nativeInfo"
+          >
+            <el-input
+              :disabled="flag"
+              v-model="ruleform.nativeInfo"
+              size="medium"
+            ></el-input>
           </el-form-item>
-          <el-form-item label="家庭状况:" class="family" prop="familyMoneyInfo">
-            <el-input :disabled="flag" v-model="ruleform.nativeInfo" size="medium"></el-input>
+          <el-form-item
+            label="家庭状况:"
+            class="family"
+            prop="familyMoneyInfo"
+          >
+            <el-input
+              :disabled="flag"
+              v-model="ruleform.nativeInfo"
+              size="medium"
+            ></el-input>
           </el-form-item>
-          <el-form-item label="家庭人数:" class="zuo" prop="familyNumber">
+          <el-form-item
+            label="家庭人数:"
+            class="zuo"
+            prop="familyNumber"
+          >
             <el-input-number
               class="jiating"
               v-model="ruleform.familyNumber"
@@ -36,34 +95,75 @@
               :max="10"
             ></el-input-number>
           </el-form-item>
-          <el-form-item label="是否单亲:" class="zuo">
+          <el-form-item
+            label="是否单亲:"
+            class="zuo"
+          >
             <el-radio-group v-model="ruleform.yesnoInfo">
-              <el-radio :label="'1'" :disabled="flag">是</el-radio>
-              <el-radio :label="'0'" :disabled="flag">否</el-radio>
+              <el-radio
+                :label="'1'"
+                :disabled="flag"
+              >是</el-radio>
+              <el-radio
+                :label="'0'"
+                :disabled="flag"
+              >否</el-radio>
             </el-radio-group>
           </el-form-item>
         </div>
         <span class="xinxi">更多信息</span>
         <div class="rbiaodan">
-          <el-form-item label="普歌工号:" class="gonghao" prop="pugeNumber">
-            <el-input :disabled="flag" v-model="ruleform.pugeNumber" size="medium"></el-input>
+          <el-form-item
+            label="普歌工号:"
+            class="gonghao"
+            prop="pugeNumber"
+          >
+            <el-input
+              :disabled="flag"
+              v-model="ruleform.pugeNumber"
+              size="medium"
+            ></el-input>
           </el-form-item>
-          <el-form-item label="邮 箱:" class="email" prop="pugeEmail">
-            <el-input :disabled="flag" v-model="ruleform.pugeEmail" size="medium"></el-input>
+          <el-form-item
+            label="邮 箱:"
+            class="email"
+            prop="pugeEmail"
+          >
+            <el-input
+              :disabled="flag"
+              v-model="ruleform.pugeEmail"
+              size="medium"
+            ></el-input>
           </el-form-item>
-          <el-form-item label="生 日:" class="brithday" prop="pugeBirthday">
-            <el-date-picker :disabled="flag" v-model="ruleform.pugeBirthday" type="date" placeholder="选择日期">
+          <el-form-item
+            label="生 日:"
+            class="brithday"
+            prop="pugeBirthday"
+          >
+            <el-date-picker
+              :disabled="flag"
+              v-model="ruleform.pugeBirthday"
+              type="date"
+              placeholder="选择日期"
+            >
             </el-date-picker>
           </el-form-item>
           <el-form-item>
             <el-button @click="handleEdit()">修改</el-button>
-            <el-button type="primary" @click="submitForm('ruleForm')" :disabled="fa">保存</el-button>
+            <el-button
+              type="primary"
+              @click="submitForm('ruleForm')"
+              :disabled="fa"
+            >保存</el-button>
           </el-form-item>
         </div>
       </el-form>
     </div>
-    <div class="gr-right">
-      <Upload class="shangchuan" action="http://123.com"></Upload>
+    <div class="gr-right" style="text-align:center;">
+      <div style="width:100px;height:100px;border:1px solid gray; margin-bottom:20px;">
+        <img :src="this.ruleform.photo" width="100px" height='100px' />
+      </div>
+      <Upload @func="UserUrl" :fa="this.fa"></Upload>
     </div>
   </div>
 </template>
@@ -95,6 +195,7 @@ export default {
         children: 'sub'
       },
       ruleform: {},
+      url: '',
 
       rules: {
         name: [
@@ -185,6 +286,9 @@ export default {
           return false;
         }
       });
+    },
+    UserUrl (val) {
+      this.ruleform.photo = val;
     }
   }
 };
