@@ -149,9 +149,9 @@ export default {
         cancelButtonText: this.$t('cancelText'),
         type: 'warning'
       }).then(() => {
-        // this.$store.dispatch('user/logout').then(() => {
-        //   this.$router.push({ path: '/login' });
-        // });
+        this.$store.dispatch('menu/logout').then(() => {
+          window.location.href = `${process.env.VUE_APP_AUTH_URL}?redirectURL=${window.location.href}`;
+        });
         window.location.href = `${process.env.VUE_APP_AUTH_URL}?redirectURL=${window.location.href}`;
       });
     },

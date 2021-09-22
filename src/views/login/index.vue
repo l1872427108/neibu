@@ -15,7 +15,7 @@
           {{ time }}
         </div>
         <img
-          src="../../assets/img/logo.png"
+          src="~/assets/img/logo.png"
           class="login-img"
           alt=""
         >

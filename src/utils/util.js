@@ -172,7 +172,7 @@ export const download = (link, fileName) => {
  * 生成一个随机数字
  */
 
- export const randomString = (length) => {
+export const randomString = (length) => {
     const str = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     let result = '';
     for (let i = length; i > 0; --i) { result += str[Math.floor(Math.random() * str.length)]; }

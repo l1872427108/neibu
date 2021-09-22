@@ -1,8 +1,6 @@
 <template>
   <div>
-    <transition name="fade">
-      <span />
-    </transition>
+
   </div>
 </template>
 

@@ -1,9 +1,6 @@
 import { login, getInfo, logout } from '~/api/user';
-import { setToken, getToken, removeToken } from '~/utils/auth';
-import router, { resetRouter } from '~/router';
 
 const state = {
-    token: getToken('Admin-Token'),
     roles: []
 };
 
@@ -27,7 +24,6 @@ const actions = {
             login({ username: username.trim(), password: password }).then((response) => {
                 const { data } = response;
                 commit('SET_TOKEN', data.token);
-                setToken(data.token);
                 resolve();
             }).catch(error => {
                 reject(error);
@@ -55,11 +51,7 @@ const actions = {
     logout ({ commit, state, dispatch }) {
         return new Promise((resolve, reject) => {
           logout(state.token).then(() => {
-            commit('SET_TOKEN', '');
             commit('SET_ROLES', []);
-            // removeToken();
-            // 然后要重置
-            resetRouter();
             resolve();
           }).catch(error => {
             reject(error);

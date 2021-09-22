@@ -3,6 +3,7 @@ const resolve = (dir) => {
     return path.join(__dirname, dir);
 };
 
+
 const projectConfig = {
   pages: {
     index: {
@@ -16,10 +17,17 @@ const projectConfig = {
       target: process.env.VUE_APP_BASE_API,
       changeOrigin: true,
       pathRewrite: {
-        // ['^' + process.env.BASE_URL + '$']: ''
+        ['^' + process.env.BASE_URL + '$']: ''
       }
     },
-    '/inside': {
+    // '/inside/thirdService': {
+    //   target: 'http://47.93.45.7:8003',
+    //   changeOrigin: true,
+    //   pathRewrite: {
+    //     // '^/inside$': ''
+    //   }
+    // },
+    '/inside/inside': {
       target: process.env.VUE_APP_BASE_API,
       changeOrigin: true,
       pathRewrite: {
@@ -46,7 +54,6 @@ module.exports = {
         }
     },
     chainWebpack: (config) => {
-
     },
     configureWebpack: {
         devtool: process.env.NODE_ENV === 'dev' ? 'cheap-module-eval-source-map' : 'source-map',

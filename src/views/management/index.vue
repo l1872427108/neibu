@@ -3,128 +3,109 @@
     <el-table
     ref="multipleTable"
     :data="tableData"
-    tooltip-effect="dark">
-        <el-table-column prop="name" align="center" label="名字" min-width="20%">
+    tooltip-effect="dark"
+    border>
+        <el-table-column prop="name" align="center" label="名字" min-width="30%">
             <template slot-scope="scope">
-            {{ scope.row.name }}
+            {{ scope.row.contractName }}
             </template>
         </el-table-column>
-        <el-table-column prop="status" align="center" label="状态" min-width="20%">
+        <el-table-column prop="status" align="center" label="状态" min-width="30%">
             <template slot-scope="scope">
-            {{ scope.row.status }}
+            {{ scope.row.contractStatus | filterStatus }}
             </template>
         </el-table-column>
         <el-table-column prop="ht" align="center" label="合同" min-width="20%">
             <template slot-scope="scope">
-            {{ scope.row.ht }}
+            {{ scope.row.contractComplete }}
             </template>
         </el-table-column>
-        <el-table-column prop="bh" align="center" label="编号" min-width="20%" sortable>
+        <el-table-column prop="bh" align="center" label="编号" min-width="30%" sortable>
             <template slot-scope="scope">
-            {{ scope.row.bh }}
+            {{ scope.row.contractId}}
             </template>
         </el-table-column>
-        <el-table-column
-        label="操作"
-        min-width="20%"
-        align="center"
-        >
-            <template slot-scope="{row}">
-                <div v-if="false">{{row}}</div>
-                <el-tooltip class="item" content="编辑" placement="top">
-                    <span class="el-icon-edit"></span>
-                </el-tooltip>
-                <el-tooltip class="item" content="添加" placement="top">
-                    <span class="el-icon-delete"></span>
-                </el-tooltip>
-            </template>
-        </el-table-column>
+
+        <el-table-column align="center" label="操作">
+        <template slot-scope="scope">
+          <el-button v-if="scope.row.contractStatus !== '4'" :disabled="scope.row.contractStatus === '2'" type="success" size="mini" @click="handleClick(scope.row.contractId, scope.row.id, scope.row.contractComplete, scope.row.contractStatus)">
+            {{scope.row.contractStatus | messageStatus}}
+          </el-button>
+          <el-button type="danger" size="mini" @click="handleDelete(scope.row.id)">
+            {{scope.row.contractStatus | terminateStatus}}
+          </el-button>
+        </template>
+      </el-table-column>
   </el-table>
+  <contract-dialog v-if="contractComplete" :image="contractComplete" :remote-close="remoteClose" :visible="visible"></contract-dialog>
   </div>
 </template>
 
 <script>
-import BasicTable from '~/components/Table/BasicTable.vue';
+import { search, personalContract } from '~/api/contract';
+import { filterStatus, messageStatus, terminateStatus } from '~/filters/filter';
+import contractDialog from './contractDialog.vue';
+import { mapGetters } from 'vuex';
 export default {
     components: {
-        // BasicTable
+        contractDialog
     },
     data () {
         return {
             loading: true,
-            tableData: [{
-                status: '有效',
-                name: '王小虎',
-                ht: '123',
-                bh: '1234333'
-             }, {
-                status: '有效',
-                name: '王小虎',
-                ht: '123',
-                bh: '1234333'
-             }, {
-                status: '有效',
-                name: '王小虎',
-                bh: '1234333',
-                ht: '123'
-             }, {
-                status: '有效',
-                name: '王小虎',
-                bh: '1234333',
-                ht: '123'
-
-             }, {
-                status: '有效',
-                name: '王小虎',
-                bh: '1234333',
-                ht: '123'
-
-             }],
-            clickIndex: -1
+            tableData: [],
+            visible: false,
+            contractComplete: '',
+            terminate: 0,
+            id: -1
         };
     },
-    mounted () {
-        // setTimeout(() => {
-        //    this.loading = false;
-        // }, 2000);
-        // api.searchInfo();
-        // searchInfo().then(res => {
-        //     console.log(res);
-        this.fetchData();
-        // });
-        // window.addEventListener('keydown', this.handleKeyupEvent);
+    filters: {
+        filterStatus,
+        messageStatus,
+        terminateStatus
     },
-    // beforeDestroy () {
-        // window.removeEventListener('keydown', this.handleKeyupEvent);
-    // },
+    mounted () {
+        this.fetchData();
+    },
+    computed: {
+        ...mapGetters(['userInfo'])
+    },
     methods: {
         async fetchData () {
-            // api.searchInfo();
+            search(this.userInfo.uid).then(res => {
+                this.tableData = res.data.PContract;
+            });
+        },
+        handleClick (contractId, id, contractComplete = '', contractStatus) {
+            console.log(contractStatus);
+            if (!contractComplete || contractStatus === '5') {
+                this.$router.push({ name: 'Pdf', query: { contractId, id } });
+            } else {
+                this.contractComplete = contractComplete;
+                this.visible = true;
+            }
+            this.fetchData();
+        },
+        handleDelete (id) {
+            this.$confirm('解约', {
+                confirmButtonText: '解约',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                personalContract(id).then(res => {
+                    this.$message.info('已提交解约申请');
+                    this.fetchData();
+                }).catch(() => {
+                    this.$message.info('解约失败');
+                });
+            }).catch(() => { this.$message.info('取消解约'); });
+            this.fetchData();
+        },
+        remoteClose () {
+            this.visible = false;
+            this.fetchData();
         }
-        // activeIndex (activeIndexNumber) {
-        //     this.clickIndex = activeIndexNumber;
-        // },
-
-        // handleKeyupEvent (event) {
-        //     // event.preventDefault();
-        //     if (this.tableData.length === 0) {
-        //         return;
-        //     }
-        //     if (event.keyCode === 38) {
-        //         if (this.clickIndex !== 0) {
-        //             this.toggleOffset(-1);
-        //         }
-        //     } else if (event.keyCode === 40) {
-        //         if (this.clickIndex !== this.tableData.length - 1) {
-        //             this.toggleOffset(1);
-        //         }
-        //     }
-        // },
-
-        // toggleOffset (offset) {
-        //     this.clickIndex = this.clickIndex + offset;
-        //     this.$refs.multipleTable.setActiveRow(this.tableData[this.clickIndex]);
-        // }
     }
 };
 </script>

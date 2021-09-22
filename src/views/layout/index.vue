@@ -15,7 +15,7 @@
 
       <div class="container-main">
 
-        <!-- <el-scrollbar style="height:100%"> -->
+        <el-scrollbar style="height:100%">
           <keep-alive>
             <router-view
               v-if="$route.meta.keepAlive"
@@ -28,7 +28,7 @@
             :key="key"
             class="container-view"
           />
-        <!-- </el-scrollbar> -->
+        </el-scrollbar>
       </div>
     </div>
   </div>
@@ -86,6 +86,11 @@ export default {
 }
 
 .container-header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  z-index: 99;
   padding-left: $sideBarWidth;
   width: calc(100%-60px);
   background-color: #fff;
@@ -98,9 +103,10 @@ export default {
 .container-main {
   position: absolute;
   left: $sideBarWidth;
+  top: 100px;
   padding: 0;
   width: calc(100% - 200px);
-  height: calc(100% - 65px);
+  height: calc(100% - 100px);
   box-sizing: border-box;
   overflow: auto;
 }
@@ -119,7 +125,7 @@ export default {
     padding-left: $sideBarCollapseWidth;
   }
   .container-main {
-    width: calc(100% - $sideBarCollapseWidth);
+    width: calc(100% - 60px);
     left: $sideBarCollapseWidth;
   }
   .container-left {
