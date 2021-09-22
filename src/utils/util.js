@@ -168,7 +168,6 @@ export const download = (link, fileName) => {
     document.body.removeChild(eleLink);
 };
 
-
 /**
  * 生成一个随机数字
  */
