@@ -73,9 +73,6 @@ export default {
      */
     canvasClear () {
       this.$refs.SignCanvas.canvasClear();
-      // const img = this.$refs.SignCanvas.saveAsImg();
-      // console.log(img);
-      // this.$emit('getImage', img);
     },
 
     /**

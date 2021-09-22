@@ -1,20 +1,19 @@
 <template>
     <el-scrollbar style="height:100%">
-    <!-- <div style="overflow: scroll;"> -->
-        <PdfSign @showFlag="showFlag" :image="image" class="pdfSign">
-        </PdfSign>
-        <Signature
-        :visible.sync="receiverSignFlag"
-        @getImage="getImage"
-        ></Signature>
+        <pdfSign :isControl="isControl" @showFlag="showFlag" :image="image" class="pdfSign" />
+        <div class="wrap">
+            <signature
+            :visible.sync="receiverSignFlag"
+            @getImage="getImage"
+            />
          <div class="sign" v-if="show">
-                <el-button
-                type="primary"
-                @click="handleReceiverFlag"
-                icon="el-icon-edit"
-                >签字</el-button>
+            <el-button
+            type="primary"
+            style="width: 200px;"
+            @click="handleReceiverFlag"
+            >签署名字</el-button>
         </div>
-    <!-- </div> -->
+        </div>
     </el-scrollbar>
 </template>
 
@@ -31,16 +30,20 @@ export default {
             image: '',
             widthDialog: 0,
             receiverSignFlag: false,
-            show: false
+            show: false,
+            url: '',
+            isControl: false
         };
+    },
+    created () {
     },
     methods: {
         handleReceiverFlag () {
-            this.receiverSignFlag = true;
+                this.receiverSignFlag = true;
+                this.isControl = true;
         },
         getImage (img) {
             this.image = img;
-            console.log(img);
         },
         showFlag (e) {
             this.show = e;
@@ -50,10 +53,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.wrap {
+    margin-bottom: 50px;
+}
 .sign {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-content: center;
-    margin-bottom: 100px;
+    margin-left: 20%;
 }
 </style>

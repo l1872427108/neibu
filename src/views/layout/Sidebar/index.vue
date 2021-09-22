@@ -1,8 +1,8 @@
 <template>
   <div class="sidebar-container">
-    <!-- <el-scrollbar
+    <el-scrollbar
       wrap-class="scrollbar-wrapper"
-    > -->
+    >
       <el-menu
         :collapse="isCollapse"
         :background-color="variables.menuBg"
@@ -11,18 +11,15 @@
         :active-text-color="variables.menuActiveText"
         :collapse-transition="false"
         mode="vertical"
-        router
-        :default-active="defaultActive"
+        :default-active="$route.path"
       >
         <sidebar-item
-          v-for="route in routes"
-          :key="route.path"
-          class="nest-menu"
-          :item="route"
-          :base-path="route.path"
+          v-for="menu in menuList"
+          :key="menu.id"
+          :item="menu"
         />
       </el-menu>
-    <!-- </el-scrollbar> -->
+    </el-scrollbar>
   </div>
 </template>
 
@@ -35,22 +32,24 @@ export default {
   components: { SidebarItem },
   data () {
     return {
-      activeMenu: ''
     };
   },
   computed: {
     ...mapGetters([
-      'isCollapse'
+      'isCollapse',
+      'menuList'
     ]),
     variables () {
       return variables;
-    },
-    defaultActive () {
-      return this.$route.path;
-    },
-    routes () {
-      return this.$router.options.routes;
     }
+    // activeMenu () {
+    //   const route = this.$route;
+    //   const { meta, path } = route;
+    //   if (meta.activeMenu) {
+    //     return meta.activeMenu;
+    //   }
+    //   return path;
+    // }
   }
 };
 </script>

@@ -1,20 +1,20 @@
 <template>
   <div class="error-page">
-    <div
-      class="img"
-      style=" background-image: url('/img/bg/404.svg');"
-    />
-    <div class="content">
-      <h1>404</h1>
-      <div class="desc">
-        抱歉，你访问的页面不存在
-      </div>
-      <div class="actions">
-        <router-link :to="{path:'/'}">
-          <el-button type="primary">
-            返回首页
-          </el-button>
-        </router-link>
+    <div class="error-page-content">
+      <img
+        :src="`${require('~/assets/svg/errorPage.svg')}`"
+      >
+      <div class="error-text">
+        <div class="error">
+          404
+        </div>
+        <div class="sorry">
+          抱歉，你访问的页面不存在
+        </div>
+        <el-button
+          type="primary"
+          @click="backHome"
+        >返回首页</el-button>
       </div>
     </div>
   </div>
@@ -22,8 +22,45 @@
 
 <script>
 export default {
-  name: 'Error404'
+  methods: {
+    backHome () {
+      document.location.href = '/';
+    }
+  }
 };
 </script>
-<style lang="scss" scoped>
+
+<style lang='scss' scoped>
+.error-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background-color: #fff;
+  .error-page-content {
+    display: flex;
+    img {
+      width: 438px;
+      height: 269px;
+    }
+    .error-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-left: 80px;
+      .error {
+        font-size: 56px;
+        font-weight: 500;
+      }
+      .sorry {
+        font-size: 16px;
+        margin-top: 8px;
+      }
+      ::v-deep .el-button {
+        width: 98px;
+        margin-top: 40px;
+      }
+    }
+  }
+}
 </style>

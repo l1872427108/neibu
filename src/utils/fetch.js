@@ -14,14 +14,13 @@ const service = axios.create({
     // timeout: 5000
 });
 
-
 service.interceptors.request.use(params => {
     showLoading();
     const config = {
         ...params,
         url: `${params.url}`,
         headers: {
-            'Access-Token': getStorage('token')
+            Authorization: `Bearer ${Cookie.get(Key.accessTokenKey).replace(/"/g, '')}`
         }
     };
     if (config.method === 'get') {
@@ -31,15 +30,16 @@ service.interceptors.request.use(params => {
     }
     return config;
 });
+
 service.interceptors.response.use(response => {
     hideLoading();
     const res = response.data;
     if (res.code !== 20000) {
-        Message({
-            message: res.message || 'Error',
-            type: 'error',
-            duration: 5 * 1000
-        });
+        // Message({
+        //     message: res.message || 'Error',
+        //     type: 'error',
+        //     duration: 5 * 1000
+        // });
         // if(res.code === 50008 || res.code === 50012) {
 
         // }
@@ -66,6 +66,7 @@ error => {
     // if (isLock && Cookie.get(Key.refreshTokenKey)) {
     //     // 有刷新令牌
     //     isLock = false;
+
     //     window.location.href = `${process.env.VUE_APP_AUTH_URL}/refresh?redirectURL=${window.location.href}`;
     // } else {
     //     window.location.href = `${process.env.VUE_APP_AUTH_URL}?redirectURL=${window.location.href}`;

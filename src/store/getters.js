@@ -13,7 +13,9 @@ const getters = {
     // 菜单按钮权限
     init: state => state.menu.init,
     menuList: state => state.menu.menuList,
-    buttonList: state => state.menu.buttonList
+    buttonList: state => state.menu.buttonList,
+
+    userInfo: state => state.menu.userInfo
 };
 
 export default getters;
