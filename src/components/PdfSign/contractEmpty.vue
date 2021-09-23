@@ -6,6 +6,8 @@
         :before-close="handleClose"
         destroy-on-close
         center
+        :show-close="false"
+        :close-on-click-modal="false"
       >
         <div class="error-page-content">
         <img

@@ -5,45 +5,45 @@
     :data="tableData"
     tooltip-effect="dark"
     border>
-        <el-table-column prop="name" align="center" label="名字" min-width="30%">
+        <el-table-column prop="name" align="center" label="名字">
             <template slot-scope="scope">
             {{ scope.row.contractName }}
             </template>
         </el-table-column>
-        <el-table-column prop="status" align="center" label="状态" min-width="30%">
+        <el-table-column prop="status" align="center" label="状态">
             <template slot-scope="scope">
-            {{ scope.row.contractStatus | filterStatus }}
+            <el-tag :type="scope.row.contractStatus | classStatus">{{ scope.row.contractStatus | filterStatus }}</el-tag>
             </template>
         </el-table-column>
-        <el-table-column prop="ht" align="center" label="合同" min-width="20%">
+        <el-table-column prop="ht" align="center" label="合同">
             <template slot-scope="scope">
             {{ scope.row.contractComplete }}
             </template>
         </el-table-column>
-        <el-table-column prop="bh" align="center" label="编号" min-width="30%" sortable>
+        <el-table-column prop="bh" align="center" label="编号" sortable>
             <template slot-scope="scope">
             {{ scope.row.contractId}}
             </template>
         </el-table-column>
 
-        <el-table-column align="center" label="操作">
+        <el-table-column min-width="100%" align="center" label="操作">
         <template slot-scope="scope">
-          <el-button v-if="scope.row.contractStatus !== '4'" :disabled="scope.row.contractStatus === '2'" type="success" size="mini" @click="handleClick(scope.row.contractId, scope.row.id, scope.row.contractComplete, scope.row.contractStatus)">
+          <el-button class="el-icon-s-order" v-if="scope.row.contractStatus !== '4'" :disabled="scope.row.contractStatus === '2' || scope.row.contractStatus === '3' || scope.row.contractStatus === '4'" type="success" size="mini" @click="handleClick(scope.row.contractId, scope.row.id, scope.row.contractComplete, scope.row.contractStatus, scope.row.contractName)">
             {{scope.row.contractStatus | messageStatus}}
           </el-button>
-          <el-button type="danger" size="mini" @click="handleDelete(scope.row.id)">
+          <el-button class="el-icon-s-release" :disabled="scope.row.contractStatus === '4' || scope.row.contractStatus === '0' || scope.row.contractStatus === '5' || scope.row.contractStatus === '3'" type="danger" size="mini" @click="handleDelete(scope.row.id)">
             {{scope.row.contractStatus | terminateStatus}}
           </el-button>
         </template>
       </el-table-column>
   </el-table>
-  <contract-dialog v-if="contractComplete" :image="contractComplete" :remote-close="remoteClose" :visible="visible"></contract-dialog>
+  <contract-dialog :title="contract.title" v-if="contractComplete" :image="contractComplete" :remote-close="remoteClose" :visible="contract.visible"></contract-dialog>
   </div>
 </template>
 
 <script>
 import { search, personalContract } from '~/api/contract';
-import { filterStatus, messageStatus, terminateStatus } from '~/filters/filter';
+import { filterStatus, messageStatus, terminateStatus, classStatus } from '~/filters/filter';
 import contractDialog from './contractDialog.vue';
 import { mapGetters } from 'vuex';
 export default {
@@ -52,18 +52,19 @@ export default {
     },
     data () {
         return {
-            loading: true,
             tableData: [],
-            visible: false,
             contractComplete: '',
-            terminate: 0,
-            id: -1
+            contract: {
+                visible: false,
+                title: ''
+            }
         };
     },
     filters: {
         filterStatus,
         messageStatus,
-        terminateStatus
+        terminateStatus,
+        classStatus
     },
     mounted () {
         this.fetchData();
@@ -75,15 +76,18 @@ export default {
         async fetchData () {
             search(this.userInfo.uid).then(res => {
                 this.tableData = res.data.PContract;
+            }).catch(() => {
+                this.tableData = [];
+                this.$message.error('合同请求失败');
             });
         },
-        handleClick (contractId, id, contractComplete = '', contractStatus) {
-            console.log(contractStatus);
+        handleClick (contractId, id, contractComplete = '', contractStatus, contractName) {
             if (!contractComplete || contractStatus === '5') {
-                this.$router.push({ name: 'Pdf', query: { contractId, id } });
+                this.$router.push({ name: 'Contract', query: { contractId, id } });
             } else {
+                this.contract.visible = true;
+                this.contract.title = contractName;
                 this.contractComplete = contractComplete;
-                this.visible = true;
             }
             this.fetchData();
         },
@@ -103,7 +107,7 @@ export default {
             this.fetchData();
         },
         remoteClose () {
-            this.visible = false;
+            this.contract.visible = false;
             this.fetchData();
         }
     }
