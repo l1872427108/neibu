@@ -108,7 +108,7 @@ export default {
   width: calc(100% - 200px);
   height: calc(100% - 100px);
   box-sizing: border-box;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .container-view {
@@ -117,7 +117,6 @@ export default {
 }
 .el-scrollbar__wrap{
   overflow-x: hidden;
-
 }
 
 .container-collapse {

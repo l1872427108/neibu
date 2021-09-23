@@ -5,7 +5,7 @@
     :data="tableData"
     tooltip-effect="dark"
     border>
-        <el-table-column prop="name" align="center" label="名字">
+        <el-table-column prop="name" align="center" label="合同名">
             <template slot-scope="scope">
             {{ scope.row.contractName }}
             </template>
@@ -15,12 +15,12 @@
             <el-tag :type="scope.row.contractStatus | classStatus">{{ scope.row.contractStatus | filterStatus }}</el-tag>
             </template>
         </el-table-column>
-        <el-table-column prop="ht" align="center" label="合同">
+        <el-table-column prop="ht" align="center" label="合同地址">
             <template slot-scope="scope">
             {{ scope.row.contractComplete }}
             </template>
         </el-table-column>
-        <el-table-column prop="bh" align="center" label="编号" sortable>
+        <el-table-column prop="bh" align="center" label="合同编号" sortable>
             <template slot-scope="scope">
             {{ scope.row.contractId}}
             </template>
@@ -31,7 +31,7 @@
           <el-button class="el-icon-s-order" v-if="scope.row.contractStatus !== '4'" :disabled="scope.row.contractStatus === '2' || scope.row.contractStatus === '3' || scope.row.contractStatus === '4'" type="success" size="mini" @click="handleClick(scope.row.contractId, scope.row.id, scope.row.contractComplete, scope.row.contractStatus, scope.row.contractName)">
             {{scope.row.contractStatus | messageStatus}}
           </el-button>
-          <el-button class="el-icon-s-release" :disabled="scope.row.contractStatus === '4' || scope.row.contractStatus === '0' || scope.row.contractStatus === '5' || scope.row.contractStatus === '3'" type="danger" size="mini" @click="handleDelete(scope.row.id)">
+          <el-button class="el-icon-s-release" :disabled="scope.row.contractStatus === '4' || scope.row.contractStatus === '0' || scope.row.contractStatus === '5' || scope.row.contractStatus === '3' || scope.row.contractStatus === '2'" type="danger" size="mini" @click="handleDelete(scope.row.id)">
             {{scope.row.contractStatus | terminateStatus}}
           </el-button>
         </template>

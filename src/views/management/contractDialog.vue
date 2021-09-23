@@ -11,7 +11,6 @@
       >
         <template slot="title">
             <div> <h1>{{title}}</h1></div>
-            <el-button @click="handleClick">打印合同</el-button>
         </template>
         <div class="image">
             <img style="width: 100%; height: 100%;" :src="image" alt="">
@@ -44,9 +43,6 @@ export default {
     methods: {
         handleClose () {
             this.remoteClose();
-        },
-        handleClick () {
-            this.image && download(this.image);
         }
     }
 };

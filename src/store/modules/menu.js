@@ -16,13 +16,6 @@ const mutations = {
 
     SET_SYSTEM_INFO: (state, data) => {
         state.userInfo = JSON.parse(data);
-    },
-
-    SET_SYSTEM_CLEAR: (state) => {
-        state.userInfo = null;
-        Cookie.remove(Key.userInfoKey);
-        Cookie.remove(Key.accessTokenKey);
-        Cookie.remove(Key.refreshTokenKey);
     }
 };
 
@@ -42,14 +35,13 @@ const actions = {
                 });
             }
         });
-    },
-
-    logout ({ commit }) {
-        return new Promise((resolve, reject) => {
-            commit('SET_SYSTEM_CLEAR');
-            resolve();
-        });
     }
+
+    // logout ({ commit }) {
+    //     return new Promise((resolve, reject) => {
+    //         resolve();
+    //     });
+    // }
 };
 
 export default {

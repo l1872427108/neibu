@@ -14,17 +14,6 @@
     </div>
     <div class="top-right">
       <el-tooltip
-        v-if="showColor"
-        effect="dark"
-        :content="$t('navbar.color')"
-        placement="bottom"
-      >
-        <div class="top-item">
-          <!-- <top-color class="top-color" /> -->
-        </div>
-      </el-tooltip>
-
-      <el-tooltip
         v-if="showDebug"
         effect="dark"
         :content="$t('navbar.bug')"
@@ -32,27 +21,6 @@
       >
         <div class="top-item">
           <top-logs />
-        </div>
-      </el-tooltip>
-
-      <el-tooltip
-        v-if="showTheme"
-        effect="dark"
-        :content="$t('navbar.theme')"
-        placement="bottom"
-      >
-        <div class="top-item top-item-show">
-          <top-theme />
-        </div>
-      </el-tooltip>
-
-      <el-tooltip
-        effect="dark"
-        :content="$t('navbar.language')"
-        placement="bottom"
-      >
-        <div class="top-item top-item-show">
-          <top-lang />
         </div>
       </el-tooltip>
       <el-tooltip
@@ -98,18 +66,12 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex';
-// import topColor from './topColor.vue';
 import Breadcrumb from '~/components/Breadcrumb';
 import topLogs from './topLogs.vue';
-import topTheme from './topTheme.vue';
-import topLang from './topLang.vue';
 import { fullscreenToggel, listenerfullscreen } from '~/utils/util';
 export default {
   components: {
-    // topColor,
     topLogs,
-    topTheme,
-    topLang,
     Breadcrumb
   },
   data () {
@@ -149,10 +111,7 @@ export default {
         cancelButtonText: this.$t('cancelText'),
         type: 'warning'
       }).then(() => {
-        this.$store.dispatch('menu/logout').then(() => {
-          window.location.href = `${process.env.VUE_APP_AUTH_URL}?redirectURL=${window.location.href}`;
-        });
-        window.location.href = `${process.env.VUE_APP_AUTH_URL}?redirectURL=${window.location.href}`;
+          window.location.href = `${process.env.VUE_APP_AUTH_URL}/logout?redirectURL=${window.location.href}`;
       });
     },
 
