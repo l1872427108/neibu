@@ -14,9 +14,9 @@ export function putInfo (data) {
 /**
  * 根据用户id查询用户信息
  */
-export function searchInfo () {
+export function searchInfo (userid) {
   return request({
-    url: '/inside/inside/info/1439207775006666754',
+    url: `/inside/inside/info/${userid}`,
     method: 'get'
   });
 }
