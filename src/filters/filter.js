@@ -40,10 +40,27 @@ export function filterStatus (status) {
  */
 
 export function terminateStatus (status) {
-    if (status === '0' || status === '1' || status === '2') {
+    if (status === '0' || status === '1' || status === '2' || status === '5') {
         return '解约';
     } else if (status === '3') {
         return '解约审核中';
-    }
+    } else if (status === '4') {
         return '解约成功';
+    }
+}
+
+
+/**
+ *  @param {number} classStatus  0  1  2
+ */
+ export function classStatus (status) {
+    if (status === '0') {
+        return 'info';
+    } else if (status === '1' || status === '4') {
+        return 'success';
+    } else if (status === '5' || status === '2') {
+        return 'primary';
+    } else if (status === '5') {
+        return 'danger';
+    }
 }

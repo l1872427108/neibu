@@ -16,8 +16,8 @@ export const publicRoutes = [
         }
     },
     {
-        path: '/pdf',
-        name: 'Pdf',
+        path: '/contract',
+        name: 'Contract',
         component: () => import('~/views/pdf'),
         hidden: true
     },
