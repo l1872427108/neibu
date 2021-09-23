@@ -1,14 +1,13 @@
 <template>
-  <div class="gr">
-    <div class="gr-left">
+  <div class="personage-wrap">
+    <div class="personage-left">
       <el-form
         ref="ruleForm"
         :model="ruleform"
         :rules="rules"
         label-width="100px"
       >
-        <span class="xinxi">基本信息</span>
-        <div class="lbiaodan">
+        <div class="personage-info">基本信息</div>
           <el-form-item
             label="姓 名:"
             class="name "
@@ -22,7 +21,7 @@
           </el-form-item>
           <el-form-item
             label="性 别:"
-            class="zuo"
+            class="public"
             prop="pugeSex"
           >
             <el-radio-group v-model="ruleform.pugeSex">
@@ -76,13 +75,13 @@
           >
             <el-input
               :disabled="flag"
-              v-model="ruleform.nativeInfo"
+              v-model="ruleform.familyMoneyInfo"
               size="medium"
             ></el-input>
           </el-form-item>
           <el-form-item
             label="家庭人数:"
-            class="zuo"
+            class="public"
             prop="familyNumber"
           >
             <el-input-number
@@ -90,14 +89,13 @@
               v-model="ruleform.familyNumber"
               :disabled="flag"
               controls-position="right"
-              @change="handleChange"
               :min="1"
               :max="10"
             ></el-input-number>
           </el-form-item>
           <el-form-item
             label="是否单亲:"
-            class="zuo"
+            class="public"
           >
             <el-radio-group v-model="ruleform.yesnoInfo">
               <el-radio
@@ -110,9 +108,7 @@
               >否</el-radio>
             </el-radio-group>
           </el-form-item>
-        </div>
-        <span class="xinxi">更多信息</span>
-        <div class="rbiaodan">
+        <div class="personage-info">更多信息</div>
           <el-form-item
             label="普歌工号:"
             class="gonghao"
@@ -156,11 +152,10 @@
               :disabled="fa"
             >保存</el-button>
           </el-form-item>
-        </div>
       </el-form>
     </div>
-    <div class="gr-right" style="text-align:center;">
-      <div style="width:100px;height:100px;border:1px solid gray; margin-bottom:20px;">
+    <div class="personage-right">
+      <div>
         <img :src="this.ruleform.photo" width="100px" height='100px' />
       </div>
       <Upload @func="UserUrl" :fa="this.fa"></Upload>
@@ -170,8 +165,9 @@
 
 <script>
 import Upload from '~/components/Upload';
-import { identity, checkPhone, checkEmail, sfz } from '~/utils/validate';
+import { identity, checkPhone, checkEmail } from '~/utils/validate';
 import { searchInfo, putInfo } from '@/api/info';
+import { mapGetters } from 'vuex';
 export default {
   components: {
     Upload
@@ -179,11 +175,6 @@ export default {
   name: 'Page',
   data () {
     return {
-      pickerOptions: {
-        disabledDate (time) {
-          return time.getTime() > Date.now();
-        }
-      },
       list: [],
       text: '',
       textarea: '',
@@ -201,9 +192,9 @@ export default {
         name: [
           { required: true, message: '请输入姓名', trigger: 'blur' },
           {
-            min: 3,
+            min: 2,
             max: 5,
-            message: '长度在 3 到 5 个字符',
+            message: '长度在 2 到 5 个字符',
             trigger: 'blur'
           }
         ],
@@ -211,7 +202,7 @@ export default {
         gonghao: [{ required: true, message: '请填写工号', trigger: 'blur' }],
         email: [{ required: true, message: '请填写正确的邮箱', validator: checkEmail, trigger: 'blur' }],
         phone: [{ required: true, message: '请填写手机号', validator: checkPhone, trigger: 'blur' }],
-        sfz: [{ required: true, validator: sfz, message: '请填写正确的证件号码', trigger: 'blur' }],
+        sfz: [{ required: true, validator: identity, message: '请填写正确的证件号码', trigger: 'blur' }],
         nativeInfo: [{ required: true, message: '请填写家庭地址', trigger: 'blur' }],
         familyMoneyInfo: [{ required: true, message: '请填写家庭状况', trigger: 'blur' }],
         brithday: [
@@ -226,19 +217,19 @@ export default {
     };
   },
   created () {
-    // 初始化获取列表数据
     this.fetchData();
+  },
+  computed: {
+    ...mapGetters(['userInfo'])
   },
   methods: {
     fetchData () {
-      searchInfo()
+      this.userInfo.uid && searchInfo(this.userInfo.uid)
         .then(res => {
-          console.log(res.data);
           this.ruleform = res.data.peopleInfo;
-          console.log(this.ruleform);
         })
         .catch(() => {
-          this.$message.erro('加载失败');
+          this.$message.erro('数据加载失败');
         });
     },
 
@@ -246,9 +237,6 @@ export default {
       this.$refs[formName].resetFields();
     },
 
-    handleChange (value) {
-      console.log(value);
-    },
     // 修改
     handleEdit () {
       this.flag = false;
@@ -256,31 +244,28 @@ export default {
     },
 
     // 修改用户信息
-    async submitData () {
-      let res = null;
-      if (this.ruleform.id) {
-        res = await putInfo(this.ruleform);
-      }
-      if (res.code === 20000) {
+    submitData () {
+      this.ruleform.id && putInfo(this.ruleform).then(res => {
         this.$message({
           message: '保存成功',
           type: 'success'
         });
-      } else {
+        this.fetchData();
+        this.flag = true;
+        this.fa = true;
+      }).catch(() => {
         this.$message({
           message: '保存失败,请重新输入',
           type: 'error'
         });
-      }
-      this.fetchData();
+      });
+      // this.fetchData();
     },
     // 保存
     submitForm (formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.submitData();
-          this.flag = true;
-          this.fa = true;
         } else {
           console.log('error submit!!');
           return false;
@@ -295,24 +280,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.gr-left {
-  float: left;
+.personage-wrap {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  padding: 20px 10px;
+  display: flex;
+  justify-content: space-between;
 }
-.gr-right {
-  float: right;
-  margin-top: 100px;
-  margin-right: 260px;
+.personage-info {
+  margin-bottom: 30px;
+  font-size: 26px;
+  margin-left: 50px;
 }
-.lbiaodan {
-  text-align: center;
-  width: 500px;
-  margin-top: 50px;
-  margin-left: 100px;
-}
-.rbiaodan {
-  margin-top: 50px;
-  margin-left: 100px;
-  margin-bottom: 80px;
+.personage-right {
+  margin: 50px 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .el-form-item__label {
   color: #000;
@@ -322,7 +307,7 @@ export default {
   margin: 0 !important;
 }
 .el-form-item {
-  margin-left: 100px;
+  padding-left: 100px;
 }
 .el-input {
   width: 367px;
@@ -360,7 +345,7 @@ export default {
   margin-right: 40px;
   height: 40px;
 }
-.zuo {
+.public {
   text-align: left;
 }
 ::v-deep .el-radio__label {
