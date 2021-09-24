@@ -104,7 +104,7 @@ export const publicRoutes = [
 const createRouter = () => new Router({
     scrollBehavior: () => ({ y: 0 }),
     routes: publicRoutes,
-    mode: 'history'
+    mode: 'hash'
 });
 
 const router = createRouter();
