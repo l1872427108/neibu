@@ -12,3 +12,16 @@ export function menuSearch (data) {
   });
 }
 
+export function pugesystem (userId) {
+  return request({
+    url: `/system/system/pugesystem/user/${userId}`,
+    method: 'get'
+  });
+}
+
+export function pugemenu (userId, systemId) {
+  return request({
+    url: `/system/system/menu/user/${userId}/${systemId} `,
+    method: 'get'
+  });
+}

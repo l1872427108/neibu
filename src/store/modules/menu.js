@@ -1,5 +1,6 @@
 import { Cookie, Key } from '~/utils/cookie';
-import { menuSearch } from '~/api/menuRole';
+import { pugesystem, pugemenu } from '~/api/menuRole';
+import { Message } from 'element-ui';
 
 const state = {
     init: false, // 是否已经加载了用户菜单
@@ -23,25 +24,25 @@ const actions = {
     // 获取用户菜单。
     GetUserMenu ({ commit }) {
         return new Promise((resolve, reject) => {
-            // 要想获取用户菜单，就需要先判断用户是否已经存在。
             const userId = Cookie.get(Key.userInfoKey) ? JSON.parse(JSON.stringify(Cookie.get(Key.userInfoKey))) : null;
             if (userId) {
-                commit('SET_SYSTEM_INFO', userId);
-                menuSearch({ current: 1, size: 20 }).then(res => {
-                    commit('SET_SYSTEM_MENU', res.data.menus.systemCTree);
-                    resolve();
-                }).catch((err) => {
-                    reject(err);
+                pugesystem(JSON.parse(userId).uid).then(res => {
+                    const system = res.data.list.some((item) => item === '66');
+                    if (!system) {
+                        Message({ type: 'error', message: '您没有系统权限' });
+                        window.location.href = `${process.env.VUE_APP_AUTH_URL}?redirectURL=${window.location.href}`;
+                    } else {
+                        pugemenu(JSON.parse(userId).uid, '66').then(res => {
+                            commit('SET_SYSTEM_MENU', res.data.date.menyTreeList);
+                            resolve();
+                        }).catch((err) => {
+                            reject(err);
+                        });
+                    }
                 });
             }
         });
     }
-
-    // logout ({ commit }) {
-    //     return new Promise((resolve, reject) => {
-    //         resolve();
-    //     });
-    // }
 };
 
 export default {
