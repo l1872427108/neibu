@@ -1,6 +1,9 @@
 <template>
   <div class="sign">
-    <el-dialog width="80%" title="合同签字" :visible.sync="visible" :show-close="false">
+    <el-dialog width="80%" title="合同签字"  :visible.sync="visible"
+    :before-close="remoteDialogs"
+        append-to-body
+        :show-close="false">
       <sign-canvas
         class="sign-canvas"
         ref="SignCanvas"
@@ -42,7 +45,8 @@ export default {
     src: {
       type: String,
       default: null
-    }
+    },
+    remoteDialog: Function
   },
   data () {
     return {
@@ -68,6 +72,9 @@ export default {
     };
   },
   methods: {
+    remoteDialogs () {
+      this.remoteDialog();
+    },
     /**
      * 清除画板
      */

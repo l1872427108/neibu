@@ -49,7 +49,7 @@ export default {
             visible: false
         };
     },
-    async created () {
+    async mounted () {
         const contractId = this.$route.query.contractId;
         this.id = this.$route.query.id;
         const res = (contractId && await personalInfo(contractId));

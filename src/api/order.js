@@ -1,5 +1,4 @@
 import request from '~/utils/fetch';
-
 /**
  * 菜单查询
  */

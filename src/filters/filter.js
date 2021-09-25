@@ -88,10 +88,20 @@ export function payClass (status) {
 
 export function payMessage (status) {
     if (status === '0') {
-        return '未支付';
+        return '去支付';
     } else if (status === '1') {
-        return '';
+        return '支付完成';
     } else if (status === '2') {
+        return '支付中';
+    }
+}
+
+export function payType (status) {
+    if (status === '0') {
         return 'primary';
+    } else if (status === '1') {
+        return 'success';
+    } else if (status === '2') {
+        return 'danger';
     }
 }

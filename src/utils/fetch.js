@@ -40,10 +40,6 @@ service.interceptors.response.use(response => {
             type: 'error',
             duration: 5 * 1000
         });
-        // if(res.code === 50008 || res.code === 50012) {
-
-        // }
-        // return Promise.reject(new Error(res.message || 'Error'));
     }
         return res;
 },
@@ -73,6 +69,13 @@ error => {
     return Promise.reject('令牌过期，重新认证');
 });
 
+// export const get = (url, config = {}, loading = true) => {
+//     if (loading) {
+//         showLoading();
+//     }
+//     return axios.get(url, config);
+// };
+
 export const get = (url, config = {}, loading = true) => {
     if (loading) {
         showLoading();
@@ -80,5 +83,25 @@ export const get = (url, config = {}, loading = true) => {
     return axios.get(url, config);
 };
 
+export const post = (url, data = {}, config = {}, loading = true) => {
+    if (loading) {
+        showLoading();
+    }
+    return axios.post(url, data, config);
+};
+
+export const put = (url, data = {}, config = {}, loading = true) => {
+    if (loading) {
+        showLoading();
+    }
+    return axios.put(url, data, config);
+};
+
+export const deletea = (url, config = {}, loading = true) => {
+    if (loading) {
+        showLoading();
+    }
+    return axios.delete(url, config, config);
+};
 
 export default service;

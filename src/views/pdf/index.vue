@@ -5,6 +5,7 @@
             <signature
             :visible.sync="receiverSignFlag"
             @getImage="getImage"
+            :remoteDialog="remoteDialog"
             />
          <div class="sign" v-if="show">
             <el-button
@@ -41,6 +42,9 @@ export default {
         handleReceiverFlag () {
                 this.receiverSignFlag = true;
                 this.isControl = true;
+        },
+        remoteDialog () {
+            this.receiverSignFlag = false;
         },
         getImage (img) {
             this.image = img;
