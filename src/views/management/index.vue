@@ -46,6 +46,11 @@ import { search, personalContract } from '~/api/contract';
 import { filterStatus, messageStatus, terminateStatus, classStatus } from '~/filters/filter';
 import contractDialog from './contractDialog.vue';
 import { mapGetters } from 'vuex';
+// import {searchUserOrder} from '~/api/order';
+import {
+  Cookie,
+  Key
+} from '~/utils/cookie';
 export default {
     components: {
         contractDialog
@@ -68,6 +73,9 @@ export default {
     },
     mounted () {
         this.fetchData();
+        // searchUserOrder(JSON.parse(Cookie.get(Key.userInfoKey)).uid).then(res => {
+        //     console.log(res);
+        // })
     },
     computed: {
         ...mapGetters(['userInfo'])
@@ -117,8 +125,5 @@ export default {
 <style lang="scss" scoped>
 .container-wrap {
     padding: 20px;
-    .item {
-        margin-right: 10px;
-    }
 }
 </style>

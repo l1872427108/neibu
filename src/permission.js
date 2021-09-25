@@ -13,7 +13,6 @@ router.beforeEach(async (to, from, next) => {
   const hasToken = Cookie.get(Key.accessTokenKey);
   if (hasToken) {
       const hasGetUserInfo = Cookie.get(Key.userInfoKey);
-      console.log(JSON.parse(hasGetUserInfo));
       if (hasGetUserInfo) {
         // 有用户信息,  并且是已经初始化权限菜单
         if (store.getters.init === false) {

@@ -64,3 +64,34 @@ export function terminateStatus (status) {
         return 'danger';
     }
 }
+
+
+export function payStatus (status) {
+    if (status === '0') {
+        return '未支付';
+    } else if (status === '1') {
+        return '已支付';
+    } else if (status === '2') {
+        return '支付中';
+    }
+}
+
+export function payClass (status) {
+    if (status === '0') {
+        return 'info';
+    } else if (status === '1') {
+        return 'success';
+    } else if (status === '2') {
+        return 'primary';
+    }
+}
+
+export function payMessage (status) {
+    if (status === '0') {
+        return '未支付';
+    } else if (status === '1') {
+        return '';
+    } else if (status === '2') {
+        return 'primary';
+    }
+}
