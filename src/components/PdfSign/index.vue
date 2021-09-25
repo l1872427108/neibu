@@ -52,9 +52,9 @@ export default {
     async created () {
         const contractId = this.$route.query.contractId;
         this.id = this.$route.query.id;
-        const res = await personalInfo(contractId);
-        const pageUrl = res.data.contract;
-        if (pageUrl.contractContent) {
+        const res = (contractId && await personalInfo(contractId));
+        const pageUrl = res.data?.contract;
+        if (pageUrl && pageUrl.contractContent) {
             this._loadFile(pageUrl.contractContent);
         } else {
             this.visible = true;

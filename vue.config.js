@@ -33,6 +33,13 @@ const projectConfig = {
       pathRewrite: {
         // '^/inside$': ''
       }
+    },
+    '/pay': {
+      target: process.env.VUE_APP_BASE_API,
+      changeOrigin: true,
+      pathRewrite: {
+        '/pay': ''
+      }
     }
   }
 };

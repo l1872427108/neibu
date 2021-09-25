@@ -28,12 +28,21 @@ const actions = {
                     const system = res.data.list.some((item) => item === '66');
                     if (!system) {
                         window.location.href = `${process.env.VUE_APP_AUTH_URL}?redirectURL=${window.location.href}`;
-                        return Message({ type: 'error', message: '您没有系统权限' });
+                        return Message({
+                            message: '您没有权限',
+                            type: 'error',
+                            duration: 5 * 1000
+                        });
                     }
                         pugemenu(JSON.parse(userId).uid, '66').then(res => {
-                            if (res.data.date.menyTreeList && res.data.date.menyTreeList.length === 0) {
+                            console.log(res);
+                            if (res.data && !res.data.date) {
+                                Message({
+                                    message: '您没有权限',
+                                    type: 'error',
+                                    duration: 5 * 1000
+                                });
                                 window.location.href = `${process.env.VUE_APP_AUTH_URL}?redirectURL=${window.location.href}`;
-                                return Message({ type: 'error', message: '您没有权限' });
                             }
                             res.data.date.menyTreeList.sort((a, b) => {
                                 return b.sort - a.sort;
