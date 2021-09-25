@@ -5,15 +5,23 @@
     </div>
     <div class="minn">
       <div class="title">
-         <div class="welcom">欢迎使用内部信息化平台</div>
+        <div class="welcom">{{username}} :欢迎使用内部信息化平台</div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import {
+  Cookie,
+  Key
+} from '~/utils/cookie';
 export default {
-
+  computed: {
+    username () {
+      return JSON.parse(Cookie.get(Key.userInfoKey)).nickName;
+    }
+  }
 };
 </script>
 

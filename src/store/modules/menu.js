@@ -27,19 +27,25 @@ const actions = {
                     console.log(res);
                     const system = res.data.list.some((item) => item === '66');
                     if (!system) {
-                        Message({ type: 'error', message: '您没有系统权限' });
                         window.location.href = `${process.env.VUE_APP_AUTH_URL}?redirectURL=${window.location.href}`;
-                    } else {
+                        return Message({ type: 'error', message: '您没有系统权限' });
+                    }
                         pugemenu(JSON.parse(userId).uid, '66').then(res => {
+                            if (res.data.date.menyTreeList && res.data.date.menyTreeList.length === 0) {
+                                window.location.href = `${process.env.VUE_APP_AUTH_URL}?redirectURL=${window.location.href}`;
+                                return Message({ type: 'error', message: '您没有权限' });
+                            }
+                            res.data.date.menyTreeList.sort((a, b) => {
+                                return b.sort - a.sort;
+                            });
+                            commit('SET_SYSTEM_MENU', res.data.date);
                             res.data.date.menyTreeList.sort((a, b) => {
                                 return a.sort - b.sort;
                             });
-                            commit('SET_SYSTEM_MENU', res.data.date);
                             resolve();
                         }).catch((err) => {
                             reject(err);
                         });
-                    }
                 });
             }
         });
