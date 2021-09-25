@@ -19,7 +19,7 @@ const mutations = {
 
 const actions = {
     // 获取用户菜单。
-    GetUserMenu ({ commit }) {
+    GetUserMenu ({ dispatch, commit }) {
         return new Promise((resolve, reject) => {
             const userId = Cookie.get(Key.userInfoKey) ? JSON.parse(JSON.stringify(Cookie.get(Key.userInfoKey))) : null;
             if (userId) {
@@ -27,31 +27,33 @@ const actions = {
                     console.log(res);
                     const system = res.data.list.some((item) => item === '66');
                     if (!system) {
-                        window.location.href = `${process.env.VUE_APP_AUTH_URL}?redirectURL=${window.location.href}`;
-                        return Message({
-                            message: '您没有权限',
+                        Message({
+                            message: 'Error',
                             type: 'error',
                             duration: 5 * 1000
                         });
+                        setTimeout(() => {
+                            window.location.href = `${process.env.VUE_APP_AUTH_URL}?redirectURL=${window.location.href}`;
+                        }, 1000);
                     }
                         pugemenu(JSON.parse(userId).uid, '66').then(res => {
                             console.log(res);
-                            if (res.data && !res.data.date) {
+                            if (res.data?.date?.menyTreeList && res.data.date.menyTreeList.length !== 0) {
+                                res.data.date.menyTreeList.sort((a, b) => {
+                                    return a.sort - b.sort;
+                                });
+                                commit('SET_SYSTEM_MENU', res.data.date);
+                                resolve();
+                            } else {
                                 Message({
                                     message: '您没有权限',
                                     type: 'error',
                                     duration: 5 * 1000
                                 });
-                                window.location.href = `${process.env.VUE_APP_AUTH_URL}?redirectURL=${window.location.href}`;
+                                setTimeout(() => {
+                                    window.location.href = `${process.env.VUE_APP_AUTH_URL}?redirectURL=${window.location.href}`;
+                                }, 1000);
                             }
-                            res.data.date.menyTreeList.sort((a, b) => {
-                                return b.sort - a.sort;
-                            });
-                            commit('SET_SYSTEM_MENU', res.data.date);
-                            res.data.date.menyTreeList.sort((a, b) => {
-                                return a.sort - b.sort;
-                            });
-                            resolve();
                         }).catch((err) => {
                             reject(err);
                         });

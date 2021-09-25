@@ -26,13 +26,16 @@
             </template>
         </el-table-column>
 
-        <el-table-column min-width="100%" align="center" label="操作">
+        <el-table-column min-width="130%" align="center" label="操作">
         <template slot-scope="scope">
-          <el-button class="el-icon-s-order" v-if="scope.row.contractStatus !== '4'" :disabled="scope.row.contractStatus === '2' || scope.row.contractStatus === '3' || scope.row.contractStatus === '4'" type="success" size="mini" @click="handleClick(scope.row.contractId, scope.row.id, scope.row.contractComplete, scope.row.contractStatus, scope.row.contractName)">
+          <el-button v-if="scope.row.contractStatus !== '4'" :disabled="scope.row.contractStatus === '2' || scope.row.contractStatus === '3' || scope.row.contractStatus === '4'" type="success" size="mini" @click="handleClick(scope.row.contractId, scope.row.id, scope.row.contractComplete, scope.row.contractStatus, scope.row.contractName)">
             {{scope.row.contractStatus | messageStatus}}
           </el-button>
-          <el-button class="el-icon-s-release" :disabled="scope.row.contractStatus === '4' || scope.row.contractStatus === '0' || scope.row.contractStatus === '5' || scope.row.contractStatus === '3' || scope.row.contractStatus === '2'" type="danger" size="mini" @click="handleDelete(scope.row.id)">
+          <el-button :disabled="scope.row.contractStatus === '4' || scope.row.contractStatus === '0' || scope.row.contractStatus === '5' || scope.row.contractStatus === '3' || scope.row.contractStatus === '2'" type="danger" size="mini" @click="handleDelete(scope.row.id)">
             {{scope.row.contractStatus | terminateStatus}}
+          </el-button>
+          <el-button :disabled="scope.row.contractStatus !== '1'" type="primary" size="mini" @click="handlePay()" v-if="scope.row.contractStatus !== '4' || !scope.row.contractPrice">
+            查看订单
           </el-button>
         </template>
       </el-table-column>
@@ -46,7 +49,6 @@ import { search, personalContract } from '~/api/contract';
 import { filterStatus, messageStatus, terminateStatus, classStatus } from '~/filters/filter';
 import contractDialog from './contractDialog.vue';
 import { mapGetters } from 'vuex';
-// import {searchUserOrder} from '~/api/order';
 import {
   Cookie,
   Key
@@ -73,9 +75,6 @@ export default {
     },
     mounted () {
         this.fetchData();
-        // searchUserOrder(JSON.parse(Cookie.get(Key.userInfoKey)).uid).then(res => {
-        //     console.log(res);
-        // })
     },
     computed: {
         ...mapGetters(['userInfo'])
@@ -98,6 +97,9 @@ export default {
                 this.contractComplete = contractComplete;
             }
             this.fetchData();
+        },
+        handlePay () {
+            this.$router.push('/pay/center');
         },
         handleDelete (id) {
             this.$confirm('解约', {

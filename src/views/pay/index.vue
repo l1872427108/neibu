@@ -33,7 +33,7 @@
         </el-table-column>
         <el-table-column min-width="100%" align="center" label="操作">
         <template slot-scope="scope">
-          <el-button @click="toPay(scope.row.orderNo)">去支付</el-button>
+          <el-button size="mini" :type="scope.row.status | payType" :disabled="scope.row.status === '1'" @click="toPay(scope.row.orderNo)">{{scope.row.status | payMessage}}</el-button>
         </template>
         </el-table-column>
   </el-table>
@@ -42,7 +42,7 @@
 
 <script>
 import { searchUserOrder } from '~/api/order';
-import { payStatus, payClass } from '~/filters/filter';
+import { payStatus, payClass, payMessage, payType } from '~/filters/filter';
 import {
   Cookie,
   Key
@@ -55,7 +55,9 @@ export default {
   },
   filters: {
     payClass,
-    payStatus
+    payStatus,
+    payMessage,
+    payType
   },
   mounted () {
     this.fetchData();
@@ -79,8 +81,5 @@ export default {
 <style scoped lang="scss">
 .container-wrap {
     padding: 20px;
-    .item {
-        margin-right: 10px;
-    }
 }
 </style>
