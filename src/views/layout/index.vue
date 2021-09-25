@@ -124,7 +124,7 @@ export default {
     padding-left: $sideBarCollapseWidth;
   }
   .container-main {
-    width: calc(100% - 60px);
+    width: calc(100% - 52px);
     left: $sideBarCollapseWidth;
   }
   .container-left {
@@ -141,6 +141,7 @@ export default {
 
     .el-tooltip {
       padding: 0 !important;
+      text-align: center;
     }
   }
 
@@ -148,10 +149,11 @@ export default {
     overflow: hidden;
 
     &>.el-submenu__title {
+      text-align: center;
       padding: 0 !important;
 
       .item-icon {
-        margin-left: 17px;
+        /* margin-left: 17px; */
       }
 
       .el-submenu__icon-arrow {
