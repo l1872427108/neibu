@@ -14,6 +14,15 @@
     </div>
     <div class="top-right">
       <el-tooltip
+        effect="dark"
+        :content="$t('navbar.language')"
+        placement="bottom"
+      >
+        <div class="top-item top-item-show">
+          <top-lang />
+        </div>
+      </el-tooltip>
+      <el-tooltip
         v-if="showDebug"
         effect="dark"
         :content="$t('navbar.bug')"
@@ -69,10 +78,12 @@ import { mapGetters, mapState } from 'vuex';
 import Breadcrumb from '~/components/Breadcrumb';
 import topLogs from './topLogs.vue';
 import { fullscreenToggel, listenerfullscreen } from '~/utils/util';
+import topLang from './topLang.vue';
 export default {
   components: {
     topLogs,
-    Breadcrumb
+    Breadcrumb,
+    topLang
   },
   data () {
     return {
@@ -112,7 +123,7 @@ export default {
         type: 'warning'
       }).then(() => {
           window.location.href = `${process.env.VUE_APP_AUTH_URL}/logout?redirectURL=${window.location.href}`;
-      });
+      }).catch(() => {});
     },
 
     setScreen () {

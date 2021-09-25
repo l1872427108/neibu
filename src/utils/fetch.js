@@ -35,11 +35,11 @@ service.interceptors.response.use(response => {
     hideLoading();
     const res = response.data;
     if (res.code !== 20000) {
-        // Message({
-        //     message: res.message || 'Error',
-        //     type: 'error',
-        //     duration: 5 * 1000
-        // });
+        Message({
+            message: res.message || 'Error',
+            type: 'error',
+            duration: 5 * 1000
+        });
         // if(res.code === 50008 || res.code === 50012) {
 
         // }

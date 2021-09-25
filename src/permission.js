@@ -12,9 +12,6 @@ router.beforeEach(async (to, from, next) => {
   document.title = getPageTitle(to.meta.title);
   const hasToken = Cookie.get(Key.accessTokenKey);
   if (hasToken) {
-    if (to.path === '/login') {
-      next({ path: '/' });
-    } else {
       const hasGetUserInfo = Cookie.get(Key.userInfoKey);
       console.log(JSON.parse(hasGetUserInfo));
       if (hasGetUserInfo) {
@@ -28,9 +25,6 @@ router.beforeEach(async (to, from, next) => {
           // 继承访问目标路由
           next();
         }
-      } else {
-        window.location.href = `${process.env.VUE_APP_AUTH_URL}?redirectURL=${window.location.href}`;
-      }
     }
   } else {
     if (whiteList.indexOf(to.path) !== -1) {

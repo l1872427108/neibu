@@ -32,7 +32,7 @@ export const publicRoutes = [
                 component: () => import('~/views/welcome'),
                 meta: {
                     title: '首页',
-                    icon: 'basic-icon-home',
+                    icon: 'el-icon-house',
                     affix: true,
                     keepAlive: true
                 }
@@ -49,16 +49,16 @@ export const publicRoutes = [
             icon: 'basic-icon-home'
         },
         children: [
-            {
-                path: 'account',
-                component: () => import('~/views/account'),
-                name: 'Account',
-                meta: {
-                    title: '账号信息',
-                    icon: 'basic-icon-maoshachan',
-                    keepAlive: true
-                }
-            },
+            // {
+            //     path: 'account',
+            //     component: () => import('~/views/account'),
+            //     name: 'Account',
+            //     meta: {
+            //         title: '账号信息',
+            //         icon: 'basic-icon-maoshachan',
+            //         keepAlive: true
+            //     }
+            // },
             {
                 path: 'personage',
                 component: () => import('~/views/personage'),

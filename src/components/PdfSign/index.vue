@@ -53,11 +53,8 @@ export default {
         const contractId = this.$route.query.contractId;
         this.id = this.$route.query.id;
         const res = await personalInfo(contractId);
-        console.log('www', res);
         const pageUrl = res.data.contract;
-        // this.id = res.data.contract.id;
-        console.log(pageUrl);
-        if (pageUrl) {
+        if (pageUrl.contractContent) {
             this._loadFile(pageUrl.contractContent);
         } else {
             this.visible = true;
@@ -136,14 +133,14 @@ export default {
             html2canvas(element, {
                 allowTaint: true,
                 useCORS: true
-            }).then((canvas) => {
+            }).then(async (canvas) => {
                 let pageData = new Image();
                 pageData.setAttribute('crossOrigin', 'Anonymous');
                 pageData = canvas.toDataURL('image/jpeg', 1.0);
                 loading.close();
                 this.htmlUrl = pageData;
-                const contract = this.dataURLtoFile(this.htmlUrl, '合同');
-                this.ossUpload(contract);
+                const a = await this.dataURLtoFile(pageData, '合同');
+                this.ossUpload(a);
             });
         },
         async ossUpload (file) {
@@ -195,10 +192,9 @@ export default {
                 u8arr[n] = bstr.charCodeAt(n);
             }
             try {
-                return new File([u8arr], filename, { type: mime });
+                return new File([u8arr], filename, { type: mime }, { uid: 1111111111111 });
             } catch (err) {
-                console.warn('Browser does not support the File constructor,Will use blob instead of file');
-                return this.dataURL2blob(dataurl);
+                // return this.dataURL2blob(dataurl);
             }
         }
     },

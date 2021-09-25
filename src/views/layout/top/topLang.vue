@@ -37,7 +37,7 @@ export default {
   methods: {
     handleSetLanguage (lang) {
         this.$i18n.locale = lang;
-        this.$store.commit('common/SET_LANGUAGE');
+        this.$store.commit('common/SET_LANGUAGE', lang);
     }
   }
 };
