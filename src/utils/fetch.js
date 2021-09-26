@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { getStorage } from './storage';
 import { showLoading, hideLoading } from './loading';
 import { Message } from 'element-ui';
 import qs from 'qs';
@@ -40,6 +39,7 @@ service.interceptors.response.use(response => {
             type: 'error',
             duration: 5 * 1000
         });
+        // return Promise.reject(new Error(res.message || 'Error'));
     }
         return res;
 },
@@ -69,12 +69,6 @@ error => {
     return Promise.reject('令牌过期，重新认证');
 });
 
-// export const get = (url, config = {}, loading = true) => {
-//     if (loading) {
-//         showLoading();
-//     }
-//     return axios.get(url, config);
-// };
 
 export const get = (url, config = {}, loading = true) => {
     if (loading) {

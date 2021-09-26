@@ -19,25 +19,23 @@ const mutations = {
 
 const actions = {
     // 获取用户菜单。
-    GetUserMenu ({ dispatch, commit }) {
+    GetUserMenu ({ commit }) {
         return new Promise((resolve, reject) => {
             const userId = Cookie.get(Key.userInfoKey) ? JSON.parse(JSON.stringify(Cookie.get(Key.userInfoKey))) : null;
             if (userId) {
                 pugesystem(JSON.parse(userId).uid).then(res => {
-                    console.log(res);
                     const system = res.data.list.some((item) => item === '66');
                     if (!system) {
                         Message({
-                            message: 'Error',
+                            message: '您没有该系统权限',
                             type: 'error',
-                            duration: 5 * 1000
+                            duration: 3 * 1000
                         });
                         setTimeout(() => {
                             window.location.href = `${process.env.VUE_APP_AUTH_URL}?redirectURL=${window.location.href}`;
                         }, 1000);
                     }
                         pugemenu(JSON.parse(userId).uid, '66').then(res => {
-                            console.log(res);
                             if (res.data?.date?.menyTreeList && res.data.date.menyTreeList.length !== 0) {
                                 res.data.date.menyTreeList.sort((a, b) => {
                                     return a.sort - b.sort;
@@ -48,7 +46,7 @@ const actions = {
                                 Message({
                                     message: '您没有权限',
                                     type: 'error',
-                                    duration: 5 * 1000
+                                    duration: 3 * 1000
                                 });
                                 setTimeout(() => {
                                     window.location.href = `${process.env.VUE_APP_AUTH_URL}?redirectURL=${window.location.href}`;

@@ -34,7 +34,7 @@
           <el-button :disabled="scope.row.contractStatus === '4' || scope.row.contractStatus === '0' || scope.row.contractStatus === '5' || scope.row.contractStatus === '3' || scope.row.contractStatus === '2'" type="danger" size="mini" @click="handleDelete(scope.row.id)">
             {{scope.row.contractStatus | terminateStatus}}
           </el-button>
-          <el-button :disabled="scope.row.contractStatus !== '1'" type="primary" size="mini" @click="handlePay()" v-if="scope.row.contractStatus !== '4' || !scope.row.contractPrice">
+          <el-button type="primary" size="mini" @click="handlePay()" v-if="scope.row.contractStatus === '1'">
             查看订单
           </el-button>
         </template>
@@ -49,10 +49,6 @@ import { search, personalContract } from '~/api/contract';
 import { filterStatus, messageStatus, terminateStatus, classStatus } from '~/filters/filter';
 import contractDialog from './contractDialog.vue';
 import { mapGetters } from 'vuex';
-import {
-  Cookie,
-  Key
-} from '~/utils/cookie';
 export default {
     components: {
         contractDialog
