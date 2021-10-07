@@ -10,6 +10,7 @@
          <div class="sign" v-if="show">
             <el-button
             type="primary"
+            class=""
             style="width: 200px;"
             @click="handleReceiverFlag"
             >签署名字</el-button>
@@ -65,5 +66,6 @@ export default {
     justify-content: flex-start;
     align-content: center;
     margin-left: 20%;
+    /* margin-bottom: -20px; */
 }
 </style>

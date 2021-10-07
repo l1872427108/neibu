@@ -1,4 +1,5 @@
 import { Loading } from 'element-ui';
+import { loadingText } from '../setting';
 
 let loading = null;
 let loadingCount = 0;
@@ -6,7 +7,7 @@ let loadingCount = 0;
 const startLoading = () => {
     loading = Loading.service({
         lock: true,
-        text: '加载中...',
+        text: loadingText,
         background: 'rgba(0, 0, 0, .05)'
     });
 };

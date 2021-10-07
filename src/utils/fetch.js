@@ -1,34 +1,67 @@
 import axios from 'axios';
 import { showLoading, hideLoading } from './loading';
-import { Message } from 'element-ui';
-import qs from 'qs';
+import { Message, Notification } from 'element-ui';
 import {
     Cookie,
     Key
 } from './cookie';
+import { contentType, needLoadingRequest, messageDuration, requestTimeout } from '~/setting';
 
 
 const service = axios.create({
-    baseURL: process.env.VUE_APP_BASE_API // url = base url + request url
-    // timeout: 5000
+    baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
+    timeout: requestTimeout,
+    headers: {
+        'Content-Type': contentType
+    }
 });
 
 service.interceptors.request.use(params => {
-    showLoading();
     const config = {
         ...params,
-        url: `${params.url}`,
-        headers: {
-            Authorization: `Bearer ${Cookie.get(Key.accessTokenKey).replace(/"/g, '')}`
-        }
+        url: `${params.url}`
     };
-    if (config.method === 'get') {
-        config.paramsSerializer = (params) => {
-            return qs.stringify(params, { arrayFormat: 'repeat' });
-        };
+    config.headers.Authorization = `Bearer ${Cookie.get(Key.accessTokenKey).replace(/"/g, '')}`;
+    const needLoading = () => {
+        let status = true;
+        needLoadingRequest.some(item => {
+            if (item !== config.url) {
+                status = false;
+            }
+        });
+        return status;
+    };
+    if (needLoading()) {
+        showLoading();
     }
     return config;
+}, error => {
+    return Promise.reject(error);
 });
+
+const errorMsg = message => {
+    return Message({
+        message: message,
+        type: 'error',
+        duration: messageDuration
+    });
+};
+
+const errNotification = (
+    title = null,
+    message = null,
+    type = 'error',
+    position = 'bottom-left',
+    duration = messageDuration
+) => {
+    Notification({
+        title,
+        message,
+        type,
+        position,
+        duration
+    });
+};
 
 service.interceptors.response.use(response => {
     hideLoading();
@@ -39,63 +72,33 @@ service.interceptors.response.use(response => {
             type: 'error',
             duration: 5 * 1000
         });
-        // return Promise.reject(new Error(res.message || 'Error'));
+        return Promise.reject(res.message || 'Error');
     }
         return res;
 },
 error => {
     hideLoading();
+    // eslint-disable-next-line
     console.log('err' + error); // for debug
-
-    if (error.response && error.response.status !== 401) {
-        Message({
-            message: error.message,
-            type: 'error',
-            duration: 5 * 1000
-        });
-        return Promise.reject(error);
+    // const {} =
+    if (error.response && error.response.status === 401 && error.response.data.code && error.response.data.code === 1401) {
+        let isLock = true;
+        if (isLock && Cookie.get(Key.refreshTokenKey)) {
+            // 有刷新令牌
+            isLock = false;
+            window.location.href = `${process.env.VUE_APP_AUTH_URL}/refresh?redirectURL=${window.location.href}`;
+        } else {
+            window.location.href = `${process.env.VUE_APP_AUTH_URL}?redirectURL=${window.location.href}`;
+        }
+        return Promise.reject(error.message || 'Error');
     }
-
-    let isLock = true;
-
-    if (isLock && Cookie.get(Key.refreshTokenKey)) {
-        // 有刷新令牌
-        isLock = false;
-
-        window.location.href = `${process.env.VUE_APP_AUTH_URL}/refresh?redirectURL=${window.location.href}`;
-    } else {
-        window.location.href = `${process.env.VUE_APP_AUTH_URL}?redirectURL=${window.location.href}`;
-    }
-    return Promise.reject('令牌过期，重新认证');
+    Message({
+        message: error.message,
+        type: 'error',
+        duration: 5 * 1000
+    });
+    return Promise.reject(error);
 });
 
-
-export const get = (url, config = {}, loading = true) => {
-    if (loading) {
-        showLoading();
-    }
-    return axios.get(url, config);
-};
-
-export const post = (url, data = {}, config = {}, loading = true) => {
-    if (loading) {
-        showLoading();
-    }
-    return axios.post(url, data, config);
-};
-
-export const put = (url, data = {}, config = {}, loading = true) => {
-    if (loading) {
-        showLoading();
-    }
-    return axios.put(url, data, config);
-};
-
-export const deletea = (url, config = {}, loading = true) => {
-    if (loading) {
-        showLoading();
-    }
-    return axios.delete(url, config, config);
-};
 
 export default service;

@@ -1,4 +1,5 @@
 const path = require('path');
+const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const resolve = (dir) => {
     return path.join(__dirname, dir);
 };
@@ -19,13 +20,6 @@ const projectConfig = {
         ['^' + process.env.BASE_URL + '$']: ''
       }
     },
-    // '/inside/thirdService': {
-    //   target: 'http://47.93.45.7:8003',
-    //   changeOrigin: true,
-    //   pathRewrite: {
-    //     // '^/inside$': ''
-    //   }
-    // },
     '/inside/inside': {
       target: process.env.VUE_APP_BASE_API,
       changeOrigin: true,
@@ -45,24 +39,62 @@ const projectConfig = {
 
 module.exports = {
     lintOnSave: true,
-    // runtimeCompiler: true,
+    publicPath: './',
+    productionSourceMap: false,
     pages: {
       ...projectConfig.pages
     },
     devServer: {
         open: true,
-        host: '0.0.0.0',
         port: 8888,
-        https: false,
+        // https: true,
         hotOnly: false,
+        host: '',
         proxy: {
             ...projectConfig.devServerProxy
         }
     },
+    css: {
+      sourceMap: false
+    },
     chainWebpack: (config) => {
+      config
+      .when(process.env.NODE_ENV !== 'development',
+      config => {
+        config.externals({
+          vue: 'Vue',
+          'vue-router': 'VueRouter',
+          axios: 'axios',
+          'element-ui': 'ELEMENT'
+        });
+        // config
+        //     .optimization.splitChunks({
+        //       chunks: 'all',
+        //       cacheGroups: {
+        //         libs: {
+        //           name: 'chunk-libs',
+        //           test: /[\\/]node_modules[\\/]/,
+        //           priority: 10,
+        //           chunks: 'initial' // only package third parties that are initially dependent
+        //         }
+        //       }
+        //     });
+            // config.plugin('compression-webpack-plugin').use(new CompressionWebpackPlugin({
+            //   filename: '[path].gz[query]',
+            //     algorithm: 'gzip',
+            //     test: /.(html|js|css|map|ttf)$/,
+            //     threshold: 8192,
+            //     minRatio: 0.8
+            // }));
+            // config.module
+            // .rule('images')
+            // .use('image-webpack-loader')
+            // .loader('image-webpack-loader')
+            // .options({ bypassOnDebug: true })
+            // .end();
+      });
     },
     configureWebpack: {
-        devtool: process.env.NODE_ENV === 'dev' ? 'cheap-module-eval-source-map' : 'source-map',
         resolve: {
             extensions: ['.js', '.vue', '.json', '.css'],
             alias: {

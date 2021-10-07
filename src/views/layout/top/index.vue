@@ -53,7 +53,7 @@
       >
       <el-dropdown slot="dropdown">
         <span class="el-dropdown-link">
-          <i class="basic-icon basic-icon-xiajiantou" />
+          <i class="el-icon-caret-bottom" />
         </span>
         <el-dropdown-menu>
           <el-dropdown-item>
@@ -122,7 +122,7 @@ export default {
         cancelButtonText: this.$t('cancelText'),
         type: 'warning'
       }).then(() => {
-          window.location.href = `${process.env.VUE_APP_AUTH_URL}/logout?redirectURL=${window.location.href}`;
+        window.location.href = `${process.env.VUE_APP_AUTH_URL}/logout?redirectURL=${window.location.href}`;
       }).catch(() => {});
     },
 

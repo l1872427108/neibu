@@ -35,8 +35,7 @@ export default {
   width: 100%;
   height: 100%;
   padding: 180px;
-  background-color: rgba(25, 158, 216, 0.529411764705882) !important;
-
+  background: #fff;
 }
 .minn {
   margin-top: -5%;

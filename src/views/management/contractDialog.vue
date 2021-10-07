@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import { download } from '~/utils/util';
 export default {
     props: {
         visible: {

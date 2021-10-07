@@ -92,7 +92,7 @@ export default {
   right: 0;
   z-index: 99;
   padding-left: $sideBarWidth;
-  width: calc(100%-60px);
+  /* width: calc(100%-60px); */
   background-color: #fff;
   box-sizing: border-box;
   .container-tags {
