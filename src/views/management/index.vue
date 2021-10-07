@@ -20,9 +20,9 @@
             {{ scope.row.contractComplete }}
             </template>
         </el-table-column>
-        <el-table-column prop="bh" align="center" label="合同编号" sortable>
+        <el-table-column prop="ht" align="center" label="审核人">
             <template slot-scope="scope">
-            {{ scope.row.contractId}}
+            {{ scope.row.examineName }}
             </template>
         </el-table-column>
 

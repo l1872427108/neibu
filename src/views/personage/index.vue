@@ -168,6 +168,7 @@ import Upload from '~/components/Upload';
 import { identity, checkPhone, checkEmail } from '~/utils/validate';
 import { searchInfo, putInfo } from '@/api/info';
 import { mapGetters } from 'vuex';
+import { Date } from '~/utils/time';
 export default {
   components: {
     Upload
@@ -205,7 +206,7 @@ export default {
         sfz: [{ required: true, validator: identity, message: '请填写正确的证件号码', trigger: 'blur' }],
         nativeInfo: [{ required: true, message: '请填写家庭地址', trigger: 'blur' }],
         familyMoneyInfo: [{ required: true, message: '请填写家庭状况', trigger: 'blur' }],
-        brithday: [
+        pugeBirthday: [
           {
             required: true,
             type: 'date',
@@ -265,15 +266,19 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
+          this.Time(this.ruleform.pugeBirthday);
           this.submitData();
         } else {
-          console.log('error submit!!');
           return false;
         }
       });
     },
     UserUrl (val) {
       this.ruleform.photo = val;
+    },
+    Time (e) {
+        this.ruleform.pugeBirthday = Date(e);
+        console.log(this.ruleform.pugeBirthday);
     }
   }
 };

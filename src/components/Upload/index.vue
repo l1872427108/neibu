@@ -51,7 +51,6 @@ export default {
             this.uploadData.ossaccessKeyId = oss.accessid;
             this.uploadData.signature = oss.signature;
             this.uploadData.callback = oss.callback;
-            console.log(this.uploadData);
             resolve(true);
           })
           .catch(err => {

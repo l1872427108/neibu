@@ -1,6 +1,6 @@
 <template>
   <div class="sign">
-    <el-dialog width="80%" title="合同签字"  :visible.sync="visible"
+    <el-dialog width="70%" title="合同签字"  :visible.sync="visible"
     :before-close="remoteDialogs"
         append-to-body
         :show-close="false">

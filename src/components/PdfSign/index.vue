@@ -9,7 +9,6 @@
     <contract-empty :visible="visible"></contract-empty>
   </div>
 </template>
-
 <script>
 import PDFJS from 'pdfjs-dist';
 import workerSrc from 'pdfjs-dist/build/pdf.worker.entry';
@@ -54,6 +53,7 @@ export default {
         this.id = this.$route.query.id;
         const res = (contractId && await personalInfo(contractId));
         const pageUrl = res.data?.contract;
+        // this.price = res.data?.contract?.contractPrice;
         if (pageUrl && pageUrl.contractContent) {
             this._loadFile(pageUrl.contractContent);
         } else {
@@ -70,14 +70,23 @@ export default {
             }
         },
         canvasInit () {
-            this.context.clearRect(this.canvas.getBoundingClientRect().width - 400, this.canvas.getBoundingClientRect().height - 300, 300, 200);
+            console.log(window.screen.width);
+            if (window.screen.width > 480 && window.screen.width < 979) {
+                this.context.clearRect(this.canvas.getBoundingClientRect().width - 350, this.canvas.getBoundingClientRect().height - 350, 200, 150);
+            } else {
+                this.context.clearRect(this.canvas.getBoundingClientRect().width - 700, this.canvas.getBoundingClientRect().height - 700, 300, 200);
+            }
             const image = new Image();
             image.src = this.image;
             image.width = 300;
             image.height = 200;
             image.setAttribute('crossOrigin', 'Anonymous');
             image.onload = () => {
-                this.context.drawImage(image, this.canvas.getBoundingClientRect().width - 400, this.canvas.getBoundingClientRect().height - 300, image.width, image.height);
+                if (window.screen.width > 480 && window.screen.width < 979) {
+                    this.context.drawImage(image, this.canvas.getBoundingClientRect().width - 350, this.canvas.getBoundingClientRect().height - 350, 200, 150);
+                } else {
+                    this.context.drawImage(image, this.canvas.getBoundingClientRect().width - 700, this.canvas.getBoundingClientRect().height - 700, image.width, image.height);
+                }
             };
         },
         _loadFile (pageUrl) {
@@ -220,7 +229,8 @@ export default {
      display: flex;
      justify-content: flex-end;
      align-content: center;
-     margin-bottom: -30px;
+     margin-top: 50px;
      margin-right: 20%;
+     margin-bottom: -38px;
  }
 </style>

@@ -70,7 +70,6 @@ export default {
         return callback(new Error('请输入普歌工号'));
       }
         const reg = /^[0-9]{3,15}$/;
-        console.log(reg.test(value));
         if (reg.test(value)) {
           callback();
         } else {
@@ -115,7 +114,6 @@ export default {
         if (valid) {
           console.log('submit');
         } else {
-          console.log('error submit!!');
           return false;
         }
       });
