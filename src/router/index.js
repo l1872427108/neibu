@@ -4,12 +4,16 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
 import Layout from '~/views/layout';
+import payRouter from './modules/UnifiedPayment';
+import compactRouter from './modules/SigningCompact';
+import { routerMode } from '~/config/website';
+import interviewRouter from './modules/SigningInterview';
 
 export const publicRoutes = [
     {
         path: '/contract',
         name: 'Contract',
-        component: () => import('~/views/pdf'),
+        component: () => import('~/views/SigningContract'),
         meta: {
             title: '合同'
         }
@@ -29,7 +33,6 @@ export const publicRoutes = [
             }
         ]
     },
-
     {
         path: '/setting',
         component: Layout,
@@ -41,7 +44,7 @@ export const publicRoutes = [
         children: [
             {
                 path: 'personage',
-                component: () => import('~/views/personage'),
+                component: () => import('~/views/Personage'),
                 name: 'Personage',
                 meta: {
                     title: '个人信息'
@@ -49,62 +52,26 @@ export const publicRoutes = [
             }
         ]
     },
+    payRouter,
+    compactRouter,
+    interviewRouter,
     {
-        path: '/pay',
-        component: Layout,
-        redirect: '/pay/center',
-        name: 'Pay',
-        meta: {
-            title: '支付',
-            icon: 'basic-icon-home'
-        },
-        children: [
-            {
-                path: 'center',
-                name: 'Centre',
-                component: () => import('~/views/pay/index'),
-                meta: {
-                    title: '支付中心',
-                    icon: 'basic-icon-maoshachan',
-                    keepAlive: true
-                }
-            }
-        ]
-    },
-    {
-        path: '/compact',
-        component: Layout,
-        redirect: '/compact/management',
-        name: 'Compact',
-        meta: {
-            title: '签约合同',
-            icon: 'basic-icon-home'
-        },
-        children: [
-            {
-                path: 'management',
-                name: 'Management',
-                component: () => import('~/views/management/index'),
-                meta: {
-                    title: '合同管理',
-                    icon: 'basic-icon-maoshachan',
-                    keepAlive: true
-                }
-            }
-        ]
+        path: '/401',
+        name: '401',
+        component: () => import('~/views/ErrPage/401')
     },
     {
         path: '/404',
-        component: () => import('~/views/err-page/404'),
-        hidden: true
+        name: '404',
+        component: () => import('~/views/ErrPage/404')
     },
-    { path: '*', redirect: '/404', hidden: true }
+    { path: '*', redirect: '/404' }
 ];
 
 const createRouter = () => new VueRouter({
     scrollBehavior: () => ({ y: 0 }),
     routes: publicRoutes,
-    mode: 'hash'
+    mode: routerMode
 });
 
 const router = createRouter();

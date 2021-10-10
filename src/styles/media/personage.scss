@@ -1,0 +1,37 @@
+@import './media.scss';
+
+/* 页面宽度小于768px */
+@media screen and (max-width: $sm) {
+	.personal-info {
+		margin-top: 15px;
+        padding-left: 0 !important;
+	}
+	.personal-recommend-col {
+		margin-bottom: 15px;
+		&:last-of-type {
+			margin-bottom: 0;
+            height: 100px;
+		}
+        .personal-recommend-auto {
+            align-items: flex-start !important;
+            top: 10% !important;
+        }
+	}
+}
+
+@media screen and (max-width: $md) {
+	.personal-info {
+		margin-top: 0;
+    }
+}
+
+
+/* 页面宽度小于1200x */
+@media screen and (max-width: $lg) {
+	.personal-recommend-col {
+		margin-bottom: 15px;
+		&:last-of-type {
+			margin-bottom: 0;
+		}
+	}
+}

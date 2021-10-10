@@ -8,25 +8,16 @@
       accept=".jpg,.png,.pdf"
       :on-success="upSuccess"
       :show-file-list='false'
-      :disabled="fa"
     >
-      <el-button
-        size="small"
-        type="primary"
-      >点击上传</el-button>
+      <slot></slot>
     </el-upload>
   </div>
 </template>
 
 <script>
-import { searchQuit } from '~/api/oss';
+import { contractPolicy } from '~/api/contractManagement';
 import { randomString } from '~/utils/util';
 export default {
-  props: {
-      fa: {
-         type: Boolean
-      }
-  },
   data () {
     return {
       uploadData: {},
@@ -41,7 +32,7 @@ export default {
     },
     gainKays () {
       return new Promise((resolve, reject) => {
-        searchQuit()
+        contractPolicy()
           .then(res => {
             const oss = res.data.ossData;
             this.uploadData.key = oss.dir + '/' + randomString(6) + '/' + this.fileName;
@@ -64,7 +55,7 @@ export default {
       });
     },
     upSuccess (res) {
-      this.$emit('func', res.data.ossData.filename);
+      this.$emit('updatePhoto', res.data.ossData.filename);
       this.$message({
         type: 'success',
         message: '上传成功',

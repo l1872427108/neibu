@@ -28,3 +28,42 @@ export const dateFormat = date => {
     }
     return '';
 };
+
+/**
+ * 时间显示
+ */
+export function formatData (param) {
+    const hour = param.getHours();
+    if (hour < 6) {
+		return '凌晨好';
+	} else if (hour < 9) {
+		return '早上好';
+	} else if (hour < 12) {
+		return '上午好';
+	} else if (hour < 14) {
+		return '中午好';
+	} else if (hour < 17) {
+		return '下午好';
+	} else if (hour < 19) {
+		return '傍晚好';
+	} else if (hour < 22) {
+		return '晚上好';
+	}
+		return '夜里好';
+}
+
+
+/*
+ 日期
+*/
+
+export function Date (e) {
+    return e.getFullYear() + '-' + (e.getMonth() + 1) + '-' + e.getDate();
+}
+
+/*
+时间
+*/
+export function Time (e) {
+  return e.getFullYear() + '-' + (e.getMonth() + 1) + '-' + e.getDate() + ' ' + e.getHours() + ':' + e.getMinutes() + ':' + e.getSeconds();
+}

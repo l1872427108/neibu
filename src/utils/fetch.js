@@ -5,7 +5,8 @@ import {
     Cookie,
     Key
 } from './cookie';
-import { contentType, needLoadingRequest, messageDuration, requestTimeout } from '~/setting';
+
+import { contentType, needLoadingRequest, messageDuration, requestTimeout } from '~/config/website';
 
 
 const service = axios.create({
@@ -34,8 +35,10 @@ service.interceptors.request.use(params => {
     if (needLoading()) {
         showLoading();
     }
+    console.log('我是请求拦截器', config);
     return config;
 }, error => {
+    console.log('我是请求拦截器的error', error);
     return Promise.reject(error);
 });
 
@@ -74,12 +77,14 @@ service.interceptors.response.use(response => {
         });
         return Promise.reject(res.message || 'Error');
     }
+    console.log('我是响应拦截器', response);
         return res;
 },
 error => {
     hideLoading();
     // eslint-disable-next-line
     console.log('err' + error); // for debug
+    console.log('我是请求拦截器的error', error);
     // const {} =
     if (error.response && error.response.status === 401 && error.response.data.code && error.response.data.code === 1401) {
         let isLock = true;
