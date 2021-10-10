@@ -1,5 +1,10 @@
 import store from '~/store';
 
+/**
+ *
+ * @param {*} el 标签
+ * @param {*} binding 权限
+ */
 function checkPermission (el, binding) {
     const { value } = binding;
     const buttonList = store.getters && store.getters.buttonList;
@@ -7,7 +12,9 @@ function checkPermission (el, binding) {
         const hasPermission = buttonList.some(button => {
             return value === button;
         });
-        //
+        if (!hasPermission) {
+            el.parentNode && el.parentNode.removeChild(el);
+        }
     } else {
         throw new Error('need roles!');
     }

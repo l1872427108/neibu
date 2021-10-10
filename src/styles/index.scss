@@ -1,0 +1,12 @@
+// 基础变量
+@import './base/variable.scss';
+// 动画
+@import './base/transition.scss';
+// 通用配置
+@import './base/app.scss';
+// ele样式覆盖
+@import './element/element-ui.scss';
+// 修正
+@import './base/normalize.scss';
+// 适配
+@import './media/index.scss';

@@ -1,0 +1,10 @@
+@import './media.scss';
+
+
+@media screen and (max-width: $sm) {
+    .welcome-image {
+        .welcome-image-logo {
+            width: 130px !important;
+        }
+    }
+}

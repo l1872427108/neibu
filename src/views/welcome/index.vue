@@ -1,11 +1,14 @@
 <template>
-  <div class="elcss">
-    <div class="img">
-      <img src="../../assets/img/logo.png">
+  <div class="welcome accommodate">
+    <div class="welcome-image">
+      <img class="welcome-image-logo" src="~/assets/image/logo.png">
     </div>
-    <div class="minn">
-      <div class="title">
-        <div class="welcom">{{username}} :欢迎使用内部信息化平台</div>
+    <div class="welcome-title">
+      <div class="welcome-title-user">
+        {{username}}
+      </div>
+      <div class="welcome-title-user">
+        欢迎使用内部信息化平台
       </div>
     </div>
   </div>
@@ -25,57 +28,27 @@ export default {
 };
 </script>
 
-<style>
-
+<style lang="scss">
 .el-scrollbar__view {
-    height: 100% !important;
-}
-
-.el-scrollbar__view>.elcss {
-  width: 100%;
   height: 100%;
-  padding: 180px;
-  background: #fff;
 }
-.minn {
-  margin-top: -5%;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-	align-items: center;
+</style>
+<style lang="scss" scoped>
+@import '~/styles/mixins/mixin';
+.welcome {
+  .welcome-image {
+    position: absolute;
+    top: 7%;
+    left: 7%;
+  }
+  .welcome-image-logo {
+    width: 200px;
+  }
+  .welcome-title {
+    @include vertical;
+  }
+  .welcome-title-user {
+    font-size: 16px;
+  }
 }
-.img {
-  position: absolute;
-  top: 30px;
-  left: 30px;
-}
-img {
-  width: 200px;
-}
-
-.titel {
-  font-family: 'Arial Negreta', 'Arial';
-      font-weight: 700;
-      margin-right: 50%;
-}
-
-.welcom {
-  font-size: 48px;
-}
-
-.el-row {
-  text-align: center;
-}
-
-.buttonin {
-  width: 218px;
-  height: 58px;
-  font-size: 20px;
-  border-radius: 90px;
-  font-weight: 500;
-  font-family: 'Arial Negreta', 'Arial';
-  color: black;
-}
-
 </style>

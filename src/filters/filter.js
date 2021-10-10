@@ -1,5 +1,5 @@
 /**
- * @param {number} status
+ * @param {number} status 合同状态
  */
 export function filterStatus (status) {
     if (status === '0') {
@@ -19,7 +19,7 @@ export function filterStatus (status) {
 
 
 /**
- * @param {number} message
+ * @param {number} message 状态提示
  */
  export function messageStatus (status) {
     if (status === '0') {
@@ -65,7 +65,11 @@ export function terminateStatus (status) {
     }
 }
 
-
+/**
+ *
+ * @param {*} status 支付状态
+ * @returns
+ */
 export function payStatus (status) {
     if (status === '0') {
         return '未支付';
@@ -76,6 +80,11 @@ export function payStatus (status) {
     }
 }
 
+/**
+ *
+ * @param {*} status 支付类
+ * @returns
+ */
 export function payClass (status) {
     if (status === '0') {
         return 'info';
@@ -86,6 +95,11 @@ export function payClass (status) {
     }
 }
 
+/**
+ *
+ * @param {*} status 支付提示
+ * @returns
+ */
 export function payMessage (status) {
     if (status === '0') {
         return '去支付';
@@ -96,6 +110,11 @@ export function payMessage (status) {
     }
 }
 
+/**
+ *
+ * @param {*} status 支付类型
+ * @returns
+ */
 export function payType (status) {
     if (status === '0') {
         return 'primary';

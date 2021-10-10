@@ -6,8 +6,9 @@ import {
 import store from './store';
 import Nprogress from 'nprogress';
 import 'nprogress/nprogress.css';
-import { progressBar, whiteList, currentAddressUrl } from './setting';
-import getPageTitle from './utils/getPageTitle';
+import { progressBar } from '~/setting';
+import { whiteList } from '~/config/website';
+import getPageTitle from '~/utils/getPageTitle';
 
 Nprogress.configure({
   easing: 'ease',
@@ -41,7 +42,7 @@ router.beforeEach(async (to, from, next) => {
       next();
     } else {
       if (progressBar) Nprogress.done();
-      currentAddressUrl = `${process.env.VUE_APP_AUTH_URL}?redirectURL=${currentAddressUrl}`;
+      window.location.href = `${process.env.VUE_APP_AUTH_URL}?redirectURL=${window.location.href}`;
     }
   }
   document.title = getPageTitle(to.meta.title);

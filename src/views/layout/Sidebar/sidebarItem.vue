@@ -10,7 +10,7 @@
 
     <el-submenu v-else ref="subMenu" :index="item.url" popper-append-to-body>
       <template slot="title">
-        <item :icon="item.icon" :title="item.name" />
+        <item class="siderItem" :icon="item.icon" :title="item.name" />
       </template>
       <sidebar-item
         v-for="child in item.children"
@@ -89,3 +89,7 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+
+</style>

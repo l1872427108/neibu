@@ -1,206 +1,86 @@
 <template>
-  <div
-    class="container"
-    :class="{'container-collapse': isCollapse}"
+  <el-container
+    class="layout-container"
   >
-    <div class="container-header">
+    <side-bar />
+    <el-container class="flex-center layout-main layout-backtop">
       <top />
-      <tags class="container-tags" />
-    </div>
-
-    <div class="container-layout">
-      <div class="container-left">
-        <side-bar />
-      </div>
-
-      <div class="container-main">
-
-        <el-scrollbar style="height:100%">
+        <el-scrollbar ref="layoutDefaultsScrollbarRef">
           <keep-alive>
             <router-view
               v-if="$route.meta.keepAlive"
               :key="key"
               class="container-view"
             />
-          </keep-alive>
-          <router-view
-            v-if="!$route.meta.keepAlive"
-            :key="key"
-            class="container-view"
-          />
-        </el-scrollbar>
-      </div>
-    </div>
-  </div>
+            </keep-alive>
+            <router-view
+              v-if="!$route.meta.keepAlive"
+              :key="key"
+              class="container-view"
+            />
+          </el-scrollbar>
+    </el-container>
+    <el-backtop target=".layout-backtop .el-scrollbar__wrap"></el-backtop>
+  </el-container>
 </template>
 
 <script>
 import top from './top';
 import SideBar from './Sidebar';
-import tags from './TagsView/index';
 import { mapGetters } from 'vuex';
 export default {
-    name: 'Home',
-    components: {
-        top,
-        SideBar,
-        tags
-    },
-    computed: {
-      ...mapGetters(['isCollapse']),
-      key () {
-        return this.$route.path;
-      }
-    },
-    methods: {
-      showCollapse () {
-        console.log(1);
+  name: 'Home',
+  components: {
+      top,
+      SideBar
+  },
+  computed: {
+    ...mapGetters(['isCollapse']),
+    key () {
+      return this.$route.path;
+    }
+  },
+  created () {
+    this.onLayoutResize();
+    window.addEventListener('resize', this.onLayoutResize);
+  },
+  watch: {
+    $route: {
+      handler () {
+        this.$refs.layoutDefaultsScrollbarRef.wrap.scrollTop = 0;
+      },
+      deep: true
+    }
+  },
+  methods: {
+    onLayoutResize () {
+      // if (!getStorage()) setStorage('', this.$store.state.themeConfig.themeConfig.layout)
+      const clientWidth = document.body.clientWidth;
+      if (clientWidth < 1000) {
+        this.$store.state.themeConfig.themeConfig.isCollapse = false;
+        this.$bus.$emit('layoutMobileResize', {
+          layout: 'default',
+          clientWidth
+        });
+      } else {
+        this.$bus.$emit('layoutMobileResize', {
+          layout: '',
+          clientWidth
+        });
       }
     }
+  },
+  distoryed () {
+    window.addEventListener('resize', this.onLayoutResize);
+  }
 };
 </script>
 
-<style lang="scss">
-@import '~/assets/styles/variable.scss';
-.container-left,
-.container-header,
-.container-top,
-.container-layout
-.container-main {
-    transition: all .3s;
+<style lang="scss" scoped>
+.layout-main {
+  flex-direction: column !important;
 }
-
-.container {
-    width: 100%;
-    height: 100%;
-    background: #f0f2f5;
-}
-
-.container-left {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: $sideBarWidth;
-  height: 100%;
-  z-index: 1025;
-}
-
-.container-header {
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  z-index: 99;
-  padding-left: $sideBarWidth;
-  /* width: calc(100%-60px); */
-  background-color: #fff;
-  box-sizing: border-box;
-  .container-tags {
-    border: 1px solid Transparent;
-  }
-}
-
-.container-main {
-  position: absolute;
-  left: $sideBarWidth;
-  top: 100px;
-  padding: 0;
-  width: calc(100% - 200px);
-  height: calc(100% - 100px);
-  box-sizing: border-box;
-  overflow: hidden;
-}
-
 .container-view {
-  width: 100%;
-  box-sizing: border-box;
-}
-.el-scrollbar__wrap{
-  overflow-x: hidden;
-}
-
-.container-collapse {
-  .container-header{
-    padding-left: $sideBarCollapseWidth;
-  }
-  .container-main {
-    width: calc(100% - 52px);
-    left: $sideBarCollapseWidth;
-  }
-  .container-left {
-    width: $sideBarCollapseWidth;
-  }
-
-  .main-container {
-    margin-left: $sideBarCollapseWidth;
-  }
-
-  .submenu-title-noDropdown {
-    padding: 0 !important;
-    position: relative;
-
-    .el-tooltip {
-      padding: 0 !important;
-      text-align: center;
-    }
-  }
-
-  .el-submenu {
-    overflow: hidden;
-
-    &>.el-submenu__title {
-      text-align: center;
-      padding: 0 !important;
-
-      .item-icon {
-        /* margin-left: 17px; */
-      }
-
-      .el-submenu__icon-arrow {
-        display: none;
-      }
-    }
-  }
-
-  .el-menu--collapse {
-    .el-submenu {
-      &>.el-submenu__title {
-        &>span {
-          height: 0;
-          width: 0;
-          overflow: hidden;
-          visibility: hidden;
-          display: inline-block;
-        }
-      }
-    }
-  }
-}
-
-
-@media screen and (max-width: 992px) {
-    /* .container-left,
-    .container-main {
-        left: 0;
-        width: 100%;
-    }
-    .container-header {
-        margin-bottom: 15px;
-        padding-left: 15px;
-    }
-    .top-bar__item {
-        display: none;
-    }
-    .container-collapse {
-        .container-left,
-        .container-main {
-            left: 200px;
-            width: 100%;
-        }
-        .container-header {
-            padding: 0;
-            transform: translate3d(200px, 0, 0);
-        }
-    } */
+  padding: 20px;
 }
 </style>

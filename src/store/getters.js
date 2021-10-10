@@ -15,7 +15,9 @@ const getters = {
     menuList: state => state.menu.menuList,
     buttonList: state => state.menu.buttonList,
 
-    userInfo: state => state.menu.userInfo
+    userInfo: state => state.menu.userInfo,
+
+    themeConfig: state => state.themeConfig.themeConfig
 };
 
 export default getters;

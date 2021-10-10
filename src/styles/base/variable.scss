@@ -1,0 +1,29 @@
+// 背景色
+$--color-whites:#FFFFFF !default;
+$--color-bg: #F0F2F5;
+// 基础色
+$--color-primary:#409EFF;
+// 成功
+$--color-success: #67C23A;
+// 警告
+$--color-warning: #E6A23C;
+// Danger
+$--color-danger: #F56C6C;
+// info
+$--color-info: #909399;
+// 侧边栏主题色
+$--color-menu:#324157;
+
+// 灰色
+$--color-fontcolor: #4b4c4f;
+
+:export {
+    
+}
+
+:root {
+    --variable--color-whites: #{$--color-whites};
+    --variable--color-bg: #{$--color-bg};
+    --variable--color-primary: #{$--color-primary};
+    --variable--color-menu: #{$--color-menu};
+}
