@@ -7,7 +7,7 @@ const compactRouter = {
     redirect: '/compact/management',
     name: 'Compact',
     meta: {
-        title: '签约合同',
+        title: 'router.compact',
         icon: 'basic-icon-home'
     },
     children: [
@@ -16,7 +16,7 @@ const compactRouter = {
             name: 'Management',
             component: () => import('~/views/ManagementContract/index'),
             meta: {
-                title: '合同管理',
+                title: 'router.management',
                 icon: 'basic-icon-maoshachan',
                 keepAlive: true
             }

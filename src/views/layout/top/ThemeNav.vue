@@ -1,31 +1,31 @@
 <template>
-  <div class="layout-navbars-breadcrumb-user">
+  <div class="layout-navbars-user">
       <el-tooltip
         effect="dark"
         :content="$t('navbar.language')"
         placement="bottom"
       >
-        <div class="top-item top-item-show">
+        <div class="layout-navbars-item">
           <top-lang />
         </div>
       </el-tooltip>
-      <el-tooltip
+      <!-- <el-tooltip
         v-if="showDebug"
         effect="dark"
         :content="$t('navbar.bug')"
         placement="bottom"
       >
-        <div class="top-item">
+        <div class="layout-navbars-item">
           <top-logs />
         </div>
-      </el-tooltip>
+      </el-tooltip> -->
       <el-tooltip
         v-if="showFullScren"
         effect="dark"
         :content="isFullScren?$t('navbar.screenfullF'):$t('navbar.screenfull')"
         placement="bottom"
       >
-        <div class="top-item">
+        <div class="layout-navbars-item">
           <i
             class="basic-icon"
             :class="isFullScren?'basic-icon-tuichuquanping-copy':'basic-icon-quanping'"
@@ -33,10 +33,9 @@
           />
         </div>
       </el-tooltip>
-
       <img
-        class="top-img"
-        :src="userInfo.avatar"
+        class="layout-navbars-image"
+        :src="userInfo.imageUrl ? userInfo.imageUrl : avatar"
       >
       <el-dropdown slot="dropdown">
         <span class="el-dropdown-link">
@@ -45,7 +44,7 @@
         <el-dropdown-menu>
           <el-dropdown-item>
             <router-link to="/">
-              {{ $t('navbar.dashboard') }}
+              {{ $t('navbar.home') }}
             </router-link>
           </el-dropdown-item>
           <el-dropdown-item
@@ -60,14 +59,16 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 import topLogs from './topLogs.vue';
 import { fullscreenToggel, listenerfullscreen } from '~/utils/util';
 import topLang from './topLang.vue';
+import defer from '~/mixins/defer';
 
 export default {
+  mixins: [defer],
   components: {
-    topLogs,
+    // topLogs,
     topLang
   },
   data () {
@@ -76,27 +77,20 @@ export default {
       showDebug: true,
       showTheme: true,
       showFullScren: true,
-      userInfo: {
-        avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif'
-      }
+      avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif'
     };
   },
 
   computed: {
-    ...mapState({
-
-    }),
     ...mapGetters([
       'isCollapse',
       'isFullScren',
-      'themeConfig'
+      'themeConfig',
+      'userInfo'
     ]),
     setHeaderHeight () {
       const { layout } = this.themeConfig;
-      if (layout !== 'classic') {
-        return '84px';
-      }
-        return '100px';
+      return '100px';
     }
   },
 
@@ -130,53 +124,30 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.layout-navbars-breadcrumb-user {
-    display: flex;
-	align-items: center;
-	justify-content: flex-end;
-}
-.top-right {
-    height: 64px;
-    position: absolute;
-    top: 0;
-    i{
-        line-height: 64px;
-    }
-}
-
-.top-left {
-    left: 20px;
-}
-
-.top-right {
-    right: 25px;
-    display: flex;
-    align-items: center;
-}
-
-.top-item {
+<style lang="scss" scoped>
+.layout-navbars-user {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  .layout-navbars-item {
     position: relative;
     height: 64px;
-    margin:0 10px;
+    margin: 0 8px;
     font-size: 16px;
     align-items: center;
     display: flex;
-    .el-badge__content.is-fixed{
-        top:12px;
-        right: 5px;
-    }
-}
+  }
 
-.top-img {
-  margin: 0 8px 0 5px;
-  padding: 2px;
-  width: 30px;
-  height: 30px;
-  border-radius: 100%;
-  box-sizing: border-box;
-  border: 1px solid #eee;
-  vertical-align: middle;
+  .layout-navbars-image {
+    margin: 0 8px;
+    padding: 2px;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    box-sizing: border-box;
+    border: 1px solid #eee;
+    vertical-align: middle;
+  }
 }
 
 </style>

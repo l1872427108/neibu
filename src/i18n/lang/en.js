@@ -24,27 +24,10 @@ export default {
     error: 'error',
     test: 'test'
   },
-  login: {
-    title: 'Login ',
-    info: 'Enterprise Development Platform',
-    username: 'Please input username',
-    password: 'Please input a password',
-    wechat: 'Wechat',
-    qq: 'QQ',
-    github: 'github',
-    gitee: 'gitee',
-    phone: 'Please input a phone',
-    code: 'Please input a code',
-    submit: 'Login',
-    userLogin: 'userLogin',
-    phoneLogin: 'phoneLogin',
-    thirdLogin: 'thirdLogin',
-    msgText: 'send code',
-    msgSuccess: 'reissued code'
-  },
   navbar: {
     info: 'info',
     logOut: 'logout',
+    home: 'Home',
     userinfo: 'userinfo',
     lock: 'lock',
     bug: 'none bug',
@@ -56,8 +39,10 @@ export default {
     color: 'color'
   },
   tagsView: {
-    menu: 'menu',
-    closeOthers: 'Close Others',
-    closeAll: 'Close All'
-  }
+		refresh: 'refresh',
+		close: 'close',
+		closeOther: 'closeOther',
+		closeAll: 'closeAll',
+		fullscreen: 'fullscreen'
+	}
 };

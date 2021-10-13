@@ -1,4 +1,4 @@
-import { Cookie, Key } from '~/utils/cookie';
+import { Cookie, Key } from '~/utils/cache/cookie';
 import { pugesystem, pugemenu } from '~/api/systemMenuRole';
 import { Message } from 'element-ui';
 import { sleep } from '~/utils/util';

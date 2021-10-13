@@ -1,5 +1,5 @@
 import { Loading } from 'element-ui';
-import { loadingText } from '../setting';
+import { loadingText } from '~/setting';
 
 let loading = null;
 let loadingCount = 0;

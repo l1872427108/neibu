@@ -2,7 +2,8 @@ const state = {
     themeConfig: {
         layout: 'defaults',
         isCollapse: false,
-        isBreadcrumb: true
+        isBreadcrumb: true,
+        globalTitle: 'Internal'
     }
 };
 

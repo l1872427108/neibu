@@ -1,17 +1,18 @@
-import { setStorage, getStorage } from '~/utils/storage';
-
+import { setStorage, getStorage } from '~/utils/cache/storage';
+import { key } from '~/config/website';
 const state = {
-    language: getStorage('language') || 'zh',
-    colorName: getStorage('themeName') || 'theme-default',
+    language: getStorage(key + '-language') || 'zh',
+    colorName: getStorage(key + '-themeName') || 'theme-default',
     isCollapse: false, // 是否折叠
     isFullScren: false,
-    themeName: getStorage('themeName') || 'theme-default'
+    themeName: getStorage(key + '-themeName') || 'theme-default'
 };
 
 const mutations = {
     SET_LANGUAGE (state, language) {
-        state.language = language;
+        console.log(language);
         setStorage('language', state.language);
+        state.language = language;
     },
     SET_COLOR_NAME: (state, colorName) => {
         state.colorName = colorName;

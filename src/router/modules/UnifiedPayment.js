@@ -7,7 +7,7 @@ const payRouter = {
     redirect: '/pay/center',
     name: 'Pay',
     meta: {
-        title: '支付',
+        title: 'router.pay',
         icon: 'basic-icon-home'
     },
     children: [
@@ -16,7 +16,7 @@ const payRouter = {
             name: 'Centre',
             component: () => import('~/views/UnifiedPayment/index'),
             meta: {
-                title: '支付中心',
+                title: 'router.center',
                 icon: 'basic-icon-maoshachan',
                 keepAlive: true
             }

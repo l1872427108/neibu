@@ -1,4 +1,4 @@
-import request from '~/utils/fetch';
+import request from '~/utils/request/fetch';
 
 /**
  * 查询个人所有合约

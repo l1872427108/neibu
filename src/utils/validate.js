@@ -1,3 +1,6 @@
+export function isExternal (path) {
+  return /^(https?:|mailto:|tel:)/.test(path);
+}
 /**
  * 地址
  */
@@ -54,11 +57,6 @@ export const identity = (rule, value, callback) => {
     callback(new Error('请输入正确的身份证号'));
   }
 };
-
-
-export function isExternal (path) {
-  return /^(https?:|mailto:|tel:)/.test(path);
-}
 
 
 /**

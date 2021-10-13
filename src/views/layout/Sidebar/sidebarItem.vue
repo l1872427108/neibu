@@ -3,14 +3,14 @@
     <template v-if="!item.children || item.children.length === 0">
       <app-link :to="item.url">
         <el-menu-item :index="item.url" :class="{'submenu-title-noDropdown':!isNest}">
-          <item :icon="item.icon" :title="item.name" />
+          <item :icon="item.icon" :title="$t(`router.${item.name}`)" />
         </el-menu-item>
       </app-link>
     </template>
 
     <el-submenu v-else ref="subMenu" :index="item.url" popper-append-to-body>
       <template slot="title">
-        <item class="siderItem" :icon="item.icon" :title="item.name" />
+        <item class="siderItem" :icon="item.icon" :title="$t(`router.${item.name}`)" />
       </template>
       <sidebar-item
         v-for="child in item.children"

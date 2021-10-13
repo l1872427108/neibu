@@ -1,4 +1,4 @@
-import request from '~/utils/fetch';
+import request from '~/utils/request/fetch';
 /**
  * 合同订单查询
  */
