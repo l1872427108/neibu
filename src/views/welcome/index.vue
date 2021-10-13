@@ -5,7 +5,7 @@
     </div>
     <div class="welcome-title">
       <div class="welcome-title-user">
-        {{username}}
+        {{userInfo.nickName}}
       </div>
       <div class="welcome-title-user">
         欢迎使用内部信息化平台
@@ -15,15 +15,14 @@
 </template>
 
 <script>
-import {
-  Cookie,
-  Key
-} from '~/utils/cookie';
+import { mapGetters } from 'vuex';
+import { changeToWebp } from '~/utils/util';
 export default {
   computed: {
-    username () {
-      return JSON.parse(Cookie.get(Key.userInfoKey)).nickName;
-    }
+    ...mapGetters(['userInfo'])
+  },
+  methods: {
+    changeToWebp
   }
 };
 </script>
@@ -37,6 +36,7 @@ export default {
 @import '~/styles/mixins/mixin';
 .welcome {
   .welcome-image {
+
     position: absolute;
     top: 7%;
     left: 7%;

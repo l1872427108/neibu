@@ -28,7 +28,8 @@ export const publicRoutes = [
                 name: 'Welcome',
                 component: () => import('~/views/welcome'),
                 meta: {
-                    title: '首页'
+                    title: 'router.house',
+                    affix: true
                 }
             }
         ]
@@ -39,7 +40,7 @@ export const publicRoutes = [
         redirect: '/setting/personage',
         name: 'Setting',
         meta: {
-            title: '个人中心'
+            title: 'router.setting'
         },
         children: [
             {
@@ -47,7 +48,7 @@ export const publicRoutes = [
                 component: () => import('~/views/Personage'),
                 name: 'Personage',
                 meta: {
-                    title: '个人信息'
+                    title: 'router.personage'
                 }
             }
         ]

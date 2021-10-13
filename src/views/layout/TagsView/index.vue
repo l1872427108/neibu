@@ -10,33 +10,40 @@
         tag="span"
         class="tags-view-item"
         @click.middle.native="!isAffix(tag)?closeSelectedTag(tag):''"
-        @contextmenu.prevent.native="openMenu(tag,$event)"
+        @contextmenu.prevent.native="onContextmenu(tag,$event)"
       >
-        {{ tag.title }}
+        {{ $t(tag.title) }}
         <span v-if="!isAffix(tag)" class="el-icon-close" @click.prevent.stop="closeSelectedTag(tag)" />
       </router-link>
     </scroll-pane>
-    <ul v-show="visible" :style="{left:left+'px',top:top+'px'}" class="contextmenu">
-      <li v-if="!isAffix(selectedTag)" @click="closeSelectedTag(selectedTag)">关闭</li>
-      <li @click="closeOthersTags">关闭其他</li>
-      <li @click="closeAllTags(selectedTag)">关闭所有</li>
-    </ul>
+     <transition name="el-zoom-in-center">
+        <ul v-if="defer(2)" v-show="visible" :style="`top: ${this.tagsDropdown.y}px;left: ${this.tagsDropdown.x}px;`" class="contextmenu">
+          <li v-if="!isAffix(selectedTag)" @click="closeSelectedTag(selectedTag)"><i class="el-icon-close"></i><span>{{$t('tagsView.close')}}</span></li>
+          <li @click="closeOthersTags"><i class="el-icon-circle-close"></i><span>{{$t('tagsView.closeOther')}}</span></li>
+          <li @click="closeAllTags(selectedTag)"><i class="el-icon-circle-close"></i><span>{{$t('tagsView.closeOther')}}</span></li>
+        </ul>
+     </transition>
   </div>
 </template>
 
 <script>
 import ScrollPane from './ScrollPane';
 import path from 'path';
-
+import defer from '~/mixins/defer';
 export default {
   components: { ScrollPane },
+  mixins: [defer],
   data () {
     return {
       visible: false,
       top: 0,
       left: 0,
       selectedTag: {},
-      affixTags: []
+      affixTags: [],
+      tagsDropdown: {
+				x: '',
+				y: ''
+			}
     };
   },
   computed: {
@@ -161,39 +168,22 @@ export default {
       if (latestView) {
         this.$router.push(latestView.fullPath);
       } else {
-        // now the default is to redirect to the home page if there is no tags-view,
-        // you can adjust it according to your needs.
-        if (view.name === 'Dashboard') {
-          // to reload home page
-          this.$router.replace({ path: '/redirect' + view.fullPath });
-        } else {
-          this.$router.push('/');
-        }
+        this.$router.push('/welcome');
       }
-    },
-    openMenu (tag, e) {
-      const menuMinWidth = 105;
-      const offsetLeft = this.$el.getBoundingClientRect().left; // container margin left
-      const offsetWidth = this.$el.offsetWidth; // container width
-      const maxLeft = offsetWidth - menuMinWidth; // left boundary
-      const left = e.clientX - offsetLeft + 15; // 15: margin right
-
-      if (left > maxLeft) {
-        this.left = maxLeft;
-      } else {
-        this.left = left;
-      }
-
-      this.top = e.clientY;
-      this.visible = true;
-      this.selectedTag = tag;
     },
     closeMenu () {
       this.visible = false;
     },
     handleScroll () {
       this.closeMenu();
-    }
+    },
+    onContextmenu (tag, e) {
+			const { clientX, clientY } = e;
+			this.tagsDropdown.x = clientX;
+			this.tagsDropdown.y = clientY;
+      this.visible = true;
+      this.selectedTag = tag;
+		}
   }
 };
 </script>

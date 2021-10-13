@@ -1,8 +1,15 @@
 <template>
   <div class="personal">
     <el-row>
-        <el-col :xs="24" :sm="16">
-            <el-card shadow="hover" header="个人信息">
+        <el-skeleton style="width:100%;" :loading="loading" animated :count="1">
+            <template slot="template">
+            <el-skeleton-item
+                style="width: 100%; height: 267px;"
+            />
+            </template>
+            <template>
+                <el-col :xs="24" :sm="24">
+            <el-card shadow="hover" :header="$t('person.personInfo')">
                 <div class="personal-user">
                     <div class="personal-user-left">
                         <Upload @updatePhoto="updatePhoto" class="h100 personal-user-left-upload">
@@ -11,15 +18,15 @@
                     </div>
                     <div class="personal-user-right">
                         <el-row>
-                            <el-col :span="24" class="personal-title mb18">{{ currentTime }}，{{userInfo.nickName}}，生活变的再糟糕，也不妨碍我变得更好！ </el-col>
+                            <el-col :span="24" class="personal-title mb18">{{ $t(`person.${currentTime}`) }}，{{userInfo.nickName}}，{{$t('person.better')}} </el-col>
                             <el-col :span="24">
                                 <el-row>
                                     <el-col :xs="24" :sm="8" class="personal-item mb6">
-                                        <div class="personal-item-label">昵称：</div>
+                                        <div class="personal-item-label">{{$t('person.nickName')}}：</div>
                                         <div class="personal-item-value">{{userInfo.nickName}}</div>
                                     </el-col>
                                     <el-col :xs="24" :sm="16" class="personal-item mb6">
-                                        <div class="personal-item-label">用户名：</div>
+                                        <div class="personal-item-label">{{$t('person.username')}}：</div>
                                         <div class="personal-item-value">{{userInfo.username}}</div>
                                     </el-col>
                                 </el-row>
@@ -27,11 +34,11 @@
                             <el-col :span="24">
                                 <el-row>
                                     <el-col :xs="24" :sm="8" class="personal-item mb6">
-                                        <div class="personal-item-label">手机号：</div>
+                                        <div class="personal-item-label">{{$t('person.phone')}}：</div>
                                         <div class="personal-item-value">{{userInfo.mobile}}</div>
                                     </el-col>
                                     <el-col :xs="24" :sm="16" class="personal-item mb6">
-                                        <div class="personal-item-label">登录时间：</div>
+                                        <div class="personal-item-label">{{$t('person.time')}}：</div>
                                         <div class="personal-item-value">{{currentDate}}</div>
                                     </el-col>
                                 </el-row>
@@ -40,97 +47,101 @@
                     </div>
                 </div>
             </el-card>
-        </el-col>
-        <el-col :xs="24" :sm="8" class="pl15 personal-info">
-				<el-card shadow="hover">
-					<template #header>
-						<span>消息通知</span>
-						<span class="personal-info-more">更多</span>
-					</template>
-					<div class="personal-info-box">
-						<ul class="personal-info-ul">
-
-						</ul>
-					</div>
-				</el-card>
-			</el-col>
-        <el-col :span="24" class="mt18">
-            <el-card shadow="hover" header="经典语录">
+            </el-col>
+            </template>
+        </el-skeleton>
+        <el-skeleton style="width:100%;" :loading="loading" animated :count="1">
+            <template slot="template">
+            <el-skeleton-item
+                style="width: 100%; height: 267px;"
+            />
+            </template>
+            <template>
+                <el-col :span="24" class="mt18">
+            <el-card shadow="hover" :header="$t('person.saying')">
                 <el-row :gutter="15" class="personal-saying-row mb10">
                     <el-col :xs="24" :sm="12" :md="12" :lg="6" :xl="6" v-for="(v, k) in recommendList" :key="k" class="personal-saying-col">
                         <div class="personal-saying" :style="{ 'background-color': v.bg }">
                             <i :class="v.icon" :style="{ color: v.iconColor }"></i>
                             <div class="personal-saying-auto">
-                                <div>{{ v.name }} --- {{v.comeFrom}}</div>
-                                <!-- <div>{{ v.comeFrom }}</div> -->
-                                <div class="personal-saying-msg">{{v.content}}</div>
+                                <div>{{ $t(`person.${v.name}`) }}</div>
+                                <div class="personal-saying-msg">{{$t(`person.${v.content}`)}}</div>
                             </div>
                         </div>
                     </el-col>
                 </el-row>
             </el-card>
         </el-col>
-        <el-col :span="24">
-            <el-card shadow="hover" class="mt15 personal-edit" header="更新信息">
-                <div class="personal-edit-title">基本信息</div>
+            </template>
+        </el-skeleton>
+        <el-skeleton style="width:100%;" :loading="loading" animated :count="1">
+            <template slot="template">
+            <el-skeleton-item
+                style="width: 100%; height: 267px;"
+            />
+            </template>
+            <template>
+                <el-col :span="24">
+            <el-card shadow="hover" class="mt15 personal-edit" :header="$t('person.updateInfo')">
+                <div class="personal-edit-title">{{$t('person.basicInfo')}}</div>
                 <el-form :rules="rules" ref="ruleForm" :model="personalForm" size="small" label-width="40px" class="mt35 mb35">
                     <el-row :gutter="35">
-                        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20">
-                            <el-form-item prop="name" label-width="100px" label="昵称">
-                                <el-input v-model="personalForm.name" placeholder="请输入昵称" clearable></el-input>
+                        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6" class="mb20">
+                            <el-form-item prop="name" label-width="100px" :label="$t('person.nickName')">
+                                <el-input v-model="personalForm.name" :placeholder="$t('person.pleaseUser')" clearable></el-input>
                             </el-form-item>
                         </el-col>
-                        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20">
-                            <el-form-item prop="pugeEmail" label-width="100px" label="邮箱">
-                                <el-input v-model="personalForm.pugeEmail" placeholder="请输入邮箱" clearable></el-input>
+                        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6" class="mb20">
+                            <el-form-item prop="pugeEmail" label-width="100px" :label="$t('person.email')">
+                                <el-input v-model="personalForm.pugeEmail" :placeholder="$t('person.pleaseEmail')" clearable></el-input>
                             </el-form-item>
 						</el-col>
-                        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20">
-                            <el-form-item prop="mobile" label-width="100px" label="手机">
-                                <el-input v-model="personalForm.mobile" placeholder="请输入手机" clearable></el-input>
+                        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6" class="mb20">
+                            <el-form-item prop="mobile" label-width="100px" :label="$t('person.phone')">
+                                <el-input v-model="personalForm.mobile" :placeholder="$t('person.pleasePhone')" clearable></el-input>
                             </el-form-item>
                         </el-col>
-                        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20">
-                            <el-form-item prop="nubmerInfo" label-width="100px" label="身份证">
-                                <el-input v-model="personalForm.nubmerInfo" placeholder="请输入身份证" clearable></el-input>
+                        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6" class="mb20">
+                            <el-form-item prop="nubmerInfo" label-width="100px" :label="$t('person.card')">
+                                <el-input v-model="personalForm.nubmerInfo" :placeholder="$t('person.pleaseCard')" clearable></el-input>
                             </el-form-item>
                         </el-col>
-                        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20">
-                            <el-form-item prop="nativeInfo" label-width="100px" label="家庭地址">
-                                <el-input v-model="personalForm.nativeInfo" placeholder="请输入家庭地址" clearable></el-input>
+                        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6" class="mb20">
+                            <el-form-item prop="nativeInfo" label-width="100px" :label="$t('person.address')">
+                                <el-input v-model="personalForm.nativeInfo" :placeholder="$t('person.pleaseAddress')" clearable></el-input>
                             </el-form-item>
                         </el-col>
-                        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20">
-                            <el-form-item prop="familyMoneyInfo" label-width="100px" label="家庭状况">
-                                <el-input v-model="personalForm.familyMoneyInfo" placeholder="请输入家庭状况" clearable></el-input>
+                        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6" class="mb20">
+                            <el-form-item prop="familyMoneyInfo" label-width="100px" :label="$t('person.situation')">
+                                <el-input v-model="personalForm.familyMoneyInfo" :placeholder="$t('person.pleaseSituation')" clearable></el-input>
                             </el-form-item>
                         </el-col>
-                        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20">
-                            <el-form-item prop="familyNumber" label-width="100px" label="家庭人数">
-                                <el-input :min="1" :max="10" v-model="personalForm.familyNumber" placeholder="请输入家庭人数" clearable></el-input>
+                        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6" class="mb20">
+                            <el-form-item prop="familyNumber" label-width="100px" :label="$t('person.households')">
+                                <el-input :min="1" :max="10" v-model="personalForm.familyNumber" :placeholder="$t('person.pleaseUser')" clearable></el-input>
                             </el-form-item>
                         </el-col>
-                        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20">
-                            <el-form-item prop="pugeNumber" label-width="100px" label="普歌工号">
-                                <el-input v-model="personalForm.pugeNumber" placeholder="请输入普歌工号" clearable></el-input>
+                        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6" class="mb20">
+                            <el-form-item prop="pugeNumber" label-width="100px" :label="$t('person.work')">
+                                <el-input v-model="personalForm.pugeNumber" :placeholder="$t('person.pleaseWork')" clearable></el-input>
                             </el-form-item>
                         </el-col>
-                        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20">
-                            <el-form-item prop="yesnoInfo" label-width="100px" label="是否单亲">
-                                <el-select v-model="personalForm.yesnoInfo" placeholder="是否单亲" clearable class="w100">
+                        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6" class="mb20">
+                            <el-form-item prop="yesnoInfo" label-width="100px" :label="$t('person.single')">
+                                <el-select v-model="personalForm.yesnoInfo" :placeholder="$t('person.pleaseSingle')" clearable class="w100">
                                     <el-option label="是" value="1"></el-option>
                                     <el-option label="否" value="2"></el-option>
                                 </el-select>
                             </el-form-item>
                         </el-col>
-                        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20">
-                            <el-form-item prop="pugeBirthday" label-width="100px" label="生日">
-                                <el-date-picker class="w100" v-model="personalForm.pugeBirthday" type="date" placeholder="请输入生日"></el-date-picker>
+                        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6" class="mb20">
+                            <el-form-item prop="pugeBirthday" label-width="100px" :label="$t('person.birthday')">
+                                <el-date-picker class="w100" v-model="personalForm.pugeBirthday" type="date" :placeholder="$t('person.pleaseBirthday')"></el-date-picker>
                             </el-form-item>
                         </el-col>
-                        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" class="mb20">
-                            <el-form-item prop="pugeSex" label-width="100px" label="性别">
-                                <el-select v-model="personalForm.pugeSex" placeholder="请选择性别" clearable class="w100">
+                        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6" class="mb20">
+                            <el-form-item prop="pugeSex" label-width="100px" :label="$t('person.gender')">
+                                <el-select v-model="personalForm.pugeSex" :placeholder="$t('person.pleaseGender')" clearable class="w100">
                                     <el-option label="男" value="1"></el-option>
                                     <el-option label="女" value="2"></el-option>
                                 </el-select>
@@ -138,20 +149,22 @@
                         </el-col>
                         <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
                             <el-form-item>
-                                <el-button @click="submitForm('ruleForm')" type="primary" icon="el-icon-position">更新个人信息</el-button>
+                                <el-button @click="submitForm('ruleForm')" type="primary" icon="el-icon-position">{{$t('person.updatePersonalInformation')}}</el-button>
                             </el-form-item>
                         </el-col>
                     </el-row>
                 </el-form>
             </el-card>
         </el-col>
+            </template>
+        </el-skeleton>
     </el-row>
   </div>
 </template>
 
 <script>
 import Upload from '~/components/Upload';
-import { formatData, dateFormat } from '~/utils/date';
+import { formatData, dateFormat } from '~/utils/date/date';
 import { identity, checkPhone, checkEmail } from '~/utils/validate';
 import { personPutInfo, personSearchInfo, personUpdatePhoto } from '~/api/personMessage';
 import { mapGetters } from 'vuex';
@@ -160,60 +173,61 @@ export default {
         Upload
     },
     computed: {
+        ...mapGetters(['userInfo']),
         currentTime () {
             return formatData(new Date());
         },
-        ...mapGetters(['userInfo']),
         currentDate () {
             return dateFormat(new Date());
         }
     },
     data () {
         return {
+            loading: true,
             recommendList: [{
                 icon: 'el-icon-food',
                 bg: '#48D18D',
                 iconColor: '#64d89d',
-                name: '颜渊',
-                comeFrom: '论语',
-                content: '君子心地平坦宽广，小人却经常局促忧愁。君子襟怀坦白，安贫乐业，与人为善，知足常乐，所以能坦荡荡。小人欲念太多，患得患失，忧心忡忡，怨天尤人，局促不安，所以常心怀戚戚。'
+                name: 'quotesOnePerson',
+                content: 'quotesOne'
 
             },
             {
                 icon: 'el-icon-shopping-bag-1',
                 bg: '#F95959',
                 iconColor: '#F86C6B',
-                name: '荀子',
-                comeFrom: '劝学',
-                content: '木料经过木工用墨线（木工用具）划直线加工以后，就变直了；金属物品在磨刀石上磨砺后，就能锋利。人经过学习磨练，自我反省，就会变得聪慧明智，不犯错误，也越来越坚强。'
+                name: 'quotesTwoPerson',
+                content: 'quotesTwo'
             },
             {
                 icon: 'el-icon-school',
                 bg: '#8595F4',
                 iconColor: '#92A1F4',
-                name: '老子',
-                comeFrom: '第六十四章',
-                content: '千里遥远的路程是从脚下第一步开始的。任何事情的成功都是从头开始，从小到大逐渐积累的。万事开头难，没有个开头就不会有结果。任何事情都要从一点一滴的小事开始做起。'
+                name: 'quotesThreePerson',
+                content: 'quotesThree'
             },
             {
                 icon: 'el-icon-alarm-clock',
                 bg: '#FEBB50',
                 iconColor: '#FDC566',
-                name: '朱熹',
-                    comeFrom: '训学斋规',
-                    content: '读书有三到，谓心到，眼到，口到。心不在此，则眼看不仔细，心眼既不专一，却只漫浪诵读，决不能记，久也不能久也。三到之中，心到最急，心既到矣，眼口岂不到乎？'
+                name: 'quotesFourPerson',
+                content: 'quotesFour'
             }],
-            personalForm: {},
+            personalForm: {
+                name: '',
+                pugeEmail: '',
+                mobile: '',
+                nubmerInfo: '',
+                nativeInfo: '',
+                familyMoneyInfo: '',
+                familyNumber: '',
+                pugeNumber: '',
+                yesnoInfo: '',
+                pugeBirthday: '',
+                pugeSex: ''
+            },
             rules: {
-                name: [
-                { required: true, message: '请输入姓名', trigger: 'blur' },
-                {
-                    min: 2,
-                    max: 5,
-                    message: '长度在 2 到 5 个字符',
-                    trigger: 'blur'
-                }
-                ],
+                name: [{ required: true, message: '请输入姓名', trigger: 'blur' }, { min: 2, max: 5, message: '长度在 2 到 5 个字符', trigger: 'blur' }],
                 pugeEmail: [{ required: true, message: '请填写正确的邮箱', validator: checkEmail, trigger: 'blur' }],
                 mobile: [{ required: true, message: '请填写手机号', validator: checkPhone, trigger: 'blur' }],
                 nubmerInfo: [{ required: true, validator: identity, message: '请填写正确的证件号码', trigger: 'blur' }],
@@ -221,26 +235,19 @@ export default {
                 familyMoneyInfo: [{ required: true, message: '请填写家庭状况', trigger: 'blur' }],
                 familyNumber: [{ required: true, message: '请填写家庭人数', trigger: 'blur' }],
                 pugeSex: [{ required: true, message: '请填写性别', trigger: 'blur' }],
-                pugeBirthday: [
-                    {
-                        required: true,
-                        // type: 'date',
-                        message: '请选择日期',
-                        trigger: 'change'
-                    }
-                ]
+                pugeBirthday: [{ required: true, type: 'date', message: '请选择日期', trigger: 'blur' }]
             }
         };
     },
     mounted () {
         this.fetchData();
-        console.log('www');
     },
     methods: {
         fetchData () {
             this.userInfo.uid && personSearchInfo(this.userInfo.uid)
             .then(res => {
                 this.personalForm = res.data.peopleInfo;
+                this.loading = false;
             }).catch(() => {
                 this.$message.erro('数据加载失败');
             });
@@ -327,43 +334,11 @@ export default {
             }
 		}
     }
-    .personal-info {
-		.personal-info-more {
-			float: right;
-			color: var(--variable--color-primary);
-			font-size: 13px;
-			&:hover {
-				color: var(--variable--color-primary);
-				cursor: pointer;
-			}
-		}
-		.personal-info-box {
-			height: 130px;
-			overflow: hidden;
-			.personal-info-ul {
-				list-style: none;
-				.personal-info-li {
-					font-size: 13px;
-					padding-bottom: 10px;
-					.personal-info-li-title {
-						display: inline-block;
-						@include text-ellipsis(1);
-						color: var(--variable--color-primary);
-						text-decoration: none;
-					}
-					& a:hover {
-						color: var(--variable--color-primary);
-						cursor: pointer;
-					}
-				}
-			}
-		}
-	}
     .personal-saying-row {
 		.personal-saying-col {
 			.personal-saying {
 				position: relative;
-				height: 130px;
+				height: 120px;
 				color: var(--variable--color-fontcolor);
 				border-radius: 3px;
 				overflow: hidden;
@@ -389,7 +364,6 @@ export default {
 					left: 0;
 					top: 3%;
                     display: flex;
-                    /* justify-items: center; */
                     flex-direction: column;
                     align-items: center;
 					.personal-saying-msg {

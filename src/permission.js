@@ -2,13 +2,13 @@ import router from './router';
 import {
   Cookie,
   Key
-} from './utils/cookie';
+} from './utils/cache/cookie';
 import store from './store';
 import Nprogress from 'nprogress';
 import 'nprogress/nprogress.css';
 import { progressBar } from '~/setting';
-import { whiteList } from '~/config/website';
-import getPageTitle from '~/utils/getPageTitle';
+import { whiteList, pendingXHRMap } from '~/config/website';
+import { useTitle } from './utils/load/setWebTitle';
 
 Nprogress.configure({
   easing: 'ease',
@@ -18,6 +18,10 @@ Nprogress.configure({
 });
 
 router.beforeEach(async (to, from, next) => {
+  pendingXHRMap.forEach((cancel) => {
+    cancel();
+  });
+  pendingXHRMap.clear();
   if (progressBar) Nprogress.start();
   const hasToken = Cookie.get(Key.accessTokenKey);
   if (hasToken) {
@@ -45,7 +49,8 @@ router.beforeEach(async (to, from, next) => {
       window.location.href = `${process.env.VUE_APP_AUTH_URL}?redirectURL=${window.location.href}`;
     }
   }
-  document.title = getPageTitle(to.meta.title);
+  // document.title = getPageTitle(to.meta.title);
+  document.title = useTitle(to.meta.title);
 });
 
 router.afterEach(() => {

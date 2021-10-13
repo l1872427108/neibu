@@ -24,5 +24,13 @@ module.exports = {
     // 开发环境每次保存时是否输出为eslint编译警告
     lintOnSave: true,
     // 路由模式
-    routerMode: 'hash'
+    routerMode: 'hash',
+    // 是否取消重复请求开关
+    requestCancelSwitch: true,
+    // 定义错误类型
+    CANCEL_REQUEST_TYPE: 'ErrorRequest',
+    // 存放请求map数组
+    pendingXHRMap: new Map(),
+    // 异步加载的时间
+    asyncCount: 10
 };

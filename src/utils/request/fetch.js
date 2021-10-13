@@ -1,13 +1,13 @@
 import axios from 'axios';
-import { showLoading, hideLoading } from './loading';
+import { showLoading, hideLoading } from '../load/loading';
 import { Message, Notification } from 'element-ui';
 import {
     Cookie,
     Key
-} from './cookie';
+} from '../cache/cookie';
 
-import { contentType, needLoadingRequest, messageDuration, requestTimeout } from '~/config/website';
-
+import { contentType, needLoadingRequest, messageDuration, requestTimeout, CANCEL_REQUEST_TYPE, pendingXHRMap } from '~/config/website';
+import { addPendingXHR, removePendingXHR } from './requestFilter';
 
 const service = axios.create({
     baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
@@ -18,9 +18,11 @@ const service = axios.create({
 });
 
 service.interceptors.request.use(params => {
+    removePendingXHR(params);
+    addPendingXHR(params);
+    console.log('fetch', pendingXHRMap);
     const config = {
-        ...params,
-        url: `${params.url}`
+        ...params
     };
     config.headers.Authorization = `Bearer ${Cookie.get(Key.accessTokenKey).replace(/"/g, '')}`;
     const needLoading = () => {
@@ -35,10 +37,8 @@ service.interceptors.request.use(params => {
     if (needLoading()) {
         showLoading();
     }
-    console.log('我是请求拦截器', config);
     return config;
 }, error => {
-    console.log('我是请求拦截器的error', error);
     return Promise.reject(error);
 });
 
@@ -77,32 +77,40 @@ service.interceptors.response.use(response => {
         });
         return Promise.reject(res.message || 'Error');
     }
-    console.log('我是响应拦截器', response);
         return res;
 },
 error => {
+    // 如果是取消请求类型则忽略异常处理
     hideLoading();
-    // eslint-disable-next-line
-    console.log('err' + error); // for debug
-    console.log('我是请求拦截器的error', error);
-    // const {} =
-    if (error.response && error.response.status === 401 && error.response.data.code && error.response.data.code === 1401) {
-        let isLock = true;
-        if (isLock && Cookie.get(Key.refreshTokenKey)) {
-            // 有刷新令牌
-            isLock = false;
-            window.location.href = `${process.env.VUE_APP_AUTH_URL}/refresh?redirectURL=${window.location.href}`;
-        } else {
-            window.location.href = `${process.env.VUE_APP_AUTH_URL}?redirectURL=${window.location.href}`;
-        }
-        return Promise.reject(error.message || 'Error');
+    let isErrorType;
+    try {
+        const errorType = (JSON.parse(error.message) || {}).type;
+        isErrorType = errorType === CANCEL_REQUEST_TYPE;
+    } catch (error) {
+        isErrorType = false;
     }
-    Message({
-        message: error.message,
-        type: 'error',
-        duration: 5 * 1000
-    });
-    return Promise.reject(error);
+    if (!isErrorType) {
+        // eslint-disable-next-line
+        console.log('err' + error); // for debug
+        // const {} =
+        if (error.response && error.response.status === 401 && error.response.data.code && error.response.data.code === 1401) {
+            let isLock = true;
+            if (isLock && Cookie.get(Key.refreshTokenKey)) {
+                // 有刷新令牌
+                isLock = false;
+                window.location.href = `${process.env.VUE_APP_AUTH_URL}/refresh?redirectURL=${window.location.href}`;
+            } else {
+                window.location.href = `${process.env.VUE_APP_AUTH_URL}?redirectURL=${window.location.href}`;
+            }
+            return Promise.reject(error.message || 'Error');
+        }
+        Message({
+            message: error.message,
+            type: 'error',
+            duration: 5 * 1000
+        });
+        return Promise.reject(error);
+    }
 });
 
 

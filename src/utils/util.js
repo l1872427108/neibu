@@ -1,8 +1,3 @@
-export function isExternal (path) {
-  return /^(https?:|mailto:|tel:)/.test(path);
-}
-
-
 /**
  * 设置主题
  */
@@ -125,4 +120,23 @@ export const randomString = (length) => {
  */
 export const sleep = (ms) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
+};
+
+
+/**
+ * 检测webp支持
+ */
+const isSupportWebp = () => {
+    try {
+        return document.createElement('canvas').toDataURL('image/webp', 0.5).indexOf('data:image/webp') === 0;
+    } catch {
+        return false;
+    }
+};
+
+export const changeToWebp = (url) => {
+    if (isSupportWebp()) {
+        return `${url}${url.indexOf('?') > 0 ? '&' : '?'}x-oss-process=image/format,webp`;
+    }
+        return url;
 };

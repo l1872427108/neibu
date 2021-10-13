@@ -1,13 +1,12 @@
 <template>
   <div class="sign">
-    <el-dialog width="70%" title="合同签字"  :visible.sync="visible"
-    :before-close="remoteDialogs"
-        append-to-body
+    <el-dialog :close-on-press-escape="true"  :width="signDialogWidth" title="合同签字"  :visible.sync="visible"
         :show-close="false">
       <sign-canvas
         class="sign-canvas"
         ref="SignCanvas"
-        :options="options"
+        :options="signOptions"
+        v-model="signValue"
       />
       <div class="btnList">
         <el-button
@@ -50,28 +49,38 @@ export default {
   },
   data () {
     return {
-      value: null,
-      options: {
+      signValue: null,
+      signDialogWidth: '',
+      signOptions: {
         lastWriteSpeed: 1,
-        lastWriteWidth: 2,
-        lineCap: 'round',
-        lineJoin: 'round',
-        canvasWidth: 700,
-        canvasHeight: 450,
-        isShowBorder: false,
-        bgColor: '#fcc',
-        borderWidth: 1,
-        borderColor: '#ff787f',
-        writeWidth: 5,
-        maxWriteWidth: 30,
-        minWriteWidth: 5,
-        writeColor: '#101010',
-        isSign: true,
-        imgType: 'png'
+				lastWriteWidth: 2,
+				lineCap: 'round',
+				lineJoin: 'round',
+				canvasWidth: 729,
+				canvasHeight: 460,
+				isShowBorder: false,
+				bgColor: '#E6E6E6',
+				borderWidth: 1,
+				borderColor: '#ff787f',
+				writeWidth: 5,
+				maxWriteWidth: 30,
+				minWriteWidth: 5,
+				writeColor: '#101010',
+				isSign: true,
+				imgType: 'png'
       }
     };
   },
+  mounted () {
+    this.initSignConfig();
+    window.addEventListener('resize', this.initSignConfig);
+  },
   methods: {
+    initSignConfig () {
+      this.signDialogWidth = `${document.body.offsetWidth / 2 + 40}px`;
+      this.signOptions.canvasWidth = document.body.offsetWidth / 2;
+      this.signOptions.canvasHeight = document.body.offsetHeight / 2;
+    },
     remoteDialogs () {
       this.remoteDialog();
     },
@@ -119,7 +128,7 @@ export default {
 .sign >>> .el-dialog__title {
     line-height: 32px;
     font-size: 24px;
-    font-family: STXingkai;
+    /* font-family: STXingkai; */
     color: hsl(40, 28.57% , 30.82%);
     text-shadow: 0 .03em .03em black;
  }

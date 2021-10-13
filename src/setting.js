@@ -11,8 +11,6 @@ module.exports = {
     errorLog: 'production',
     // 是否显示换色
     showColor: true,
-    // 是否显示bug
-    showDebug: true,
     // 是否显示主题
     showTheme: true,
     // 是否显示全屏

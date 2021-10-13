@@ -2,20 +2,28 @@ import Vue from 'vue';
 import VueI18n from 'vue-i18n';
 import elementEnLocale from 'element-ui/lib/locale/lang/en'; // element-ui lang
 import elementZhLocale from 'element-ui/lib/locale/lang/zh-CN';// element-ui lang
-import zhLocale from './zh';
-import enLocale from './en';
-import { getStorage } from '~/utils/storage';
+import zhLocale from '~/i18n/lang/zh';
+import enLocale from '~/i18n/lang/en';
+import { getStorage } from '~/utils/cache/storage';
 import ElementLocale from 'element-ui/lib/locale';
+import enPage from '~/i18n/routes/page/en-person';
+import zhPage from '~/i18n/routes/page/zh-person';
+import enRouter from '~/i18n/routes/router/en-router';
+import zhRouter from '~/i18n/routes/router/zh-router';
 Vue.use(VueI18n);
 
 const messages = {
   en: {
     ...enLocale,
-    ...elementEnLocale
+    ...elementEnLocale,
+    ...enPage,
+    ...enRouter
   },
   zh: {
     ...zhLocale,
-    ...elementZhLocale
+    ...elementZhLocale,
+    ...zhPage,
+    ...zhRouter
   }
 };
 

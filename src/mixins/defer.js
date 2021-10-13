@@ -1,6 +1,7 @@
 /**
  * 异步延迟加载组件
  */
+import { asyncCount } from '../config/website';
 export default {
     data () {
         return {
@@ -15,11 +16,10 @@ export default {
     methods: {
 
         runDisplayComponent () {
-            const count = 10;
             const step = () => {
                 requestAnimationFrame(() => {
                     this.displayComponent++;
-                    if (this.displayComponent > count) {
+                    if (this.displayComponent < asyncCount) {
                         step();
                     }
                 });

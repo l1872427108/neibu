@@ -1,5 +1,5 @@
 <template>
-    <el-scrollbar style="height:100%">
+    <div>
         <pdfSign :isControl="isControl" @showFlag="showFlag" :image="image" class="pdfSign" />
         <div class="wrap">
             <signature
@@ -7,22 +7,24 @@
             @getImage="getImage"
             :remoteDialog="remoteDialog"
             />
-         <div class="sign" v-if="show">
-            <el-button
-            type="primary"
-            class=""
-            style="width: 200px;"
-            @click="handleReceiverFlag"
-            >签署名字</el-button>
+            <div defer(2) class="sign" v-if="show">
+                <el-button
+                type="primary"
+                class=""
+                style="width: 200px;"
+                @click="handleReceiverFlag"
+                >签署名字</el-button>
+            </div>
         </div>
-        </div>
-    </el-scrollbar>
+    </div>
 </template>
 
 <script>
 import PdfSign from '~/components/ContractProduction/index';
 import Signature from '~/components/SignatureProduction/index';
+import defer from '~/mixins/defer';
 export default {
+    mixins: [defer],
     components: {
         PdfSign,
         Signature

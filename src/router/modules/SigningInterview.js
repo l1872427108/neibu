@@ -6,13 +6,16 @@ const interviewRouter = {
     component: Layout,
     redirect: '/interview/sign',
     name: 'Interview',
+    meta: {
+        title: 'router.interview'
+    },
     children: [
         {
             path: 'sign',
             name: 'Sign',
             component: () => import('~/views/SigningInterview/sign'),
             meta: {
-                title: '报名通道',
+                title: 'router.sign',
                 keepAlive: true
             }
         },
@@ -22,7 +25,7 @@ const interviewRouter = {
             component: () => import('~/views/SigningInterview/interview'),
             meta: {
                 keepAlive: true,
-                title: '面试进度'
+                title: 'router.progress'
             }
         }
     ]

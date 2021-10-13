@@ -35,21 +35,21 @@ export const dateFormat = date => {
 export function formatData (param) {
     const hour = param.getHours();
     if (hour < 6) {
-		return '凌晨好';
+		return 'hour6';
 	} else if (hour < 9) {
-		return '早上好';
+		return 'hour9';
 	} else if (hour < 12) {
-		return '上午好';
+		return 'hour12';
 	} else if (hour < 14) {
-		return '中午好';
+		return 'hour14';
 	} else if (hour < 17) {
-		return '下午好';
+		return 'hour17';
 	} else if (hour < 19) {
-		return '傍晚好';
+		return 'hour19';
 	} else if (hour < 22) {
-		return '晚上好';
+		return 'hour22';
 	}
-		return '夜里好';
+		return 'hour24';
 }
 
 

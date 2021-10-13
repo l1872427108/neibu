@@ -1,4 +1,4 @@
-import request from '~/utils/fetch';
+import request from '~/utils/request/fetch';
 
 /**
  * 根据id修改用户数据

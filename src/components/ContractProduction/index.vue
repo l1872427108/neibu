@@ -15,7 +15,7 @@ import workerSrc from 'pdfjs-dist/build/pdf.worker.entry';
 import html2canvas from 'html2canvas';
 import { contractPersonalInfo, contractPolicy, contractExamine } from '~/api/contractManagement';
 PDFJS.workerSrc = workerSrc;
-import axios from '~/utils/fetch';
+import axios from '~/utils/request/fetch';
 import { randomString } from '~/utils/util';
 import contractEmpty from './contractEmpty.vue';
 export default {

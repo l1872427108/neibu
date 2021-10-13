@@ -32,3 +32,11 @@
     top: 50%;
     transform: translate(-50%, -50%);
 }
+
+/* 加载webp */
+@mixin webpbg($url) {
+	background-image: url($url);
+	@at-root .webpa & {
+        background-image: url($url+'.webp');
+    }
+}

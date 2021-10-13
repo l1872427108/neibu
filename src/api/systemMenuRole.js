@@ -1,4 +1,4 @@
-import request from '~/utils/fetch';
+import request from '~/utils/request/fetch';
 
 /* 系统查询 */
 export function pugesystem (userId) {
