@@ -57,13 +57,21 @@ export function formatData (param) {
  日期
 */
 
-export function Date (e) {
-    return e.getFullYear() + '-' + (e.getMonth() + 1) + '-' + e.getDate();
-}
+// export function Date (e) {
+//     return e.getFullYear() + '-' + (e.getMonth() + 1) + '-' + e.getDate();
+// }
 
 /*
 时间
 */
-export function Time (e) {
-  return e.getFullYear() + '-' + (e.getMonth() + 1) + '-' + e.getDate() + ' ' + e.getHours() + ':' + e.getMinutes() + ':' + e.getSeconds();
+// export function Time (e) {
+//   return e.getFullYear() + '-' + (e.getMonth() + 1) + '-' + e.getDate() + ' ' + e.getHours() + ':' + e.getMinutes() + ':' + e.getSeconds();
+// }
+
+export function toTime (timestamp) {
+  const date = new Date(timestamp);// 时间戳为10位需*1000，时间戳为13位的话不需乘1000
+  const Y = date.getFullYear() + '-';
+  const M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+  const D = date.getDate() + ' ';
+  return Y + M + D;
 }

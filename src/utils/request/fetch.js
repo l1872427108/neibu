@@ -20,7 +20,6 @@ const service = axios.create({
 service.interceptors.request.use(params => {
     removePendingXHR(params);
     addPendingXHR(params);
-    console.log('fetch', pendingXHRMap);
     const config = {
         ...params
     };
@@ -91,16 +90,15 @@ error => {
     }
     if (!isErrorType) {
         // eslint-disable-next-line
-        console.log('err' + error); // for debug
-        // const {} =
+        console.dir('err' + error); // for debug
         if (error.response && error.response.status === 401 && error.response.data.code && error.response.data.code === 1401) {
             let isLock = true;
             if (isLock && Cookie.get(Key.refreshTokenKey)) {
                 // 有刷新令牌
                 isLock = false;
-                window.location.href = `${process.env.VUE_APP_AUTH_URL}/refresh?redirectURL=${window.location.href}`;
+                // window.location.href = `${process.env.VUE_APP_AUTH_URL}/refresh?redirectURL=${window.location.href}`;
             } else {
-                window.location.href = `${process.env.VUE_APP_AUTH_URL}?redirectURL=${window.location.href}`;
+                // window.location.href = `${process.env.VUE_APP_AUTH_URL}?redirectURL=${window.location.href}`;
             }
             return Promise.reject(error.message || 'Error');
         }
@@ -112,6 +110,5 @@ error => {
         return Promise.reject(error);
     }
 });
-
 
 export default service;

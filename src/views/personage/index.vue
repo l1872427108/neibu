@@ -13,6 +13,7 @@
                 <div class="personal-user">
                     <div class="personal-user-left">
                         <Upload @updatePhoto="updatePhoto" class="h100 personal-user-left-upload">
+                          <!-- personalForm.photo ? personalForm.photo :  -->
                             <img class="personal-user-left-upload" :src="personalForm.photo ? personalForm.photo : 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1813762643,1914315241&fm=26&gp=0.jpg'" />
                         </Upload>
                     </div>
@@ -164,10 +165,11 @@
 
 <script>
 import Upload from '~/components/Upload';
-import { formatData, dateFormat } from '~/utils/date/date';
+import { formatData, dateFormat, toTime } from '~/utils/date/date';
 import { identity, checkPhone, checkEmail } from '~/utils/validate';
 import { personPutInfo, personSearchInfo, personUpdatePhoto } from '~/api/personMessage';
 import { mapGetters } from 'vuex';
+
 export default {
     components: {
         Upload
@@ -234,8 +236,8 @@ export default {
                 nativeInfo: [{ required: true, message: '请填写家庭地址', trigger: 'blur' }],
                 familyMoneyInfo: [{ required: true, message: '请填写家庭状况', trigger: 'blur' }],
                 familyNumber: [{ required: true, message: '请填写家庭人数', trigger: 'blur' }],
-                pugeSex: [{ required: true, message: '请填写性别', trigger: 'blur' }],
-                pugeBirthday: [{ required: true, type: 'date', message: '请选择日期', trigger: 'blur' }]
+                pugeSex: [{ required: true, message: '请填写性别', trigger: 'blur' }]
+                // pugeBirthday: [{ required: true, type: 'date', message: '请选择日期', trigger: 'change' }]
             }
         };
     },
@@ -246,10 +248,15 @@ export default {
         fetchData () {
             this.userInfo.uid && personSearchInfo(this.userInfo.uid)
             .then(res => {
+              console.log(res);
+              if (res.data.peopleInfo) {
                 this.personalForm = res.data.peopleInfo;
                 this.loading = false;
+              }
+              this.loading = false;
             }).catch(() => {
-                this.$message.erro('数据加载失败');
+              this.loading = false;
+                this.$message.error('数据加载失败');
             });
         },
         submitForm (formName) {
@@ -263,25 +270,35 @@ export default {
             });
         },
         submitData () {
-            this.userInfo.uid && personPutInfo(this.personalForm, this.userInfo.uid).then(res => {
-                this.$message({
-                    message: '修改成功',
-                    type: 'success'
-                });
-                this.fetchData();
-            }).catch(() => {
-                this.$message({
-                    message: '保存失败,请重新输入',
-                    type: 'error'
-                });
-            });
+          this.personalForm.pugeBirthday = toTime(this.personalForm.pugeBirthday);
+          this.userInfo.uid && personPutInfo(this.personalForm, this.userInfo.uid).then(res => {
+              this.$message({
+                  message: '修改成功',
+                  type: 'success'
+              });
+              this.fetchData();
+          }).catch(() => {
+              this.$message({
+                  message: '保存失败,请重新输入',
+                  type: 'error'
+              });
+          });
         },
         updatePhoto (photo) {
             this.personalForm.photo = photo;
-            this.photo = photo;
+            // this.photo = photo;
             this.userInfo.uid && personUpdatePhoto(this.userInfo.uid, photo).then(res => {
-                console.log(res);
-            });
+                this.$message({
+                  message: '修改成功',
+                  type: 'success'
+              });
+              this.fetchData();
+          }).catch(() => {
+              this.$message({
+                  message: '保存失败',
+                  type: 'error'
+              });
+          });
         }
     }
 };

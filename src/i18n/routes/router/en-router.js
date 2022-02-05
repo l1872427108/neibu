@@ -1,6 +1,6 @@
 export default {
     router: {
-        house: 'Home',
+        welcome: 'Home',
         setting: 'System Settings',
         personage: 'Personal information',
         compact: 'Contract center',

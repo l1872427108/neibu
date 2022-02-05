@@ -1,6 +1,6 @@
 export default {
     router: {
-        house: '首页',
+        welcome: '首页',
         setting: '系统设置',
         personage: '个人信息',
         compact: '合同中心',

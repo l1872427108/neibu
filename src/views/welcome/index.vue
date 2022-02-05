@@ -1,15 +1,15 @@
 <template>
-  <div class="welcome accommodate">
+  <div class="welcome">
     <div class="welcome-image">
       <img class="welcome-image-logo" src="~/assets/image/logo.png">
     </div>
     <div class="welcome-title">
       <div class="welcome-title-user">
-        {{userInfo.nickName}}
+        {{userInfo.nickName}} 欢迎使用内部信息化平台
       </div>
-      <div class="welcome-title-user">
+      <!-- <div class="welcome-title-user">
         欢迎使用内部信息化平台
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
