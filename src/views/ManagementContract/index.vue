@@ -49,7 +49,7 @@
   </el-table>
         </template>
     </el-skeleton>
-  <contract-dialog defer(2) :title="contract.title" v-if="contractComplete" :image="contractComplete" :remote-close="remoteClose" :visible="contract.visible"></contract-dialog>
+  <contract-dialog  :title="contract.title" v-if="contractComplete" :image="contractComplete" :remote-close="remoteClose" :visible="contract.visible"></contract-dialog>
   </div>
 </template>
 

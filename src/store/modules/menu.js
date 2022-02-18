@@ -23,6 +23,7 @@ const actions = {
     GetUserMenu ({ commit }) {
         return new Promise((resolve, reject) => {
             const userId = Cookie.get(Key.userInfoKey) ? JSON.parse(JSON.stringify(Cookie.get(Key.userInfoKey))) : null;
+            console.log('userId', userId);
             if (userId) {
                 pugesystem(JSON.parse(userId).uid).then(async res => {
                     const system = res.data.list.some((item) => item === '66');

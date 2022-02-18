@@ -1,54 +1,44 @@
+
 <template>
-  <div class="welcome accommodate">
-    <div class="welcome-image">
-      <img class="welcome-image-logo" src="~/assets/image/logo.png">
-    </div>
-    <div class="welcome-title">
-      <div class="welcome-title-user">
-        {{userInfo.nickName}}
-      </div>
-      <div class="welcome-title-user">
-        欢迎使用内部信息化平台
-      </div>
-    </div>
-  </div>
+	<div class="welcome">
+		<div class="welcome-log">
+			<img class="welcome-logo-img" src="~/assets/image/logo.png" />
+		</div>
+    <div class="welcome-content"> 欢迎 {{userInfo.nickName}} 进入内部信息化系统 </div>
+	</div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import { changeToWebp } from '~/utils/util';
 export default {
-  computed: {
-    ...mapGetters(['userInfo'])
-  },
-  methods: {
-    changeToWebp
-  }
+	computed: {
+		...mapGetters(['userInfo'])
+	},
+	data () {
+		return {
+			loading: true,
+      accountInfo: {}
+		};
+	},
+	mounted () {
+		this.loading = false;
+	}
 };
 </script>
 
-<style lang="scss">
-.el-scrollbar__view {
-  height: 100%;
-}
-</style>
-<style lang="scss" scoped>
+<style scoped lang="scss">
 @import '~/styles/mixins/mixin';
 .welcome {
-  .welcome-image {
-
+	.welcome-logo-img {
+		width: 200px;
+		height: 100px;
+	}
+  .welcome-content {
     position: absolute;
-    top: 7%;
-    left: 7%;
-  }
-  .welcome-image-logo {
-    width: 200px;
-  }
-  .welcome-title {
-    @include vertical;
-  }
-  .welcome-title-user {
-    font-size: 16px;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    left: 50%;
+    top: 50%;
   }
 }
 </style>

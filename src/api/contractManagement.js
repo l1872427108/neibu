@@ -14,7 +14,7 @@ export function contractSearch (id) {
 /**
  * 签约-提交审核
  */
- export function contractExamine (data) {
+export function contractExamine (data) {
     return request({
       url: '/inside/inside/personal-contract/contractExamine',
       method: 'post',
@@ -48,7 +48,7 @@ export function contractSearch (id) {
  */
  export function contractPolicy () {
   return request({
-    url: '/thirdService/oss/policy',
+    url: '/thirdService/thirdService/oss/policy',
     method: 'get'
   });
 }
@@ -59,7 +59,7 @@ export function contractSearch (id) {
  */
  export function contractUpdateOss (formData, header) {
   return request({
-    url: 'https://inside.puge.net',
+    url: 'http://testoss.puge.net',
     method: 'post',
     formData,
     header

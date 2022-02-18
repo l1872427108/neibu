@@ -1,8 +1,8 @@
 export default {
     router: {
-        house: '首页',
-        setting: '系统设置',
-        personage: '个人信息',
+        welcome: '首页',
+        setting: '信息中心',
+        personage: '账户信息',
         compact: '合同中心',
         management: '合同管理',
         interview: '报名中心',

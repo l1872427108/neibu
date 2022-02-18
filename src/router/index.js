@@ -28,7 +28,7 @@ export const publicRoutes = [
                 name: 'Welcome',
                 component: () => import('~/views/welcome'),
                 meta: {
-                    title: 'router.house',
+                    title: 'router.welcome',
                     affix: true
                 }
             }
@@ -45,7 +45,7 @@ export const publicRoutes = [
         children: [
             {
                 path: 'personage',
-                component: () => import('~/views/Personage'),
+                component: () => import('~/views/Account'),
                 name: 'Personage',
                 meta: {
                     title: 'router.personage'

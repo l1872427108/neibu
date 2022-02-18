@@ -7,7 +7,7 @@
             @getImage="getImage"
             :remoteDialog="remoteDialog"
             />
-            <div defer(2) class="sign" v-if="show">
+            <div class="sign" v-if="show">
                 <el-button
                 type="primary"
                 class=""

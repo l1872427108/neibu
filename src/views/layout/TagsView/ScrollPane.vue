@@ -80,7 +80,7 @@ export default {
 .scroll-container {
   white-space: nowrap;
   position: relative;
-  overflow: hidden;
+  // overflow: hidden;
   width: 100%;
   ::v-deep {
     .el-scrollbar__bar {

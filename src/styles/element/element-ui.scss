@@ -121,9 +121,15 @@
 		color: set-color(primary) !important;
 	}
 }
+.el-menu-item .el-tooltip {
+  transform: translateY(50%);
+}
 .el-menu--collapse  .el-submenu__title span{
 	display: none;
 }
+// .el-menu-collapse .el-tooltip {
+//   transform: translateY(50%) !important;
+// }
 /*隐藏 */
 .el-menu--collapse  .el-submenu__title .el-submenu__icon-arrow{
 
