@@ -36,6 +36,7 @@ service.interceptors.request.use(params => {
     if (needLoading()) {
         showLoading();
     }
+    console.log(config);
     return config;
 }, error => {
     return Promise.reject(error);
@@ -64,10 +65,10 @@ const errNotification = (
         duration
     });
 };
-
 service.interceptors.response.use(response => {
     hideLoading();
     const res = response.data;
+    console.log(res);
     if (res.code !== 20000) {
         Message({
             message: res.message || 'Error',
@@ -88,26 +89,26 @@ error => {
     } catch (error) {
         isErrorType = false;
     }
+    const response = error.response;
     if (!isErrorType) {
         // eslint-disable-next-line
-        console.dir('err' + error); // for debug
-        if (error.response && error.response.status === 401 && error.response.data.code && error.response.data.code === 1401) {
+        if (response.status === 401 && response.data.code === 1401) {
             let isLock = true;
             if (isLock && Cookie.get(Key.refreshTokenKey)) {
                 // 有刷新令牌
                 isLock = false;
-                // window.location.href = `${process.env.VUE_APP_AUTH_URL}/refresh?redirectURL=${window.location.href}`;
+                window.location.href = `${process.env.VUE_APP_AUTH_URL}/refresh?redirectURL=${window.location.href}`;
             } else {
-                // window.location.href = `${process.env.VUE_APP_AUTH_URL}?redirectURL=${window.location.href}`;
+                window.location.href = `${process.env.VUE_APP_AUTH_URL}?redirectURL=${window.location.href}`;
             }
-            return Promise.reject(error.message || 'Error');
+            return Promise.reject(response.data.message || 'Error');
         }
         Message({
-            message: error.message,
+            message: response.data.message || 'Error',
             type: 'error',
             duration: 5 * 1000
         });
-        return Promise.reject(error);
+        return Promise.reject(response.data.message || 'Error');
     }
 });
 

@@ -1,7 +1,7 @@
 <template>
   <div class="sign">
-    <el-dialog :close-on-press-escape="true"  :width="signDialogWidth" title="合同签字"  :visible.sync="visible"
-        :show-close="false">
+    <el-dialog :before-close="handleClose" :close-on-click-modal="false" :close-on-press-escape="true"  :width="signDialogWidth" title="合同签字"  :visible.sync="visible"
+        :show-close="true">
       <sign-canvas
         class="sign-canvas"
         ref="SignCanvas"
@@ -81,7 +81,7 @@ export default {
       this.signOptions.canvasWidth = document.body.offsetWidth / 2;
       this.signOptions.canvasHeight = document.body.offsetHeight / 2;
     },
-    remoteDialogs () {
+    handleClose () {
       this.remoteDialog();
     },
     /**

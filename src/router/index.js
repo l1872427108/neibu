@@ -45,7 +45,7 @@ export const publicRoutes = [
         children: [
             {
                 path: 'personage',
-                component: () => import('~/views/personage'),
+                component: () => import('~/views/Account'),
                 name: 'Personage',
                 meta: {
                     title: 'router.personage'

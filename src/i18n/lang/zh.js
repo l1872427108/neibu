@@ -28,6 +28,8 @@ export default {
     center: '合同缴费'
   },
   navbar: {
+    updateAccountInfo: '修改账户信息',
+    personCenter: '个人中心',
     logOut: '退出登录',
     userinfo: '个人信息',
     home: '首页',

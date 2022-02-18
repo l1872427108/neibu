@@ -25,6 +25,8 @@ export default {
     test: 'test'
   },
   navbar: {
+    updateAccountInfo: 'Modify account information',
+    personCenter: 'Person Center',
     info: 'info',
     logOut: 'logout',
     home: 'Home',

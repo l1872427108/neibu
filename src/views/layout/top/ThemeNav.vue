@@ -49,12 +49,26 @@
           </el-dropdown-item>
           <el-dropdown-item
             divided
+            @click.native="updateAccount"
+          >
+            {{ $t('navbar.updateAccountInfo') }}
+          </el-dropdown-item>
+          <el-dropdown-item
+            divided
+            @click.native="personCenter"
+          >
+            {{ $t('navbar.personCenter') }}
+          </el-dropdown-item>
+          <el-dropdown-item
+            divided
             @click.native="logout"
           >
             {{ $t('navbar.logOut') }}
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
+      <person-dialog v-if="personVisible" :remote-close="personRemoteClose" :visible="personVisible"></person-dialog>
+    <account-dialog v-if="visible" :remote-close="remoteClose" :visible="visible"></account-dialog>
   </div>
 </template>
 
@@ -64,12 +78,16 @@ import topLogs from './topLogs.vue';
 import { fullscreenToggel, listenerfullscreen } from '~/utils/util';
 import topLang from './topLang.vue';
 import defer from '~/mixins/defer';
+import AccountDialog from '~/views/Account/accountDialog.vue';
+import personDialog from '~/views/personage';
 
 export default {
   mixins: [defer],
   components: {
     // topLogs,
-    topLang
+    topLang,
+    AccountDialog,
+    personDialog
   },
   data () {
     return {
@@ -77,6 +95,8 @@ export default {
       showDebug: true,
       showTheme: true,
       showFullScren: true,
+      visible: false,
+      personVisible: false,
       avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif'
     };
   },
@@ -103,6 +123,13 @@ export default {
       this.$store.commit('common/SET_COLLAPSE');
     },
 
+    updateAccount () {
+      this.visible = true;
+    },
+
+    personCenter () {
+      this.personVisible = true;
+    },
     logout () {
       this.$confirm(this.$t('logoutTip'), this.$t('tip'), {
         confirmButtonText: this.$t('submitText'),
@@ -119,6 +146,13 @@ export default {
 
     handleScreen () {
       fullscreenToggel();
+    },
+
+    remoteClose () {
+      this.visible = false;
+    },
+    personRemoteClose () {
+      this.personVisible = false;
     }
   }
 };

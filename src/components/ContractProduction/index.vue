@@ -45,7 +45,9 @@ export default {
             htmlUrl: '',
             pageUrl: '',
             id: '',
-            visible: false
+            visible: false,
+            uploadData: {},
+            filename: ''
         };
     },
     async mounted () {
@@ -143,9 +145,11 @@ export default {
                 allowTaint: true,
                 useCORS: true
             }).then(async (canvas) => {
+              console.log('canvas', canvas);
                 let pageData = new Image();
                 pageData.setAttribute('crossOrigin', 'Anonymous');
                 pageData = canvas.toDataURL('image/jpeg', 1.0);
+                console.log('pageData', pageData);
                 loading.close();
                 this.htmlUrl = pageData;
                 const a = await this.dataURLtoFile(pageData, '合同');
@@ -153,12 +157,13 @@ export default {
             });
         },
         async ossUpload (file) {
+          console.log(file);
             const res = await contractPolicy();
             const formData = new FormData();
             // eslint-disable-next-line
             new Promise((resolve) => {
                 const oss1 = res.data.ossData;
-                formData.append('key', oss1.dir + randomString(6));
+                formData.append('key', oss1.dir + '/' + randomString(6));
                 formData.append('dir', oss1.dir);
                 formData.append('host', oss1.host);
                 formData.append('policy', oss1.policy);
@@ -166,9 +171,9 @@ export default {
                 formData.append('signature', oss1.signature);
                 formData.append('callback', oss1.callback);
                 formData.append('file', file);
-                resolve();
+                resolve(true);
             }).then(() => {
-                axios.post('https://inside.puge.net', formData, {
+                axios.post('http://testoss.puge.net', formData, {
                     'Content-Type': 'multipart/form-data'
                 }).then(res => {
                     return new Promise((resolve, reject) => {

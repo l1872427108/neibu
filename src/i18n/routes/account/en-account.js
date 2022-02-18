@@ -1,0 +1,30 @@
+export default {
+  account: {
+    accountInfo: 'Account information',
+    modifyAccount: 'Modify account information',
+    nickName: 'FullName',
+    pleaseUser: 'Please enter your name',
+    username: 'UserName',
+    pleaseUsername: 'Please enter your user name',
+    email: 'Email',
+    pleaseEmail: 'Please enter your email address',
+    phone: 'Phone',
+    pleasePhone: 'Please enter your phone',
+    updateAccountInformation: 'Update account information',
+    password: 'Password',
+    pugeNumber: 'JobNumber',
+    pugeName: 'NetName',
+    pugeSignature: 'Signature',
+    pugeSex: 'Age',
+    pugeBirthday: 'Birthday',
+    pugeEmail: 'PugeEmail',
+    schoolAge: 'Grade',
+    pleasePugeName: 'Please enter your net name',
+    pleasePugeSignature: 'Please enter your personal signature',
+    pleasePugeSex: 'Please enter your age',
+    pleasePugeBirthday: 'Please enter your birthday',
+    pleasePugeEmail: 'Please enter your enterprise mailbox',
+    pleaseSchoolAge: 'Please enter your grade',
+    pleasePassword: 'Please enter your password'
+  }
+};

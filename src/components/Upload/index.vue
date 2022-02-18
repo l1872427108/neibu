@@ -3,7 +3,7 @@
     <el-upload
       :data="uploadData"
       class="upload-demo"
-      action="https://inside.puge.net"
+      :action="uploadData.host"
       :before-upload="handleChange"
       accept=".jpg,.png,.pdf"
       :on-success="upSuccess"
@@ -20,7 +20,9 @@ import { randomString } from '~/utils/util';
 export default {
   data () {
     return {
-      uploadData: {},
+      uploadData: {
+        host: 'http://testoss.puge.net'
+      },
       fileName: ''
     };
   },
@@ -34,6 +36,7 @@ export default {
       return new Promise((resolve, reject) => {
         contractPolicy()
           .then(res => {
+            console.log('res==>', res);
             const oss = res.data.ossData;
             this.uploadData.key = oss.dir + '/' + randomString(6) + '/' + this.fileName;
             this.uploadData.dir = oss.dir;

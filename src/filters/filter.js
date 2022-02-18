@@ -124,3 +124,28 @@ export function payType (status) {
         return 'danger';
     }
 }
+
+
+export function schoolAge (status) {
+  if (status === '1') {
+    return '大四';
+  } else if (status === '2') {
+    return '大三';
+  } else if (status === '3') {
+    return '大二';
+  } else if (status === '4') {
+    return '大一';
+  }
+}
+
+export function schoolAgeNum (message) {
+  if (message === '大四') {
+    return '1';
+  } else if (message === '大三') {
+    return '2';
+  } else if (message === '大二') {
+    return '3';
+  } else if (message === '大一') {
+    return '4';
+  }
+}

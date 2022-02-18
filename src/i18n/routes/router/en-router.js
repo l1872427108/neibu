@@ -1,8 +1,8 @@
 export default {
     router: {
         welcome: 'Home',
-        setting: 'System Settings',
-        personage: 'Personal information',
+        setting: 'Information Center',
+        personage: 'Account information',
         compact: 'Contract center',
         management: 'Contract management',
         interview: 'Registration center',

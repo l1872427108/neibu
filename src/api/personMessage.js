@@ -32,3 +32,23 @@ export function personSearchInfo (userid) {
     data
   });
 }
+
+/**
+ *
+ * @param {*} data 账户数据
+ * @returns
+ */
+export function accountPutInfo (data) {
+  return request({
+    url: '/system/system/user',
+    method: 'put',
+    data
+  });
+}
+
+export function accountGetInfo (id) {
+  return request({
+    url: `/system/system/user/${id}`,
+    method: 'get'
+  });
+}

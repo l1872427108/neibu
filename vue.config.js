@@ -9,6 +9,8 @@ const {
 const resolve = (dir) => {
     return path.join(__dirname, dir);
 };
+
+
 // const CompressionWebpackPlugin = require('compression-webpack-plugin');
 // const productionGzipExtensions = ['html', 'js', 'css', 'svg'];
 
@@ -58,10 +60,11 @@ module.exports = {
     },
     devServer: {
         open: true,
-        port: devPort,
+        port: '8888',
         // https: true,
-        hotOnly: false,
-        host: '',
+        // hotOnly: false,
+        disableHostCheck: true,
+        host: 'rck.puge.net.cn',
         proxy: {
             ...projectConfig.devServerProxy
         }
@@ -89,13 +92,13 @@ module.exports = {
       // config
       // .when(process.env.NODE_ENV !== 'development',
       // config => {
-        // 属性名称 'element-ui' 表示遇到 import xxx 不去node_modules 中找，而是去全局变量Element中找
-        // config.externals({
-          // vue: 'Vue',
-          // 'vue-router': 'VueRouter',
-          // axios: 'axios',
-          // 'element-ui': 'ELEMENT'
-        // });
+      //   // 属性名称 'element-ui' 表示遇到 import xxx 不去node_modules 中找，而是去全局变量Element中找
+      //   config.externals({
+      //     vue: 'Vue',
+      //     'vue-router': 'VueRouter',
+      //     axios: 'axios',
+      //     'element-ui': 'ELEMENT'
+      //   });
       // });
       // config
       // .when(process.env.NODE_ENV !== 'development', config => {

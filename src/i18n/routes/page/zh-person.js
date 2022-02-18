@@ -1,6 +1,8 @@
 export default {
     // 个人信息
     person: {
+        personCenter: '个人中心',
+        birthday: '生日',
         personInfo: '个人信息',
         saying: '经典语录',
         updateInfo: '更新信息',
@@ -17,7 +19,7 @@ export default {
         households: '家庭人数',
         work: '普歌工号',
         single: '是否单亲',
-        birthday: '生日',
+        Birthday: '生日',
         gender: '性别',
         pleaseUser: '请输入用户名',
         pleaseEmail: '请输入邮箱',
