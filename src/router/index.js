@@ -31,6 +31,15 @@ export const publicRoutes = [
                     title: 'router.welcome',
                     affix: true
                 }
+            },
+            {
+                path: '/applyReimbursement',
+                name: 'applyReimbursement',
+                component: () => import('~/views/applyReimbursement'),
+                meta: {
+                    title: '财务报销',
+                }
+
             }
         ]
     },
@@ -83,8 +92,8 @@ export const resetRouter = () => {
 };
 
 const RouterPush = VueRouter.prototype.push;
-VueRouter.prototype.push = function push (to) {
-  return RouterPush.call(this, to).catch(err => err);
+VueRouter.prototype.push = function push(to) {
+    return RouterPush.call(this, to).catch(err => err);
 };
 
 export default router;

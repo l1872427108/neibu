@@ -64,7 +64,7 @@ module.exports = {
         // https: true,
         // hotOnly: false,
         disableHostCheck: true,
-        host: 'rck.puge.net.cn',
+        host: 'wyb.puge.net.cn',
         proxy: {
             ...projectConfig.devServerProxy
         }

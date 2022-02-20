@@ -10,6 +10,7 @@ export default {
         progress: 'Interview schedule',
         pay: 'Pay center',
         center: 'Contract payment',
-        Internal: 'Internal informatization'
+        Internal: 'Internal informatization',
+        applyReimbursement:'Apply Reimbursement'
     }
 };
