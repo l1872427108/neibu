@@ -13,7 +13,7 @@ const interviewRouter = {
         {
             path: 'sign',
             name: 'Sign',
-            component: () => import('~/views/SigningInterview/sign'),
+            component: () => import(/* webpackChunkName:"interview" */'~/views/SigningInterview/sign'),
             meta: {
                 title: 'router.sign',
                 keepAlive: true
@@ -22,7 +22,7 @@ const interviewRouter = {
         {
             path: 'progress',
             name: 'Progress',
-            component: () => import('~/views/SigningInterview/interview'),
+            component: () => import(/* webpackChunkName:"interview" */'~/views/SigningInterview/interview'),
             meta: {
                 keepAlive: true,
                 title: 'router.progress'

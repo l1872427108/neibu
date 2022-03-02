@@ -52,40 +52,40 @@ import { Cookie, Key } from '~/utils/cache/cookie';
 export default {
 	name: 'PugeCInsideInfoFrontIndex',
 
-	data() {
+	data () {
 		return {
 			FromVisible: false,
-			list: [],
+			list: []
 		};
 	},
 	components: {
-		AddVisible,
+		AddVisible
 	},
-	created() {
+	created () {
 		// console.log(JSON.parse(Cookie.get(Key.userInfoKey)));
 		this.SearchData();
 	},
     computed: {
-		userId() {
+		userId () {
 			return JSON.parse(Cookie.get(Key.userInfoKey)).uid;
-		},
+		}
 	},
 	methods: {
-		SearchData() {
+		SearchData () {
 			UserIdSearch(this.userId).then((res) => {
 				// console.log(res);
 				this.list = res.data.applyList;
 			});
 		},
 
-		AddData() {
+		AddData () {
 			this.FromVisible = true;
 		},
-		handleClose() {
+		handleClose () {
 			this.FromVisible = false;
-			this.SearchData()
-		},
-	},
+			this.SearchData();
+		}
+	}
 };
 </script>
 

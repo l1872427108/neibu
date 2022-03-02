@@ -13,9 +13,10 @@ export const publicRoutes = [
     {
         path: '/contract',
         name: 'Contract',
-        component: () => import('~/views/SigningContract'),
+        component: () => import(/* webpackChunkName:"signing" */'~/views/SigningContract'),
         meta: {
-            title: '合同'
+            title: '合同',
+            keepAlive: true
         }
     },
     {
@@ -26,18 +27,20 @@ export const publicRoutes = [
             {
                 path: 'welcome',
                 name: 'Welcome',
-                component: () => import('~/views/welcome'),
+                component: () => import(/* webpackChunkName:"welcome" */'~/views/welcome'),
                 meta: {
                     title: 'router.welcome',
-                    affix: true
+                    affix: true,
+                    keepAlive: true
                 }
             },
             {
                 path: '/applyReimbursement',
                 name: 'applyReimbursement',
-                component: () => import('~/views/applyReimbursement'),
+                component: () => import(/* webpackChunkName:"applyReimbursement" */'~/views/applyReimbursement'),
                 meta: {
                     title: '财务报销',
+                    keepAlive: true
                 }
 
             }
@@ -54,10 +57,11 @@ export const publicRoutes = [
         children: [
             {
                 path: 'personage',
-                component: () => import('~/views/Account'),
+                component: () => import(/* webpackChunkName:"information" */'~/views/Account'),
                 name: 'Personage',
                 meta: {
-                    title: 'router.personage'
+                    title: 'router.personage',
+                    keepAlive: false
                 }
             }
         ]
@@ -68,12 +72,12 @@ export const publicRoutes = [
     {
         path: '/401',
         name: '401',
-        component: () => import('~/views/ErrPage/401')
+        component: () => import(/* webpackChunkName:"welcome" */'~/views/ErrPage/401')
     },
     {
         path: '/404',
         name: '404',
-        component: () => import('~/views/ErrPage/404')
+        component: () => import(/* webpackChunkName:"welcome" */'~/views/ErrPage/404')
     },
     { path: '*', redirect: '/404' }
 ];
@@ -92,7 +96,7 @@ export const resetRouter = () => {
 };
 
 const RouterPush = VueRouter.prototype.push;
-VueRouter.prototype.push = function push(to) {
+VueRouter.prototype.push = function push (to) {
     return RouterPush.call(this, to).catch(err => err);
 };
 

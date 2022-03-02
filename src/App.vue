@@ -30,7 +30,7 @@ export default {
       // icon 图标
       setExecuteFun.cssCdn();
       // js 第三方
-      setExecuteFun.jsCdn();
+      // setExecuteFun.jsCdn();
     }
   }
 };

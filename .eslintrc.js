@@ -60,5 +60,6 @@ module.exports = {
 		// "quote-props":[2, "always"],//对象字面量中的属性名是否强制双引号
 		"camelcase": 2,//强制驼峰法命名
 		"accessor-pairs": 0,//在对象中使用getter/setter
+    "global-require": 0//这里应该0代表off之前写错了写成了false
     }
 }

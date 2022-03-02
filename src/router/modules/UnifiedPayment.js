@@ -14,7 +14,7 @@ const payRouter = {
         {
             path: 'center',
             name: 'Centre',
-            component: () => import('~/views/UnifiedPayment/index'),
+            component: () => import(/* webpackChunkName:"UnifiedPayment" */'~/views/UnifiedPayment/index'),
             meta: {
                 title: 'router.center',
                 icon: 'basic-icon-maoshachan',

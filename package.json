@@ -2,12 +2,19 @@
   "name": "collect",
   "version": "0.1.0",
   "private": true,
+  "sideEffects": [
+    "*.css",
+    "*.vue",
+    "*.scss",
+    "*.js"
+  ],
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test": "vue-cli-service build --mode test",
     "test:unit": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "start": "http-server dist"
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -41,10 +48,14 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^7.16.0",
+    "html-webpack-plugin": "^4.5.2",
+    "http-serve": "^1.0.1",
+    "http-server": "^14.1.0",
     "mockjs": "^1.1.0",
     "node-sass": "^4.12.0",
     "sass-loader": "^8.0.2",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "webpack-bundle-analyzer": "^4.5.0"
   },
   "_id": "collect@0.1.0",
   "readme": "ERROR: No README data found!"

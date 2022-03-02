@@ -10,15 +10,15 @@
 			:show-file-list="false"
 			border
 		>
-			<div v-show="className == 'upload-demo'">
+			<div v-show="'class-name' == 'upload-demo'">
 				<el-button size="small" type="primary">点击上传</el-button>
 				<div slot="tip" class="el-upload__tip">只能上传/{{ extend }}文件</div>
 			</div>
-			<div v-show="className == 'avatar-uploader'">
+			<div v-show="'class-name' == 'avatar-uploader'">
 				<img v-if="imageUrl" :src="imageUrl" class="avatar" />
 				<i v-else class="el-icon-plus avatar-uploader-icon"></i>
 			</div>
-			<slot v-show="className = ''"></slot>
+			<slot v-show="'class-name' == ''"></slot>
 		</el-upload>
 	</div>
 </template>
@@ -81,7 +81,7 @@ export default {
 			});
 		},
 		upSuccess (res) {
-			this.$emit('func', res.data.ossData.filename);
+			this.$emit('updatePhoto', res.data.ossData.filename);
 			this.$message({
 				type: 'success',
 				message: '上传成功',

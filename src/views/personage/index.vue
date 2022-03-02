@@ -321,6 +321,7 @@ export default {
 		};
 	},
 	mounted () {
+    console.log('personageDialog');
 		this.fetchData();
 	},
 	methods: {
@@ -351,10 +352,6 @@ export default {
 			this.userInfo.uid &&
 				personPutInfo(this.personalForm, this.userInfo.uid)
 					.then((res) => {
-						this.$message({
-							message: '修改成功',
-							type: 'success'
-						});
 						this.fetchData();
 					})
 					.catch(() => {
@@ -376,11 +373,12 @@ export default {
 @import '~/styles/mixins/mixin';
 .personal {
 	.personal-user {
-		height: 130px;
+		height: 200px;
 		display: flex;
 		align-items: center;
 		.personal-user-left {
 			width: 200px;
+      height: 100%;
 			border-radius: 3px;
 			.personal-user-left-upload {
 				img {

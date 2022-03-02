@@ -18,8 +18,8 @@ const service = axios.create({
 });
 
 service.interceptors.request.use(params => {
-    removePendingXHR(params);
-    addPendingXHR(params);
+    // removePendingXHR(params);
+    // addPendingXHR(params);
     const config = {
         ...params
     };
@@ -36,7 +36,7 @@ service.interceptors.request.use(params => {
     if (needLoading()) {
         showLoading();
     }
-    console.log(config);
+    // console.log(config);
     return config;
 }, error => {
     return Promise.reject(error);

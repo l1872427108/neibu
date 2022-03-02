@@ -26,7 +26,7 @@
 				<el-form-item label="证明人:" prop="witness">
 					<el-input v-model="formData.witness" maxlength="50"></el-input>
 				</el-form-item>
-				
+
 				<el-form-item label="报销凭证: " prop="payPicture">
 					<Upload @func="image" :imageUrl="formData.payPicture" :className="'avatar-uploader'" :extend="'.jpg,.png'" />
 				</el-form-item>
@@ -53,40 +53,40 @@ export default {
 	props: {
 		FromVisible: {
 			type: Boolean,
-			default: false,
+			default: false
 		},
-		handleClose: Function,
+		handleClose: Function
 	},
 	components: {
-		Upload,
+		Upload
 	},
-	data() {
+	data () {
 		return {
 			formData: {
-				payPicture:"",
-				payerQrcode:""
+				payPicture: '',
+				payerQrcode: ''
 			},
 			voucherImg: '',
 			QRImg: '',
 			ImageUrl: '',
 			ImageTwoUrl: '',
-			rules:{
-				name:[
+			rules: {
+				name: [
 					{ required: true, message: '请输入姓名', trigger: 'blur' },
                     { min: 3, max: 6, message: '长度在 3 到 6 个字符', trigger: 'blur' }
 				],
-				applyProject:[
+				applyProject: [
 					{ required: true, message: '请输入报销项', trigger: 'change' }
 				],
-				applyMoney:[
+				applyMoney: [
 					{ required: true, message: '请输入报销项', trigger: 'change' }
 				],
-				department:[
+				department: [
 					{ required: true, message: '请输入部门', trigger: 'change' }
 				],
-				witness:[
+				witness: [
 					{ required: true, message: '请输入证明人', trigger: 'change' }
-				],
+				]
 				// payPicture:[
 				// 	{ required: true, message: '请上传报销凭证', trigger: 'change' }
 				// ],
@@ -97,41 +97,39 @@ export default {
 		};
 	},
 
-	mounted() {},
+	mounted () {},
 
 	methods: {
-
-		rest(){
-			this.formData = {};
-			 this.$refs.formData.resetFields();
-            this.handleClose();  
-		},
-		addApply(formName) {
+		rest () {
+    this.formData = {};
+      this.$refs.formData.resetFields();
+      this.handleClose();
+    },
+		addApply (formName) {
 			this.$refs[formName].validate((valid) => {
 				if (valid) {
 					AddReimbursement(this.formData).then((res) => {
-						if (res.code == 20000) {
+						if (res.code === 20000) {
 							this.$message({
 								message: '提交成功',
-								type: 'success',
+								type: 'success'
 							});
-							this.rest()	
+							this.rest();
 						}
 					});
-					
 				} else {
 					console.log('error submit!!');
 					return false;
 				}
 			});
 		},
-		image(img) {
+		image (img) {
 			this.formData.payPicture = img;
 		},
-		imageQR(img) {
+		imageQR (img) {
 			this.formData.payerQrcode = img;
-		},
-	},
+		}
+	}
 };
 </script>
 

@@ -9,16 +9,6 @@
           <top-lang />
         </div>
       </el-tooltip>
-      <!-- <el-tooltip
-        v-if="showDebug"
-        effect="dark"
-        :content="$t('navbar.bug')"
-        placement="bottom"
-      >
-        <div class="layout-navbars-item">
-          <top-logs />
-        </div>
-      </el-tooltip> -->
       <el-tooltip
         v-if="showFullScren"
         effect="dark"
@@ -67,8 +57,8 @@
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
-      <person-dialog v-if="personVisible" :remote-close="personRemoteClose" :visible="personVisible"></person-dialog>
-    <account-dialog v-if="visible" :remote-close="remoteClose" :visible="visible"></account-dialog>
+      <person-dialog :remote-close="personRemoteClose" :visible="personVisible"></person-dialog>
+    <account-dialog  :remote-close="remoteClose" :visible="visible"></account-dialog>
   </div>
 </template>
 
@@ -77,17 +67,12 @@ import { mapGetters } from 'vuex';
 import topLogs from './topLogs.vue';
 import { fullscreenToggel, listenerfullscreen } from '~/utils/util';
 import topLang from './topLang.vue';
-import defer from '~/mixins/defer';
-import AccountDialog from '~/views/Account/accountDialog.vue';
-import personDialog from '~/views/personage';
-
 export default {
-  mixins: [defer],
   components: {
     // topLogs,
     topLang,
-    AccountDialog,
-    personDialog
+    AccountDialog: () => import(/* webpackChunkName:"layout" */'../../Account/accountDialog.vue'),
+    personDialog: () => import(/* webpackChunkName:"layout" */'../../personage/index.vue')
   },
   data () {
     return {
@@ -115,6 +100,7 @@ export default {
   },
 
   mounted () {
+    console.log('11234565432345432134');
     listenerfullscreen(this.setScreen);
   },
 
