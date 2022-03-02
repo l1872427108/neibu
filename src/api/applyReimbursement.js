@@ -1,4 +1,4 @@
-// 
+//
 
 import request from '~/utils/request/fetch';
 
@@ -12,11 +12,10 @@ export function UserIdSearch (userId) {
   });
 }
 
-export function AddReimbursement(data){
+export function AddReimbursement (data) {
     return request({
-        url:`/inside/insideInfo/apply`,
-        method:'post',
+        url: '/inside/insideInfo/apply',
+        method: 'post',
         data
-    })
-
+    });
 }

@@ -14,7 +14,7 @@ const compactRouter = {
         {
             path: 'management',
             name: 'Management',
-            component: () => import('~/views/ManagementContract/index'),
+            component: () => import(/* webpackChunkName:"content" */'~/views/ManagementContract/index'),
             meta: {
                 title: 'router.management',
                 icon: 'basic-icon-maoshachan',

@@ -7,9 +7,9 @@ import '~/styles/index.scss';
 import '~/permission';
 import '~/directives';
 import '~/plugins/element';
-const req = require.context('~/assets/svg', false, /\.svg$/);
-const requireAll = requireContext => requireContext.keys().map(requireContext);
-requireAll(req);
+// const req = require.context('~/assets/svg', false, /\.svg$/);
+// const requireAll = requireContext => requireContext.keys().map(requireContext);
+// requireAll(req);
 
 Vue.config.productionTip = false;
 

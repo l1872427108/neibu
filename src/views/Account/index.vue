@@ -100,6 +100,7 @@ export default {
 		};
 	},
 	mounted () {
+    console.log('Account');
 		this.loading = false;
     this.fetchData();
 	},

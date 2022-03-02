@@ -16,14 +16,12 @@ Nprogress.configure({
   trickleSpeed: 200,
   showSpinner: false
 });
-console.log(Cookie, Key);
-console.log(Cookie.get(Key.accessTokenKey));
-console.log(Cookie.get(Key.userInfoKey));
+
 router.beforeEach(async (to, from, next) => {
-  pendingXHRMap.forEach((cancel) => {
-    cancel();
-  });
-  pendingXHRMap.clear();
+  // pendingXHRMap.forEach((cancel) => {
+  //   cancel();
+  // });
+  // pendingXHRMap.clear();
   if (progressBar) Nprogress.start();
   const hasToken = Cookie.get(Key.accessTokenKey);
   console.log('hasToken', hasToken);
