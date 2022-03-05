@@ -1,82 +1,95 @@
 <template>
-  <div v-if="!item.hidden">
-    <el-submenu
-      v-if="'children' in item && item.meta"
-      ref="subMenu"
-      :index="resolvePath(item.path)"
-      popper-append-to-body
-    >
+  <div>
+    <template v-if="!item.children || item.children.length === 0">
+      <app-link :to="item.url">
+        <el-menu-item :index="item.url" :class="{'submenu-title-noDropdown':!isNest}">
+          <item :icon="item.icon" :title="$t(`router.${item.code}`)" />
+        </el-menu-item>
+      </app-link>
+    </template>
+
+    <el-submenu v-else ref="subMenu" :index="item.url" popper-append-to-body>
       <template slot="title">
-        <i
-          class="basic-icon item-icon"
-          :class="item.meta && item.meta.icon"
-        />
-        <span>{{ item.meta && item.meta.title }}</span>
+        <item class="siderItem" :icon="item.icon" :title="$t(`router.${item.code}`)" />
       </template>
-      <el-menu-item
-        v-for="items in item.children"
-        :key="items.path"
-        :index="resolvePath(items.path)"
-      >
-        <template slot="title">
-          <i
-            class="basic-icon items-icon"
-            :class="items.meta && items.meta.icon"
-          />
-          <span>{{ items.meta && items.meta.title }}</span>
-        </template>
-      </el-menu-item>
+      <sidebar-item
+        v-for="child in item.children"
+        :key="child.id"
+        :is-nest="true"
+        :item="child"
+        class="nest-menu"
+      />
     </el-submenu>
-     <el-menu-item
-        v-else
-        :index="resolvePath(item.redirect)"
-      >
-      <template slot="title">
-         <i
-          class="basic-icon item-icon"
-          :class="item.children[0].meta && item.children[0].meta.icon"
-        />
-        <span>{{ item.children[0].meta && item.children[0].meta.title }}</span>
-      </template>
-    </el-menu-item>
   </div>
 </template>
 
 <script>
 import path from 'path';
 import { isExternal } from '@/utils/validate';
+import Item from './Item';
+import AppLink from './Link';
+
 export default {
-    name: 'SidebarItem',
-    components: {
+  name: 'SidebarItem',
+  components: { Item, AppLink },
+  props: {
+    // route object
+    item: {
+      type: Object,
+      required: true
     },
-    props: {
-         item: {
-            type: Object,
-            required: true
-        },
-        basePath: {
-          type: String,
-          default: ''
-        }
+    isNest: {
+      type: Boolean,
+      default: false
     },
-
-    methods: {
-        resolvePath (routePath) {
-          if (isExternal(routePath)) {
-            return routePath;
-          }
-          if (isExternal(this.basePath)) {
-            return this.basePath;
-          }
-          return path.resolve(this.basePath, routePath);
-        }
-
+    basePath: {
+      type: String,
+      default: ''
     }
+  },
+  data () {
+    // To fix https://github.com/PanJiaChen/vue-admin-template/issues/237
+    // TODO: refactor with render function
+    this.onlyOneChild = null;
+    return {};
+  },
+  methods: {
+    hasOneShowingChild (children = [], parent) {
+      const showingChildren = children.filter(item => {
+        if (item.hidden) {
+          return false;
+        }
+          // Temp set(will be used if only has one showing child)
+          this.onlyOneChild = item;
+          return true;
+      });
+
+      // When there is only one child router, the child router is displayed by default
+      if (showingChildren.length === 1) {
+        return true;
+      }
+
+      // Show parent if there are no child router to display
+      if (showingChildren.length === 0) {
+        this.onlyOneChild = { ...parent, path: '', noShowingChildren: true };
+        return true;
+      }
+
+      return false;
+    },
+    resolvePath (routePath) {
+      if (isExternal(routePath)) {
+        return routePath;
+      }
+      if (isExternal(this.basePath)) {
+        return this.basePath;
+      }
+      return path.resolve(this.basePath, routePath);
+    }
+  }
 };
 </script>
 
-<style lang="scss">
-.item-icon, .items-icon {
-  margin-right: 20px;
-}
+<style scoped>
+
 </style>

@@ -1,7 +1,7 @@
-import { dateFormat } from '~/utils/date';
-import { getStorage, setStorage } from '~/utils/storage';
+import { dateFormat } from '~/utils/date/date';
+import { getStorage, setStorage } from '~/utils/cache/storage';
 const state = {
-    logsList: getStorage('logsList') || []
+    logsList: []
 };
 
 const mutations = {
@@ -15,7 +15,7 @@ const mutations = {
             stack,
             info: info.toString()
         }));
-        setStorage('logsList', state.logsList);
+        // setStorage('logsList', JSON.stringify(state.logsList));
     },
     CLEAR_LOGS (state) {
         state.logsList = [];
@@ -23,8 +23,18 @@ const mutations = {
     }
 };
 
+const actions = {
+    addErrorLog ({ commit }, type) {
+        commit('ADD_LOGS', type);
+    },
+    clearErrorLog ({ commit }) {
+        commit('CLEAR_LOGS');
+    }
+};
+
 export default {
     namespaced: true,
     state,
-    mutations
+    mutations,
+    actions
 };

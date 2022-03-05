@@ -1,0 +1,16 @@
+@import './media.scss';
+
+/* 页面宽度小于768px */
+@media screen and (max-width: $sm) {
+	// Breadcrumb 面包屑
+	.layout-navbars-breadcrumb-hide {
+		display: none !important;
+	}
+}
+
+/* 页面宽度小于1000px */
+@media screen and (max-width: 1000px) {
+	.el-container {
+		flex-direction: row !important;
+	}
+}

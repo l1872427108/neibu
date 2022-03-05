@@ -1,51 +1,3 @@
-export function param2Obj (url) {
-    const search = decodeURIComponent(url.split('?')[1]).replace(/\+/g, ' ');
-    if (!search) {
-      return {};
-    }
-    const obj = {};
-    const searchArr = search.split('&');
-    searchArr.forEach(v => {
-      const index = v.indexOf('=');
-      if (index !== -1) {
-        const name = v.substring(0, index);
-        const val = v.substring(index + 1, v.length);
-        obj[name] = val;
-      }
-    });
-    return obj;
-}
-
-/**
- * 动态插入 css
- */
-
-export function isExternal (path) {
-  return /^(https?:|mailto:|tel:)/.test(path);
-}
-
-export const loadStyle = (url) => {
-    const link = document.createElement('link');
-    link.type = 'text/css';
-    link.rel = 'stylesheet';
-    link.href = url;
-    const head = document.getElementsByTagName('head')[0];
-    head.appendChild(link);
-};
-
-/**
- * 动态删除 css
- */
-export const removeCss = (href) => {
-    const links = document.getElementsByTagName('link');
-    for (let i = links.length; i >= 0; i--) {
-        const link = links[i];
-        if (link && link.getAttribute('href') && link.getAttribute('href') === href) {
-          link.parentNode.removeChild(link);
-        }
-    }
-};
-
 /**
  * 设置主题
  */
@@ -149,4 +101,42 @@ export const listenerfullscreen = (callback) => {
     } else {
         reqFullScreen();
     }
+};
+
+
+/**
+ * 生成一个随机数字
+ */
+
+export const randomString = (length) => {
+    const str = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let result = '';
+    for (let i = length; i > 0; --i) { result += str[Math.floor(Math.random() * str.length)]; }
+    return result;
+};
+
+/**
+ * 睡眠1秒
+ */
+export const sleep = (ms) => {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+};
+
+
+/**
+ * 检测webp支持
+ */
+const isSupportWebp = () => {
+    try {
+        return document.createElement('canvas').toDataURL('image/webp', 0.5).indexOf('data:image/webp') === 0;
+    } catch {
+        return false;
+    }
+};
+
+export const changeToWebp = (url) => {
+    if (isSupportWebp()) {
+        return `${url}${url.indexOf('?') > 0 ? '&' : '?'}x-oss-process=image/format,webp`;
+    }
+        return url;
 };

@@ -6,17 +6,9 @@
     >
     <el-radio-group v-model="text"
                       class="list">
-        <!-- <el-row :span="24"> -->
-          <!-- <el-col v-for="(item,index) in list"
-                  :key="index"
-                  :md="4"
-                  :xs="12"
-                  :sm="4"> -->
             <div v-for="(item,index) in list" :key="index">
               <el-radio :label="item.value">{{item.name}}</el-radio>
             </div>
-          <!-- </el-col> -->
-        <!-- </el-row> -->
       </el-radio-group>
     </el-dialog>
 

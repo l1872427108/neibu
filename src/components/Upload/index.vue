@@ -1,111 +1,122 @@
 <template>
-  <div class="upload-container">
-      <div>
-          <el-image src="~/assets/img/avator.png" :style="`width:${width}px;height:${height}px;`" fit="cover" />
-          <div class="mask">
-              <!-- <div class="actions">
-                    <span title="预览" @click="preview(index)">
-                        <i class="el-icon-zoom-in" />
-                    </span>
-                    <span title="移除" @click="remove(index)">
-                        <i class="el-icon-delete" />
-                    </span>
-                </div> -->
-          </div>
-      </div>
-      <el-upload
-        :action="action"
-        :data="data"
-        :name="name"
-        :before-upload="beforeUpload"
-        :on-success="handleImageSuccess"
-        :show-file-list="false"
-        :headers="headers"
-      >
-        <el-button class="el-icon-upload">上传头像</el-button>
-      </el-upload>
-  </div>
+	<div>
+		<el-upload
+			:data="uploadData"
+			:class="className"
+			:action="host"
+			:before-upload="handleChange"
+			:accept="extend"
+			:on-success="upSuccess"
+			:show-file-list="false"
+			border
+		>
+			<div v-show="'class-name' == 'upload-demo'">
+				<el-button size="small" type="primary">点击上传</el-button>
+				<div slot="tip" class="el-upload__tip">只能上传/{{ extend }}文件</div>
+			</div>
+			<div v-show="'class-name' == 'avatar-uploader'">
+				<img v-if="imageUrl" :src="imageUrl" class="avatar" />
+				<i v-else class="el-icon-plus avatar-uploader-icon"></i>
+			</div>
+			<slot v-show="'class-name' == ''"></slot>
+		</el-upload>
+	</div>
 </template>
 
 <script>
+import { contractPolicy } from '~/api/contractManagement';
+import { randomString } from '~/utils/util';
 export default {
-    name: 'Upload',
-    props: {
-        action: {
-            type: String,
-            required: false
-        },
-        headers: {
-            type: Object,
-            default: () => {},
-            required: false
-        },
-        data: {
-            type: Object,
-            default: () => {},
-            required: false
-        },
-        name: {
-            type: String,
-            default: 'image',
-            required: false
-        },
-        url: {
-            type: String,
-            default: '',
-            required: false
-        },
-        ext: {
-            type: Array,
-            default: () => ['jpg', 'png', 'gif', 'bmp'],
-            required: false
-        },
-        width: {
-            type: Number,
-            default: 150,
-            required: false
-        },
-        height: {
-            type: Number,
-            default: 150,
-            required: false
-        }
-    },
-    methods: {
-        beforeUpload (file) {
-            const fileName = file.name.split('.');
-            const fileExt = fileName[fileName.length - 1];
-            const isTypeOk = this.ext.indexOf(fileExt) >= 0;
-            const isSizeOk = file.size / 1024 / 1024 < this.size;
-            if (!isTypeOk) {
-                this.$message.error(`上传图片只支持 ${this.ext.join(' / ')} 格式！`);
-            }
-            if (!isSizeOk) {
-                this.$message.error(`上传图片大小不能超过 ${this.size}MB！`);
-            }
-            if (isTypeOk && isSizeOk) {
-                this.progress.preview = URL.createObjectURL(file);
-            }
-            return isTypeOk && isSizeOk;
-        },
-        onSuccess (res) {
-            this.$emit('on-success', res);
-        },
-        handleImageSuccess () {
-
-        }
-    }
+	props: {
+		extend: {
+			type: String,
+			default: ''
+		},
+		className: {
+			type: String,
+			default: ''
+		},
+		imageUrl: {
+			type: String,
+			default: ''
+		}
+	},
+	data () {
+		return {
+			uploadData: {},
+			fileName: '',
+			host: 'http://testoss.puge.net'
+		};
+	},
+	methods: {
+		async handleChange (file) {
+			const { name } = file;
+			this.fileName = name;
+			await this.gainKays();
+		},
+		gainKays () {
+			return new Promise((resolve, reject) => {
+				contractPolicy()
+					.then(res => {
+						const oss = res.data.ossData;
+						this.host = oss.host;
+						this.uploadData.key = oss.dir + '/' + randomString(6) + '/' + this.fileName;
+						this.uploadData.dir = oss.dir;
+						this.uploadData.host = oss.host;
+						this.uploadData.policy = oss.policy;
+						this.uploadData.ossaccessKeyId = oss.accessid;
+						this.uploadData.signature = oss.signature;
+						this.uploadData.callback = oss.callback;
+						console.log(this.uploadData);
+						resolve(true);
+					})
+					.catch(err => {
+						this.$message({
+							type: 'error',
+							message: '上传失败',
+							duration: 1500
+						});
+						reject(err);
+					});
+			});
+		},
+		upSuccess (res) {
+			this.$emit('updatePhoto', res.data.ossData.filename);
+			this.$message({
+				type: 'success',
+				message: '上传成功',
+				duration: 1500
+			});
+		}
+	}
 };
 </script>
 
-<style lang="scss" scoped>
-.upload-container {
-    position: relative;
-    .el-icon-upload {
-        margin-right: 10px;
-    }
-    .mask {
-        margin-top: 10px;
-    }
+<style>
+.avatar-uploader .el-upload {
+	border: 1px dashed #d9d9d9 ;
+	border-radius: 6px;
+	cursor: pointer;
+	position: relative;
+	overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+	border-color: #409eff;
+}
+.avatar-uploader-icon {
+	font-size: 28px;
+	color: #8c939d;
+	width: 178px;
+	height: 178px;
+	text-align: center;
+}
+.avatar-uploader-icon::before{
+	line-height: 178px;
+
+}
+.avatar {
+	width: 178px;
+	height: 178px;
+	display: block;
 }
 </style>

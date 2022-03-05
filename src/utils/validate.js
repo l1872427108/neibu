@@ -1,5 +1,9 @@
-
-
+export function isExternal (path) {
+  return /^(https?:|mailto:|tel:)/.test(path);
+}
+/**
+ * 地址
+ */
 export const validateUrl = (val) => {
     const urlRegex = /^(https?|ftp):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/;
     return urlRegex.test(val);
@@ -48,13 +52,29 @@ export const isNull = val => {
  */
 export const identity = (rule, value, callback) => {
   if (/(^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$)|(^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{2}$)/.test(value)) {
-    callback(new Error('请输入正确的身份证号'));
-  } else {
     callback();
+  } else {
+    callback(new Error('请输入正确的身份证号'));
   }
 };
 
 
-export function isExternal (path) {
-  return /^(https?:|mailto:|tel:)/.test(path);
+/**
+ * 字符串
+ */
+ export function isString (str) {
+  if (typeof str === 'string' || str instanceof String) {
+    return true;
+  }
+  return false;
+}
+
+/**
+ * 数组
+ */
+export function isArray (arg) {
+  if (typeof Array.isArray === 'undefined') {
+    return Object.prototype.toString.call(arg) === '[object Array]';
+  }
+  return Array.isArray(arg);
 }

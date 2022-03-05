@@ -1,134 +1,64 @@
 <template>
-  <div class="sidebar-container">
+  <el-aside class="layout-aside" :class="setCollapseWidth" v-if="clientWidth > 1000">
     <el-scrollbar
-      wrap-class="scrollbar-wrapper"
+      class="flex-auto"
     >
-      <el-menu
-        :collapse="isCollapse"
-        :background-color="variables.menuBg"
-        :text-color="variables.menuText"
-        :unique-opened="true"
-        :active-text-color="variables.menuActiveText"
-        :collapse-transition="false"
-        mode="vertical"
-        router
-        :default-active="defaultActive"
-      >
-        <sidebar-item
-          v-for="route in routes"
-          :key="route.path"
-          class="nest-menu"
-          :item="route"
-          :base-path="route.path"
-        />
-      </el-menu>
+      <Vertical :menuList="menuList" :class="setCollapseWidth"></Vertical>
     </el-scrollbar>
-  </div>
+  </el-aside>
+  <el-drawer v-else :visible.sync="themeConfig.isCollapse" :with-header="false" direction="ltr" size="220px">
+    <el-aside class="layout-aside w100 h100">
+			<el-scrollbar class="flex-auto">
+				<Vertical :menuList="menuList"></Vertical>
+			</el-scrollbar>
+		</el-aside>
+  </el-drawer>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import SidebarItem from './sidebarItem.vue';
-import variables from '~/assets/styles/variable.scss';
+import Vertical from './mode/vertical.vue';
 
 export default {
-  components: { SidebarItem },
+  components: { Vertical },
   data () {
     return {
-      activeMenu: ''
+      clientWidth: 0
     };
   },
   computed: {
     ...mapGetters([
-      'isCollapse'
+      'isCollapse',
+      'menuList',
+      'themeConfig'
     ]),
-    variables () {
-      return variables;
-    },
-    defaultActive () {
-      return this.$route.path;
-    },
-    routes () {
-      return this.$router.options.routes;
+    // 设置左侧菜单的具体宽度
+    setCollapseWidth () {
+      let { layout, isCollapse } = this.themeConfig;
+      let asideBrColor = '';
+      layout = 'classic' || layout === 'columns' ? (asideBrColor = 'layout-el-aside-br-color') : '';
+      if (layout === 'columns') {
+        if (isCollapse) {
+          return ['layout-aside-width1', asideBrColor];
+        }
+          return ['layout-aside-width-default', asideBrColor];
+      }
+        if (isCollapse) {
+          return ['layout-aside-width64', asideBrColor];
+        }
+          return ['layout-aside-width-default', asideBrColor];
+    }
+  },
+  created () {
+    this.initMenuFixed(document.body.clientWidth);
+    this.$bus.$on('layoutMobileResize', (res) => {
+      this.initMenuFixed(res.clientWidth);
+    });
+  },
+  methods: {
+    initMenuFixed (clientWidth) {
+      this.clientWidth = clientWidth;
     }
   }
 };
 </script>
-
-<style lang="scss">
-@import '~/assets/styles/variable.scss';
-.sidebar-container {
-  transition: width .4s;
-  width: 100%;
-  background-color: $menuBg;
-  height: 100%;
-  font-size: 0px;
-  overflow: hidden;
-
-    .el-menu {
-      border: none;
-      height: 100%;
-      width: 100%;
-    }
-
-    .submenu-title-noDropdown,
-    .el-submenu__title {
-      &:hover {
-        background-color: $menuHover !important;
-      }
-    }
-
-    .is-active>.el-submenu__title {
-      color: $subMenuActiveText !important;
-    }
-
-    & .nest-menu .el-submenu>.el-submenu__title,
-    & .el-submenu .el-menu-item {
-      min-width: $sideBarWidth !important;
-      /* background-color: $subMenuBg !important; */
-      &:hover {
-        background-color: $subMenuHover !important;
-      }
-    }
-  }
-
-  .el-menu--collapse .el-menu .el-submenu {
-    min-width: $sideBarWidth !important;
-  }
-
-.el-menu--vertical {
-  &>.el-menu {
-    .item-icon {
-      margin-left: 16px;
-    }
-    .items-icon {
-      margin-right: 12px;
-      margin-left: -2px;
-    }
-  }
-
-  .nest-menu .el-submenu>.el-submenu__title,
-  .el-menu-item {
-    &:hover {
-      background-color: $menuHover !important;
-    }
-  }
-  >.el-menu--popup {
-    max-height: 100vh;
-    overflow-y: auto;
-
-    &::-webkit-scrollbar-track-piece {
-      background: #d3dce6;
-    }
-
-    &::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background: #99a9bf;
-      border-radius: 20px;
-    }
-  }
-}
-</style>

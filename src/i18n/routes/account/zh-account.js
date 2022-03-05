@@ -1,0 +1,30 @@
+export default {
+  account: {
+    accountInfo: '账户信息',
+    modifyAccount: '修改账户信息',
+    nickName: '姓名',
+    pleaseUser: '请输入姓名',
+    username: '用户名',
+    pleaseUsername: '请输入用户名',
+    email: '邮箱',
+    pleaseEmail: '请输入邮箱',
+    phone: '手机号',
+    pleasePhone: '请输入手机号',
+    updateAccountInformation: '更新账户信息',
+    password: '密码',
+    pugeNumber: '普歌工号',
+    pugeName: '普歌网名',
+    pugeSignature: '个性签名',
+    pugeSex: '年龄',
+    pugeBirthday: '生日',
+    pugeEmail: '普歌企业邮箱',
+    schoolAge: '年级',
+    pleasePugeName: '请输入普歌网名',
+    pleasePugeSignature: '请输入个性签名',
+    pleasePugeSex: '请输入年龄',
+    pleasePugeBirthday: '请输入生日',
+    pleasePugeEmail: '请输入普歌企业邮箱',
+    pleaseSchoolAge: '请输入年级',
+    pleasePassword: '请输入密码'
+  }
+};

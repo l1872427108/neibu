@@ -1,226 +1,502 @@
 <template>
-  <div class="gr">
-    <div class="gr-left">
-      <el-form ref="ruleForm" :model="ruleform" :rules="rules" label-width="200px">
-        <h2 class="xinxi">基本信息</h2>
-        <el-form-item label="姓名:" class="name " prop="names">
-          <el-input v-model="ruleform.names" size="medium"></el-input>
-        </el-form-item>
-        <el-form-item label="性别:" class="sex" prop="sex">
-          <el-radio-group v-model="ruleform.sex">
-            <el-radio label="男"></el-radio>
-            <el-radio label="女"></el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="手机号:" class="phone" prop="phone">
-          <el-input v-model="ruleform.phone" size="medium"></el-input>
-        </el-form-item>
-        <el-form-item label="身份证号:" class="sfz" prop="sfz">
-          <el-input v-model="ruleform.sfz" size="medium"></el-input>
-        </el-form-item>
-        <el-form-item label="所在省市:" class="shengshi" prop="shengshi">
-          <el-cascader
-            v-model="ruleform.area"
-            :options="areaList"
-            :props="optionProps"
-            filterable
-            ref="myCascader"
-          ></el-cascader>
-        </el-form-item>
-        <el-form-item label="街道地址:" class="dress" prop="dress">
-          <el-input v-model="ruleform.dress" size="medium"></el-input>
-        </el-form-item>
-        <el-form-item label="家庭人数:" class="renshu" prop="renshu">
-          <el-input-number
-            class="jiating"
-            v-model="ruleform.renhshu"
-            controls-position="right"
-            @change="handleChange"
-            :min="1"
-            :max="10"
-          ></el-input-number>
-        </el-form-item>
-        <el-form-item label="是否单亲:" class="danqin">
-          <el-radio-group v-model="ruleform.danqin">
-            <el-radio label="是"></el-radio>
-            <el-radio label="否"></el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <h2 class="xinxi">更多信息</h2>
-        <el-form-item label="普歌工号:" class="gonghao" prop="gonghao">
-          <el-input v-model="ruleform.gonghao" size="medium"></el-input>
-        </el-form-item>
-        <el-form-item label="分配基地:" class="jidi" prop="jidi">
-          <el-input v-model="ruleform.jidi" size="medium"></el-input>
-        </el-form-item>
-        <el-form-item label="岗位:" class="gangwei" prop="gangwei">
-          <el-select v-model="ruleform.gangwei" placeholder="请选择岗位">
-            <el-option label="校区总监" value="shanghai"></el-option>
-            <el-option label="校区副总监" value="beijing"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="学院:" class="xueyuan" prop="xueyuan">
-          <el-input v-model="ruleform.xueyuan" size="medium"></el-input>
-        </el-form-item>
-        <el-form-item label="班级:" class="banji" prop="banji">
-          <el-input v-model="ruleform.banji" size="medium"></el-input>
-        </el-form-item>
-         <el-form-item label="邮箱:" class="email" prop="email">
-          <el-input v-model="ruleform.email" size="medium"></el-input>
-        </el-form-item>
-        <el-form-item label="生日:" class="brithday" prop="brithday">
-          <el-date-picker
-            type="date"
-            placeholder="选择日期"
-            v-model="ruleform.brithday"
-            style="width: 100%"
-          ></el-date-picker>
-        </el-form-item>
-        <el-form-item label="个性签名：" class="qianming">
-          <div style="margin: 20px 0;"></div>
-          <el-input type="textarea" placeholder="请输入内容" v-model="textarea" maxlength="300" show-word-limit>
-          </el-input>
-        </el-form-item>
-        <el-form-item label="用户个人信息密码:" prop="mima">
-          <el-input type="password" v-model="ruleform.mima" size="medium"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="submitForm('ruleForm')">保存</el-button>
-          <el-button>取消</el-button>
-        </el-form-item>
-      </el-form>
-    </div>
-    <div class="gr-right">
-      <img class="touxiang" src="~/assets/img/picture.png" alt="" />
-    </div>
-  </div>
+	<el-dialog
+  :fullscreen="true"
+		width="90%"
+		:close-on-click-modal="false"
+		:before-close="handleClose"
+		:show-close="true"
+		:title="$t('person.personCenter')"
+		:visible.sync="visible"
+	>
+		<div class="personal">
+			<el-row>
+				<el-skeleton style="width: 100%" :loading="loading" animated :count="1">
+					<template slot="template">
+						<el-skeleton-item style="width: 100%; height: 267px" />
+					</template>
+					<template>
+						<el-col :xs="24" :sm="24">
+							<el-card shadow="hover" :header="$t('person.personInfo')">
+								<div class="personal-user">
+									<div class="personal-user-left">
+										<Upload @updatePhoto="updatePhoto" class="h100 personal-user-left-upload">
+											<img
+												class="personal-user-left-upload"
+												:src="
+													personalForm.photo
+														? personalForm.photo
+														: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1813762643,1914315241&fm=26&gp=0.jpg'
+												"
+											/>
+										</Upload>
+									</div>
+									<div class="personal-user-right">
+										<el-row>
+											<el-col :span="24" class="personal-title mb18"
+												>{{ $t(`person.${currentTime}`) }}，{{ personalForm.name }}，{{ $t('person.better') }}
+											</el-col>
+											<el-col :span="24">
+												<el-row>
+													<el-col :xs="24" :sm="16" class="personal-item mb6">
+														<div class="personal-item-label">{{ $t('person.nickName') }}：</div>
+														<div class="personal-item-value">{{ personalForm.name }}</div>
+													</el-col>
+													<el-col :xs="24" :sm="16" class="personal-item mb6">
+														<div class="personal-item-label">{{ $t('person.Birthday') }}：</div>
+														<div class="personal-item-value">{{ personalForm.pugeBirthday }}</div>
+													</el-col>
+												</el-row>
+											</el-col>
+											<el-col :span="24">
+												<el-row>
+													<el-col :xs="24" :sm="16" class="personal-item mb6">
+														<div class="personal-item-label">{{ $t('person.phone') }}：</div>
+														<div class="personal-item-value">{{ personalForm.mobile }}</div>
+													</el-col>
+												</el-row>
+											</el-col>
+										</el-row>
+									</div>
+								</div>
+							</el-card>
+						</el-col>
+					</template>
+				</el-skeleton>
+				<el-skeleton style="width: 100%" :loading="loading" animated :count="1">
+					<template slot="template">
+						<el-skeleton-item style="width: 100%; height: 267px" />
+					</template>
+					<template>
+						<el-col :span="24" class="mt18">
+							<el-card shadow="hover" :header="$t('person.saying')">
+								<el-row :gutter="15" class="personal-saying-row mb10">
+									<el-col
+										:xs="24"
+										:sm="12"
+										:md="12"
+										:lg="6"
+										:xl="6"
+										v-for="(v, k) in recommendList"
+										:key="k"
+										class="personal-saying-col"
+									>
+										<div class="personal-saying" :style="{ 'background-color': v.bg }">
+											<i :class="v.icon" :style="{ color: v.iconColor }"></i>
+											<div class="personal-saying-auto">
+												<div>{{ $t(`person.${v.name}`) }}</div>
+												<div class="personal-saying-msg">{{ $t(`person.${v.content}`) }}</div>
+											</div>
+										</div>
+									</el-col>
+								</el-row>
+							</el-card>
+						</el-col>
+					</template>
+				</el-skeleton>
+				<el-skeleton style="width: 100%" :loading="loading" animated :count="1">
+					<template slot="template">
+						<el-skeleton-item style="width: 100%; height: 267px" />
+					</template>
+					<template>
+						<el-col :span="24">
+							<el-card shadow="hover" class="mt15 personal-edit" :header="$t('person.updateInfo')">
+								<div class="personal-edit-title">{{ $t('person.basicInfo') }}</div>
+								<el-form
+									:rules="rules"
+									ref="ruleForm"
+									:model="personalForm"
+									size="small"
+									label-width="40px"
+									class="mt35 mb35"
+								>
+									<el-row :gutter="35">
+										<el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6" class="mb20">
+											<el-form-item prop="name" label-width="100px" :label="$t('person.nickName')">
+												<el-input
+													v-model="personalForm.name"
+													:placeholder="$t('person.pleaseUser')"
+													clearable
+												></el-input>
+											</el-form-item>
+										</el-col>
+										<el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6" class="mb20">
+											<el-form-item prop="pugeEmail" label-width="100px" :label="$t('person.email')">
+												<el-input
+													v-model="personalForm.pugeEmail"
+													:placeholder="$t('person.pleaseEmail')"
+													clearable
+												></el-input>
+											</el-form-item>
+										</el-col>
+										<el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6" class="mb20">
+											<el-form-item prop="mobile" label-width="100px" :label="$t('person.phone')">
+												<el-input
+													v-model="personalForm.mobile"
+													:placeholder="$t('person.pleasePhone')"
+													clearable
+												></el-input>
+											</el-form-item>
+										</el-col>
+										<el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6" class="mb20">
+											<el-form-item prop="nubmerInfo" label-width="100px" :label="$t('person.card')">
+												<el-input
+													v-model="personalForm.nubmerInfo"
+													:placeholder="$t('person.pleaseCard')"
+													clearable
+												></el-input>
+											</el-form-item>
+										</el-col>
+										<el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6" class="mb20">
+											<el-form-item prop="nativeInfo" label-width="100px" :label="$t('person.address')">
+												<el-input
+													v-model="personalForm.nativeInfo"
+													:placeholder="$t('person.pleaseAddress')"
+													clearable
+												></el-input>
+											</el-form-item>
+										</el-col>
+										<el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6" class="mb20">
+											<el-form-item prop="familyMoneyInfo" label-width="100px" :label="$t('person.situation')">
+												<el-input
+													v-model="personalForm.familyMoneyInfo"
+													:placeholder="$t('person.pleaseSituation')"
+													clearable
+												></el-input>
+											</el-form-item>
+										</el-col>
+										<el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6" class="mb20">
+											<el-form-item prop="familyNumber" label-width="100px" :label="$t('person.households')">
+												<el-input
+													:min="1"
+													:max="10"
+													v-model="personalForm.familyNumber"
+													:placeholder="$t('person.pleaseUser')"
+													clearable
+												></el-input>
+											</el-form-item>
+										</el-col>
+										<el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6" class="mb20">
+											<el-form-item prop="pugeNumber" label-width="100px" :label="$t('person.work')">
+												<el-input
+													:disabled="true"
+													v-model="personalForm.pugeNumber"
+													:placeholder="$t('person.pleaseWork')"
+													clearable
+												></el-input>
+											</el-form-item>
+										</el-col>
+										<el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6" class="mb20">
+											<el-form-item prop="yesnoInfo" label-width="100px" :label="$t('person.single')">
+												<el-select
+													v-model="personalForm.yesnoInfo"
+													:placeholder="$t('person.pleaseSingle')"
+													clearable
+													class="w100"
+												>
+													<el-option label="是" value="1"></el-option>
+													<el-option label="否" value="2"></el-option>
+												</el-select>
+											</el-form-item>
+										</el-col>
+										<el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6" class="mb20">
+											<el-form-item prop="pugeBirthday" label-width="100px" :label="$t('person.Birthday')">
+												<el-date-picker
+													class="w100"
+													v-model="personalForm.pugeBirthday"
+													type="date"
+													:placeholder="$t('person.pleaseBirthday')"
+												></el-date-picker>
+											</el-form-item>
+										</el-col>
+										<el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6" class="mb20">
+											<el-form-item prop="pugeSex" label-width="100px" :label="$t('person.gender')">
+												<el-select
+													v-model="personalForm.pugeSex"
+													:placeholder="$t('person.pleaseGender')"
+													clearable
+													class="w100"
+												>
+													<el-option label="男" value="1"></el-option>
+													<el-option label="女" value="2"></el-option>
+												</el-select>
+											</el-form-item>
+										</el-col>
+										<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+											<el-form-item>
+												<el-button @click="submitForm('ruleForm')" type="primary" icon="el-icon-position">{{
+													$t('person.updatePersonalInformation')
+												}}</el-button>
+											</el-form-item>
+										</el-col>
+									</el-row>
+								</el-form>
+							</el-card>
+						</el-col>
+					</template>
+				</el-skeleton>
+			</el-row>
+		</div>
+	</el-dialog>
 </template>
 
 <script>
+import Upload from '~/components/Upload';
+import { formatData, dateFormat, toTime } from '~/utils/date/date';
 import { identity, checkPhone, checkEmail } from '~/utils/validate';
-export default {
-  name: 'Page',
-  data () {
-    return {
-      renshu: 1,
-      text: '',
-      textarea: '',
-      // eslint-disable-next-line
-      areaList: rawCitiesData,
-      optionProps: {
-        value: 'code',
-        label: 'name',
-        children: 'sub'
-      },
-      ruleform: {
-        namess: '',
-        region: '',
-        sex: '男',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: '',
-        imageUrl: '',
-        danqin: '否',
-        area: [],
-        email: ''
-      },
+import { personPutInfo, personSearchInfo, personUpdatePhoto } from '~/api/personMessage';
+import { mapGetters } from 'vuex';
 
-      rules: {
-        names: [
-          { required: true, message: '请输入姓名', trigger: 'blur' },
-          {
-            min: 3,
-            max: 5,
-            message: '长度在 3 到 5 个字符',
-            trigger: 'blur'
-          }
-        ],
-        shengshi: [{ required: true, message: '请填写所在省市', trigger: 'blur' }],
-        dress: [{ required: true, message: '请填写地址', trigger: 'blur' }],
-        gonghao: [{ required: true, message: '请填写工号', trigger: 'blur' }],
-        jidi: [{ required: true, message: '请填写正确的基地', trigger: 'blur' }],
-        gangwei: [{ required: true, message: '请填写所在岗位', trigger: 'blur' }],
-        email: [{ required: true, validator: checkEmail, trigger: 'blur' }],
-        phone: [{ required: true, validator: checkPhone, trigger: 'blur' }],
-        sfz: [{ required: true, message: '请填写证件号码', trigger: 'blur', validator: identity }],
-        xueyuan: [{ required: true, message: '请填写所在学院', trigger: 'blur' }],
-        banji: [{ required: true, message: '请填写所在班级', trigger: 'blur' }],
-        brithday: [
-          {
-            type: 'date',
-            required: true,
-            message: '请选择日期',
-            trigger: 'change'
-          }
-        ]
-      }
-    };
-  },
-  methods: {
-    submitForm (formName) {
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          console.log('submit');
-        } else {
-          console.log('error submit!!');
-          return false;
-        }
-      });
-    },
-    resetForm (formName) {
-      this.$refs[formName].resetFields();
-    },
-    handleChange (value) {
-      console.log(value);
-    }
-  }
+export default {
+	props: {
+		// 弹窗变量
+		visible: {
+			type: Boolean,
+			default: false
+		},
+		remoteClose: Function
+	},
+	components: {
+		Upload
+	},
+	computed: {
+		...mapGetters(['userInfo']),
+		currentTime () {
+			return formatData(new Date());
+		},
+		currentDate () {
+			return dateFormat(new Date());
+		}
+	},
+	data () {
+		return {
+			loading: true,
+			recommendList: [
+				{
+					icon: 'el-icon-food',
+					bg: '#48D18D',
+					iconColor: '#64d89d',
+					name: 'quotesOnePerson',
+					content: 'quotesOne'
+				},
+				{
+					icon: 'el-icon-shopping-bag-1',
+					bg: '#F95959',
+					iconColor: '#F86C6B',
+					name: 'quotesTwoPerson',
+					content: 'quotesTwo'
+				},
+				{
+					icon: 'el-icon-school',
+					bg: '#8595F4',
+					iconColor: '#92A1F4',
+					name: 'quotesThreePerson',
+					content: 'quotesThree'
+				},
+				{
+					icon: 'el-icon-alarm-clock',
+					bg: '#FEBB50',
+					iconColor: '#FDC566',
+					name: 'quotesFourPerson',
+					content: 'quotesFour'
+				}
+			],
+			personalForm: {
+				name: '',
+				pugeEmail: '',
+				mobile: '',
+				nubmerInfo: '',
+				nativeInfo: '',
+				familyMoneyInfo: '',
+				familyNumber: '',
+				pugeNumber: '',
+				yesnoInfo: '',
+				pugeBirthday: '',
+				pugeSex: ''
+			},
+			rules: {
+				pugeEmail: [{ required: true, message: '请填写正确的邮箱', validator: checkEmail, trigger: 'blur' }],
+				mobile: [{ required: true, message: '请填写手机号', validator: checkPhone, trigger: 'blur' }],
+				nubmerInfo: [{ required: true, validator: identity, message: '请填写正确的证件号码', trigger: 'blur' }]
+			}
+		};
+	},
+	mounted () {
+    console.log('personageDialog');
+		this.fetchData();
+	},
+	methods: {
+		fetchData () {
+			this.userInfo.uid &&
+				personSearchInfo(this.userInfo.uid)
+					.then((res) => {
+						if (res.data.peopleInfo) {
+							this.personalForm = res.data.peopleInfo;
+							this.loading = false;
+						}
+						this.loading = false;
+					})
+					.catch(() => {
+						this.loading = false;
+						this.$message.error('数据加载失败');
+					});
+		},
+		submitForm () {
+			this.personalForm.pugeBirthday = toTime(this.personalForm.pugeBirthday);
+			this.updateData();
+		},
+		updatePhoto (photo) {
+			this.personalForm.photo = photo;
+			this.updateData();
+		},
+		updateData () {
+			this.userInfo.uid &&
+				personPutInfo(this.personalForm, this.userInfo.uid)
+					.then((res) => {
+						this.fetchData();
+					})
+					.catch(() => {
+						this.$message({
+							message: '保存失败',
+							type: 'error'
+						});
+					});
+		},
+
+		handleClose () {
+			this.remoteClose();
+		}
+	}
 };
 </script>
 
-<style lang="scss" scoped>
-.gr-left {
-  float: left;
-}
-.gr-right {
-  float: right;
-  margin-top: 70px;
-  margin-right: 450px;
-}
-.el-form-item__label {
-  color: #000;
-}
-.el-form-item {
-  margin-left: 100px;
-}
-.el-input {
-  width: 367px;
-}
-.el-input-number.is-controls-right .el-input__inner {
-  width: 180px;
-}
-::v-deep .el-form-item__label {
-    font-size: 17px;
-  }
-.el-input .renshu {
-  width: 100px;
-}
-.xinxi {
-  margin: 40px 30px;
-}
-.touxiang {
-  width: 200px;
-  height: 205px;
-}
-.el-button el-button--primary {
-  height: 40px;
-  width: 140px;
-}
-.el-radio__input.is-checked + .el-radio__label {
-  color: #000000;
-}
-.el-button {
-  width: 140px;
-  height: 40px;
+<style scoped lang="scss">
+@import '~/styles/mixins/mixin';
+.personal {
+	.personal-user {
+		height: 200px;
+		display: flex;
+		align-items: center;
+		.personal-user-left {
+			width: 200px;
+      height: 100%;
+			border-radius: 3px;
+			.personal-user-left-upload {
+				img {
+					width: 100%;
+					height: 100%;
+					border-radius: 3px;
+				}
+				&:hover {
+					img {
+						animation: logoAnimation 0.3s ease-in-out;
+					}
+				}
+			}
+		}
+		.personal-user-right {
+			flex: 1;
+			padding: 0 15px;
+		}
+		.personal-title {
+			font-size: 18px;
+			@include text-ellipsis(1);
+		}
+		.personal-item {
+			display: flex;
+			align-items: center;
+			font-size: 13px;
+			.personal-item-label {
+				color: var(--variable--color-fontcolor);
+				@include text-ellipsis(1);
+			}
+			.personal-item-value {
+				@include text-ellipsis(1);
+			}
+		}
+	}
+	.personal-saying-row {
+		.personal-saying-col {
+			.personal-saying {
+				position: relative;
+				height: 120px;
+				color: var(--variable--color-fontcolor);
+				border-radius: 3px;
+				overflow: hidden;
+				cursor: pointer;
+				&:hover {
+					i {
+						right: 0px !important;
+						bottom: 0px !important;
+						transition: all ease 0.3s;
+					}
+				}
+				i {
+					position: absolute;
+					right: -10px;
+					bottom: -10px;
+					font-size: 70px;
+					transform: rotate(-30deg);
+					transition: all ease 0.3s;
+				}
+				.personal-saying-auto {
+					padding: 10px;
+					position: absolute;
+					left: 0;
+					top: 3%;
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					.personal-saying-msg {
+						font-size: 12px;
+						margin-top: 5px;
+					}
+				}
+			}
+		}
+	}
+	.personal-edit {
+		.personal-edit-title {
+			position: relative;
+			padding-left: 10px;
+			color: var(--variable--color-primary);
+			&::after {
+				content: '';
+				width: 2px;
+				height: 10px;
+				position: absolute;
+				left: 0;
+				top: 50%;
+				transform: translateY(-50%);
+				background: var(--variable--color-primary);
+			}
+		}
+		.personal-edit-safe-box {
+			border-bottom: 1px solid var(--variable--color-bg);
+			padding: 15px 0;
+			.personal-edit-safe-item {
+				width: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				.personal-edit-safe-item-left {
+					flex: 1;
+					overflow: hidden;
+					.personal-edit-safe-item-left-label {
+						color: var(--variable--color-primary);
+						margin-bottom: 5px;
+					}
+					.personal-edit-safe-item-left-value {
+						color: var(--variable--color-primary);
+						@include text-ellipsis(1);
+						margin-right: 15px;
+					}
+				}
+			}
+			&:last-of-type {
+				padding-bottom: 0;
+				border-bottom: none;
+			}
+		}
+	}
 }
 </style>

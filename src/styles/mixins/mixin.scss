@@ -1,0 +1,42 @@
+/* 多行文本溢出 */
+@mixin text-ellipsis($line: 2) {
+    overflow: hidden;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: $line;
+    -webkit-box-orient: vertical;
+}
+
+/* 文本不换行 */
+@mixin text-no-wrap() {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+/* 多行文本溢出 */
+@mixin text-ellipsis($line: 2) {
+	overflow: hidden;
+	word-break: break-all;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: $line;
+	-webkit-box-orient: vertical;
+}
+
+/* 垂直居中 */
+@mixin vertical {
+	position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* 加载webp */
+@mixin webpbg($url) {
+	background-image: url($url);
+	@at-root .webpa & {
+        background-image: url($url+'.webp');
+    }
+}

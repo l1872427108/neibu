@@ -1,0 +1,30 @@
+/* Breadcrumb 面包屑过渡动画
+------------------------------- */
+.breadcrumb-enter-active,
+.breadcrumb-leave-active {
+	transition: all 0.3s;
+}
+.breadcrumb-enter,
+.breadcrumb-leave-active {
+	opacity: 0;
+	transform: translateX(20px);
+}
+.breadcrumb-move {
+	transition: all 0.3s;
+}
+.breadcrumb-leave-active {
+	position: absolute;
+}
+
+/* 过渡动画 */
+@keyframes logoAnimation {
+	0% {
+		transform: scale(0);
+	}
+	80% {
+		transform: scale(1.2);
+	}
+	100% {
+		transform: scale(1);
+	}
+}

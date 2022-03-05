@@ -1,18 +1,22 @@
 import Vue from 'vue';
-import Router from 'vue-router';
+import VueRouter from 'vue-router';
 
-Vue.use(Router);
+Vue.use(VueRouter);
 
 import Layout from '~/views/layout';
+import payRouter from './modules/UnifiedPayment';
+import compactRouter from './modules/SigningCompact';
+import { routerMode } from '~/config/website';
+import interviewRouter from './modules/SigningInterview';
 
 export const publicRoutes = [
     {
-        path: '/login',
-        name: 'Login',
-        component: () => import('~/views/login'),
-        hidden: true,
+        path: '/contract',
+        name: 'Contract',
+        component: () => import(/* webpackChunkName:"signing" */'~/views/SigningContract'),
         meta: {
-            title: '登陆'
+            title: '合同',
+            keepAlive: true
         }
     },
     {
@@ -23,82 +27,65 @@ export const publicRoutes = [
             {
                 path: 'welcome',
                 name: 'Welcome',
-                component: () => import('~/views/welcome'),
+                component: () => import(/* webpackChunkName:"welcome" */'~/views/welcome'),
                 meta: {
-                    title: '首页',
-                    icon: 'basic-icon-home',
+                    title: 'router.welcome',
                     affix: true,
                     keepAlive: true
                 }
+            },
+            {
+                path: '/applyReimbursement',
+                name: 'applyReimbursement',
+                component: () => import(/* webpackChunkName:"applyReimbursement" */'~/views/applyReimbursement'),
+                meta: {
+                    title: '财务报销',
+                    keepAlive: true
+                }
+
             }
         ]
     },
     {
         path: '/setting',
         component: Layout,
-        redirect: '/setting/account',
+        redirect: '/setting/personage',
         name: 'Setting',
         meta: {
-            title: '个人设置',
-            icon: 'basic-icon-home'
+            title: 'router.setting'
         },
         children: [
             {
-                path: 'account',
-                component: () => import('~/views/account'),
-                name: 'Account',
-                meta: {
-                    title: '账号信息',
-                    icon: 'basic-icon-maoshachan',
-                    keepAlive: true
-                }
-            },
-            {
                 path: 'personage',
-                component: () => import('~/views/personage'),
+                component: () => import(/* webpackChunkName:"information" */'~/views/Account'),
                 name: 'Personage',
                 meta: {
-                    title: '个人信息',
-                    icon: 'basic-icon-maoshachan',
-                    keepAlive: true
+                    title: 'router.personage',
+                    keepAlive: false
                 }
             }
         ]
     },
+    payRouter,
+    compactRouter,
+    interviewRouter,
     {
-        path: '/compact',
-        component: Layout,
-        redirect: '/compact/management',
-        name: 'Compact',
-        meta: {
-            title: '签约合同',
-            icon: 'basic-icon-home'
-        },
-        children: [
-            {
-                path: 'management',
-                name: 'Management',
-                component: () => import('~/views/management/index'),
-                meta: {
-                    title: '合同管理',
-                    icon: 'basic-icon-maoshachan',
-                    keepAlive: true
-                }
-            }
-        ]
+        path: '/401',
+        name: '401',
+        component: () => import(/* webpackChunkName:"welcome" */'~/views/ErrPage/401')
     },
     {
         path: '/404',
-        component: () => import('~/views/err-page/404'),
-        hidden: true
+        name: '404',
+        component: () => import(/* webpackChunkName:"welcome" */'~/views/ErrPage/404')
     },
-    { path: '*', redirect: '/404', hidden: true }
+    { path: '*', redirect: '/404' }
 ];
 
-const createRouter = () => new Router({
+const createRouter = () => new VueRouter({
     scrollBehavior: () => ({ y: 0 }),
     routes: publicRoutes,
-    mode: 'history'
+    mode: routerMode
 });
 
 const router = createRouter();
@@ -108,9 +95,9 @@ export const resetRouter = () => {
     router.matcher = newRouter.matcher; // reset router
 };
 
-const RouterPush = Router.prototype.push;
-Router.prototype.push = function push (to) {
-  return RouterPush.call(this, to).catch(err => err);
+const RouterPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push (to) {
+    return RouterPush.call(this, to).catch(err => err);
 };
 
 export default router;

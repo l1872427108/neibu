@@ -1,4 +1,5 @@
 import Vue from 'vue';
+/** 指令收集注册 */
 const requireDirective = require.context(
     '.',
     false,
