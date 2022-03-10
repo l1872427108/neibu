@@ -136,7 +136,7 @@ module.exports = {
                 assets: resolve('src/assets'),
                 components: resolve('src/components')
             }
-        },
+        }
         // plugins: [
         //   isProd ? new
         // ]

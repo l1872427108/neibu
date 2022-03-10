@@ -20,15 +20,15 @@
 export default {
 	name: 'welcome',
 
-	data() {
+	data () {
 		return {
 			h: '',
 			m: '',
-			s: '',
+			s: ''
 		};
 	},
 
-	created() {
+	created () {
 		this.getTime();
 		setInterval(() => {
 			this.getTime();
@@ -36,7 +36,7 @@ export default {
 	},
 
 	methods: {
-		getTime() {
+		getTime () {
 			this.h = new Date().getHours();
 			this.m = new Date().getMinutes();
 			this.s = new Date().getSeconds();
@@ -49,8 +49,8 @@ export default {
 			if (this.s < 10) {
 				this.s = '0' + this.s;
 			}
-		},
-	},
+		}
+	}
 };
 </script>
 

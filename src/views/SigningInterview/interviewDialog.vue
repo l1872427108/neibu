@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import {getInterviewStep, updateState, setEvaluate} from '~/api/interview';
+import { getInterviewStep, updateState, setEvaluate } from '~/api/interview';
 export default {
   props: {
     dialogVisible: {
@@ -85,51 +85,51 @@ export default {
     }
   },
   computed: {
-    stepListValue() {
+    stepListValue () {
       return this.stepList[this.active - 1];
     },
-    disabled() {
+    disabled () {
       console.log(this.active > this.stepList.length);
       return this.active > this.stepList.length;
     }
   },
-  data() {
+  data () {
     return {
       active: 1,
       stepList: [],
       activeNum: 0,
       titleList: [
         {
-            title:'HR面（价值观面）',
-        },{
-            title:'业务评估',
-        },{
-            title:'导师面',
-        },{
-            title:'部门面',
+            title: 'HR面（价值观面）'
+        }, {
+            title: '业务评估'
+        }, {
+            title: '导师面'
+        }, {
+            title: '部门面'
         },
         {
-            title:'部门交叉面',
+            title: '部门交叉面'
         },
         {
-            title:'转正答辩',
-        },
+            title: '转正答辩'
+        }
       ],
-      textarea: '',
+      textarea: ''
     };
   },
-  created() {
+  created () {
     this.throttledClick = this.throttle(index => {
       this.stepChange(index);
 		}, 500);
     this.throttledClickEvaluate = this.throttle(this.submitEvaluate);
   },
-  mounted() {
+  mounted () {
     this.fetchData();
   },
   methods: {
     // 获取数据
-    async fetchData() {
+    async fetchData () {
       const result = await getInterviewStep(this.interviewId);
       result.data.stepList.unshift(result.data.stepList.pop());
       this.stepList = this.chunk(result.data.stepList);
@@ -138,52 +138,52 @@ export default {
       this.updateStatus();
     },
     // 修改状态
-    async updateData(id, applyId, status) {
+    async updateData (id, applyId, status) {
       const result = await updateState(id, applyId, status);
       this.fetchData();
     },
     // 点击改变步骤条
-    stepChange(current) {
+    stepChange (current) {
       if (current <= this.stepList.length) {
         const m = this.$refs.step[current - 1].$el.querySelector('.el-step__icon');
-        m.style.background = '#409EFF'
+        m.style.background = '#409EFF';
         setTimeout(() => {
-          m.style.background = '#fff'
+          m.style.background = '#fff';
         }, 700);
         this.active = current;
       }
     },
     // 未通过
-    noPassInterview() {
+    noPassInterview () {
       this.updateData(this.stepListValue[0].id, this.stepListValue[0].applyId, 2);
       this.updateStatus();
       this.$message.success('未通过');
     },
     // 通过
-    passInterview() {
+    passInterview () {
       this.updateData(this.stepListValue[0].id, this.stepListValue[0].applyId, 1);
       this.$message.success('通过');
     },
     // 更新状态
-    updateStatus() {
+    updateStatus () {
       if (this.stepList[this.active - 1][0].nowStatue == 2) {
         this.$refs.step[this.active - 1].$el.classList.add('is-danger');
       }
     },
     // 提交评价
-    async submitEvaluate() {
-      const result = await setEvaluate({applyId: this.interviewId, applyValue: this.textarea});
+    async submitEvaluate () {
+      const result = await setEvaluate({ applyId: this.interviewId, applyValue: this.textarea });
       this.$message.success('评价成功');
     },
-    close() {
+    close () {
       this.remoteClose();
     },
     // 数组分块
-    chunk(arr, size = 1) {
+    chunk (arr, size = 1) {
       if (arr.length === 0) {
           return [];
       }
-      let result = [];
+      const result = [];
       let tmp = [];
       arr.forEach(item => {
         if (tmp.length === 0) {
@@ -194,26 +194,26 @@ export default {
         if (tmp.length === size) {
             tmp = [];
         }
-      })
+      });
       return result;
     },
     // 防抖
-    throttle(fn, delay) {
-      var timer = null;
+    throttle (fn, delay) {
+      let timer = null;
       return function () {
-        var context = this;
-        var args = arguments;
+        const context = this;
+        const args = arguments;
         if (!timer) {
           setTimeout(() => {
             fn.apply(context, args);
             timer = null;
           }, delay);
         }
-      }
+      };
     }
 
   }
-}
+};
 </script>
 
 <style scoped lang="scss">

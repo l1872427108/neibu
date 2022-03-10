@@ -11,11 +11,11 @@ export function searchInterview (id) {
 /**
  * 根据报名者 id 获取步骤
  */
-export function getInterviewStep(id) {
+export function getInterviewStep (id) {
   return request({
     url: `/inside/inside/step/getSteps/${id}`,
     method: 'get'
-  })
+  });
 }
 /**
  * 修改面试状态
@@ -24,17 +24,17 @@ export function getInterviewStep(id) {
  * @param {*} status
  * @returns
  */
-export function updateState(id, applyId, status) {
+export function updateState (id, applyId, status) {
   return request({
     url: `/inside/inside/step/updateState/${id}/${applyId}/${status}`,
     method: 'get'
-  })
+  });
 }
 
-export function setEvaluate(data) {
+export function setEvaluate (data) {
   return request({
-    url: `/inside/inside/step/step`,
+    url: '/inside/inside/step/step',
     method: 'put',
     data
-  })
+  });
 }

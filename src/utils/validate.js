@@ -30,7 +30,7 @@ export const checkPgEmail = function (rule, value, callback) {
   } else {
     callback();
   }
-}
+};
 
 
 /* 手机号 */

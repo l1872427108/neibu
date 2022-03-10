@@ -138,7 +138,7 @@ export default {
     personRemoteClose () {
       this.personVisible = false;
     },
-    toHome() {
+    toHome () {
       this.$router.push('/');
     }
   }

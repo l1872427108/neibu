@@ -56,32 +56,32 @@
 </template>
 
 <script>
-import {searchInterview, getInterviewStep} from '~/api/interview';
-import {mapGetters} from 'vuex';
+import { searchInterview, getInterviewStep } from '~/api/interview';
+import { mapGetters } from 'vuex';
 import InterviewDialog from './interviewDialog.vue';
 export default {
   components: {
     InterviewDialog
   },
-  data() {
+  data () {
     return {
       tableData: [],
       visible: false,
       interviewId: ''
-    }
+    };
   },
   computed: {
     ...mapGetters(['userInfo'])
   },
-  mounted() {
+  mounted () {
     this.searchData();
   },
   methods: {
-    async searchData() {
+    async searchData () {
       const result = await searchInterview(this.userInfo.uid);
-      this.tableData = result.data.CList
+      this.tableData = result.data.CList;
     },
-    async handleInterview(index, row) {
+    async handleInterview (index, row) {
       this.interviewId = row.id;
       console.log(index, row);
       this.visible = true;

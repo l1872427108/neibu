@@ -18,7 +18,7 @@ const interviewRouter = {
                 title: 'router.sign',
                 keepAlive: true
             }
-        },
+        }
         // {
         //     path: 'progress',
         //     name: 'Progress',
