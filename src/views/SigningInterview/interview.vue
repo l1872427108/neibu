@@ -7,41 +7,41 @@
     style="width: 100%">
     <el-table-column
       prop="applyName"
-      label="报名者信息"
+      :label="$t('interview.Applicants')"
       width="180">
     </el-table-column>
     <el-table-column
       prop="department"
-      label="部门"
+      :label="$t('interview.department')"
       width="180">
     </el-table-column>
     <el-table-column
       prop="lastState"
-      label="最终状态">
+      :label="$t('interview.status')">
     </el-table-column>
     <el-table-column
       prop="applyNumber"
-      label="报名次数">
+      :label="$t('interview.frequency')">
     </el-table-column>
     <el-table-column
       prop="activity"
-      label="活动标识">
+      :label="$t('interview.identification')">
     </el-table-column>
     <el-table-column
-      prop="学号"
-      label="applyStunum">
+      prop="applyStunum"
+      :label="$t('interview.studentNumber')">
     </el-table-column>
     <el-table-column
       prop="手机号"
-      label="applyPhone">
+      :label="$t('interview.phone')">
     </el-table-column>
     <el-table-column
-      prop="邮箱"
-      label="applyEmail">
+      prop="applyEmail"
+      :label="$t('interview.email')">
     </el-table-column>
     <el-table-column
       prop="applySex"
-      label="性别">
+      :label="$t('interview.Gender')">
     </el-table-column>
     <el-table-column label="操作" fixed="right" width="90">
       <template slot-scope="scope">

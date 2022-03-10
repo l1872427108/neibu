@@ -64,5 +64,29 @@ export default {
         order: 'Order',
         describe: 'Describe',
         operation: 'Operation'
+    },
+    apply: {
+      serialNumber: 'Num',
+      fullName: 'FullName',
+      reimbursement: 'Reimbursement',
+      money: 'Money',
+      department: 'Department',
+      voucher: 'Voucher',
+      code: 'Code',
+      AuditStatus: 'AuditStatus',
+      Reimbursement: 'ReimburseStatus'
+
+    },
+    interview: {
+      Applicants: 'Applicants',
+      department: 'Department',
+      status: 'Status',
+      frequency: 'Frequency',
+      identification: 'Identify',
+      Gender: 'Gender',
+      operation: 'Operation',
+      phone: 'Phone',
+      email: 'Email',
+      studentNumber: 'Student'
     }
 };

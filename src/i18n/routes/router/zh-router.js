@@ -6,7 +6,7 @@ export default {
         compact: '合同中心',
         management: '合同管理',
         interview: '面试中心',
-        sign: '报名通道',
+        sign: '面试中心',
         progress: '面试进度',
         pay: '支付中心',
         center: '合同缴费',
