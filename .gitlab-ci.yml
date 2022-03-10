@@ -1,0 +1,45 @@
+before_script:
+  - echo "-----开始----"
+
+stages:
+  - build
+  - deploy
+
+build:
+  before_script:
+    - echo "开始打包"
+  stage: build
+  tags:
+    - puge-test
+  only:
+    - develop-test
+  script:
+    - ls
+    - id
+    - sudo npm install node-sass --unsafe-perm --save-dev
+    - npm install
+    - npm run build
+    - mv dist /home
+    - ls
+    - rm -rf /home/gitlab-runner/builds
+  after_script:
+    - echo "打包完成"
+testprod:
+  stage: deploy
+  tags:
+    - puge-test
+  only:
+    - develop-test
+  script:
+    - rm -rf /usr/local/puge-prod/inside-dist
+    - cd /home
+    - mv dist /usr/local/puge-prod/inside-dist
+    - rm -rf /home/dist
+    - rm -rf /home/gitlab-runner/builds
+  after_script:
+    - echo "部署完成"
+
+
+after_script:
+  - echo "----结束----"
+
