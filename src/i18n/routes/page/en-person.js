@@ -14,7 +14,7 @@ export default {
         time: 'LandingTime',
         email: 'email',
         card: 'IdCard',
-        address: 'HomeAddress',
+        address: 'Address',
         situation: 'Situation',
         households: 'Households',
         work: 'WorkNumber',

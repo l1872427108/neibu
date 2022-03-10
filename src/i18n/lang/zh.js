@@ -21,7 +21,7 @@ export default {
     personage: '个人信息',
     compact: '合同中心',
     management: '合同管理',
-    interview: '报名中心',
+    interview: '面试管理',
     sign: '报名通道',
     progress: '面试进度',
     pay: '支付中心',

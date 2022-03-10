@@ -32,10 +32,8 @@
           <i class="el-icon-caret-bottom" />
         </span>
         <el-dropdown-menu>
-          <el-dropdown-item>
-            <router-link to="/">
+          <el-dropdown-item @click.native="toHome">
               {{ $t('navbar.home') }}
-            </router-link>
           </el-dropdown-item>
           <el-dropdown-item
             divided
@@ -139,6 +137,9 @@ export default {
     },
     personRemoteClose () {
       this.personVisible = false;
+    },
+    toHome() {
+      this.$router.push('/');
     }
   }
 };

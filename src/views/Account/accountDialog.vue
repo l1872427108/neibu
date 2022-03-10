@@ -102,7 +102,7 @@
 
 <script>
 import Upload from '~/components/Upload';
-import { checkPhone, checkEmail } from '~/utils/validate';
+import { checkPhone, checkPgEmail } from '~/utils/validate';
 import { mapGetters } from 'vuex';
 import { accountGetInfo, accountPutInfo } from '~/api/personMessage';
 import { toTime } from '~/utils/date/date';
@@ -125,7 +125,7 @@ export default {
 		return {
 			loading: true,
 			rules: {
-				pugeEmail: [{ required: true, message: '请填写正确的邮箱', validator: checkEmail, trigger: 'blur' }],
+				pugeEmail: [{ required: true, message: '请填写正确的邮箱', validator: checkPgEmail, trigger: 'blur' }],
 				mobile: [{ required: true, message: '请填写手机号', validator: checkPhone, trigger: 'blur' }]
 			},
       accountInfo: {}

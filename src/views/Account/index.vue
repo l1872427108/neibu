@@ -19,7 +19,7 @@
 											"
 										/>
 								</div>
-								<div class="personal-user-right">
+								<div class="personal-user-right" ref="acc">
 									<el-row>
 										<el-col :span="24" class="personal-title mb18"
 											>{{ $t(`person.${currentTime}`) }},  {{ accountInfo.nickName }}   {{ `, ${accountInfo.pugeSignature}` }}

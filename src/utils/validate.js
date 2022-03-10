@@ -20,6 +20,18 @@ if (/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((.[a-zA-Z0-9_-]{2,3}){1,2})$/.test(value
   }
 };
 
+/**
+ *
+ * 企业邮箱
+ */
+export const checkPgEmail = function (rule, value, callback) {
+  if (/^([a-zA-Z0-9_-])+@puge+((.[a-zA-Z0-9_-]{2,3}){1,2})$/.test(value) === false) {
+    callback(new Error('请填写正确的邮箱'));
+  } else {
+    callback();
+  }
+}
+
 
 /* 手机号 */
 export const checkPhone = (rule, value, callback) => {

@@ -10,12 +10,11 @@ const resolve = (dir) => {
     return path.join(__dirname, dir);
 };
 
-const htmlWebpackPlugin = require('html-webpack-plugin');
-
+const isProd = process.env.NODE_ENV === 'production';
 
 // const CompressionWebpackPlugin = require('compression-webpack-plugin');
 // const productionGzipExtensions = ['html', 'js', 'css', 'svg'];
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const projectConfig = {
   devServerProxy: {
@@ -78,6 +77,8 @@ module.exports = {
           return args;
         });
 
+        // config.plugin('Bundle').use(BundleAnalyzerPlugin).tap()
+
         config.optimization.usedExports = true;
         // config.optimization.splitChunks({
         //   chunks: 'all',
@@ -120,7 +121,7 @@ module.exports = {
       config
       .when(process.env.NODE_ENV === 'development', config => {
         config.entry('app').clear().add('./src/main-dev.js');
-        config.plugin('html').use(htmlWebpackPlugin).tap(args => {
+        config.plugin('html').tap(args => {
           args[0].isProd = false;
           return args;
         });
@@ -135,9 +136,9 @@ module.exports = {
                 assets: resolve('src/assets'),
                 components: resolve('src/components')
             }
-        }
+        },
         // plugins: [
-        //   process.env.NODE_ENV === 'production'
+        //   isProd ? new
         // ]
     }
 };
