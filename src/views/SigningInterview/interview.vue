@@ -88,6 +88,7 @@ export default {
     },
     remoteClose () {
       this.visible = false;
+      this.searchData();
     }
   }
 };

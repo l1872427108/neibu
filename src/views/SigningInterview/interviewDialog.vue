@@ -191,7 +191,7 @@ export default {
     },
     // 提交评价
     async submitEvaluate () {
-      await setEvaluate({ id: this.interviewId, applyValue: this.textarea });
+      await setEvaluate({ id: this.stepListValue[0].id, applyValue: this.textarea });
       this.$message.success('评价成功');
     },
     close () {
