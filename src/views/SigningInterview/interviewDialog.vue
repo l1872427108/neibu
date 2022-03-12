@@ -45,7 +45,7 @@
             placeholder="请输评价内容"
             v-model="textarea">
           </el-input>
-          <div class="submit-evaluate"><el-button size="mini" @click="submitEvaluate" round type="primary">提交评价</el-button></div>
+          <div v-show="flag" class="submit-evaluate"><el-button size="mini" @click="submitEvaluate" round type="primary">提交评价</el-button></div>
         </div>
       </div>
     </el-card>
@@ -54,11 +54,13 @@
         size="mini"
         type="success"
         :disabled="!textarea"
+        v-show="flag"
         @click="passInterview">通过</el-button>
       <el-button
         size="mini"
         type="danger"
         :disabled="!textarea"
+        v-show="flag"
         @click="noPassInterview">未通过</el-button>
     </div>
     <span slot="footer" class="dialog-footer">
@@ -104,7 +106,8 @@ export default {
             title: '转正答辩'
         }
       ],
-      textarea: ''
+      textarea: '',
+      flag: true
     };
   },
   computed: {
@@ -135,6 +138,7 @@ export default {
       this.stepList = this.chunk(result.data.stepList);
       this.active = this.stepList.length;
       this.activeNum = this.stepList.length;
+      // this.flag = this.stepList.length;
       this.updateStatus(this.activeNum);
     },
     // 点击改变步骤条
@@ -151,14 +155,22 @@ export default {
     // 未通过
     noPassInterview () {
       updateState(this.stepListValue[0].id, this.stepListValue[0].applyId, 2);
+      this.flag = false;
       this.fetchData();
-      this.$message.success('未通过');
+      this.$message.success('未通过, 一秒后退出');
+      setTimeout(() => {
+        this.close();
+      }, 1000);
     },
     // 通过
     passInterview () {
       updateState(this.stepListValue[0].id, this.stepListValue[0].applyId, 1);
+      this.flag = false;
       this.fetchData();
-      this.$message.success('通过');
+      this.$message.success('通过,  一秒后退出');
+      setTimeout(() => {
+        this.close();
+      }, 1000);
     },
     // 更新状态
     updateStatus (activeNum) {
