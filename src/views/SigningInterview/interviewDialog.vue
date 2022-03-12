@@ -8,7 +8,7 @@
       center
       :before-close="close">
     <el-steps :active="activeNum" finish-status="success">
-      <el-step :title="item.title" ref="step"  @click.native="throttledClick(index+1)" v-for="(item, index) in titleList" :key="index"></el-step>
+      <el-step :title="item.title" ref="step"  @click.native="stepChange(index+1)" v-for="(item, index) in titleList" :key="index"></el-step>
     </el-steps>
 
     <el-table
@@ -45,7 +45,7 @@
             placeholder="请输评价内容"
             v-model="textarea">
           </el-input>
-          <div class="submit-evaluate"><el-button :disabled="!textarea" :size="mini" @click="throttledClickEvaluate" round type="primary">提交评价</el-button></div>
+          <div class="submit-evaluate"><el-button size="mini" @click="submitEvaluate" round type="primary">提交评价</el-button></div>
         </div>
       </div>
     </el-card>
@@ -117,10 +117,10 @@ export default {
     }
   },
   created () {
-    this.throttledClick = this.throttle(index => {
-      this.stepChange(index);
-		}, 500);
-    this.throttledClickEvaluate = this.throttle(this.submitEvaluate);
+    // this.throttledClick = this.throttle(index => {
+      // this.stepChange(index);
+		// }, 500);
+    // this.throttledClickEvaluate = this.throttle(this.submitEvaluate);
   },
   mounted () {
     this.fetchData();
@@ -150,13 +150,13 @@ export default {
     },
     // 未通过
     noPassInterview () {
-      this.updateState(this.stepListValue[0].id, this.stepListValue[0].applyId, 2);
+      updateState(this.stepListValue[0].id, this.stepListValue[0].applyId, 2);
       this.fetchData();
       this.$message.success('未通过');
     },
     // 通过
     passInterview () {
-      this.updateState(this.stepListValue[0].id, this.stepListValue[0].applyId, 1);
+      updateState(this.stepListValue[0].id, this.stepListValue[0].applyId, 1);
       this.fetchData();
       this.$message.success('通过');
     },
@@ -179,7 +179,7 @@ export default {
     },
     // 提交评价
     async submitEvaluate () {
-      const result = await setEvaluate({ id: this.interviewId, applyValue: this.textarea });
+      await setEvaluate({ id: this.interviewId, applyValue: this.textarea });
       this.$message.success('评价成功');
     },
     close () {
@@ -203,19 +203,6 @@ export default {
       });
       return result;
     },
-    // 防抖
-    throttle(func, delay) {
-      var pervious = 0;
-      return function () {
-          var nowTime = +new Date();
-          var context = this;
-          var args = arguments;
-          if (nowTime - pervious > delay) {
-              func.apply(func, args);
-              pervious = nowTime;
-          }
-      }
-    }
   }
 };
 </script>
