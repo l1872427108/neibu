@@ -179,7 +179,7 @@ export default {
     },
     // 提交评价
     async submitEvaluate () {
-      const result = await setEvaluate({ applyId: this.interviewId, applyValue: this.textarea });
+      const result = await setEvaluate({ id: this.interviewId, applyValue: this.textarea });
       this.$message.success('评价成功');
     },
     close () {
