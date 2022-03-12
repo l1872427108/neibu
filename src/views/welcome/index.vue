@@ -1,19 +1,31 @@
 
 <template>
 	<div class="welcome">
-		<div class="welcomeLeft">
-      <div class="welcomeTopOne">功能正在开发～</div>
-			<div class="welcomeTopTwo">功能正在开发～</div>
-			<div class="welcomeTopThree">功能正在开发～</div>
-		</div>
-		<div class="welcomeRight">
-			<div class="welcomeRightOne">功能正在开发～</div>
-        <div class="welcomeRightTwo">
-          <div class="welcomeRightTwoLeft">功能正在开发～</div>
-          <div class="welcomeRightTwoRight">功能正在开发～</div>
-			  </div>
+		<div class="welcome-wrap">
+      <div class="welcomeLeft">
+        <div class="welcomeTopOne">
+          <h1 class="picture">热搜轮播图</h1>
+          <el-input suffix-icon="el-icon-search" type="text" v-model="val"></el-input>
+        </div>
+        <div class="welcomeTopTwo">
+          <h1 class="info">个人信息</h1>
+        </div>
 		  </div>
-	  </div>
+		  <div class="welcomeRight">
+        <div class="welcomeRightOne">
+          <h1 class="task">今日任务</h1>
+        </div>
+        <div class="welcomeRightTwo">
+          <div class="welcomeRightTwoFirst">
+            <div class="wait">待开发。。</div>
+          </div>
+          <div class="welcomeRightTwoSecond">
+            <h1 class="gong">助理版公告</h1>
+          </div>
+        </div>
+		    </div>
+	    </div>
+    </div>
 </template>
 
 <script>
@@ -24,7 +36,8 @@ export default {
 		return {
 			h: '',
 			m: '',
-			s: ''
+			s: '',
+      val: ''
 		};
 	},
 
@@ -56,144 +69,118 @@ export default {
 
 <style lang="scss" scoped>
 .welcome {
-	width: 96%;
-	margin: 50px 0px 5px 5px;
-	display: flex;
-	justify-content: space-between;
-	.welcomeLeft {
-		width: 30%;
-		.welcomeTopOne {
-			width: 100%;
-			height: 200px;
-			box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
-		}
-		.welcomeTopTwo {
-			width: 100%;
-			height: 150px;
-			box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
-			margin-top: 20px;
-		}
-		.welcomeTopThree {
-			width: 100%;
-			height: 150px;
-			box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
-			margin-top: 20px;
-		}
-	}
-	.welcomeRight{
-	   width: 60%;
-	     .welcomeRightOne {
-			width: 100%;
-			height: 200px;
-			box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
-		}
-		.welcomeRightTwo{
-			width: 100%;
-			display: flex;
-	        justify-content: space-between;
-             .welcomeRightTwoLeft{
-				 width: 45%;
-				 height: 320px;
-				 margin-top:20px ;
-				 box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
-			 }
-			 .welcomeRightTwoRight{
-                width: 45%;
-				height: 320px;
-				margin-top:20px ;
-				box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
-			 }
-		}
-	}
+  // width: 100%;
+  height: 100%;
+  position: relative;
 }
-
-#time div {
-	width: 100px;
-	height: 100px;
-	float: left;
-}
-
-#clock {
-	min-height: 200px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-#clock #time div {
-	position: relative;
-	margin: 0 15px;
-}
-
-#clock #time div span {
-	position: relative;
-	display: block;
-	width: 100px;
-	height: 100px;
-	background: #2196f3;
-	color: #fff;
-	font-weight: 300;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-size: 4em;
-	z-index: 10;
-	box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4);
-}
-
-#clock #time div span:nth-child(2) {
-	height: 30px;
-	font-size: 0.8em;
-	letter-spacing: 0.2em;
-	font-weight: 500;
-	z-index: 9;
-	box-shadow: none;
-	background: #127fd6;
-	text-transform: uppercase;
-}
-
-#clock #time div:last-child span {
-	background: #ff006a;
-}
-
-#clock #time div:last-child span:nth-child(2) {
-	background: #ec0062;
-}
-
-
-.welcome {
-    animation: rubberBand 1000ms both
-}
-.welcome {
-    animation: rubberBand 1000ms both
-}
-@keyframes rubberBand {
-    from {
-        transform: scale3d(1, 1, 1);
+.welcome-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 90%;
+  width: 90%;
+  .welcomeLeft {
+    width: 100%;
+    height: 48%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    .welcomeTopOne {
+      box-sizing: border-box;
+      width: 62%;
+      background-color: #d4d6da;
+      height: 100%;
+      padding: 20px;
+      border-radius: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      .picture {
+        font-size: 40px;
+        font-weight: 700;
+        align-items: center;
+      }
+      ::v-deep .el-input {
+        border-radius: 30px;
+        width: 80%;
+        input {
+          height: 40px;
+          border-radius: 30px;
+        }
+      }
     }
-
-    30% {
-        transform: scale3d(1.25, 0.75, 1);
+    .welcomeTopTwo {
+      width: 35%;
+      background-color: #d4d6da;
+      height: 100%;
+      padding: 20px;
+      border-radius: 30px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      .info {
+        font-size: 40px;
+        font-weight: 700;
+        align-items: center;
+      }
     }
-
-    40% {
-        transform: scale3d(0.75, 1.25, 1);
+  }
+  .welcomeRight {
+    width: 100%;
+    height: 48%;
+    display: flex;
+    justify-content: space-between;
+    .welcomeRightOne {
+      box-sizing: border-box;
+      width: 35%;
+      background-color: #d4d6da;
+      height: 100%;
+      padding: 20px;
+      border-radius: 30px;
+      display: flex;
+      justify-content: center;
+      .task {
+        font-size: 40px;
+        font-weight: 700;
+        // align-items: center;
+      }
     }
-
-    50% {
-        transform: scale3d(1.15, 0.85, 1);
+    .welcomeRightTwo {
+      width: 62%;
+      height: 100%;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .welcomeRightTwoFirst {
+        width: 100%;
+        height: 20%;
+        background-color: #d4d6da;
+        border-radius: 30px;
+        .wait {
+          font-size: 20px;
+          font-weight: 700;
+          margin-top: 15px;
+          margin-left: 20px;
+        }
+      }
+      .welcomeRightTwoSecond {
+        width: 100%;
+        height: 70%;
+        background-color: #d4d6da;
+        border-radius: 30px;
+        display: flex;
+        justify-content: center;
+        .gong {
+          font-size: 40px;
+          font-weight: 700;
+        }
+      }
     }
+  }
 
-    65% {
-        transform: scale3d(0.95, 1.05, 1);
-    }
 
-    75% {
-        transform: scale3d(1.05, 0.95, 1);
-    }
-
-    to {
-        transform: scale3d(1, 1, 1);
-    }
 }
 </style>
