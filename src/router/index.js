@@ -39,7 +39,7 @@ export const publicRoutes = [
                 name: 'applyReimbursement',
                 component: () => import(/* webpackChunkName:"applyReimbursement" */'~/views/applyReimbursement'),
                 meta: {
-                    title: '财务报销',
+                    title: 'router.applyReimbursement',
                     keepAlive: true
                 }
 

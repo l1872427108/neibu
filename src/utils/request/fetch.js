@@ -68,7 +68,6 @@ const errNotification = (
 service.interceptors.response.use(response => {
     hideLoading();
     const res = response.data;
-    console.log(res);
     if (res.code !== 20000) {
         Message({
             message: res.message || 'Error',

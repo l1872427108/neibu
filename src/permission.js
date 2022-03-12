@@ -24,7 +24,6 @@ router.beforeEach(async (to, from, next) => {
   // pendingXHRMap.clear();
   if (progressBar) Nprogress.start();
   const hasToken = Cookie.get(Key.accessTokenKey);
-  console.log('hasToken', hasToken);
   if (hasToken) {
       const hasGetUserInfo = Cookie.get(Key.userInfoKey);
       if (hasGetUserInfo) {
