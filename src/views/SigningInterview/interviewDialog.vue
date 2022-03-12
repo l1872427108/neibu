@@ -19,19 +19,17 @@
       <el-table-column
         prop="interviewerName"
         label="面试官名"
-        width="180"
         align="center">
       </el-table-column>
       <el-table-column
         prop="interviewTime"
         label="面试时间"
-        width="180"
         align="center">
       </el-table-column>
       <el-table-column label="操作" align="center">
         <template slot-scope="scope">
             <el-tag size="medium" effect="dark" type="primary" v-if="scope.row.nowStatue == 1">已通过</el-tag>
-          <el-tag size="medium" effect="dark" type="danger" v-if="scope.row.nowStatue == 2">未通过</el-tag>
+            <el-tag size="medium" effect="dark" type="danger" v-if="scope.row.nowStatue == 2">未通过</el-tag>
         </template>
       </el-table-column>
     </el-table>
@@ -47,7 +45,7 @@
             placeholder="请输评价内容"
             v-model="textarea">
           </el-input>
-          <div class="submit-evaluate"><el-button size="mini" @click="throttledClickEvaluate" round type="primary">提交评价</el-button></div>
+          <div class="submit-evaluate"><el-button :disabled="!textarea" :size="mini" @click="throttledClickEvaluate" round type="primary">提交评价</el-button></div>
         </div>
       </div>
     </el-card>
@@ -84,15 +82,6 @@ export default {
       default: ''
     }
   },
-  computed: {
-    stepListValue () {
-      return this.stepList[this.active - 1];
-    },
-    disabled () {
-      console.log(this.active > this.stepList.length);
-      return this.active > this.stepList.length;
-    }
-  },
   data () {
     return {
       active: 1,
@@ -118,6 +107,15 @@ export default {
       textarea: ''
     };
   },
+  computed: {
+    stepListValue () {
+      return this.stepList[this.active - 1];
+    },
+    disabled () {
+      console.log(this.active > this.stepList.length);
+      return this.active > this.stepList.length;
+    }
+  },
   created () {
     this.throttledClick = this.throttle(index => {
       this.stepChange(index);
@@ -131,16 +129,13 @@ export default {
     // 获取数据
     async fetchData () {
       const result = await getInterviewStep(this.interviewId);
-      result.data.stepList.unshift(result.data.stepList.pop());
+      result.data.stepList.sort(function (a, b) {
+        return a.passApply - b.passApply;
+      });
       this.stepList = this.chunk(result.data.stepList);
       this.active = this.stepList.length;
       this.activeNum = this.stepList.length;
-      this.updateStatus();
-    },
-    // 修改状态
-    async updateData (id, applyId, status) {
-      const result = await updateState(id, applyId, status);
-      this.fetchData();
+      this.updateStatus(this.activeNum);
     },
     // 点击改变步骤条
     stepChange (current) {
@@ -155,19 +150,31 @@ export default {
     },
     // 未通过
     noPassInterview () {
-      this.updateData(this.stepListValue[0].id, this.stepListValue[0].applyId, 2);
-      this.updateStatus();
+      this.updateState(this.stepListValue[0].id, this.stepListValue[0].applyId, 2);
+      this.fetchData();
       this.$message.success('未通过');
     },
     // 通过
     passInterview () {
-      this.updateData(this.stepListValue[0].id, this.stepListValue[0].applyId, 1);
+      this.updateState(this.stepListValue[0].id, this.stepListValue[0].applyId, 1);
+      this.fetchData();
       this.$message.success('通过');
     },
     // 更新状态
-    updateStatus () {
-      if (this.stepList[this.active - 1][0].nowStatue == 2) {
-        this.$refs.step[this.active - 1].$el.classList.add('is-danger');
+    updateStatus (activeNum) {
+      if (activeNum >= 2) {
+        var step = this.$refs.step[activeNum - 2].$el;
+        if (step.classList.contains('is-danger')) {
+          step.classList.remove('is-danger');
+
+        } else if (step.classList.contains('is-info')) {
+          step.classList.remove('is-info');
+        }
+      }
+      if (this.stepList[activeNum - 1][0].nowStatue == 2) {
+        this.$refs.step[activeNum - 1].$el.classList.add('is-danger');
+      } else if (this.stepList[activeNum - 1][0].nowStatue == 0) {
+        this.$refs.step[activeNum - 1].$el.classList.add('is-info');
       }
     },
     // 提交评价
@@ -190,7 +197,6 @@ export default {
             result.push(tmp);
         }
         tmp.push(item);
-
         if (tmp.length === size) {
             tmp = [];
         }
@@ -198,20 +204,18 @@ export default {
       return result;
     },
     // 防抖
-    throttle (fn, delay) {
-      let timer = null;
+    throttle(func, delay) {
+      var pervious = 0;
       return function () {
-        const context = this;
-        const args = arguments;
-        if (!timer) {
-          setTimeout(() => {
-            fn.apply(context, args);
-            timer = null;
-          }, delay);
-        }
-      };
+          var nowTime = +new Date();
+          var context = this;
+          var args = arguments;
+          if (nowTime - pervious > delay) {
+              func.apply(func, args);
+              pervious = nowTime;
+          }
+      }
     }
-
   }
 };
 </script>
@@ -258,40 +262,19 @@ export default {
   }
 }
 
-
-// .step-anim {
-//     animation: rubberBand 1000ms both
-// }
-
-@keyframes rubberBand {
-    from {
-        transform: scale3d(1, 1, 1);
+::v-deep .is-info {
+  .el-step__head.is-success {
+    color: #409EFF;
+    border-color: #409EFF;
+    .el-icon-check:before {
+      content: "\e6d8";
     }
-
-    30% {
-        transform: scale3d(1.25, 0.75, 1);
-    }
-
-    40% {
-        transform: scale3d(0.75, 1.25, 1);
-    }
-
-    50% {
-        transform: scale3d(1.15, 0.85, 1);
-    }
-
-    65% {
-        transform: scale3d(0.95, 1.05, 1);
-    }
-
-    75% {
-        transform: scale3d(1.05, 0.95, 1);
-    }
-
-    to {
-        transform: scale3d(1, 1, 1);
-    }
+  }
+  .el-step__title.is-success {
+    color: #409EFF;
+  }
 }
+
 .step-list-btn {
   display: flex;
   justify-content: center;
