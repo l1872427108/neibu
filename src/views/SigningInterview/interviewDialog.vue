@@ -53,13 +53,13 @@
       <el-button
         size="mini"
         type="success"
-        :disabled="!textarea"
+        :disabled="isBtn"
         v-show="flag"
         @click="passInterview">通过</el-button>
       <el-button
         size="mini"
         type="danger"
-        :disabled="!textarea"
+        :disabled="isBtn"
         v-show="flag"
         @click="noPassInterview">未通过</el-button>
     </div>
@@ -107,7 +107,8 @@ export default {
         }
       ],
       textarea: '',
-      flag: true
+      flag: true,
+      isBtn: true
     };
   },
   computed: {
@@ -138,8 +139,11 @@ export default {
       this.stepList = this.chunk(result.data.stepList);
       this.active = this.stepList.length;
       this.activeNum = this.stepList.length;
-      // this.flag = this.stepList.length;
-      this.updateStatus(this.activeNum);
+      this.textarea = this.stepList[this.activeNum - 1][0].applyValue ?? '';
+      if (this.textarea) {
+        this.isBtn = false;
+      }
+      this.updateStatus(this.activeNum); // 2
     },
     // 点击改变步骤条
     stepChange (current) {
@@ -160,7 +164,7 @@ export default {
       this.$message.success('未通过, 一秒后退出');
       setTimeout(() => {
         this.close();
-      }, 1000);
+      }, 500);
     },
     // 通过
     passInterview () {
@@ -170,19 +174,22 @@ export default {
       this.$message.success('通过,  一秒后退出');
       setTimeout(() => {
         this.close();
-      }, 1000);
+      }, 500);
     },
     // 更新状态
     updateStatus (activeNum) {
-      if (activeNum >= 2) {
-        var step = this.$refs.step[activeNum - 2].$el;
+      // activeNum  1 一条的话。  2
+      if (activeNum >= 2) { // 走这儿   2 - 2  0
+        const step = this.$refs.step[activeNum - 2].$el;
         if (step.classList.contains('is-danger')) {
           step.classList.remove('is-danger');
-
         } else if (step.classList.contains('is-info')) {
           step.classList.remove('is-info');
         }
       }
+      // 清除第一个
+      // 走到第二个   activeNum 它的  1 条.
+      // 展示。 最新的一个判断条件  0  == 0  - >  蓝色
       if (this.stepList[activeNum - 1][0].nowStatue == 2) {
         this.$refs.step[activeNum - 1].$el.classList.add('is-danger');
       } else if (this.stepList[activeNum - 1][0].nowStatue == 0) {
@@ -193,6 +200,7 @@ export default {
     async submitEvaluate () {
       await setEvaluate({ id: this.stepListValue[0].id, applyValue: this.textarea });
       this.$message.success('评价成功');
+      this.isBtn = false;
     },
     close () {
       this.remoteClose();
@@ -214,7 +222,7 @@ export default {
         }
       });
       return result;
-    },
+    }
   }
 };
 </script>

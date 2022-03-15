@@ -87,6 +87,7 @@ export default {
       operation: 'Operation',
       phone: 'Phone',
       email: 'Email',
-      studentNumber: 'Student'
+      studentNumber: 'Student',
+      num: 'Num'
     }
 };

@@ -149,3 +149,12 @@ export function schoolAgeNum (message) {
     return '4';
   }
 }
+
+export function sex (message) {
+  console.log(message);
+  if (message == 1) {
+    return '男';
+  } else if (message == 0) {
+    return '女';
+  }
+}

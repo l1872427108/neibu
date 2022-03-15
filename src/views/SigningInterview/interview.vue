@@ -6,44 +6,44 @@
     border
     style="width: 100%">
     <el-table-column
+      type="index"
+      width="100"
+      :label="$t('interview.num')"
+      align="center">
+    </el-table-column>
+    <el-table-column
       prop="applyName"
       :label="$t('interview.Applicants')"
-      width="180">
+      width="180"
+      align="center">
     </el-table-column>
     <el-table-column
       prop="department"
       :label="$t('interview.department')"
-      width="180">
+      width="180"
+      align="center">
     </el-table-column>
-    <el-table-column
-      prop="lastState"
-      :label="$t('interview.status')">
-    </el-table-column>
-    <el-table-column
-      prop="applyNumber"
-      :label="$t('interview.frequency')">
-    </el-table-column>
-    <el-table-column
-      prop="activity"
-      :label="$t('interview.identification')">
+    <el-table-column prop="name" align="center" :label="$t('interview.Gender')">
+        <template slot-scope="scope">
+          {{ scope.row.applySex | sex }}
+        </template>
     </el-table-column>
     <el-table-column
       prop="applyStunum"
-      :label="$t('interview.studentNumber')">
+      :label="$t('interview.studentNumber')"
+      align="center">
     </el-table-column>
     <el-table-column
       prop="手机号"
-      :label="$t('interview.phone')">
+      :label="$t('interview.phone')"
+      align="center">
     </el-table-column>
     <el-table-column
       prop="applyEmail"
-      :label="$t('interview.email')">
+      :label="$t('interview.email')"
+      align="center">
     </el-table-column>
-    <el-table-column
-      prop="applySex"
-      :label="$t('interview.Gender')">
-    </el-table-column>
-    <el-table-column label="操作" fixed="right" width="90">
+    <el-table-column label="操作" fixed="right" width="90" align="center">
       <template slot-scope="scope">
         <el-button
           size="mini"
@@ -59,9 +59,13 @@
 import { searchInterview, getInterviewStep } from '~/api/interview';
 import { mapGetters } from 'vuex';
 import InterviewDialog from './interviewDialog.vue';
+import { sex } from '~/filters/filter';
 export default {
   components: {
     InterviewDialog
+  },
+  filters: {
+    sex
   },
   data () {
     return {

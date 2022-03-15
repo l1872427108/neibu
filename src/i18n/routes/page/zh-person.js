@@ -87,6 +87,7 @@ export default {
       operation: '操作',
       phone: '手机号',
       email: '邮箱',
-      studentNumber: '学号'
+      studentNumber: '学号',
+      num: '序列'
     }
 };
