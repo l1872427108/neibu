@@ -27,7 +27,7 @@ export function getInterviewStep (id) {
 export function updateState (id, applyId, status) {
   return request({
     url: `/inside/inside/step/updateState/${id}/${applyId}/${status}`,
-    method: 'get'
+    method: 'put'
   });
 }
 
