@@ -64,5 +64,30 @@ export default {
         order: '订单号',
         describe: '描述',
         operation: '操作'
+    },
+    apply: {
+      serialNumber: '序号',
+      fullName: '姓名',
+      reimbursement: '报销项',
+      money: '报销金额',
+      department: '部门',
+      voucher: '报销凭证',
+      code: '报销二维码',
+      AuditStatus: '审计状态',
+      Reimbursement: '报销状态'
+
+    },
+    interview: {
+      Applicants: '报名者信息',
+      department: '部门',
+      status: '最终状态',
+      frequency: '报名次数',
+      identification: '活动标识',
+      Gender: '性别',
+      operation: '操作',
+      phone: '手机号',
+      email: '邮箱',
+      studentNumber: '学号',
+      num: '序列'
     }
 };

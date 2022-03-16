@@ -22,7 +22,8 @@ export default {
     form: 'form',
     data: 'data',
     error: 'error',
-    test: 'test'
+    test: 'test',
+    task:'task'
   },
   navbar: {
     updateAccountInfo: 'Modify account information',

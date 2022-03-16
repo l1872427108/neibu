@@ -12,6 +12,8 @@ import enRouter from '~/i18n/routes/router/en-router';
 import zhRouter from '~/i18n/routes/router/zh-router';
 import enAccount from '~/i18n/routes/account/en-account';
 import zhAccount from '~/i18n/routes/account/zh-account';
+import enWelcome from '~/i18n/routes/welcome/en-welcome';
+import zhWelcome from '~/i18n/routes/welcome/zh-welcome';
 Vue.use(VueI18n);
 
 const messages = {
@@ -20,14 +22,16 @@ const messages = {
     ...elementEnLocale,
     ...enPage,
     ...enRouter,
-    ...enAccount
+    ...enAccount,
+    ...enWelcome
   },
   zh: {
     ...zhLocale,
     ...elementZhLocale,
     ...zhPage,
     ...zhRouter,
-    ...zhAccount
+    ...zhAccount,
+    ...zhWelcome
   }
 };
 

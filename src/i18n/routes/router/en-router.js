@@ -6,7 +6,7 @@ export default {
         compact: 'Contract center',
         management: 'Contract management',
         interview: 'Registration center',
-        sign: 'Sign up channel',
+        sign: 'Interview Center',
         progress: 'Interview schedule',
         pay: 'Pay center',
         center: 'Contract payment',

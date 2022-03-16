@@ -115,21 +115,20 @@
 // 默认 hover 时
 .el-menu-item:hover,
 .el-submenu__title:hover {
-	color: set-color(primary) !important;
+	color: #666!important;
+
 	background-color: transparent !important;
 	i {
-		color: set-color(primary) !important;
+		// color: set-color(primary) !important;
+    color: #666!important;
 	}
 }
 .el-menu-item .el-tooltip {
-  transform: translateY(50%);
+  line-height: 50px;
 }
 .el-menu--collapse  .el-submenu__title span{
 	display: none;
 }
-// .el-menu-collapse .el-tooltip {
-//   transform: translateY(50%) !important;
-// }
 /*隐藏 */
 .el-menu--collapse  .el-submenu__title .el-submenu__icon-arrow{
 
@@ -137,7 +136,7 @@
 }
 // 高亮时
 .el-menu-item.is-active {
-	color: set-color(primary) !important;
+  color: #666!important;
 }
 .el-active-extend {
 	color: set-color(whites) !important;
@@ -170,6 +169,7 @@
 .el-menu-item:focus {
 	background-color: transparent !important;
 }
+
 
 /* Breadcrumb 面包屑 */
 .el-breadcrumb__inner a,
