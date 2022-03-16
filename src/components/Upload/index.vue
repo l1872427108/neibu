@@ -10,15 +10,15 @@
 			:show-file-list="false"
 			border
 		>
-			<div v-show="'class-name' == 'upload-demo'">
+			<div v-show="className == 'upload-demo'">
 				<el-button size="small" type="primary">点击上传</el-button>
 				<div slot="tip" class="el-upload__tip">只能上传/{{ extend }}文件</div>
 			</div>
-			<div v-show="'class-name' == 'avatar-uploader'">
+			<div v-show="className == 'avatar-uploader'">
 				<img v-if="imageUrl" :src="imageUrl" class="avatar" />
 				<i v-else class="el-icon-plus avatar-uploader-icon"></i>
 			</div>
-			<slot v-show="'class-name' == ''"></slot>
+			<slot v-show="className == ''"></slot>
 		</el-upload>
 	</div>
 </template>
@@ -92,7 +92,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .avatar-uploader .el-upload {
 	border: 1px dashed #d9d9d9 ;
 	border-radius: 6px;
@@ -109,6 +109,7 @@ export default {
 	width: 178px;
 	height: 178px;
 	text-align: center;
+	border: 1px dashed  gray;
 }
 .avatar-uploader-icon::before{
 	line-height: 178px;

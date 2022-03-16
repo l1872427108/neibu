@@ -8,7 +8,7 @@ import payRouter from './modules/UnifiedPayment';
 import compactRouter from './modules/SigningCompact';
 import { routerMode } from '~/config/website';
 import interviewRouter from './modules/SigningInterview';
-
+import  TaskCenter    from  './modules/TaskCenter'
 export const publicRoutes = [
     {
         path: '/contract',
@@ -69,6 +69,7 @@ export const publicRoutes = [
     payRouter,
     compactRouter,
     interviewRouter,
+    TaskCenter,
     {
         path: '/401',
         name: '401',
