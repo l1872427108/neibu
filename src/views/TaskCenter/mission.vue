@@ -175,8 +175,8 @@ export default {
 		},
 		// 根据时间查询数据
 		fetchData(time) {
-			// console.log(time);
-			todayTimeSearch(time, this.userId).then((response) => {
+			console.log(time);
+			todayTimeSearch(this.time, this.userId).then((response) => {
 				this.resp = response.data.tasks;
 				if (this.resp.time) {
 					// 删除成功，刷新列表数据
@@ -192,8 +192,11 @@ export default {
 			this.pojo = {};
 		},
 		addTasks() {
-			this.pojo.startTime = this.time + ' ' + this.pojo.startTime + ':00';
-			this.pojo.lastTime = this.time + ' ' + this.pojo.lastTime + ':00';
+			console.log(this.pojo);
+			// this.pojo.startTime = this.time + ' ' + this.pojo.startTime + ':00';
+			// this.pojo.lastTime = this.time + ' ' + this.pojo.lastTime + ':00';
+			this.pojo.startTime = this.pojo.startTime.slice(11, 16);
+			this.pojo.lastTime = this.pojo.lastTime.slice(11, 16);
 			// console.log(this.pojo.startTime);
 			// console.log(this.pojo.lastTime);
 			addTask(this.pojo).then((response) => {
@@ -217,16 +220,16 @@ export default {
 			taskidSearch(id).then((response) => {
 				// 回显数据,需处理时间
 				this.text = '修改';
-				this.pojo = response.data.task;
 				this.pojo.startTime = this.pojo.startTime.slice(11, 16);
 				this.pojo.lastTime = this.pojo.lastTime.slice(11, 16);
+				this.pojo = response.data.task;
 				console.log(this.pojo);
 			});
 		},
 		//根据id查询任务信息并修改
 		handleEdit() {
-			this.pojo.startTime = this.time + ' ' + this.pojo.startTime + ':00';
-			this.pojo.lastTime = this.time + ' ' + this.pojo.lastTime + ':00';
+			this.pojo.startTime = this.pojo.startTime.slice(11, 16);
+			this.pojo.lastTime = this.pojo.lastTime.slice(11, 16);
 			amendTask(this.pojo).then((response) => {
 				console.log(this.pojo);
 				this.resp = response.data.task;
@@ -268,6 +271,7 @@ export default {
 		upload(id) {
 		   this.dialogTableVisible = true
            this.UploadId = id
+		   this.fetchData(this.time);
 		//    console.log(this.UploadId);
 
 		},
