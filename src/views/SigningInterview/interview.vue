@@ -34,7 +34,7 @@
       align="center">
     </el-table-column>
     <el-table-column
-      prop="手机号"
+      prop="applyPhone"
       :label="$t('interview.phone')"
       align="center">
     </el-table-column>
