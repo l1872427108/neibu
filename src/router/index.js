@@ -31,7 +31,7 @@ export const publicRoutes = [
                 meta: {
                     title: 'router.welcome',
                     affix: true,
-                    keepAlive: true
+                    keepAlive: false
                 }
             },
             {
