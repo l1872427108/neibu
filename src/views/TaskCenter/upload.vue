@@ -55,10 +55,6 @@ export default {
 			this.updata.id = this.UploadId
 			// this.updata.voucher = this.img
 			// id state  voucher
-			console.log(this.updata.id);
-			console.log(this.updata.state);
-			console.log(this.updata.voucher);
-			console.log(this.updata);
 			completeTask(this.updata).then((response) => {
 				this.resp = response.data;
 			});
