@@ -3,6 +3,7 @@
  */
 export const dateFormat = date => {
     let format = 'yyyy-MM-dd hh:mm:ss';
+    console.log(date.getMinutes());
     if (date !== 'Invalid Date') {
         const o = {
             'M+': date.getMonth() + 1, // month
