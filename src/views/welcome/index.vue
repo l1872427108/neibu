@@ -239,9 +239,12 @@ export default {
       height: 100%;
       padding: 20px;
       border-radius: 30px;
-      transition: .4s;
       margin-right: 20px;
       text-align: center;
+      transition: .4s;
+      &:hover {
+        transform: scale(1.1);
+      }
     }
    .welcomeRightThree {
       box-sizing: border-box;
@@ -250,8 +253,11 @@ export default {
       height: 100%;
       padding: 20px;
       border-radius: 30px;
-      transition: .4s;
       text-align: center;
+      transition: .4s;
+      &:hover {
+        transform: scale(1.1);
+      }
     }
   }
 }
