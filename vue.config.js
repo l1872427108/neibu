@@ -62,6 +62,7 @@ module.exports = {
       sourceMap: false
     },
     chainWebpack: (config) => {
+
       config
       .when(process.env.NODE_ENV === 'production', config => {
         config.entry('app').clear().add('./src/main-prod.js');
