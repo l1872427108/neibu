@@ -75,10 +75,9 @@ export default {
       code: '报销二维码',
       AuditStatus: '审计状态',
       Reimbursement: '报销状态'
-
     },
     interview: {
-      Applicants: '报名者信息',
+      Applicants: '名字',
       department: '部门',
       status: '最终状态',
       frequency: '报名次数',
@@ -88,6 +87,6 @@ export default {
       phone: '手机号',
       email: '邮箱',
       studentNumber: '学号',
-      num: '序列'
+      num: '序号'
     }
 };

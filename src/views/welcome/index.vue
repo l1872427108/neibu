@@ -9,19 +9,12 @@
         </div>
         <div class="welcomeTopTwo">
 
-          <div class="div-image">
-            <img :src="userInfo.imageUrl" alt="">
-          </div>
           <div class="div-wrap">
-            姓名： {{userInfo.nickName}}
+            欢迎： {{userInfo.nickName}}
           </div>
           <el-divider></el-divider>
-          <div class="div-wrap">
-            用户名： {{userInfo.username}}
-          </div>
-          <el-divider></el-divider>
-          <div class="div-wrap">
-            邮箱： {{userInfo.email}}
+          <div>
+            <clock color="#409EFF" :time="time"></clock>
           </div>
         </div>
 		  </div>
@@ -49,11 +42,13 @@
         </div>
         <div class="welcomeRightTwo">
           <div class="welcomeRightTwoFirst">
-            <h1 class="">微博热搜</h1>
+            <h1 class="">助理办公告</h1>
           </div>
+        </div>
+        <div class="welcomeRightThree">
           <div class="welcomeRightTwoSecond">
-            <h1 class="">微博热搜</h1>
-          </div>
+              <h1 class="">微博热搜</h1>
+            </div>
         </div>
 		    </div>
 	    </div>
@@ -63,18 +58,24 @@
 <script>
 import { mapGetters } from 'vuex';
 import { searchTask } from '~/api/home';
+import Clock from 'vue-clock2';
+import {dateFormat} from '../../utils/date/date';
 export default {
 	name: 'welcome',
-
+  components: { Clock },
 	data () {
 		return {
       list: [],
       val: '',
-      cases: 0
+      cases: 0,
+      // time: dateFormat(new Date())
 		};
 	},
   computed: {
-    ...mapGetters(['userInfo'])
+    ...mapGetters(['userInfo']),
+    time() {
+      dateFormat(new Date());
+    }
   },
 
 	created () {
@@ -169,31 +170,14 @@ export default {
       display: flex;
       flex-direction: column;
       justify-content: space-around;
-      // text-align: center;
+      text-align: center;
       transition: .4s;
       &:hover {
         transform: scale(1.1);
       }
-      .div-image {
-        width: 80px;
-        height: 80px;
-        // text-align: center;
-        // border-radius: 50%;
-        margin: 0 auto;
-        img {
-          border-radius: 50%;
-          width: 100%;
-          height: 100%;
-        }
-      }
       .div-wrap {
-        // border-bottom: 1px solid red;
-      }
-      // justify-content: center;
-      .info {
-        font-size: 40px;
-        font-weight: 700;
-        align-items: center;
+        font-size: 20px;
+        font-family: 'Courier New', Courier, monospace !important;
       }
     }
   }
@@ -204,10 +188,11 @@ export default {
     justify-content: space-between;
     .welcomeRightOne {
       box-sizing: border-box;
-      width: 33%;
       background-color: #d4d6da;
       height: 100%;
       padding: 20px;
+      flex: 1;
+      margin-right: 20px;
       border-radius: 30px;
       transition: .4s;
       // overflow: auto;
@@ -248,48 +233,30 @@ export default {
       }
     }
     .welcomeRightTwo {
-      width: 60%;
-      height: 100%;
       box-sizing: border-box;
-      display: flex;
-      // flex-direction: column;
-      justify-content: space-between;
-      .welcomeRightTwoFirst {
-        width: 48%;
-        height: 100%;
-        background-color: #d4d6da;
-        border-radius: 30px;
-        transition: .4s;
-        display: flex;
-        justify-content: center;
-        &:hover {
-          transform: scale(1.1);
-        }
-        .infinite-list {
-          width: 100%;
-        }
-        .wait {
-          font-size: 20px;
-          font-weight: 700;
-          margin-top: 15px;
-          margin-left: 20px;
-        }
+      flex: 1;
+      background-color: #d4d6da;
+      height: 100%;
+      padding: 20px;
+      border-radius: 30px;
+      margin-right: 20px;
+      text-align: center;
+      transition: .4s;
+      &:hover {
+        transform: scale(1.1);
       }
-      .welcomeRightTwoSecond {
-        width: 48%;
-        height: 100%;
-        background-color: #d4d6da;
-        border-radius: 30px;
-        display: flex;
-        justify-content: center;
-        transition: .4s;
-        &:hover {
-          transform: scale(1.1);
-        }
-        .gong {
-          font-size: 40px;
-          font-weight: 700;
-        }
+    }
+   .welcomeRightThree {
+      box-sizing: border-box;
+      flex: 1;
+      background-color: #d4d6da;
+      height: 100%;
+      padding: 20px;
+      border-radius: 30px;
+      text-align: center;
+      transition: .4s;
+      &:hover {
+        transform: scale(1.1);
       }
     }
   }
