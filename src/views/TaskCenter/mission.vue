@@ -5,7 +5,7 @@
 			<span class="demonstration">请选择日期:</span>
 			<el-date-picker
 				class="date"
-				v-model="pojo.gmtCreate"
+				v-model="this.time"
 				align="right"
 				type="date"
 				placeholder="选择日期"
@@ -57,72 +57,109 @@
 					<el-form-item label="任务内容:" prop="content">
 						<el-input v-model="pojo.content" autocomplete="off"></el-input>
 					</el-form-item>
+					<el-form-item label="完成凭证:" prop="voucher" v-if="seen" >
+						<img :src="pojo.voucher"  class="imgsize">
+					</el-form-item>
 				</el-form>
-				<div slot="footer" class="dialog-footer">
-					<el-button @click="dialogFormVisible = false">取 消</el-button>
-					<el-button type="primary" @click="submitdata(pojo.id)"> {{ text }} </el-button>
+				<div slot="footer" class="dialog-footer" v-if="hide" >
+                      <el-button @click="dialogFormVisible = false"  >取 消</el-button>
+	 		  	<el-button type="primary" @click="submitdata(pojo.id)"> {{ text }} </el-button>
 				</div>
 			</el-dialog>
-   
+
 			<el-button type="primary" @click="add()" class="addtask">添加任务</el-button>
 		</div>
 		<!-- 任务列表 -->
 		<div class="list">
-
-			<el-table border  :data="this.resp" style="width: 100%">
+			<el-table border :data="this.resp" style="width:100%">
 				<!-- label显示标题，prop数据字段名 -->
-				<el-table-column label="添加时间"  align="center" width="200" prop="gmtCreate"></el-table-column>
-				<el-table-column label="任务状态"  align="center" width="200" prop="state">
+				<el-table-column label="创建时间" align="center" style="width:20%"  prop="gmtCreate"></el-table-column>
+					<el-table-column label="任务标题" align="center" style="width:20%" prop="title"> </el-table-column>
+				<el-table-column label="任务内容" align="center" style="width:20%" prop="content"> </el-table-column>
+				<el-table-column label="任务状态" align="center" style="width:20%" prop="state">
 					<template slot-scope="scope">
-						<el-tag v-if="scope.row.state == 0"  type="warning">进行中</el-tag>
-						<el-tag v-if="scope.row.state == 1"  type="success">已完成</el-tag>
+						<el-tag v-if="scope.row.state == 0" type="warning">进行中</el-tag>
+						<el-tag v-if="scope.row.state == 1" type="success">已完成</el-tag>
 						<el-tag v-if="scope.row.state == 2" type="danger">未完成</el-tag>
 					</template>
 				</el-table-column>
-				<el-table-column label="任务标题"  align="center"   prop="title"> </el-table-column>
-				<el-table-column label="任务内容"     align="center"  prop="content"> </el-table-column>
-				<el-table-column  align="center"  style="width:10%" label="操作">
+				<el-table-column align="center"  width="420" label="操作">
 					<template slot-scope="scope" class="font-size">
 						<!-- slot-scope="scope"可以获取到row，column，$index和table（内容的状态管理）的数据 -->
-						<el-button size="mini" round   type="success" style="margin-right: 4px" @click="upload(scope.row.id,scope.row.state)"> 完 成</el-button>
+						<el-button
+					     	size="mini"
+							round
+							type="success"		
+							@click="upload(scope.row.id, scope.row.state)"	
+							:disabled="scope.row.state == 1 ? true : false"
+						>
+							完成</el-button
+						>
+							<el-button
+							size="mini"
+							round
+							type="primary"
+							@click="edit(scope.row.id, scope.row.state)"
+							:disabled="scope.row.state == 1 ? false : true"
+						>
+							查看</el-button
+						>
 						<!-- 编辑弹框 -->
 						<!-- @click="dialogFormVisible = true" -->
-						<el-button size="mini" round type="warning" @click="edit(scope.row.id)">修 改</el-button>
-						<el-button size="mini" round  type="danger" @click="handleDelete(scope.row.id)">删 除</el-button>
+						<el-button
+							size="mini"
+							round
+							type="warning"
+						  @click="look(scope.row.id,scope.row.state)" 
+							:disabled="scope.row.state == 1 ? true : false"
+							>修改</el-button
+						>
+						<el-button size="mini" round type="danger"
+						 @click="handleDelete(scope.row.id)" 
+						:disabled="scope.row.state == 1 ? true : false"	
+							>删除</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
 		</div>
 		<!-- :imageUrl="imageUrl" -->
-		<Upload :dialogTableVisible="dialogTableVisible" :handleClose="handleClose" :UploadId="UploadId"  :voucher="voucher" />
+		<Upload
+			:dialogTableVisible="dialogTableVisible"
+			:handleClose="handleClose"
+			:UploadId="UploadId"
+			:voucher="voucher"
+		/>
 	</div>
 </template>
 
 <script>
-import { todayTimeSearch, addTask, deleteTask, taskidSearch, amendTask} from '~/api/taskCenter';
-// import taskDialog from '~/views/ManagementContract/taskDialog.vue';
+import { todayTimeSearch, addTask, deleteTask, taskidSearch, amendTask } from '~/api/taskCenter';
 import { Cookie, Key } from '~/utils/cache/cookie';
 import '~/utils/dateconversion';
 import Upload from './upload.vue';
 export default {
 	components: {
-		Upload 
-	}, 
+		Upload,
+	},
 	data() {
 		return {
 			resp: [],
 			time: '',
+			seen:false,
+            hide:false,
 			// 控制弹窗
 			dialogFormVisible: false,
+			btn:'',
 			// 提交表单
 			pojo: {
 				id: null,
-				state:'',
+				state: '',
 				title: '',
 				content: '',
 				startTime: '',
 				lastTime: '',
-				gmtCreate:'',
+				gmtCreate: '',
+				voucher: '',
 			},
 			startTime: '',
 			lastTime: '',
@@ -138,11 +175,12 @@ export default {
 				content: [{ required: true, message: '任务内容不能为空', trigger: 'blur' }],
 			},
 			text: '',
-			dialogTableVisible:false,
-			UploadId:'',
+			dialogTableVisible: false,
+			UploadId: '',
 			// imageUrl: '',
 			voucher: '',
-			disabled:false,
+			disabled: true,
+			dialogTableVisible1:false,
 		};
 	},
 	// 钩子函数获取数据
@@ -168,6 +206,9 @@ export default {
 				this.dialogFormVisible = true;
 			}
 		},
+		colsebtn() {
+            	disabled="true"
+		},
 		// 将时间选择器的数据转化
 		datequery(res) {
 			var time = new Date(res).format('yyyy-MM-dd');
@@ -190,50 +231,57 @@ export default {
 			this.dialogFormVisible = true;
 			this.text = '添加';
 			this.pojo = {};
+	        this.seen = false,
+			this.hide = true
 		},
 		addTasks() {
-			console.log(this.pojo);
-			// this.pojo.startTime = this.time + ' ' + this.pojo.startTime + ':00';
-			// this.pojo.lastTime = this.time + ' ' + this.pojo.lastTime + ':00';
-			this.pojo.startTime = this.pojo.startTime.slice(11, 16);
-			this.pojo.lastTime = this.pojo.lastTime.slice(11, 16);
-			// console.log(this.pojo.startTime);
-			// console.log(this.pojo.lastTime);
+			this.pojo.startTime = this.pojo.startTime.slice(0, 5) + ':00';
+			this.pojo.lastTime = this.pojo.lastTime.slice(0, 5) + ':00';
 			addTask(this.pojo).then((response) => {
-				this.resp = response.data.tasks;
+				// this.resp = response.data.tasks;
+				this.resp = response.tasks;
+				console.log(this.pojo);
 				// 新增成功，刷新数据
 				this.fetchData(this.time);
 				this.dialogFormVisible = false;
-			});
-		},
-		// 弹出新增窗口并清空
-		handleAdd() {
-			this.$nextTick(() => {
-				this.$refs['addForm'].resetFields;
-				this.pojo = {};
 			});
 		},
 		// 添加修改弹框-》写处理函数处理（回显）并处理接口
 		edit(id) {
 			this.dialogFormVisible = true;
 			this.text = '修改';
+			this.seen = true,
+			this.hide = false,
+			// 根据id查询任务信息
 			taskidSearch(id).then((response) => {
 				// 回显数据,需处理时间
 				this.text = '修改';
-				this.pojo.startTime = this.pojo.startTime.slice(11, 16);
-				this.pojo.lastTime = this.pojo.lastTime.slice(11, 16);
+				this.pojo = response.data.task;
+				console.log(this.pojo);
+			});
+			this.fetchData(this.time);
+		},
+			look(id) {
+			this.dialogFormVisible = true;
+			this.text = '修改';
+			// 根据id查询任务信息
+			this.seen = false,
+			this.hide = true,
+			taskidSearch(id).then((response) => {
+				// 回显数据,需处理时间
+				this.text = '修改';
 				this.pojo = response.data.task;
 				console.log(this.pojo);
 			});
 		},
-		//根据id查询任务信息并修改
+		//修改
 		handleEdit() {
-			this.pojo.startTime = this.pojo.startTime.slice(11, 16);
-			this.pojo.lastTime = this.pojo.lastTime.slice(11, 16);
+			this.pojo.startTime = this.pojo.startTime.slice(0, 5) + ':00';
+			this.pojo.lastTime = this.pojo.lastTime.slice(0, 5) + ':00';
+			console.log(this.pojo);
+			this.seen = true
 			amendTask(this.pojo).then((response) => {
-				console.log(this.pojo);
 				this.resp = response.data.task;
-				console.log(this.resp);
 				this.fetchData(this.time);
 			});
 		},
@@ -249,16 +297,15 @@ export default {
 					// 确认
 					// console.log('确认');
 					deleteTask(id).then((response) => {
-						this.resp = response.data;
+						this.resp = response.tasks;
 						this.fetchData(this.time);
-				        this.dialogFormVisible = false;
+						this.dialogFormVisible = false;
 						// 删除后，给提示
 						this.$message({
 							type: 'success',
 							message: '删除成功!',
 						});
 					});
-		
 				})
 				.catch(() => {
 					// 取消
@@ -266,29 +313,28 @@ export default {
 						type: 'info',
 						message: '已取消删除',
 					});
-				})
+				});
 		},
 		upload(id) {
-		   this.dialogTableVisible = true
-           this.UploadId = id
-		   this.fetchData(this.time);
-		//    console.log(this.UploadId);
-
+			this.dialogTableVisible = true;
+			this.UploadId = id;
+			this.fetchData(this.time);
+			//    console.log(this.UploadId);
 		},
 		// 上面为true，父传子为了关闭false，
-		handleClose(){
+		handleClose() {
 			this.fetchData(this.time);
-		    this.dialogTableVisible = false	
-		}
+			this.dialogTableVisible = false;
+		},
 	},
 };
 </script>
 <style lang="scss" scoped>
 .box {
 	background-color: #f2f2f2;
-	margin:20px;
+	margin: 20px;
 	border-radius: 10px;
-	}
+}
 .block {
 	/* display: flex;
     justify-content:space-between;2.设置主轴对齐方式：两端对齐 */
@@ -308,8 +354,12 @@ export default {
 }
 .list {
 	margin-top: 80px;
-	}
+}
 .startime {
 	margin: 0 8px 0 5px;
+}
+.imgsize {
+	width: 280px;
+	height: 200px;
 }
 </style>
