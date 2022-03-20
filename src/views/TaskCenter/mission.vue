@@ -232,6 +232,8 @@ export default {
 			this.dialogFormVisible = true;
 			this.text = '添加';
 			this.pojo = {};
+	        this.seen = false,
+			this.hide = true
 		},
 		addTasks() {
 			this.pojo.startTime = this.pojo.startTime.slice(0, 5) + ':00';
@@ -257,6 +259,7 @@ export default {
 				this.pojo = response.data.task;
 				console.log(this.pojo);
 			});
+			this.fetchData(this.time);
 		},
 			look(id) {
 			this.dialogFormVisible = true;
