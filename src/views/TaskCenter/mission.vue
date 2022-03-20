@@ -57,13 +57,15 @@
 					<el-form-item label="任务内容:" prop="content">
 						<el-input v-model="pojo.content" autocomplete="off"></el-input>
 					</el-form-item>
-					<el-form-item label="完成凭证:" prop="voucher" v-if="seen" >
-						<img :src="pojo.voucher"  class="imgsize">
+					<el-form-item label="完成凭证:" prop="voucher" v-if="seen">
+						<img :src="pojo.voucher" alt="" class="imgsize">
 					</el-form-item>
 				</el-form>
-				<div slot="footer" class="dialog-footer" v-if="hide" >
-                      <el-button @click="dialogFormVisible = false"  >取 消</el-button>
-	 		  	<el-button type="primary" @click="submitdata(pojo.id)"> {{ text }} </el-button>
+				<div slot="footer" class="dialog-footer" >
+					<template>
+                      <el-button @click="dialogFormVisible = false" >取 消</el-button>
+				  	<el-button type="primary" @click="submitdata(pojo.id)"> {{ text }} </el-button>
+					</template>
 				</div>
 			</el-dialog>
 
@@ -146,7 +148,6 @@ export default {
 			resp: [],
 			time: '',
 			seen:false,
-            hide:false,
 			// 控制弹窗
 			dialogFormVisible: false,
 			btn:'',
@@ -251,7 +252,6 @@ export default {
 			this.dialogFormVisible = true;
 			this.text = '修改';
 			this.seen = true,
-			this.hide = false,
 			// 根据id查询任务信息
 			taskidSearch(id).then((response) => {
 				// 回显数据,需处理时间
@@ -265,8 +265,7 @@ export default {
 			this.dialogFormVisible = true;
 			this.text = '修改';
 			// 根据id查询任务信息
-			this.seen = false,
-			this.hide = true,
+			this.seen = false
 			taskidSearch(id).then((response) => {
 				// 回显数据,需处理时间
 				this.text = '修改';
@@ -279,7 +278,6 @@ export default {
 			this.pojo.startTime = this.pojo.startTime.slice(0, 5) + ':00';
 			this.pojo.lastTime = this.pojo.lastTime.slice(0, 5) + ':00';
 			console.log(this.pojo);
-			this.seen = true
 			amendTask(this.pojo).then((response) => {
 				this.resp = response.data.task;
 				this.fetchData(this.time);
