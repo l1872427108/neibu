@@ -57,15 +57,13 @@
 					<el-form-item label="任务内容:" prop="content">
 						<el-input v-model="pojo.content" autocomplete="off"></el-input>
 					</el-form-item>
-					<el-form-item label="完成凭证:" prop="voucher" v-if="seen">
-						<img :src="pojo.voucher" alt="" class="imgsize">
+					<el-form-item label="完成凭证:" prop="voucher" v-if="pojo.state == 1? true:false">
+						<img :src="pojo.voucher" class="imgsize" />
 					</el-form-item>
 				</el-form>
-				<div slot="footer" class="dialog-footer" >
-					<template>
-                      <el-button @click="dialogFormVisible = false" >取 消</el-button>
-				  	<el-button type="primary" @click="submitdata(pojo.id)"> {{ text }} </el-button>
-					</template>
+				<div slot="footer" class="dialog-footer" v-if="pojo.state == 1? false:true">
+					<el-button @click="dialogFormVisible = false">取 消</el-button>
+					<el-button type="primary" @click="submitdata(pojo.id)"> {{ text }} </el-button>
 				</div>
 			</el-dialog>
 
@@ -73,31 +71,31 @@
 		</div>
 		<!-- 任务列表 -->
 		<div class="list">
-			<el-table border :data="this.resp" style="width:100%">
+			<el-table border :data="this.resp" style="width: 100%">
 				<!-- label显示标题，prop数据字段名 -->
-				<el-table-column label="创建时间" align="center" style="width:20%"  prop="gmtCreate"></el-table-column>
-					<el-table-column label="任务标题" align="center" style="width:20%" prop="title"> </el-table-column>
-				<el-table-column label="任务内容" align="center" style="width:20%" prop="content"> </el-table-column>
-				<el-table-column label="任务状态" align="center" style="width:20%" prop="state">
+				<el-table-column label="创建时间" align="center" style="width: 20%" prop="gmtCreate"></el-table-column>
+				<el-table-column label="任务标题" align="center" style="width: 20%" prop="title"> </el-table-column>
+				<el-table-column label="任务内容" align="center" style="width: 20%" prop="content"> </el-table-column>
+				<el-table-column label="任务状态" align="center" style="width: 20%" prop="state">
 					<template slot-scope="scope">
 						<el-tag v-if="scope.row.state == 0" type="warning">进行中</el-tag>
 						<el-tag v-if="scope.row.state == 1" type="success">已完成</el-tag>
 						<el-tag v-if="scope.row.state == 2" type="danger">未完成</el-tag>
 					</template>
 				</el-table-column>
-				<el-table-column align="center"  width="420" label="操作">
+				<el-table-column align="center" width="420" label="操作">
 					<template slot-scope="scope" class="font-size">
 						<!-- slot-scope="scope"可以获取到row，column，$index和table（内容的状态管理）的数据 -->
 						<el-button
-					     	size="mini"
+							size="mini"
 							round
-							type="success"		
-							@click="upload(scope.row.id, scope.row.state)"	
+							type="success"
+							@click="upload(scope.row.id, scope.row.state)"
 							:disabled="scope.row.state == 1 ? true : false"
 						>
 							完成</el-button
 						>
-							<el-button
+						<el-button
 							size="mini"
 							round
 							type="primary"
@@ -112,14 +110,18 @@
 							size="mini"
 							round
 							type="warning"
-						  @click="look(scope.row.id,scope.row.state)" 
+							@click="look(scope.row.id, scope.row.state)"
 							:disabled="scope.row.state == 1 ? true : false"
 							>修改</el-button
 						>
-						<el-button size="mini" round type="danger"
-						 @click="handleDelete(scope.row.id)" 
-						:disabled="scope.row.state == 1 ? true : false"	
-							>删除</el-button>
+						<el-button
+							size="mini"
+							round
+							type="danger"
+							@click="handleDelete(scope.row.id)"
+						
+							>删除</el-button
+						>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -147,10 +149,10 @@ export default {
 		return {
 			resp: [],
 			time: '',
-			seen:false,
+		
 			// 控制弹窗
 			dialogFormVisible: false,
-			btn:'',
+			btn: '',
 			// 提交表单
 			pojo: {
 				id: null,
@@ -181,7 +183,7 @@ export default {
 			// imageUrl: '',
 			voucher: '',
 			disabled: true,
-			dialogTableVisible1:false,
+			dialogTableVisible1: false,
 		};
 	},
 	// 钩子函数获取数据
@@ -208,7 +210,7 @@ export default {
 			}
 		},
 		colsebtn() {
-            	disabled="true"
+			disabled = 'true';
 		},
 		// 将时间选择器的数据转化
 		datequery(res) {
@@ -232,8 +234,6 @@ export default {
 			this.dialogFormVisible = true;
 			this.text = '添加';
 			this.pojo = {};
-	        this.seen = false,
-			this.hide = true
 		},
 		addTasks() {
 			this.pojo.startTime = this.pojo.startTime.slice(0, 5) + ':00';
@@ -251,27 +251,25 @@ export default {
 		edit(id) {
 			this.dialogFormVisible = true;
 			this.text = '修改';
-			this.seen = true,
-			// 根据id查询任务信息
-			taskidSearch(id).then((response) => {
-				// 回显数据,需处理时间
-				this.text = '修改';
-				this.pojo = response.data.task;
-				console.log(this.pojo);
-			});
-			this.fetchData(this.time);
+		
+				// 根据id查询任务信息
+				taskidSearch(id).then((response) => {
+					// 回显数据,需处理时间
+					this.text = '修改';
+					this.pojo = response.data.task;
+					console.log(this.pojo);
+				});
 		},
-			look(id) {
+		look(id) {
 			this.dialogFormVisible = true;
 			this.text = '修改';
 			// 根据id查询任务信息
-			this.seen = false
-			taskidSearch(id).then((response) => {
-				// 回显数据,需处理时间
-				this.text = '修改';
-				this.pojo = response.data.task;
-				console.log(this.pojo);
-			});
+				taskidSearch(id).then((response) => {
+					// 回显数据,需处理时间
+					this.text = '修改';
+					this.pojo = response.data.task;
+					console.log(this.pojo);
+				});
 		},
 		//修改
 		handleEdit() {
@@ -317,12 +315,11 @@ export default {
 			this.dialogTableVisible = true;
 			this.UploadId = id;
 			this.fetchData(this.time);
-			//    console.log(this.UploadId);
 		},
 		// 上面为true，父传子为了关闭false，
 		handleClose() {
-			this.fetchData(this.time);
 			this.dialogTableVisible = false;
+			this.fetchData(this.time);
 		},
 	},
 };
