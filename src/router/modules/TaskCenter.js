@@ -18,7 +18,7 @@ const taskRouter = {
                 title: '每日任务',
                 keepAlive: true
             }
-        },
+        }
     ]
 };
 export default taskRouter;

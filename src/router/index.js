@@ -8,7 +8,7 @@ import payRouter from './modules/UnifiedPayment';
 import compactRouter from './modules/SigningCompact';
 import { routerMode } from '~/config/website';
 import interviewRouter from './modules/SigningInterview';
-import  TaskCenter    from  './modules/TaskCenter'
+import TaskCenter from './modules/TaskCenter';
 export const publicRoutes = [
     {
         path: '/contract',
@@ -43,26 +43,6 @@ export const publicRoutes = [
                     keepAlive: true
                 }
 
-            }
-        ]
-    },
-    {
-        path: '/setting',
-        component: Layout,
-        redirect: '/setting/personage',
-        name: 'Setting',
-        meta: {
-            title: 'router.setting'
-        },
-        children: [
-            {
-                path: 'personage',
-                component: () => import(/* webpackChunkName:"information" */'~/views/Account'),
-                name: 'Personage',
-                meta: {
-                    title: 'router.personage',
-                    keepAlive: false
-                }
             }
         ]
     },

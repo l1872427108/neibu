@@ -63,7 +63,7 @@
 					<el-button type="primary" @click="submitdata(pojo.id)"> {{ text }} </el-button>
 				</div>
 			</el-dialog>
-   
+
 			<el-button type="primary" @click="add()" class="addtask">添加任务</el-button>
 		</div>
 		<!-- 任务列表 -->
@@ -99,16 +99,16 @@
 </template>
 
 <script>
-import { todayTimeSearch, addTask, deleteTask, taskidSearch, amendTask} from '~/api/taskCenter';
+import { todayTimeSearch, addTask, deleteTask, taskidSearch, amendTask } from '~/api/taskCenter';
 // import taskDialog from '~/views/ManagementContract/taskDialog.vue';
 import { Cookie, Key } from '~/utils/cache/cookie';
 import '~/utils/dateconversion';
 import Upload from './upload.vue';
 export default {
 	components: {
-		Upload 
-	}, 
-	data() {
+		Upload
+	},
+	data () {
 		return {
 			resp: [],
 			time: '',
@@ -117,12 +117,12 @@ export default {
 			// 提交表单
 			pojo: {
 				id: null,
-				state:'',
+				state: '',
 				title: '',
 				content: '',
 				startTime: '',
 				lastTime: '',
-				gmtCreate:'',
+				gmtCreate: ''
 			},
 			startTime: '',
 			lastTime: '',
@@ -135,28 +135,28 @@ export default {
 				title: [{ required: true, message: '标题不能为空', trigger: 'blur' }],
 				startTime: [{ required: true, message: '初始时间不能为空', trigger: 'blur' }],
 				lastTime: [{ required: true, message: '截止不能为空', trigger: 'blur' }],
-				content: [{ required: true, message: '任务内容不能为空', trigger: 'blur' }],
+				content: [{ required: true, message: '任务内容不能为空', trigger: 'blur' }]
 			},
 			text: '',
-			dialogTableVisible:false,
-			UploadId:'',
+			dialogTableVisible: false,
+			UploadId: '',
 			// imageUrl: '',
 			voucher: '',
-			disabled:false,
+			disabled: false
 		};
 	},
 	// 钩子函数获取数据
-	created() {
+	created () {
 		this.time = new Date().format('yyyy-MM-dd');
 		this.fetchData(this.time);
 	},
 	computed: {
-		userId() {
+		userId () {
 			return JSON.parse(Cookie.get(Key.userInfoKey)).uid;
-		},
+		}
 	},
 	methods: {
-		async submitdata(id) {
+		async submitdata (id) {
 			// 根据id修改
 			if (id) {
 				await this.handleEdit(id);
@@ -169,12 +169,12 @@ export default {
 			}
 		},
 		// 将时间选择器的数据转化
-		datequery(res) {
-			var time = new Date(res).format('yyyy-MM-dd');
+		datequery (res) {
+			const time = new Date(res).format('yyyy-MM-dd');
 			this.fetchData(time);
 		},
 		// 根据时间查询数据
-		fetchData(time) {
+		fetchData (time) {
 			console.log(time);
 			todayTimeSearch(this.time, this.userId).then((response) => {
 				this.resp = response.data.tasks;
@@ -186,12 +186,12 @@ export default {
 		},
 		// 获取增加api
 		// 添加弹出弹框-》写处理函数并处理添加接口
-		add() {
+		add () {
 			this.dialogFormVisible = true;
 			this.text = '添加';
 			this.pojo = {};
 		},
-		addTasks() {
+		addTasks () {
 			console.log(this.pojo);
 			// this.pojo.startTime = this.time + ' ' + this.pojo.startTime + ':00';
 			// this.pojo.lastTime = this.time + ' ' + this.pojo.lastTime + ':00';
@@ -207,14 +207,14 @@ export default {
 			});
 		},
 		// 弹出新增窗口并清空
-		handleAdd() {
+		handleAdd () {
 			this.$nextTick(() => {
-				this.$refs['addForm'].resetFields;
+				this.$refs.addForm.resetFields;
 				this.pojo = {};
 			});
 		},
 		// 添加修改弹框-》写处理函数处理（回显）并处理接口
-		edit(id) {
+		edit (id) {
 			this.dialogFormVisible = true;
 			this.text = '修改';
 			taskidSearch(id).then((response) => {
@@ -226,8 +226,8 @@ export default {
 				console.log(this.pojo);
 			});
 		},
-		//根据id查询任务信息并修改
-		handleEdit() {
+		// 根据id查询任务信息并修改
+		handleEdit () {
 			this.pojo.startTime = this.pojo.startTime.slice(11, 16);
 			this.pojo.lastTime = this.pojo.lastTime.slice(11, 16);
 			amendTask(this.pojo).then((response) => {
@@ -237,13 +237,13 @@ export default {
 				this.fetchData(this.time);
 			});
 		},
-		//根据id删除任务
-		handleDelete(id) {
+		// 根据id删除任务
+		handleDelete (id) {
 			this.$confirm('确认删除这条记录吗？', '提示', {
 				confirmButtonText: '确认',
 				concelButtonText: '取消',
 				type: 'warning',
-				center: true,
+				center: true
 			})
 				.then(() => {
 					// 确认
@@ -255,32 +255,30 @@ export default {
 						// 删除后，给提示
 						this.$message({
 							type: 'success',
-							message: '删除成功!',
+							message: '删除成功!'
 						});
 					});
-		
 				})
 				.catch(() => {
 					// 取消
 					this.$message({
 						type: 'info',
-						message: '已取消删除',
+						message: '已取消删除'
 					});
-				})
+				});
 		},
-		upload(id) {
-		   this.dialogTableVisible = true
-           this.UploadId = id
+		upload (id) {
+		   this.dialogTableVisible = true;
+           this.UploadId = id;
 		   this.fetchData(this.time);
 		//    console.log(this.UploadId);
-
 		},
 		// 上面为true，父传子为了关闭false，
-		handleClose(){
+		handleClose () {
 			this.fetchData(this.time);
-		    this.dialogTableVisible = false	
+		    this.dialogTableVisible = false;
 		}
-	},
+	}
 };
 </script>
 <style lang="scss" scoped>

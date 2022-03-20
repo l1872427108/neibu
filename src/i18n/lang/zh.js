@@ -25,7 +25,7 @@ export default {
     sign: '报名通道',
     progress: '面试进度',
     pay: '支付中心',
-    center: '合同缴费',
+    center: '合同缴费'
   },
   navbar: {
     updateAccountInfo: '修改账户信息',
