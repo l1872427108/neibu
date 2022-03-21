@@ -5,6 +5,7 @@
         :unique-opened="true"
         :collapse-transition="false"
         :default-active="defaultActive"
+        active-text-color="#fff"
       >
         <sidebar-item
           v-for="menu in menuList"

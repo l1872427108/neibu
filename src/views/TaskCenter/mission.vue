@@ -175,7 +175,7 @@ export default {
 				title: [{ required: true, message: '标题不能为空', trigger: 'blur' }],
 				startTime: [{ required: true, message: '初始时间不能为空', trigger: 'blur' }],
 				lastTime: [{ required: true, message: '截止不能为空', trigger: 'blur' }],
-				content: [{ required: true, message: '任务内容不能为空', trigger: 'blur' }],
+				content: [{ required: true, message: '任务内容不能为空', trigger: 'blur' }]
 			},
 			text: '',
 			dialogTableVisible: false,
@@ -187,17 +187,17 @@ export default {
 		};
 	},
 	// 钩子函数获取数据
-	created() {
+	created () {
 		this.time = new Date().format('yyyy-MM-dd');
 		this.fetchData(this.time);
 	},
 	computed: {
-		userId() {
+		userId () {
 			return JSON.parse(Cookie.get(Key.userInfoKey)).uid;
-		},
+		}
 	},
 	methods: {
-		async submitdata(id) {
+		async submitdata (id) {
 			// 根据id修改
 			if (id) {
 				await this.handleEdit(id);
@@ -213,12 +213,12 @@ export default {
 			disabled = 'true';
 		},
 		// 将时间选择器的数据转化
-		datequery(res) {
-			var time = new Date(res).format('yyyy-MM-dd');
+		datequery (res) {
+			const time = new Date(res).format('yyyy-MM-dd');
 			this.fetchData(time);
 		},
 		// 根据时间查询数据
-		fetchData(time) {
+		fetchData (time) {
 			console.log(time);
 			todayTimeSearch(this.time, this.userId).then((response) => {
 				this.resp = response.data.tasks;
@@ -230,7 +230,7 @@ export default {
 		},
 		// 获取增加api
 		// 添加弹出弹框-》写处理函数并处理添加接口
-		add() {
+		add () {
 			this.dialogFormVisible = true;
 			this.text = '添加';
 			this.pojo = {};
@@ -248,7 +248,7 @@ export default {
 			});
 		},
 		// 添加修改弹框-》写处理函数处理（回显）并处理接口
-		edit(id) {
+		edit (id) {
 			this.dialogFormVisible = true;
 			this.text = '修改';
 		
@@ -281,13 +281,13 @@ export default {
 				this.fetchData(this.time);
 			});
 		},
-		//根据id删除任务
-		handleDelete(id) {
+		// 根据id删除任务
+		handleDelete (id) {
 			this.$confirm('确认删除这条记录吗？', '提示', {
 				confirmButtonText: '确认',
 				concelButtonText: '取消',
 				type: 'warning',
-				center: true,
+				center: true
 			})
 				.then(() => {
 					// 确认
@@ -299,7 +299,7 @@ export default {
 						// 删除后，给提示
 						this.$message({
 							type: 'success',
-							message: '删除成功!',
+							message: '删除成功!'
 						});
 					});
 				})
@@ -307,7 +307,7 @@ export default {
 					// 取消
 					this.$message({
 						type: 'info',
-						message: '已取消删除',
+						message: '已取消删除'
 					});
 				});
 		},

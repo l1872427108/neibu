@@ -17,59 +17,59 @@ import Upload from '~/components/Upload';
 import { completeTask } from '~/api/taskCenter';
 export default {
 	components: {
-		Upload,
+		Upload
 	},
 	props: {
 		dialogTableVisible: {
 			type: Boolean,
-			defalut: false,
+			defalut: false
 		},
 		UploadId: {
 			type: String,
-			required: true,
+			required: true
 		},
-		handleClose:Function
+		handleClose: Function
 	},
-	created() {
-		console.log(this.UploadId)
+	created () {
+		console.log(this.UploadId);
 	},
-	data() {
+	data () {
 		return {
 			// 格式和样式
 			extend: '.jpg,.png',
 			className: 'avatar-uploader',
 			updata: {
-				id:'',
+				id: '',
 				state: '1',
-				voucher: '',
-			},
+				voucher: ''
+			}
 		};
 	},
 	methods: {
-		updatePhoto(img) {
+		updatePhoto (img) {
 			this.updata.voucher = img;
 			console.log(this.updata.voucher);
 		},
 		// 提交按钮
-		complete() {
-			this.updata.id = this.UploadId
+		complete () {
+			this.updata.id = this.UploadId;
 			// this.updata.voucher = this.img
 			// id state  voucher
 			completeTask(this.updata).then((response) => {
 				this.resp = response.data;
 			});
-			this.Close()
+			this.Close();
 		},
 		// 关闭弹窗并清空
-		Close(){
-			this.handleClose()
-			this.updata={
-				id:'',
+		Close () {
+			this.handleClose();
+			this.updata = {
+				id: '',
 				voucher: '',
-				state: '1',
-			}
+				state: '1'
+			};
 		}
-	},
+	}
 };
 </script>
 <style scoped>
