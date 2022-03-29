@@ -1,14 +1,15 @@
 <template>
-	<el-dialog title="今日完成" :visible.sync="dialogTableVisible" :before-close="handleClose"  class="dialog">
-		<Upload
-			style="margin: 32px"
-			:extend="extend"
-			:className="className"
-			@updatePhoto="updatePhoto"
-			:imageUrl="updata.voucher"
-			:UploadId="updata.UploadId"
-		/>
-		<el-button type="primary" @click="complete()" class="right">提 交</el-button>
+	<el-dialog title="今日完成" :visible.sync="dialogTableVisible" :before-close="handleClose" class="dialog">
+			<Upload
+				style="margin: 32px"
+				:extend="extend"
+				:className="className"
+				@updatePhoto="updatePhoto"
+				:imageUrl="updata.voucher"
+				:UploadId="updata.UploadId"
+
+			/>
+			<el-button type="primary" @click="complete()" class="right">提 交</el-button>
 	</el-dialog>
 </template>
 
