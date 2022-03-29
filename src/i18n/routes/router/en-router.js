@@ -11,6 +11,7 @@ export default {
         pay: 'Pay center',
         center: 'Contract payment',
         Internal: 'Internal informatization',
-        applyReimbursement: 'Apply Reimbursement'
+        applyReimbursement: 'Apply Reimbursement',
+        task: 'Daily Task'
     }
 };

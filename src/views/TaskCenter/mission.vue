@@ -342,8 +342,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .box {
-	background-color: #f2f2f2;
-	margin: 20px;
 	border-radius: 10px;
 }
 .block {
