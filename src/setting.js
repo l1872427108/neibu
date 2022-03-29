@@ -6,7 +6,7 @@ module.exports = {
     // 是否开启全屏
     enableFullscreen: false,
     // 标题
-    title: '内部信息化',
+    title: '聚知音',
     // 是否线上环境开启错误日志
     errorLog: 'production',
     // 是否显示换色
