@@ -5,7 +5,8 @@
   "sideEffects": [
     "*.css",
     "*.vue",
-    "*.scss"
+    "*.scss",
+    "*.js"
   ],
   "scripts": {
     "serve": "vue-cli-service serve",
