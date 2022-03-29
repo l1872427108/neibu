@@ -162,10 +162,6 @@ export default {
         this.userInfo.uid &&
 				accountPutInfo(this.accountInfo)
 					.then(() => {
-						this.$message({
-							message: '修改成功',
-							type: 'success'
-						});
             this.fetchData();
 					})
 					.catch(() => {
@@ -179,6 +175,10 @@ export default {
           this.userInfo.uid &&
 				accountPutInfo(this.accountInfo)
 					.then(() => {
+            this.$message({
+							message: '修改成功',
+							type: 'success'
+						});
             this.fetchData();
 					})
 					.catch(() => {

@@ -8,7 +8,7 @@
   <el-breadcrumb class="app-breadcrumb layout-navbars-breadcrumb-hide" separator="/">
     <transition-group name="breadcrumb">
       <el-breadcrumb-item v-for="(item,index) in levelList" :key="item.path">
-        <span v-if="item.redirect==='noRedirect'||index==levelList.length-1" class="no-redirect">{{ $t(item.meta.title) }}</span>
+        <span v-if="index==levelList.length-1" class="no-redirect">{{ $t(item.meta.title) }}</span>
         <a v-else @click.prevent="handleLink(item)">{{ $t(item.meta.title) }}</a>
       </el-breadcrumb-item>
     </transition-group>
@@ -56,7 +56,7 @@ export default {
         matched = [{ path: '/', meta: { title: this.$t('router.welcome') } }].concat(matched);
       }
 
-      this.levelList = matched.filter(item => item.meta && item.meta.title && item.meta.breadcrumb !== false);
+      this.levelList = matched.filter(item => item.meta && item.meta.title);
     },
     isDashboard (route) {
       const name = route && route.name;

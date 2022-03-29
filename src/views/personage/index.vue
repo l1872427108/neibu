@@ -19,7 +19,7 @@
 							<el-card shadow="hover" :header="$t('person.personInfo')">
 								<div class="personal-user">
 									<div class="personal-user-left">
-										<Upload @updatePhoto="updatePhoto" class="h100 personal-user-left-upload">
+										<Upload @updatePhoto="updatePhoto" class="personal-user-left-upload">
 											<img
 												class="personal-user-left-upload"
 												:src="
@@ -157,22 +157,27 @@
 										</el-col>
 										<el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6" class="mb20">
 											<el-form-item prop="familyMoneyInfo" label-width="100px" :label="$t('person.situation')">
-												<el-input
+												<!-- <el-input
 													v-model="personalForm.familyMoneyInfo"
 													:placeholder="$t('person.pleaseSituation')"
 													clearable
-												></el-input>
+												></el-input> -->
+                        <el-select clearable v-model="personalForm.familyMoneyInfo" :placeholder="$t('person.pleaseSituation')">
+                          <el-option label="一般" value="一般"></el-option>
+													<el-option label="良好" value="良好"></el-option>
+                        </el-select>
 											</el-form-item>
 										</el-col>
 										<el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6" class="mb20">
 											<el-form-item prop="familyNumber" label-width="100px" :label="$t('person.households')">
-												<el-input
+												<!-- <el-input
 													:min="1"
 													:max="10"
 													v-model="personalForm.familyNumber"
 													:placeholder="$t('person.pleaseUser')"
 													clearable
-												></el-input>
+												></el-input> -->
+                        <el-input-number :placeholder="$t('person.pleaseUser')" v-model="personalForm.familyNumber" controls-position="right" :min="1" :max="10"></el-input-number>
 											</el-form-item>
 										</el-col>
 										<el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6" class="mb20">
@@ -352,6 +357,10 @@ export default {
 			this.userInfo.uid &&
 				personPutInfo(this.personalForm, this.userInfo.uid)
 					.then((res) => {
+            this.$message({
+							message: '修改成功',
+							type: 'success'
+						});
 						this.fetchData();
 					})
 					.catch(() => {
@@ -373,17 +382,14 @@ export default {
 @import '~/styles/mixins/mixin';
 .personal {
 	.personal-user {
-		height: 200px;
 		display: flex;
 		align-items: center;
 		.personal-user-left {
-			width: 200px;
-      height: 100%;
 			border-radius: 3px;
 			.personal-user-left-upload {
 				img {
-					width: 100%;
-					height: 100%;
+					width: 150px;
+					height: 150px;
 					border-radius: 3px;
 				}
 				&:hover {

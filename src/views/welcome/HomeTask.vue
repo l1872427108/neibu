@@ -12,6 +12,7 @@
       <!-- 任务列表 -->
       <ul class="task-list">
         <el-divider></el-divider>
+        <el-empty v-if="!taskList.length"></el-empty>
         <!-- 列表项 -->
         <li :key="item.id" v-for="item in taskList" class="task-list-items">
           <el-tooltip effect="light" class="item" :content="`截止日期 ${item.lastTime}`" placement="top">
@@ -22,6 +23,7 @@
           </el-tooltip>
           <el-divider></el-divider>
         </li>
+
       </ul>
     </div>
     </div>
@@ -122,5 +124,9 @@ export default {
     margin-top: 20px;
     font-size: 20px;
   }
+}
+.el-empty {
+  width: 100%;
+  height: 100%;
 }
 </style>

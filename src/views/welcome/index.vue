@@ -23,16 +23,16 @@
 				<!-- 主区域左侧 -->
 				<div class="home-main-left">
 					<!-- 轮播图 -->
-					<div class="home-main-left-carsoul">热搜轮播图</div>
+					<div class="home-main-left-carsoul">待开发～</div>
 					<!-- 助理办公告 -->
-					<div class="home-main-left-Notice">助理办公告</div>
+					<div class="home-main-left-Notice">待开发～</div>
 				</div>
 				<!-- 主区域右侧 -->
 				<div class="home-main-right">
 					<!-- 今日任务 -->
           <home-task :user-id="userInfo.uid" class="home-task"></home-task>
 					<!-- 微博 -->
-					<div class="home-main-right-Hot">微博热搜</div>
+					<div class="home-main-right-Hot">待开发～</div>
 				</div>
 			</div>
 		</div>
@@ -133,7 +133,7 @@ export default {
       display: flex;
 			justify-content: center;
 			align-items: center;
-      font-size: 20px;
+      font-size: 30px;
 			font-weight: 700;
       margin: 20px 0 50px 0;
 		}
