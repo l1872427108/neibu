@@ -14,7 +14,7 @@
         <el-divider></el-divider>
         <el-empty v-if="!taskList.length"></el-empty>
         <!-- 列表项 -->
-        <li :key="item.id" v-for="item in taskList" class="task-list-items">
+        <li @click="toTaskView" :key="item.id" v-for="item in taskList" class="task-list-items">
           <el-tooltip effect="light" class="item" :content="`截止日期 ${item.lastTime}`" placement="top">
             <div class="task-list-item">
               <div>{{ item.title }}</div>
@@ -86,7 +86,11 @@ export default {
       const result = await searchTask(this.userId);
 			this.taskList = result.data.task;
 			this.cases = parseInt(result.data.cases);
-		}
+		},
+    // 跳转任务页
+    toTaskView () {
+      this.$router.push('/task')
+    }
   }
 };
 </script>
