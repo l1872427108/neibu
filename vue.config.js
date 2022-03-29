@@ -49,6 +49,7 @@ module.exports = {
     devServer: {
         open: false,
         port: '8888',
+        // hotOnly: false,
         disableHostCheck: true,
         host: 'rck.puge.net.cn',
         proxy: projectConfig.devServerProxy
