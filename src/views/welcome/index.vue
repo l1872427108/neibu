@@ -1,265 +1,161 @@
 
 <template>
-	<div class="welcome">
-		<div class="welcome-wrap">
-      <div class="welcomeLeft">
-        <div class="welcomeTopOne">
-          <h1 class="picture">热搜轮播图</h1>
-          <el-input suffix-icon="el-icon-search" type="text" v-model="val"></el-input>
-        </div>
-        <div class="welcomeTopTwo">
-
-          <div class="div-wrap">
-            欢迎： {{userInfo.nickName}}
-          </div>
-          <el-divider></el-divider>
-          <div>
-            <clock color="#409EFF" :time="time"></clock>
-          </div>
-        </div>
-		  </div>
-		  <div class="welcomeRight">
-        <div class="welcomeRightOne">
-          <el-progress :text-inside="true" :stroke-width="26" :percentage="cases"></el-progress>
-          <el-card class="box-card">
-            <ul class="infinite-list" style="overflow:auto">
-              <div class="title">
-                <div>标题</div>
-                <div>状态</div>
-              </div>
-              <el-divider></el-divider>
-              <li :key="item.id" v-for="item in list" class="infinite-list-item">
-                 <el-tooltip effect="light" class="item" :content="`截止日期 ${item.lastTime}`" placement="right-start">
-                  <div class="infinite-list-item-wrap">
-                    <div>{{item.title}}</div>
-                    <el-button :type="like1(item.state)" :icon="like(item.state)" circle></el-button>
-                  </div>
-                  </el-tooltip>
-                <el-divider></el-divider>
-              </li>
-            </ul>
-          </el-card>
-        </div>
-        <div class="welcomeRightTwo">
-          <div class="welcomeRightTwoFirst">
-            <h1 class="">助理办公告</h1>
-          </div>
-        </div>
-        <div class="welcomeRightThree">
-          <div class="welcomeRightTwoSecond">
-              <h1 class="">微博热搜</h1>
-            </div>
-        </div>
-		    </div>
-	    </div>
-    </div>
+	<!-- 首页 -->
+	<div class="home">
+		<!-- 账户包裹 -->
+		<div class="home-account">
+			<!-- 账户头像 -->
+			<img
+				class="home-account-img"
+				:src="accountInfo.pugeAvater"
+				alt=""
+			/>
+			<!-- 账户信息 -->
+			<div class="hone-account-infmation">
+				<div class="hone-account-infmation-user">欢迎 {{accountInfo.nickName}}，开始您一天的工作吧！</div>
+				<div class="hone-account-infmation-date">今日是个好天气</div>
+			</div>
+		</div>
+		<!-- 首页主区域 -->
+		<div class="home-main">
+			<!-- 主区域包裹 -->
+			<div class="home-main-wrap">
+				<!-- 主区域左侧 -->
+				<div class="home-main-left">
+					<!-- 轮播图 -->
+					<div class="home-main-left-carsoul">热搜轮播图</div>
+					<!-- 助理办公告 -->
+					<div class="home-main-left-Notice">助理办公告</div>
+				</div>
+				<!-- 主区域右侧 -->
+				<div class="home-main-right">
+					<!-- 今日任务 -->
+          <home-task :user-id="userInfo.uid" class="home-task"></home-task>
+					<!-- 微博 -->
+					<div class="home-main-right-Hot">微博热搜</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import { searchTask } from '~/api/home';
-import Clock from 'vue-clock2';
-import {dateFormat} from '../../utils/date/date';
+import { accountGetInfo } from '~/api/personMessage';
+import HomeTask from './HomeTask.vue';
 export default {
 	name: 'welcome',
-  components: { Clock },
+  components: { HomeTask },
 	data () {
 		return {
-      list: [],
-      val: '',
-      cases: 0,
-      // time: dateFormat(new Date())
+      // 账户信息
+      accountInfo: {}
 		};
 	},
-  computed: {
-    ...mapGetters(['userInfo']),
-    time() {
-      dateFormat(new Date());
-    }
-  },
-
-	created () {
-    console.log(this.userInfo);
-    this.fetchData();
+	computed: {
+		...mapGetters(['userInfo'])
 	},
-
+	created () {
+		this.fetchAccountInfo();
+	},
 	methods: {
-    like (status) {
-      if (status == 0) {
-        return 'el-icon-loading';
-      } else if (status == 1) {
-        return 'el-icon-check';
-      } else if (status == 2) {
-        return 'el-icon-close';
-      }
-    },
-    like1 (status) {
-      if (status == 0) {
-        return 'primary';
-      } else if (status == 1) {
-        return 'success';
-      } else if (status == 2) {
-        return 'danger';
-      }
-    },
-    animate () {
-    },
-    async fetchData () {
-      const result = await searchTask(this.userInfo.uid);
-      this.list = result.data.task;
-      this.cases = parseInt(result.data.cases);
-    }
+    // 获取账户信息
+		async fetchAccountInfo () {
+      const result = await accountGetInfo(this.userInfo.uid);
+      this.accountInfo = result.data.user;
+		}
 	}
 };
 </script>
 
 <style lang="scss" scoped>
-.welcome {
-  height: 100%;
-  position: relative;
-}
-.welcome-wrap {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  height: 90%;
-  width: 90%;
-  .welcomeLeft {
-    width: 100%;
-    height: 48%;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 25px;
-    .welcomeTopOne {
-      box-sizing: border-box;
-      width: 62%;
-      background-color: #d4d6da;
-      height: 100%;
-      padding: 20px;
-      border-radius: 30px;
+.home {
+	height: 100%;
+	position: relative;
+	padding: 0;
+	.home-account {
+		width: inherit;
+		height: 140px;
+		background-color: #fff;
+		border-bottom: 1px solid #e8eaec;
+		padding-left: 20px;
+		box-sizing: border-box;
+		display: flex;
+		align-items: center;
+		.home-account-img {
+			border-radius: 50%;
+			width: 80px;
+			height: 80px;
+		}
+		.hone-account-infmation {
+			display: flex;
+			flex-direction: column;
+			margin-left: 20px;
+			justify-content: flex-start;
+		}
+		.hone-account-infmation-user {
+			font-size: 20px;
+			font-weight: 700;
+			margin-bottom: 12px;
+		}
+		.hone-account-infmation-date {
+			color: #808695;
+			font-size: 14px;
+		}
+	}
+	.home-main {
+		padding: 0 30px;
+		margin-top: 16px;
+		width: inherit;
+		.home-main-wrap {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.home-main-left {
+			width: 70%;
+		}
+		.home-main-left-carsoul {
+			width: 100%;
+			height: 300px;
+			background-color: #fff;
+			font-size: 30px;
+			font-weight: 700;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.home-main-left-Notice {
+			width: 100%;
+			height: 300px;
+			background-color: #fff;
       display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      transition: .4s;
-      &:hover {
-        transform: scale(1.1);
-      }
-      .picture {
-        font-size: 40px;
-        font-weight: 700;
-        align-items: center;
-      }
-      ::v-deep .el-input {
-        border-radius: 30px;
-        width: 80%;
-        input {
-          height: 40px;
-          border-radius: 30px;
-        }
-      }
+			justify-content: center;
+			align-items: center;
+      font-size: 20px;
+			font-weight: 700;
+      margin: 20px 0 50px 0;
+		}
+		.home-main-right {
+			width: 28%;
+		}
+    .home-task {
+      width: 100%;
     }
-    .welcomeTopTwo {
-      width: 35%;
-      background-color: #d4d6da;
-      height: 100%;
-      padding: 20px;
-      border-radius: 30px;
-      box-sizing: border-box;
+		.home-main-right-Hot {
+			margin-top: 20px;
+			width: 100%;
+			background-color: #fff;
+			height: 280px;
       display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      text-align: center;
-      transition: .4s;
-      &:hover {
-        transform: scale(1.1);
-      }
-      .div-wrap {
-        font-size: 20px;
-        font-family: 'Courier New', Courier, monospace !important;
-      }
-    }
-  }
-  .welcomeRight {
-    width: 100%;
-    height: 48%;
-    display: flex;
-    justify-content: space-between;
-    .welcomeRightOne {
-      box-sizing: border-box;
-      background-color: #d4d6da;
-      height: 100%;
-      padding: 20px;
-      flex: 1;
-      margin-right: 20px;
-      border-radius: 30px;
-      transition: .4s;
-      // overflow: auto;
-      .el-progress {
-        width: 100%;
-        margin-bottom: 20px;
-      }
-      .box-card {
-        // height: 100%;
-        height: 80%;
-        overflow: auto;
-        .title {
-          display: flex;
-          justify-content: space-between;
-        }
-        .infinite-list-item {
-          margin: 20px 0;
-          // text-align: center;
-          // display: flex;
-          .infinite-list-item-wrap {
-            display: flex;
-            // flex-direction: ;
-            justify-content: space-between;
-          }
-          .el-result {
-            width: 20px !important;
-            height: 20px !important;
-          }
-        }
-      }
-      &:hover {
-        transform: scale(1.1);
-      }
-      .task {
-        font-size: 40px;
-        font-weight: 700;
-        // align-items: center;
-      }
-    }
-    .welcomeRightTwo {
-      box-sizing: border-box;
-      flex: 1;
-      background-color: #d4d6da;
-      height: 100%;
-      padding: 20px;
-      border-radius: 30px;
-      margin-right: 20px;
-      text-align: center;
-      transition: .4s;
-      &:hover {
-        transform: scale(1.1);
-      }
-    }
-   .welcomeRightThree {
-      box-sizing: border-box;
-      flex: 1;
-      background-color: #d4d6da;
-      height: 100%;
-      padding: 20px;
-      border-radius: 30px;
-      text-align: center;
-      transition: .4s;
-      &:hover {
-        transform: scale(1.1);
-      }
-    }
-  }
+			justify-content: center;
+			align-items: center;
+      font-size: 20px;
+			font-weight: 700;
+		}
+	}
 }
+
 
 </style>

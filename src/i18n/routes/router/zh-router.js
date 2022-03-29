@@ -12,6 +12,6 @@ export default {
         center: '合同缴费',
         Internal: '内部信息化',
         applyReimbursement: '财务报销',
-        task:'每日任务'
+        task: '每日任务'
     }
 };

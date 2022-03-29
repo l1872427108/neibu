@@ -23,7 +23,7 @@ export default {
     data: 'data',
     error: 'error',
     test: 'test',
-    task:'task'
+    task: 'task'
   },
   navbar: {
     updateAccountInfo: 'Modify account information',

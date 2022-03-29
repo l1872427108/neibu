@@ -71,12 +71,13 @@
 	border-right: none !important;
 	width: 220px;
 }
+// -----------
 .el-menu-item,
 .el-submenu__title {
 	height: 50px !important;
 	line-height: 50px !important;
-	color: set-color(bg) !important;
 	transition: none !important;
+  color: hsla(0,0%,100%,.7) !important;
 }
 // horizontal 水平方向时
 .el-menu--horizontal > .el-menu-item.is-active,
@@ -115,7 +116,7 @@
 // 默认 hover 时
 .el-menu-item:hover,
 .el-submenu__title:hover {
-	color: #666!important;
+	color: red;
 
 	background-color: transparent !important;
 	i {
@@ -136,7 +137,8 @@
 }
 // 高亮时
 .el-menu-item.is-active {
-  color: #666!important;
+  color: #fff !important;
+  background-color: #2d8cf0 !important;
 }
 .el-active-extend {
 	color: set-color(whites) !important;
@@ -167,7 +169,7 @@
 }
 // 去掉离开浏览器时，菜单的默认高亮
 .el-menu-item:focus {
-	background-color: transparent !important;
+	background-color: #2d8cf0 !important;
 }
 
 
