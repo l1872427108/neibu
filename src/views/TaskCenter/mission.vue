@@ -5,15 +5,15 @@
 			<span class="demonstration">请选择日期:</span>
 			<el-date-picker
 				class="date"
-				v-model="this.time"
 				align="right"
 				type="date"
 				placeholder="选择日期"
+				v-model="time"
 				:picker-options="pickerOptions"
 				@change="datequery"
 			>
 			</el-date-picker>
-			<!--弹出新增按钮 :visible.sync 为true窗口会被弹出-->
+			<!--弹出新增窗口:visible.sync 为true窗口会被弹出-->
 			<el-dialog :title="'任务' + text" :visible.sync="dialogFormVisible" width="600px">
 				<el-form
 					:model="pojo"
@@ -22,6 +22,7 @@
 					label-position="right"
 					style="width: 550px"
 					:rules="rules"
+					:disabled="this.pojo.state == 1 ? true : false"
 				>
 					<el-form-item label="任务标题:" prop="title">
 						<el-input v-model="pojo.title" autocomplete="off"></el-input>
@@ -57,16 +58,20 @@
 					<el-form-item label="任务内容:" prop="content">
 						<el-input v-model="pojo.content" autocomplete="off"></el-input>
 					</el-form-item>
-					<el-form-item label="完成凭证:" prop="voucher" v-if="pojo.state == 1? true:false">
-						<img :src="pojo.voucher" class="imgsize" />
+					<el-form-item label="完成凭证:" prop="voucher" v-if="pojo.state == 1 ? true : false">
+						<el-image
+							:src="pojo.voucher"
+							class="imgsize"
+							:preview-src-list="[pojo.voucher]"
+							@click="vbs(pojo.voucher)"
+						/>
 					</el-form-item>
 				</el-form>
-				<div slot="footer" class="dialog-footer" v-if="pojo.state == 1? false:true">
+				<div slot="footer" class="dialog-footer" v-if="pojo.state == 1 ? false : true">
 					<el-button @click="dialogFormVisible = false">取 消</el-button>
 					<el-button type="primary" @click="submitdata(pojo.id)"> {{ text }} </el-button>
 				</div>
 			</el-dialog>
-
 			<el-button type="primary" @click="add()" class="addtask">添加任务</el-button>
 		</div>
 		<!-- 任务列表 -->
@@ -84,8 +89,8 @@
 					</template>
 				</el-table-column>
 				<el-table-column align="center" width="420" label="操作">
+					<!-- 完成,查看,修改,删除按钮 -->
 					<template slot-scope="scope" class="font-size">
-						<!-- slot-scope="scope"可以获取到row，column，$index和table（内容的状态管理）的数据 -->
 						<el-button
 							size="mini"
 							round
@@ -119,14 +124,14 @@
 							round
 							type="danger"
 							@click="handleDelete(scope.row.id)"
-						
+							:disabled="scope.row.state == 1 ? true : false"
 							>删除</el-button
 						>
 					</template>
 				</el-table-column>
 			</el-table>
 		</div>
-		<!-- :imageUrl="imageUrl" -->
+		<!-- 用于完成弹窗的子组件 -->
 		<Upload
 			:dialogTableVisible="dialogTableVisible"
 			:handleClose="handleClose"
@@ -137,22 +142,27 @@
 </template>
 
 <script>
+// 接口
 import { todayTimeSearch, addTask, deleteTask, taskidSearch, amendTask } from '~/api/taskCenter';
 import { Cookie, Key } from '~/utils/cache/cookie';
+// 封装的事件处理工具
 import '~/utils/dateconversion';
+// 引入子组件
 import Upload from './upload.vue';
 export default {
 	components: {
-		Upload,
+		Upload
 	},
-	data() {
+	data () {
 		return {
 			resp: [],
 			time: '',
-		
 			// 控制弹窗
 			dialogFormVisible: false,
 			btn: '',
+			readonly: true,
+			srcList: [],
+			//  srcList: [],
 			// 提交表单
 			pojo: {
 				id: null,
@@ -162,7 +172,7 @@ export default {
 				startTime: '',
 				lastTime: '',
 				gmtCreate: '',
-				voucher: '',
+				voucher: ''
 			},
 			startTime: '',
 			lastTime: '',
@@ -183,7 +193,7 @@ export default {
 			// imageUrl: '',
 			voucher: '',
 			disabled: true,
-			dialogTableVisible1: false,
+			dialogTableVisible1: false
 		};
 	},
 	// 钩子函数获取数据
@@ -197,6 +207,7 @@ export default {
 		}
 	},
 	methods: {
+		// 使用异步,切换编辑还是添加
 		async submitdata (id) {
 			// 根据id修改
 			if (id) {
@@ -209,21 +220,22 @@ export default {
 				this.dialogFormVisible = true;
 			}
 		},
-		colsebtn() {
-			disabled = 'true';
+		colsebtn () {
+			this.disabled = 'true';
 		},
 		// 将时间选择器的数据转化
 		datequery (res) {
 			const time = new Date(res).format('yyyy-MM-dd');
+			console.log(time);
 			this.fetchData(time);
 		},
 		// 根据时间查询数据
 		fetchData (time) {
-			console.log(time);
-			todayTimeSearch(this.time, this.userId).then((response) => {
+			todayTimeSearch(time, this.userId).then((response) => {
 				this.resp = response.data.tasks;
+				console.log(this.resp);
 				if (this.resp.time) {
-					// 删除成功，刷新列表数据
+					// 刷新列表数据
 					this.fetchData(this.time);
 				}
 			});
@@ -235,7 +247,7 @@ export default {
 			this.text = '添加';
 			this.pojo = {};
 		},
-		addTasks() {
+		addTasks () {
 			this.pojo.startTime = this.pojo.startTime.slice(0, 5) + ':00';
 			this.pojo.lastTime = this.pojo.lastTime.slice(0, 5) + ':00';
 			addTask(this.pojo).then((response) => {
@@ -251,28 +263,28 @@ export default {
 		edit (id) {
 			this.dialogFormVisible = true;
 			this.text = '修改';
-		
-				// 根据id查询任务信息
-				taskidSearch(id).then((response) => {
-					// 回显数据,需处理时间
-					this.text = '修改';
-					this.pojo = response.data.task;
-					console.log(this.pojo);
-				});
+
+			// 根据id查询任务信息
+			taskidSearch(id).then((response) => {
+				// 回显数据,需处理时间
+				this.text = '修改';
+				this.pojo = response.data.task;
+				console.log(this.pojo);
+			});
 		},
-		look(id) {
+		look (id) {
 			this.dialogFormVisible = true;
 			this.text = '修改';
 			// 根据id查询任务信息
-				taskidSearch(id).then((response) => {
-					// 回显数据,需处理时间
-					this.text = '修改';
-					this.pojo = response.data.task;
-					console.log(this.pojo);
-				});
+			taskidSearch(id).then((response) => {
+				// 回显数据,需处理时间
+				this.text = '修改';
+				this.pojo = response.data.task;
+				console.log(this.pojo);
+			});
 		},
-		//修改
-		handleEdit() {
+		// 修改
+		handleEdit () {
 			this.pojo.startTime = this.pojo.startTime.slice(0, 5) + ':00';
 			this.pojo.lastTime = this.pojo.lastTime.slice(0, 5) + ':00';
 			console.log(this.pojo);
@@ -311,17 +323,22 @@ export default {
 					});
 				});
 		},
-		upload(id) {
+		// 查看按钮,清空图片缓存
+		vbs (val) {
+			this.srcList = [];
+			this.srcList.push(val);
+		},
+		upload (id) {
 			this.dialogTableVisible = true;
 			this.UploadId = id;
 			this.fetchData(this.time);
 		},
 		// 上面为true，父传子为了关闭false，
-		handleClose() {
+		handleClose () {
 			this.dialogTableVisible = false;
 			this.fetchData(this.time);
-		},
-	},
+		}
+	}
 };
 </script>
 <style lang="scss" scoped>
