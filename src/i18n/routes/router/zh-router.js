@@ -10,7 +10,7 @@ export default {
         progress: '面试进度',
         pay: '支付中心',
         center: '合同缴费',
-        Internal: '内部信息化',
+        Internal: '聚知音',
         applyReimbursement: '财务报销',
         task: '每日任务'
     }
