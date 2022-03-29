@@ -44,16 +44,11 @@ const projectConfig = {
 
 module.exports = {
     lintOnSave,
-    publicPath,
     productionSourceMap: false,
-    assetsDir,
-    outputDir,
     runtimeCompiler: true,
     devServer: {
         open: false,
         port: '8888',
-        // https: true,
-        // hotOnly: false,
         disableHostCheck: true,
         host: 'rck.puge.net.cn',
         proxy: projectConfig.devServerProxy
@@ -76,8 +71,6 @@ module.exports = {
           args[0].isProd = true;
           return args;
         });
-
-        // config.plugin('Bundle').use(BundleAnalyzerPlugin).tap()
 
         config.optimization.usedExports = true;
         // config.optimization.splitChunks({

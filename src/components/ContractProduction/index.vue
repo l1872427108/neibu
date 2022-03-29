@@ -72,11 +72,12 @@ export default {
             }
         },
         canvasInit () {
-            console.log(window.screen.width);
             if (window.screen.width > 480 && window.screen.width < 979) {
-                this.context.clearRect(this.canvas.getBoundingClientRect().width - 350, this.canvas.getBoundingClientRect().height - 350, 200, 150);
+                this.context.clearRect(this.canvas.getBoundingClientRect().width - 300, this.canvas.getBoundingClientRect().height - 150, 200, 150);
+            } else if (window.screen.width > 979 && window.screen.width < 1500) {
+                this.context.clearRect(this.canvas.getBoundingClientRect().width - 700, this.canvas.getBoundingClientRect().height - 300, 300, 200);
             } else {
-                this.context.clearRect(this.canvas.getBoundingClientRect().width - 700, this.canvas.getBoundingClientRect().height - 700, 300, 200);
+              this.context.clearRect(this.canvas.getBoundingClientRect().width - 700, this.canvas.getBoundingClientRect().height - 500, 300, 200);
             }
             const image = new Image();
             image.src = this.image;
@@ -85,9 +86,11 @@ export default {
             image.setAttribute('crossOrigin', 'Anonymous');
             image.onload = () => {
                 if (window.screen.width > 480 && window.screen.width < 979) {
-                    this.context.drawImage(image, this.canvas.getBoundingClientRect().width - 350, this.canvas.getBoundingClientRect().height - 350, 200, 150);
+                  this.context.drawImage(image, this.canvas.getBoundingClientRect().width - 300, this.canvas.getBoundingClientRect().height - 150, 200, 150);
+                } else if (window.screen.width > 979 && window.screen.width < 1500) {
+                  this.context.drawImage(image, this.canvas.getBoundingClientRect().width - 700, this.canvas.getBoundingClientRect().height - 300, image.width, image.height);
                 } else {
-                    this.context.drawImage(image, this.canvas.getBoundingClientRect().width - 700, this.canvas.getBoundingClientRect().height - 700, image.width, image.height);
+                  this.context.drawImage(image, this.canvas.getBoundingClientRect().width - 700, this.canvas.getBoundingClientRect().height - 500, image.width, image.height);
                 }
             };
         },
