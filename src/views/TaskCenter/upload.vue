@@ -32,7 +32,7 @@ export default {
 		handleClose: Function
 	},
 	created () {
-		console.log(this.UploadId);
+		// console.log(this.UploadId);
 	},
 	data () {
 		return {
@@ -49,19 +49,23 @@ export default {
 	methods: {
 		updatePhoto (img) {
 			this.updata.voucher = img;
-			console.log(this.updata.voucher);
+			// console.log(this.updata.voucher);
 		},
-		// 提交按钮
-		complete () {
+		/**
+		 * 提交按钮
+		 */
+		async complete () {
 			this.updata.id = this.UploadId;
 			// this.updata.voucher = this.img
 			// id state  voucher
-			completeTask(this.updata).then((response) => {
+		   await completeTask(this.updata).then((response) => {
 				this.resp = response.data;
 			});
 			this.Close();
 		},
-		// 关闭弹窗并清空
+		/**
+		 * 关闭弹窗并清空
+		 */
 		Close () {
 			this.handleClose();
 			this.updata = {
