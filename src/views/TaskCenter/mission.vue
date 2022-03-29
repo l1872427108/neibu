@@ -83,9 +83,8 @@
 				<el-table-column label="任务内容" align="center" style="width: 20%" prop="content"> </el-table-column>
 				<el-table-column label="任务状态" align="center" style="width: 20%" prop="state">
 					<template slot-scope="scope">
-						<el-tag v-if="scope.row.state == 0" type="warning">进行中</el-tag>
 						<el-tag v-if="scope.row.state == 1" type="success">已完成</el-tag>
-						<el-tag v-if="scope.row.state == 2" type="danger">未完成</el-tag>
+						<el-tag v-if="scope.row.state == 0" type="danger">未完成</el-tag>
 					</template>
 				</el-table-column>
 				<el-table-column align="center" width="420" label="操作">
