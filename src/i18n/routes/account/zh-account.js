@@ -27,4 +27,4 @@ export default {
     pleaseSchoolAge: '请输入年级',
     pleasePassword: '请输入密码'
   }
-};
+}

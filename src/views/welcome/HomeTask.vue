@@ -1,9 +1,9 @@
 <template>
-  	<div class="home-main-right">
+  <div class="home-main-right">
     <!-- 任务 -->
     <div class="home-main-right-task">
       <!-- 任务进度条 -->
-      <el-progress :color="taskProgressColor" :text-inside="true" :stroke-width="20" :percentage="cases"></el-progress>
+      <el-progress :color="taskProgressColor" :text-inside="true" :stroke-width="20" :percentage="cases" />
       <!-- 任务标题 -->
       <div class="task-title">
         <p>标题</p>
@@ -11,41 +11,41 @@
       </div>
       <!-- 任务列表 -->
       <ul class="task-list">
-        <el-divider></el-divider>
-        <el-empty v-if="!taskList.length"></el-empty>
+        <el-divider />
+        <el-empty v-if="!taskList.length" />
         <!-- 列表项 -->
-        <li @click="toTaskView" :key="item.id" v-for="item in taskList" class="task-list-items">
+        <li v-for="item in taskList" :key="item.id" class="task-list-items" @click="toTaskView">
           <el-tooltip effect="light" class="item" :content="`截止日期 ${item.lastTime}`" placement="top">
             <div class="task-list-item">
               <div>{{ item.title }}</div>
-              <el-button size="mini" :type="taskBtnType(item.state)" :icon="taskBtnIcon(item.state)" circle></el-button>
+              <el-button size="mini" :type="taskBtnType(item.state)" :icon="taskBtnIcon(item.state)" circle />
             </div>
           </el-tooltip>
-          <el-divider></el-divider>
+          <el-divider />
         </li>
 
       </ul>
     </div>
-    </div>
+  </div>
 </template>
 
 <script>
-import { searchTask } from '~/api/home';
+import { searchTask } from '~/api/home'
 
 export default {
   name: 'HomeTask',
   props: {
     userId: {
-      type: String | Number,
-      default: 0
+      type: String,
+      default: '0'
     }
   },
-  data () {
+  data() {
     return {
       // 任务列表
       taskList: [],
       // 进度条百分比
-			cases: 0,
+      cases: 0,
       // 进度条颜色
       taskProgressColor: [
         { color: '#f56c6c', percentage: 20 },
@@ -54,45 +54,45 @@ export default {
         { color: '#1989fa', percentage: 80 },
         { color: '#6f7ad3', percentage: 100 }
       ]
-    };
+    }
   },
-  created () {
-		this.fetchTaskData();
-	},
+  created() {
+    this.fetchTaskData()
+  },
 
-	methods: {
+  methods: {
     // 过滤按钮图标
-		taskBtnIcon (status) {
-			if (status == 0) {
-				return 'el-icon-loading';
-			} else if (status == 1) {
-				return 'el-icon-check';
-			} else if (status == 2) {
-				return 'el-icon-close';
-			}
-		},
+    taskBtnIcon(status) {
+      if (status === '0') {
+        return 'el-icon-loading'
+      } else if (status === '1') {
+        return 'el-icon-check'
+      } else if (status === '2') {
+        return 'el-icon-close'
+      }
+    },
     // 过滤按钮类型
-		taskBtnType (status) {
-			if (status == 0) {
-				return 'primary';
-			} else if (status == 1) {
-				return 'success';
-			} else if (status == 2) {
-				return 'danger';
-			}
-		},
+    taskBtnType(status) {
+      if (status === '0') {
+        return 'primary'
+      } else if (status === '1') {
+        return 'success'
+      } else if (status === '2') {
+        return 'danger'
+      }
+    },
     // // 获取任务列表
-		async fetchTaskData () {
-      const result = await searchTask(this.userId);
-			this.taskList = result.data.task;
-			this.cases = parseInt(result.data.cases);
-		},
+    async fetchTaskData() {
+      const result = await searchTask(this.userId)
+      this.taskList = result.data.task
+      this.cases = parseInt(result.data.cases)
+    },
     // 跳转任务页
-    toTaskView () {
+    toTaskView() {
       this.$router.push('/task')
     }
   }
-};
+}
 </script>
 
 <style scope lang="scss">

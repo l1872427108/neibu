@@ -1,16 +1,10 @@
-const path = require('path');
+const path = require('path')
 const {
-  publicPath,
-  devPort,
-  outputDir,
-  assetsDir,
   lintOnSave
-} = require('./src/config/website');
+} = require('./src/config/website')
 const resolve = (dir) => {
-    return path.join(__dirname, dir);
-};
-
-const isProd = process.env.NODE_ENV === 'production';
+  return path.join(__dirname, dir)
+}
 
 // const CompressionWebpackPlugin = require('compression-webpack-plugin');
 // const productionGzipExtensions = ['html', 'js', 'css', 'svg'];
@@ -40,40 +34,40 @@ const projectConfig = {
       }
     }
   }
-};
+}
 
 module.exports = {
-    lintOnSave,
-    productionSourceMap: false,
-    runtimeCompiler: true,
-    devServer: {
-        open: false,
-        port: '8888',
-        // hotOnly: false,
-        disableHostCheck: true,
-        host: 'rck.puge.net.cn',
-        proxy: projectConfig.devServerProxy
-    },
-    css: {
-      sourceMap: false
-    },
-    chainWebpack: (config) => {
-      config
+  lintOnSave,
+  productionSourceMap: false,
+  runtimeCompiler: true,
+  devServer: {
+    open: false,
+    port: '8888',
+    hotOnly: false,
+    disableHostCheck: true,
+    host: 'rck1.puge.net.cn',
+    proxy: projectConfig.devServerProxy
+  },
+  css: {
+    sourceMap: false
+  },
+  chainWebpack: (config) => {
+    config
       .when(process.env.NODE_ENV === 'production', config => {
-        config.entry('app').clear().add('./src/main-prod.js');
-        config.plugins.delete('prefetch').delete('preload');
+        config.entry('app').clear().add('./src/main-prod.js')
+        config.plugins.delete('prefetch').delete('preload')
         config.set('externals', {
           vue: 'Vue',
           'vue-router': 'VueRouter',
           axios: 'axios',
           'element-ui': 'ELEMENT'
-        });
+        })
         config.plugin('html').tap(args => {
-          args[0].isProd = true;
-          return args;
-        });
+          args[0].isProd = true
+          return args
+        })
 
-        config.optimization.usedExports = true;
+        config.optimization.usedExports = true
         // config.optimization.splitChunks({
         //   chunks: 'all',
         //   minSize: 30000,
@@ -110,29 +104,29 @@ module.exports = {
         //     }
         //   }
         // })
-      });
-      console.log(process.env.NODE_ENV);
-      config
+      })
+    console.log(process.env.NODE_ENV)
+    config
       .when(process.env.NODE_ENV === 'development', config => {
-        config.entry('app').clear().add('./src/main-dev.js');
+        config.entry('app').clear().add('./src/main-dev.js')
         config.plugin('html').tap(args => {
-          args[0].isProd = false;
-          return args;
-        });
-      });
-    },
+          args[0].isProd = false
+          return args
+        })
+      })
+  },
 
-    configureWebpack: {
-        resolve: {
-            extensions: ['.js', '.vue', '.json', '.css'],
-            alias: {
-                '~': resolve('src'),
-                assets: resolve('src/assets'),
-                components: resolve('src/components')
-            }
-        }
-        // plugins: [
-        //   isProd ? new
-        // ]
+  configureWebpack: {
+    resolve: {
+      extensions: ['.js', '.vue', '.json', '.css'],
+      alias: {
+        '~': resolve('src'),
+        assets: resolve('src/assets'),
+        components: resolve('src/components')
+      }
     }
-};
+    // plugins: [
+    //   isProd ? new
+    // ]
+  }
+}

@@ -1,78 +1,76 @@
 <template>
   <div class="layout-navbars-user">
-      <el-tooltip
-        effect="dark"
-        :content="$t('navbar.language')"
-        placement="bottom"
-      >
-        <div class="layout-navbars-item">
-          <top-lang />
-        </div>
-      </el-tooltip>
-      <el-tooltip
-        v-if="showFullScren"
-        effect="dark"
-        :content="isFullScren?$t('navbar.screenfullF'):$t('navbar.screenfull')"
-        placement="bottom"
-      >
-        <div class="layout-navbars-item">
-          <i
-            class="basic-icon"
-            :class="isFullScren?'basic-icon-tuichuquanping-copy':'basic-icon-quanping'"
-            @click="handleScreen"
-          />
-        </div>
-      </el-tooltip>
-      <img
-        class="layout-navbars-image"
-        :src="userInfo.imageUrl ? userInfo.imageUrl : avatar"
-      >
-      <el-dropdown slot="dropdown">
-        <span class="el-dropdown-link">
-          <i class="el-icon-caret-bottom" />
-        </span>
-        <el-dropdown-menu>
-          <el-dropdown-item @click.native="toHome">
-              {{ $t('navbar.home') }}
-          </el-dropdown-item>
-          <el-dropdown-item
-            divided
-            @click.native="updateAccount"
-          >
-            {{ $t('navbar.updateAccountInfo') }}
-          </el-dropdown-item>
-          <el-dropdown-item
-            divided
-            @click.native="personCenter"
-          >
-            {{ $t('navbar.personCenter') }}
-          </el-dropdown-item>
-          <el-dropdown-item
-            divided
-            @click.native="logout"
-          >
-            {{ $t('navbar.logOut') }}
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-      <person-dialog :remote-close="personRemoteClose" :visible="personVisible"></person-dialog>
-    <account-dialog  :remote-close="remoteClose" :visible="visible"></account-dialog>
+    <el-tooltip
+      effect="dark"
+      :content="$t('navbar.language')"
+      placement="bottom"
+    >
+      <div class="layout-navbars-item">
+        <top-lang />
+      </div>
+    </el-tooltip>
+    <el-tooltip
+      v-if="showFullScren"
+      effect="dark"
+      :content="isFullScren?$t('navbar.screenfullF'):$t('navbar.screenfull')"
+      placement="bottom"
+    >
+      <div class="layout-navbars-item">
+        <i
+          class="basic-icon"
+          :class="isFullScren?'basic-icon-tuichuquanping-copy':'basic-icon-quanping'"
+          @click="handleScreen"
+        />
+      </div>
+    </el-tooltip>
+    <img
+      class="layout-navbars-image"
+      :src="userInfo.imageUrl ? userInfo.imageUrl : avatar"
+    >
+    <el-dropdown slot="dropdown">
+      <span class="el-dropdown-link">
+        <i class="el-icon-caret-bottom" />
+      </span>
+      <el-dropdown-menu>
+        <el-dropdown-item @click.native="toHome">
+          {{ $t('navbar.home') }}
+        </el-dropdown-item>
+        <el-dropdown-item
+          divided
+          @click.native="updateAccount"
+        >
+          {{ $t('navbar.updateAccountInfo') }}
+        </el-dropdown-item>
+        <el-dropdown-item
+          divided
+          @click.native="personCenter"
+        >
+          {{ $t('navbar.personCenter') }}
+        </el-dropdown-item>
+        <el-dropdown-item
+          divided
+          @click.native="logout"
+        >
+          {{ $t('navbar.logOut') }}
+        </el-dropdown-item>
+      </el-dropdown-menu>
+    </el-dropdown>
+    <person-dialog :remote-close="personRemoteClose" :visible="personVisible" />
+    <account-dialog :remote-close="remoteClose" :visible="visible" />
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import topLogs from './topLogs.vue';
-import { fullscreenToggel, listenerfullscreen } from '~/utils/util';
-import topLang from './topLang.vue';
+import { mapGetters } from 'vuex'
+import { fullscreenToggel, listenerfullscreen } from '~/utils/util'
+import topLang from './topLang.vue'
 export default {
   components: {
-    // topLogs,
     topLang,
     AccountDialog: () => import(/* webpackChunkName:"layout" */'../../Account/accountDialog.vue'),
     personDialog: () => import(/* webpackChunkName:"layout" */'../../personage/index.vue')
   },
-  data () {
+  data() {
     return {
       showColor: true,
       showDebug: true,
@@ -81,7 +79,7 @@ export default {
       visible: false,
       personVisible: false,
       avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif'
-    };
+    }
   },
 
   computed: {
@@ -91,58 +89,57 @@ export default {
       'themeConfig',
       'userInfo'
     ]),
-    setHeaderHeight () {
-      const { layout } = this.themeConfig;
-      return '100px';
+    setHeaderHeight() {
+      return '100px'
     }
   },
 
-  mounted () {
-    console.log('11234565432345432134');
-    listenerfullscreen(this.setScreen);
+  mounted() {
+    console.log('11234565432345432134')
+    listenerfullscreen(this.setScreen)
   },
 
   methods: {
-    setCollapse () {
-      this.$store.commit('common/SET_COLLAPSE');
+    setCollapse() {
+      this.$store.commit('common/SET_COLLAPSE')
     },
 
-    updateAccount () {
-      this.visible = true;
+    updateAccount() {
+      this.visible = true
     },
 
-    personCenter () {
-      this.personVisible = true;
+    personCenter() {
+      this.personVisible = true
     },
-    logout () {
+    logout() {
       this.$confirm(this.$t('logoutTip'), this.$t('tip'), {
         confirmButtonText: this.$t('submitText'),
         cancelButtonText: this.$t('cancelText'),
         type: 'warning'
       }).then(() => {
-        window.location.href = `${process.env.VUE_APP_AUTH_URL}/logout?redirectURL=${window.location.href}`;
-      }).catch(() => {});
+        window.location.href = `${process.env.VUE_APP_AUTH_URL}/logout?redirectURL=${window.location.href}`
+      }).catch(() => {})
     },
 
-    setScreen () {
-      this.$store.commit('common/SET_FULLSCREN');
+    setScreen() {
+      this.$store.commit('common/SET_FULLSCREN')
     },
 
-    handleScreen () {
-      fullscreenToggel();
+    handleScreen() {
+      fullscreenToggel()
     },
 
-    remoteClose () {
-      this.visible = false;
+    remoteClose() {
+      this.visible = false
     },
-    personRemoteClose () {
-      this.personVisible = false;
+    personRemoteClose() {
+      this.personVisible = false
     },
-    toHome () {
-      this.$router.push('/');
+    toHome() {
+      this.$router.push('/')
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

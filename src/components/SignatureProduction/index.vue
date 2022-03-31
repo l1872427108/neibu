@@ -1,12 +1,19 @@
 <template>
   <div class="sign">
-    <el-dialog :before-close="handleClose" :close-on-click-modal="false" :close-on-press-escape="true"  :width="signDialogWidth" title="合同签字"  :visible.sync="visible"
-        :show-close="true">
+    <el-dialog
+      :before-close="handleClose"
+      :close-on-click-modal="false"
+      :close-on-press-escape="true"
+      :width="signDialogWidth"
+      title="合同签字"
+      :visible.sync="visible"
+      :show-close="true"
+    >
       <sign-canvas
-        class="sign-canvas"
         ref="SignCanvas"
-        :options="signOptions"
         v-model="signValue"
+        class="sign-canvas"
+        :options="signOptions"
       />
       <div class="btnList">
         <el-button
@@ -14,25 +21,23 @@
           size="small"
           icon="el-icon-delete"
           @click="canvasClear()"
-          >清空</el-button
-        >
+        >清空</el-button>
         <el-button
           type="primary"
           size="small"
           icon="el-icon-check"
           @click="saveAsImg()"
-          >保存</el-button
-        >
+        >保存</el-button>
       </div>
     </el-dialog>
   </div>
 </template>
 <script>
-import SignCanvas from 'sign-canvas';
+import SignCanvas from 'sign-canvas'
 export default {
-  name: 'signDialog',
+  name: 'SignDialog',
   components: {
-      SignCanvas
+    SignCanvas
   },
   props: {
     // 弹窗变量
@@ -45,62 +50,65 @@ export default {
       type: String,
       default: null
     },
-    remoteDialog: Function
+    remoteDialog: {
+      type: Boolean,
+      default: () => {}
+    }
   },
-  data () {
+  data() {
     return {
       signValue: null,
       signDialogWidth: '',
       signOptions: {
         lastWriteSpeed: 1,
-				lastWriteWidth: 2,
-				lineCap: 'round',
-				lineJoin: 'round',
-				canvasWidth: 729,
-				canvasHeight: 460,
-				isShowBorder: false,
-				bgColor: '#E6E6E6',
-				borderWidth: 1,
-				borderColor: '#ff787f',
-				writeWidth: 5,
-				maxWriteWidth: 30,
-				minWriteWidth: 5,
-				writeColor: '#101010',
-				isSign: true,
-				imgType: 'png'
+        lastWriteWidth: 2,
+        lineCap: 'round',
+        lineJoin: 'round',
+        canvasWidth: 729,
+        canvasHeight: 460,
+        isShowBorder: false,
+        bgColor: '#E6E6E6',
+        borderWidth: 1,
+        borderColor: '#ff787f',
+        writeWidth: 5,
+        maxWriteWidth: 30,
+        minWriteWidth: 5,
+        writeColor: '#101010',
+        isSign: true,
+        imgType: 'png'
       }
-    };
+    }
   },
-  mounted () {
-    this.initSignConfig();
-    window.addEventListener('resize', this.initSignConfig);
+  mounted() {
+    this.initSignConfig()
+    window.addEventListener('resize', this.initSignConfig)
   },
   methods: {
-    initSignConfig () {
-      this.signDialogWidth = `${document.body.offsetWidth / 2 + 40}px`;
-      this.signOptions.canvasWidth = document.body.offsetWidth / 2;
-      this.signOptions.canvasHeight = document.body.offsetHeight / 2;
+    initSignConfig() {
+      this.signDialogWidth = `${document.body.offsetWidth / 2 + 40}px`
+      this.signOptions.canvasWidth = document.body.offsetWidth / 2
+      this.signOptions.canvasHeight = document.body.offsetHeight / 2
     },
-    handleClose () {
-      this.remoteDialog();
+    handleClose() {
+      this.remoteDialog()
     },
     /**
      * 清除画板
      */
-    canvasClear () {
-      this.$refs.SignCanvas.canvasClear();
+    canvasClear() {
+      this.$refs.SignCanvas.canvasClear()
     },
 
     /**
      * 保存图片
      */
-    saveAsImg () {
-      const img = this.$refs.SignCanvas.saveAsImg();
-      this.$emit('update:visible', false);
-      this.$emit('getImage', img);
+    saveAsImg() {
+      const img = this.$refs.SignCanvas.saveAsImg()
+      this.$emit('update:visible', false)
+      this.$emit('getImage', img)
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

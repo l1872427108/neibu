@@ -1,80 +1,77 @@
 
 <template>
-	<!-- 首页 -->
-	<div class="home">
-		<!-- 账户包裹 -->
-		<div class="home-account">
-			<!-- 账户头像 -->
-			<img
-				class="home-account-img"
-				:src="accountInfo.pugeAvater"
-				alt=""
-			/>
-			<!-- 账户信息 -->
-			<div class="hone-account-infmation">
-				<div class="hone-account-infmation-user">欢迎 {{accountInfo.nickName}}，开始您一天的工作吧！</div>
-				<div class="hone-account-infmation-date">今日是个好天气</div>
-			</div>
-		</div>
-		<!-- 首页主区域 -->
-		<div class="home-main">
-			<!-- 主区域包裹 -->
-			<div class="home-main-wrap">
-				<!-- 主区域左侧 -->
-				<div class="home-main-left">
-					<!-- 轮播图 -->
-					<div class="home-main-left-carsoul">待开发～</div>
-					<!-- 助理办公告 -->
-					<div class="home-main-left-Notice">待开发～</div>
-				</div>
-				<!-- 主区域右侧 -->
-				<div class="home-main-right">
-					<!-- 今日任务 -->
-          <home-task :user-id="userInfo.uid" class="home-task"></home-task>
-					<!-- 微博 -->
-					<div class="home-main-right-Hot">待开发～</div>
-				</div>
-			</div>
-		</div>
-	</div>
+  <!-- 首页 -->
+  <section class="home">
+    <!-- 账户包裹 -->
+    <div class="home-account">
+      <!-- 账户头像 -->
+      <img
+        class="home-account-img"
+        :src="accountInfo.pugeAvater"
+        alt="账户头像"
+      >
+      <!-- 账户信息 -->
+      <div class="hone-account-infmation">
+        <div class="hone-account-infmation-user">欢迎 {{ accountInfo.nickName }}，开始您一天的工作吧！</div>
+        <div class="hone-account-infmation-date">今日是个好天气</div>
+      </div>
+    </div>
+    <!-- 首页主区域 -->
+    <div class="home-main">
+      <!-- 主区域包裹 -->
+      <div class="home-main-wrap">
+        <!-- 主区域左侧 -->
+        <div class="home-main-left">
+          <!-- 轮播图 -->
+          <div class="home-main-left-carsoul">待开发～</div>
+          <!-- 助理办公告 -->
+          <div class="home-main-left-Notice">待开发～</div>
+        </div>
+        <!-- 主区域右侧 -->
+        <div class="home-main-right">
+          <!-- 今日任务 -->
+          <home-task :user-id="userInfo.uid" class="home-task" />
+          <!-- 微博 -->
+          <div class="home-main-right-Hot">待开发～</div>
+        </div>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import { accountGetInfo } from '~/api/personMessage';
-import HomeTask from './HomeTask.vue';
+import { mapGetters } from 'vuex'
+import { accountGetInfo } from '~/api/personMessage'
+import HomeTask from './HomeTask.vue'
 export default {
-	name: 'welcome',
+  name: 'Welcome',
   components: { HomeTask },
-	data () {
-		return {
+  data() {
+    return {
       // 账户信息
       accountInfo: {}
-		};
-	},
-	computed: {
-		...mapGetters(['userInfo'])
-	},
-	created () {
-		this.fetchAccountInfo();
-	},
-	methods: {
+    }
+  },
+  computed: {
+    ...mapGetters(['userInfo'])
+  },
+  created() {
+    this.fetchAccountInfo()
+  },
+  methods: {
     // 获取账户信息
-		async fetchAccountInfo () {
-      const result = await accountGetInfo(this.userInfo.uid);
-      this.accountInfo = result.data.user;
-		}
-	}
-};
+    async fetchAccountInfo() {
+      const result = await accountGetInfo(this.userInfo.uid)
+      this.accountInfo = result.data.user
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
 .home {
-	height: 100%;
-	position: relative;
 	padding: 0;
 	.home-account {
-		width: inherit;
 		height: 140px;
 		background-color: #fff;
 		border-bottom: 1px solid #e8eaec;
@@ -156,6 +153,5 @@ export default {
 		}
 	}
 }
-
 
 </style>
