@@ -6,10 +6,9 @@
           <Upload class="h100 account-upload" @updatePhoto="updatePhoto">
             <img
               :src="
-                accountInfo.pugeAvater
-                  ? accountInfo.pugeAvater
-                  : 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1813762643,1914315241&fm=26&gp=0.jpg'
+                accountInfo.pugeAvater || 'https://project-resources.puge.net/WechatIMG111.jpeg'
               "
+              onerror="onerror=null;src='https://project-resources.puge.net/WechatIMG111.jpeg'"
             >
           </Upload>
         </el-col>
