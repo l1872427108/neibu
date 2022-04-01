@@ -1,7 +1,7 @@
 <template>
   <div class="layout-navbars-container">
-    <NavBarItem></NavBarItem>
-    <TagView></TagView>
+    <NavBarItem />
+    <TagView />
   </div>
 </template>
 
@@ -11,17 +11,17 @@
 // import topLogs from './topLogs.vue';
 // import { fullscreenToggel, listenerfullscreen } from '~/utils/util';
 // import topLang from './topLang.vue';
-import TagView from '../TagsView/index';
-import NavBarItem from './navBarItem.vue';
+import TagView from '../TagsView/index'
+import NavBarItem from './navBarItem.vue'
 export default {
-    components: {
-        // topLogs,
-        // Breadcrumb,
-        TagView,
-        NavBarItem
-        // topLang
-    }
-};
+  components: {
+    // topLogs,
+    // Breadcrumb,
+    TagView,
+    NavBarItem
+    // topLang
+  }
+}
 </script>
 
 <style scoped lang="scss">

@@ -8,14 +8,14 @@
 </template>
 
 <script>
-import color from '~/mixins/color';
+import color from '~/mixins/color'
 export default {
   name: 'TopColor',
   mixins: [color()],
-  data () {
+  data() {
     return {
       chalk: ''
-    };
+    }
   }
-};
+}
 </script>

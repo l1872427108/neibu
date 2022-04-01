@@ -43,10 +43,10 @@ export default {
     color: '换色'
   },
   tagsView: {
-		refresh: '刷新',
-		close: '关闭',
-		closeOther: '关闭其它',
-		closeAll: '全部关闭',
-		fullscreen: '当前页全屏'
-	}
-};
+    refresh: '刷新',
+    close: '关闭',
+    closeOther: '关闭其它',
+    closeAll: '全部关闭',
+    fullscreen: '当前页全屏'
+  }
+}

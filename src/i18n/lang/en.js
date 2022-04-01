@@ -42,10 +42,10 @@ export default {
     color: 'color'
   },
   tagsView: {
-		refresh: 'refresh',
-		close: 'close',
-		closeOther: 'closeOther',
-		closeAll: 'closeAll',
-		fullscreen: 'fullscreen'
-	}
-};
+    refresh: 'refresh',
+    close: 'close',
+    closeOther: 'closeOther',
+    closeAll: 'closeAll',
+    fullscreen: 'fullscreen'
+  }
+}
