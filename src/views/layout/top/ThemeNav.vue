@@ -2,6 +2,15 @@
   <div class="layout-navbars-user">
     <el-tooltip
       effect="dark"
+      :content="$t('navbar.xws')"
+      placement="bottom"
+    >
+      <div class="layout-navbars-item xws-logo" @click="toXws">
+        <img width="100%" height="100%" src="../../../assets/image/xws.png" alt="">
+      </div>
+    </el-tooltip>
+    <el-tooltip
+      effect="dark"
       :content="$t('navbar.language')"
       placement="bottom"
     >
@@ -25,7 +34,8 @@
     </el-tooltip>
     <img
       class="layout-navbars-image"
-      :src="userInfo.imageUrl ? userInfo.imageUrl : avatar"
+      :src="userInfo.imageUrl || 'https://project-resources.puge.net/WechatIMG111.jpeg'"
+      onerror="onerror=null;src='https://project-resources.puge.net/WechatIMG111.jpeg'"
     >
     <el-dropdown slot="dropdown">
       <span class="el-dropdown-link">
@@ -137,6 +147,9 @@ export default {
     },
     toHome() {
       this.$router.push('/')
+    },
+    toXws() {
+      window.location.href = 'https://xws.puge.cn'
     }
   }
 }
@@ -154,6 +167,11 @@ export default {
     font-size: 16px;
     align-items: center;
     display: flex;
+  }
+  .xws-logo {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
   }
 
   .layout-navbars-image {
