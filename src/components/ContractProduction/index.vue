@@ -72,7 +72,7 @@ export default {
   methods: {
     init() {
       this.canvas = document.getElementById(`the-canvas${this.pages}`)
-      if (this.canvas) {
+      if (this.canvas && this.canvas.getContext) {
         this.context = this.canvas.getContext('2d')
         this.container = document.getElementById('canvas-container')
         this.canvasInit()
@@ -113,7 +113,7 @@ export default {
       this.pdfDoc.getPage(num).then((page) => {
         const canvas = document.getElementById('the-canvas' + num)
         const vp = page.getViewport({ scale: 1 })
-        if (canvas) {
+        if (canvas && canvas.getContext) {
           const ctx = canvas.getContext('2d')
           const dpr = window.devicePixelRatio || 1
           const bsr = ctx.webkitBackingStorePixelRatio ||

@@ -51,7 +51,7 @@ export default {
       default: null
     },
     remoteDialog: {
-      type: Boolean,
+      type: Function,
       default: () => {}
     }
   },

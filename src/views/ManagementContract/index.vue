@@ -50,7 +50,6 @@ import { contractSearch, contractPersonal } from '~/api/contractManagement'
 import { filterStatus, messageStatus, terminateStatus, classStatus } from '~/filters/filter'
 import contractDialog from '~/views/ManagementContract/contractDialog.vue'
 import { mapGetters } from 'vuex'
-import defer from '~/mixins/defer'
 export default {
   components: {
     contractDialog
@@ -61,7 +60,6 @@ export default {
     terminateStatus,
     classStatus
   },
-  mixins: [defer],
   data() {
     return {
       tableData: [],

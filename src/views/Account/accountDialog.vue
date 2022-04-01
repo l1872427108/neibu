@@ -76,14 +76,14 @@
         </el-col>
         <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
           <el-form-item>
-              <el-button type="primary" icon="el-icon-position" @click="updateAccount">{{
-                    $t('account.updateAccountInformation')
-                  }}</el-button>
-                  </el-form-item>
-                  </el-col>
-                </el-row>
-            </el-form>
-    </el-dialog>
+            <el-button type="primary" icon="el-icon-position" @click="updateAccount">{{
+              $t('account.updateAccountInformation')
+            }}</el-button>
+          </el-form-item>
+        </el-col>
+      </el-row>
+    </el-form>
+  </el-dialog>
 </template>
 
 <script>

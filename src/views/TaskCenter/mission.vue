@@ -21,7 +21,7 @@
           label-position="right"
           style="width: 550px"
           :rules="rules"
-          :disabled="pojo.state == 1 ? true : false"
+          :disabled="pojo.state === '1' ? true : false"
         >
           <el-form-item label="任务标题:" prop="title">
             <el-input v-model="pojo.title" autocomplete="off" />
@@ -53,7 +53,7 @@
           <el-form-item label="任务内容:" prop="content">
             <el-input v-model="pojo.content" autocomplete="off" />
           </el-form-item>
-          <el-form-item v-if="pojo.state == 1 ? true : false" label="完成凭证:" prop="voucher">
+          <el-form-item v-if="pojo.state === '1' ? true : false" label="完成凭证:" prop="voucher">
             <el-image
               :src="pojo.voucher"
               class="imgsize"
@@ -62,7 +62,7 @@
             />
           </el-form-item>
         </el-form>
-        <div v-if="pojo.state == 1 ? false : true" slot="footer" class="dialog-footer">
+        <div v-if="pojo.state === '1' ? false : true" slot="footer" class="dialog-footer">
           <el-button @click="dialogFormVisible = false">取 消</el-button>
           <el-button type="primary" @click="submitdata(pojo.id)"> {{ text }} </el-button>
         </div>
@@ -78,18 +78,19 @@
         <el-table-column label="任务内容" align="center" style="width: 20%" prop="content" />
         <el-table-column label="任务状态" align="center" style="width: 20%" prop="state">
           <template slot-scope="scope">
-            <el-tag v-if="scope.row.state == 1" type="success">已完成</el-tag>
-            <el-tag v-if="scope.row.state == 0" type="info">未完成</el-tag>
+            <el-tag v-if="scope.row.state === '1'" type="success">已完成</el-tag>
+            <el-tag v-if="scope.row.state === '0'" type="info">未完成</el-tag>
           </template>
         </el-table-column>
         <el-table-column align="center" width="420" label="操作">
           <!-- 完成,查看,修改,删除按钮 -->
           <template slot-scope="scope" class="font-size">
             <el-button
+              v-show="scope.row.state === '0'"
               size="mini"
               round
               type="success"
-              :disabled="scope.row.state == 1 ? true : false"
+              :disabled="scope.row.state === '1' ? true : false"
               @click="upload(scope.row.id, scope.row.state)"
             >
               完成</el-button>
@@ -97,24 +98,26 @@
               size="mini"
               round
               type="primary"
-              :disabled="scope.row.state == 1 ? false : true"
+              :disabled="scope.row.state === '1' ? false : true"
               @click="edit(scope.row.id, scope.row.state)"
             >
               查看</el-button>
             <!-- 编辑弹框 -->
             <!-- @click="dialogFormVisible = true" -->
             <el-button
+              v-show="scope.row.state === '0'"
               size="mini"
               round
               type="warning"
-              :disabled="scope.row.state == 1 ? true : false"
+              :disabled="scope.row.state === '1' ? true : false"
               @click="look(scope.row.id, scope.row.state)"
             >修改</el-button>
             <el-button
+              v-show="scope.row.state === '0'"
               size="mini"
               round
               type="danger"
-              :disabled="scope.row.state == 1 ? true : false"
+              :disabled="scope.row.state === '1' ? true : false"
               @click="handleDelete(scope.row.id)"
             >删除</el-button>
           </template>
@@ -182,7 +185,10 @@ export default {
       UploadId: '',
       // imageUrl: '',
       voucher: '',
+      // 禁用
       disabled: true,
+      // 隐藏
+      display: 'none',
       dialogTableVisible1: false
     }
   },
@@ -197,9 +203,13 @@ export default {
     this.fetchData(this.time)
   },
   methods: {
-    // 使用异步,切换编辑还是添加
+    /**
+		 * 使用异步,切换编辑还是添加
+		 */
     async submitdata(id) {
-      // 根据id修改
+      /**
+			 * 根据id修改
+			 */
       if (id) {
         await this.handleEdit(id)
         this.$message.success('编辑成功')
@@ -213,25 +223,30 @@ export default {
     colsebtn() {
       this.disabled = 'true'
     },
-    // 将时间选择器的数据转化
+    /**
+		 * 将时间选择器的数据转化
+		 */
     datequery(res) {
       const time = new Date(res).format('yyyy-MM-dd')
-      console.log(time)
+      // console.log(time);
       this.fetchData(time)
     },
-    // 根据时间查询数据
+    /**
+		 * 根据时间查询数据
+		 */
     fetchData(time) {
       todayTimeSearch(time, this.userId).then((response) => {
         this.resp = response.data.tasks
-        console.log(this.resp)
         if (this.resp.time) {
           // 刷新列表数据
           this.fetchData(this.time)
         }
       })
     },
-    // 获取增加api
-    // 添加弹出弹框-》写处理函数并处理添加接口
+    /**
+		 * 获取增加api
+		 * 添加弹出弹框-》写处理函数并处理添加接口
+		 */
     add() {
       this.dialogFormVisible = true
       this.text = '添加'
@@ -243,23 +258,25 @@ export default {
       addTask(this.pojo).then((response) => {
         // this.resp = response.data.tasks;
         this.resp = response.tasks
-        console.log(this.pojo)
+        // console.log(this.pojo);
         // 新增成功，刷新数据
         this.fetchData(this.time)
         this.dialogFormVisible = false
       })
     },
-    // 添加修改弹框-》写处理函数处理（回显）并处理接口
+    /**
+		 * 添加修改弹框-》写处理函数处理（回显）并处理接口
+		 */
     edit(id) {
       this.dialogFormVisible = true
-      this.text = '修改'
+      this.text = '查看'
 
       // 根据id查询任务信息
       taskidSearch(id).then((response) => {
         // 回显数据,需处理时间
-        this.text = '修改'
+        // this.text = '查看';
         this.pojo = response.data.task
-        console.log(this.pojo)
+        // console.log(this.pojo);
       })
     },
     look(id) {
@@ -268,22 +285,26 @@ export default {
       // 根据id查询任务信息
       taskidSearch(id).then((response) => {
         // 回显数据,需处理时间
-        this.text = '修改'
+        // this.text = '修改';
         this.pojo = response.data.task
-        console.log(this.pojo)
+        // console.log(this.pojo);
       })
     },
-    // 修改
+    /**
+		 * 修改
+		 */
     handleEdit() {
       this.pojo.startTime = this.pojo.startTime.slice(0, 5) + ':00'
       this.pojo.lastTime = this.pojo.lastTime.slice(0, 5) + ':00'
-      console.log(this.pojo)
+      // console.log(this.pojo);
       amendTask(this.pojo).then((response) => {
         this.resp = response.data.task
         this.fetchData(this.time)
       })
     },
-    // 根据id删除任务
+    /**
+		 * 根据id删除任务
+		 */
     handleDelete(id) {
       this.$confirm('确认删除这条记录吗？', '提示', {
         confirmButtonText: '确认',

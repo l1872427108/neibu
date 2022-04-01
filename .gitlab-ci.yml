@@ -1,45 +1,55 @@
 before_script:
-  - echo "-----开始----"
+  - echo "-----开始构建----"
 
+# Stages 表示构建阶段，这里有两个阶段 build, deploy
 stages:
   - build
   - deploy
 
-build:
-  before_script:
-    - echo "开始打包"
+# 线上
+prod-build:
   stage: build
+  before_script:
+    - echo "开始下载依赖，并打包..."
   tags:
-    - puge-test
+    - puge-fe-prod
+  # 定义了只有在被merge到了puge-prod分支上 才会执行部署脚本。
   only:
-    - develop-test
+    - puge-prod
   script:
-    - ls
-    - id
-    - sudo npm install node-sass --unsafe-perm --save-dev
+    - node -v && npm -v
+    - pwd
+    - echo "切换npm源并查看此源"
+    - npm config set registry https://registry.npm.taobao.org/
+    - npm config get registry
+    - echo "开始下载node_module..."
     - npm install
+    - echo "下载完成，开始打包.."
     - npm run build
-    - mv dist /home
     - ls
-    - rm -rf /home/gitlab-runner/builds
+    - mv dist /home
   after_script:
+    - rm -rf /home/gitlab-runner/builds
     - echo "打包完成"
-testprod:
+
+prod-deploy:
   stage: deploy
+  before_script:
+    - echo "开始部署..."
   tags:
-    - puge-test
+    - puge-fe-prod
+  # 定义了只有在被merge到了puge-prode分支上 才会执行部署脚本。
   only:
-    - develop-test
+    - puge-prod
   script:
-    - rm -rf /usr/local/puge-prod/inside-dist
-    - cd /home
-    - mv dist /usr/local/puge-prod/inside-dist
+    - rm -rf /usr/local/puge-prod/inside-dist/*
+    - mv /home/dist/* /usr/local/puge-prod/inside-dist/
     - rm -rf /home/dist
-    - rm -rf /home/gitlab-runner/builds
+    - echo "重新加载nginx"
+    - /usr/local/webserver/nginx/sbin/nginx -s reload
   after_script:
+    - rm -rf /home/gitlab-runner/builds
     - echo "部署完成"
 
-
 after_script:
-  - echo "----结束----"
-
+  - echo "----结束上线流程----"

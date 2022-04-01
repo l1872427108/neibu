@@ -8,7 +8,6 @@
       <img
         class="home-account-img"
         :src="accountInfo.pugeAvater"
-        alt="账户头像"
       >
       <!-- 账户信息 -->
       <div class="hone-account-infmation">

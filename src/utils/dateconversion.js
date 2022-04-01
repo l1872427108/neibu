@@ -1,4 +1,4 @@
-export const format = function(fmt) {
+Date.prototype.format = function(fmt) {
   const o = {
     'M+': this.getMonth() + 1, // 月份
     'd+': this.getDate(), // 日
