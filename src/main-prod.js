@@ -1,22 +1,22 @@
-import Vue from 'vue';
-import App from '~/App.vue';
-import router from '~/router';
-import store from '~/store';
-import i18n from '~/i18n';
-import '~/styles/index.scss';
-import '~/permission';
-import '~/directives';
-const req = require.context('~/assets/svg', false, /\.svg$/);
-const requireAll = requireContext => requireContext.keys().map(requireContext);
-requireAll(req);
+import Vue from 'vue'
+import App from '~/App.vue'
+import router from '~/router'
+import store from '~/store'
+import i18n from '~/i18n'
+import '~/styles/index.scss'
+import '~/permission'
+import '~/directives'
+const req = require.context('~/assets/svg', false, /\.svg$/)
+const requireAll = requireContext => requireContext.keys().map(requireContext)
+requireAll(req)
 
-Vue.config.productionTip = false;
+Vue.config.productionTip = false
 
-Vue.prototype.$bus = new Vue();
+Vue.prototype.$bus = new Vue()
 
 new Vue({
-    router,
-    store,
-    i18n,
-    render: h => h(App)
-}).$mount('#app');
+  router,
+  store,
+  i18n,
+  render: h => h(App)
+}).$mount('#app')

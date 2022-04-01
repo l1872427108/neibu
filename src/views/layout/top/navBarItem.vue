@@ -1,19 +1,19 @@
 <template>
   <div class="layout-navbars-breadcrumb-index">
     <Breadcrumb />
-    <ThemeNav></ThemeNav>
+    <ThemeNav />
   </div>
 </template>
 
 <script>
-import Breadcrumb from '~/components/Breadcrumb';
-import ThemeNav from './ThemeNav.vue';
+import Breadcrumb from '~/components/Breadcrumb'
+import ThemeNav from './ThemeNav.vue'
 export default {
-    components: {
-        Breadcrumb,
-        ThemeNav
-    }
-};
+  components: {
+    Breadcrumb,
+    ThemeNav
+  }
+}
 </script>
 
 <style scoped lang="scss">

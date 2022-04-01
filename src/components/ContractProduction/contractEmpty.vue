@@ -1,53 +1,56 @@
 <template>
-    <el-dialog
-        title="合同不存在"
-        :visible.sync="visible"
-        width="50%"
-        :before-close="handleClose"
-        destroy-on-close
-        center
-        :show-close="false"
-        :close-on-click-modal="false"
+  <el-dialog
+    title="合同不存在"
+    :visible.sync="visible"
+    width="50%"
+    :before-close="handleClose"
+    destroy-on-close
+    center
+    :show-close="false"
+    :close-on-click-modal="false"
+  >
+    <div class="error-page-content">
+      <img
+        :src="`${require('~/assets/svg/errorPage.svg')}`"
       >
-        <div class="error-page-content">
-        <img
-            :src="`${require('~/assets/svg/errorPage.svg')}`"
-        >
-        <div class="error-text">
-            <div class="error">
-            404
-            </div>
-            <div class="sorry">
-            抱歉，该合同不存在，请联系管理员。
-            </div>
-            <el-button
-            type="primary"
-            @click="backHome"
-            >返回首页</el-button>
+      <div class="error-text">
+        <div class="error">
+          404
+        </div>
+        <div class="sorry">
+          抱歉，该合同不存在，请联系管理员。
+        </div>
+        <el-button
+          type="primary"
+          @click="backHome"
+        >返回首页</el-button>
       </div>
     </div>
-      </el-dialog>
+  </el-dialog>
 </template>
 
 <script>
 export default {
-    props: {
-        visible: {
-            // 弹窗窗口
-            type: Boolean,
-            default: false
-        },
-        remoteClose: Function
+  props: {
+    visible: {
+      // 弹窗窗口
+      type: Boolean,
+      default: false
     },
-    methods: {
-        handleClose () {
-            this.remoteClose();
-        },
-        backHome () {
-            document.location.href = '/';
-        }
+    remoteClose: {
+      type: Function,
+      default: () => {}
     }
-};
+  },
+  methods: {
+    handleClose() {
+      this.remoteClose()
+    },
+    backHome() {
+      document.location.href = '/'
+    }
+  }
+}
 </script>
 
 <style scoped lang="scss">

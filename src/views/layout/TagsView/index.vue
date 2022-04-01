@@ -16,24 +16,24 @@
         <span v-if="!isAffix(tag)" class="el-icon-close" @click.prevent.stop="closeSelectedTag(tag)" />
       </router-link>
     </scroll-pane>
-     <transition name="el-zoom-in-center">
-        <ul v-if="defer(2)" v-show="visible" :style="`top: ${this.tagsDropdown.y}px;left: ${this.tagsDropdown.x}px;`" class="contextmenu">
-          <li v-if="!isAffix(selectedTag)" @click="closeSelectedTag(selectedTag)"><i class="el-icon-close"></i><span>{{$t('tagsView.close')}}</span></li>
-          <li @click="closeOthersTags"><i class="el-icon-circle-close"></i><span>{{$t('tagsView.closeOther')}}</span></li>
-          <li @click="closeAllTags(selectedTag)"><i class="el-icon-circle-close"></i><span>{{$t('tagsView.closeOther')}}</span></li>
-        </ul>
-     </transition>
+    <transition name="el-zoom-in-center">
+      <ul v-if="defer(2)" v-show="visible" :style="`top: ${tagsDropdown.y}px;left: ${tagsDropdown.x}px;`" class="contextmenu">
+        <li v-if="!isAffix(selectedTag)" @click="closeSelectedTag(selectedTag)"><i class="el-icon-close" /><span>{{ $t('tagsView.close') }}</span></li>
+        <li @click="closeOthersTags"><i class="el-icon-circle-close" /><span>{{ $t('tagsView.closeOther') }}</span></li>
+        <li @click="closeAllTags(selectedTag)"><i class="el-icon-circle-close" /><span>{{ $t('tagsView.closeOther') }}</span></li>
+      </ul>
+    </transition>
   </div>
 </template>
 
 <script>
-import ScrollPane from './ScrollPane';
-import path from 'path';
-import defer from '~/mixins/defer';
+import ScrollPane from './ScrollPane'
+import path from 'path'
+import defer from '~/mixins/defer'
 export default {
   components: { ScrollPane },
   mixins: [defer],
-  data () {
+  data() {
     return {
       visible: false,
       top: 0,
@@ -41,151 +41,151 @@ export default {
       selectedTag: {},
       affixTags: [],
       tagsDropdown: {
-				x: '',
-				y: ''
-			}
-    };
-  },
-  computed: {
-    visitedViews () {
-      return this.$store.state.tagsView.visitedViews;
-    },
-    routes () {
-      // return this.$store.state.permission.routes
-      return this.$router.options.routes;
-    }
-  },
-  watch: {
-    $route () {
-      this.addTags();
-      this.moveToCurrentTag();
-    },
-    visible (value) {
-      if (value) {
-        document.body.addEventListener('click', this.closeMenu);
-      } else {
-        document.body.removeEventListener('click', this.closeMenu);
+        x: '',
+        y: ''
       }
     }
   },
-  mounted () {
-    this.initTags();
-    this.addTags();
+  computed: {
+    visitedViews() {
+      return this.$store.state.tagsView.visitedViews
+    },
+    routes() {
+      // return this.$store.state.permission.routes
+      return this.$router.options.routes
+    }
+  },
+  watch: {
+    $route() {
+      this.addTags()
+      this.moveToCurrentTag()
+    },
+    visible(value) {
+      if (value) {
+        document.body.addEventListener('click', this.closeMenu)
+      } else {
+        document.body.removeEventListener('click', this.closeMenu)
+      }
+    }
+  },
+  mounted() {
+    this.initTags()
+    this.addTags()
   },
   methods: {
-    isActive (route) {
-      return route.path === this.$route.path;
+    isActive(route) {
+      return route.path === this.$route.path
     },
-    isAffix (tag) {
-      return tag.meta && tag.meta.affix;
+    isAffix(tag) {
+      return tag.meta && tag.meta.affix
     },
-    filterAffixTags (routes, basePath = '/') {
-      let tags = [];
+    filterAffixTags(routes, basePath = '/') {
+      let tags = []
       routes.forEach(route => {
         if (route.meta && route.meta.affix) {
-          const tagPath = path.resolve(basePath, route.path);
+          const tagPath = path.resolve(basePath, route.path)
           tags.push({
             fullPath: tagPath,
             path: tagPath,
             name: route.name,
             meta: { ...route.meta }
-          });
+          })
         }
         if (route.children) {
-          const tempTags = this.filterAffixTags(route.children, route.path);
+          const tempTags = this.filterAffixTags(route.children, route.path)
           if (tempTags.length >= 1) {
-            tags = [...tags, ...tempTags];
+            tags = [...tags, ...tempTags]
           }
         }
-      });
-      return tags;
+      })
+      return tags
     },
-    initTags () {
-      const affixTags = this.affixTags = this.filterAffixTags(this.routes);
+    initTags() {
+      const affixTags = this.affixTags = this.filterAffixTags(this.routes)
       for (const tag of affixTags) {
         // Must have tag name
         if (tag.name) {
-          this.$store.dispatch('tagsView/addVisitedView', tag);
+          this.$store.dispatch('tagsView/addVisitedView', tag)
         }
       }
     },
-    addTags () {
-      const { name } = this.$route;
+    addTags() {
+      const { name } = this.$route
       if (name) {
-        this.$store.dispatch('tagsView/addView', this.$route);
+        this.$store.dispatch('tagsView/addView', this.$route)
       }
-      return false;
+      return false
     },
-    moveToCurrentTag () {
-      const tags = this.$refs.tag;
+    moveToCurrentTag() {
+      const tags = this.$refs.tag
       this.$nextTick(() => {
         for (const tag of tags) {
           if (tag.to.path === this.$route.path) {
-            this.$refs.scrollPane.moveToTarget(tag);
+            this.$refs.scrollPane.moveToTarget(tag)
             // when query is different then update
             if (tag.to.fullPath !== this.$route.fullPath) {
-              this.$store.dispatch('tagsView/updateVisitedView', this.$route);
+              this.$store.dispatch('tagsView/updateVisitedView', this.$route)
             }
-            break;
+            break
           }
         }
-      });
+      })
     },
-    refreshSelectedTag (view) {
+    refreshSelectedTag(view) {
       this.$store.dispatch('tagsView/delCachedView', view).then(() => {
-        const { fullPath } = view;
+        const { fullPath } = view
         // 获取的完整路由地址
         this.$nextTick(() => {
           this.$router.replace({
             path: '/redirect' + fullPath // /redirect/blog/category
-          });
-        });
-      });
+          })
+        })
+      })
     },
-    closeSelectedTag (view) {
+    closeSelectedTag(view) {
       this.$store.dispatch('tagsView/delView', view).then(({ visitedViews }) => {
         if (this.isActive(view)) {
-          this.toLastView(visitedViews, view);
+          this.toLastView(visitedViews, view)
         }
-      });
+      })
     },
-    closeOthersTags () {
-      this.$router.push(this.selectedTag);
+    closeOthersTags() {
+      this.$router.push(this.selectedTag)
       this.$store.dispatch('tagsView/delOthersViews', this.selectedTag).then(() => {
-        this.moveToCurrentTag();
-      });
+        this.moveToCurrentTag()
+      })
     },
-    closeAllTags (view) {
+    closeAllTags(view) {
       this.$store.dispatch('tagsView/delAllViews').then(({ visitedViews }) => {
         if (this.affixTags.some(tag => tag.path === view.path)) {
-          return;
+          return
         }
-        this.toLastView(visitedViews, view);
-      });
+        this.toLastView(visitedViews, view)
+      })
     },
-    toLastView (visitedViews, view) {
-      const latestView = visitedViews.slice(-1)[0];
+    toLastView(visitedViews, view) {
+      const latestView = visitedViews.slice(-1)[0]
       if (latestView) {
-        this.$router.push(latestView.fullPath);
+        this.$router.push(latestView.fullPath)
       } else {
-        this.$router.push('/welcome');
+        this.$router.push('/welcome')
       }
     },
-    closeMenu () {
-      this.visible = false;
+    closeMenu() {
+      this.visible = false
     },
-    handleScroll () {
-      this.closeMenu();
+    handleScroll() {
+      this.closeMenu()
     },
-    onContextmenu (tag, e) {
-			const { clientX, clientY } = e;
-			this.tagsDropdown.x = clientX;
-			this.tagsDropdown.y = clientY;
-      this.visible = true;
-      this.selectedTag = tag;
-		}
+    onContextmenu(tag, e) {
+      const { clientX, clientY } = e
+      this.tagsDropdown.x = clientX
+      this.tagsDropdown.y = clientY
+      this.visible = true
+      this.selectedTag = tag
+    }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

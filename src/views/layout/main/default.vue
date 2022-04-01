@@ -1,13 +1,11 @@
 <template>
-    <el-container class="layout-container">
-
-    </el-container>
+  <el-container class="layout-container" />
 </template>
 
 <script>
 export default {
 
-};
+}
 </script>
 
 <style>

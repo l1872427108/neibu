@@ -25,22 +25,22 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex'
 export default {
   name: 'TopLang',
-  data () {
-    return {};
+  data() {
+    return {}
   },
   computed: {
     ...mapGetters(['language'])
   },
   methods: {
-    handleSetLanguage (lang) {
-      this.$i18n.locale = lang;
-      this.$store.commit('common/SET_LANGUAGE', lang);
+    handleSetLanguage(lang) {
+      this.$i18n.locale = lang
+      this.$store.commit('common/SET_LANGUAGE', lang)
     }
   }
-};
+}
 </script>
 
 <style lang="scss">

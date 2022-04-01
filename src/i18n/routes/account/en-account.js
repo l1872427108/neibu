@@ -27,4 +27,4 @@ export default {
     pleaseSchoolAge: 'Please enter your grade',
     pleasePassword: 'Please enter your password'
   }
-};
+}

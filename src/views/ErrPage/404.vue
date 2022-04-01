@@ -23,11 +23,11 @@
 <script>
 export default {
   methods: {
-    backHome () {
-      document.location.href = '/';
+    backHome() {
+      document.location.href = '/'
     }
   }
-};
+}
 </script>
 
 <style lang='scss' scoped>
