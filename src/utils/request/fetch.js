@@ -7,7 +7,6 @@ import {
 } from '../cache/cookie'
 
 import { contentType, needLoadingRequest, requestTimeout, CANCEL_REQUEST_TYPE } from '~/config/website'
-import { addPendingXHR, removePendingXHR } from './requestFilter'
 
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
@@ -18,8 +17,6 @@ const service = axios.create({
 })
 
 service.interceptors.request.use(params => {
-  removePendingXHR(params)
-  addPendingXHR(params)
   const config = {
     ...params
   }

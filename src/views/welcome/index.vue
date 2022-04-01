@@ -7,7 +7,7 @@
       <!-- 账户头像 -->
       <img
         class="home-account-img"
-        :src="accountInfo.pugeAvater"
+        :src="userInfo.imageUrl"
       >
       <!-- 账户信息 -->
       <div class="hone-account-infmation">
@@ -82,6 +82,9 @@ export default {
 			border-radius: 50%;
 			width: 80px;
 			height: 80px;
+      background-image: url('https://img0.baidu.com/it/u=1479178160,1916382043&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=505');
+      background-repeat: no-repeat;
+      background-size: cover;
 		}
 		.hone-account-infmation {
 			display: flex;

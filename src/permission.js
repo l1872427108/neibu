@@ -7,7 +7,7 @@ import store from './store'
 import Nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
 import { progressBar } from '~/setting'
-import { whiteList, pendingXHRMap } from '~/config/website'
+import { whiteList } from '~/config/website'
 import { useTitle } from './utils/load/setWebTitle'
 
 Nprogress.configure({
@@ -18,10 +18,6 @@ Nprogress.configure({
 })
 
 router.beforeEach(async(to, from, next) => {
-  pendingXHRMap.forEach((cancel) => {
-    cancel()
-  })
-  pendingXHRMap.clear()
   if (progressBar) Nprogress.start()
   const hasToken = Cookie.get(Key.accessTokenKey)
   if (hasToken) {
