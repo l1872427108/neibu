@@ -39,7 +39,8 @@ export default {
     screenfull: 'screenfull',
     language: 'language',
     theme: 'theme',
-    color: 'color'
+    color: 'color',
+    xws: 'Shopping'
   },
   tagsView: {
     refresh: 'refresh',
