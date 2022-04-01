@@ -40,7 +40,8 @@ export default {
     screenfull: '全屏',
     language: '中英文',
     theme: '主题',
-    color: '换色'
+    color: '换色',
+    xws: '闲物室'
   },
   tagsView: {
     refresh: '刷新',
