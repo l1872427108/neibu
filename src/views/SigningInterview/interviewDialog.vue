@@ -30,8 +30,8 @@
           />
           <el-table-column label="操作" align="center">
             <template slot-scope="scope">
-              <el-tag v-if="scope.row.nowStatue === 1" size="medium" effect="dark" type="primary">已通过</el-tag>
-              <el-tag v-if="scope.row.nowStatue === 2" size="medium" effect="dark" type="danger">未通过</el-tag>
+              <el-tag v-if="scope.row.nowStatue == 1" size="medium" effect="dark" type="primary">已通过</el-tag>
+              <el-tag v-if="scope.row.nowStatue == 2" size="medium" effect="dark" type="danger">未通过</el-tag>
             </template>
           </el-table-column>
         </el-table>
@@ -51,7 +51,7 @@
             </div>
           </div>
         </el-card>
-        <div v-if="stepListValue && stepListValue[0].nowStatue === 0" class="step-list-btn">
+        <div v-if="stepListValue && stepListValue[0].nowStatue == 0" class="step-list-btn">
           <el-button
             v-show="flag"
             size="mini"
@@ -196,9 +196,9 @@ export default {
       // 清除第一个
       // 走到第二个   activeNum 它的  1 条.
       // 展示。 最新的一个判断条件  0  == 0  - >  蓝色
-      if (this.stepList[activeNum - 1][0].nowStatue === 2) {
+      if (this.stepList[activeNum - 1][0].nowStatue == 2) {
         this.$refs.step[activeNum - 1].$el.classList.add('is-danger')
-      } else if (this.stepList[activeNum - 1][0].nowStatue === 0) {
+      } else if (this.stepList[activeNum - 1][0].nowStatue == 0) {
         this.$refs.step[activeNum - 1].$el.classList.add('is-info')
       }
     },
@@ -213,17 +213,17 @@ export default {
     },
     // 数组分块
     chunk(arr, size = 1) {
-      if (arr.length === 0) {
+      if (arr.length == 0) {
         return []
       }
       const result = []
       let tmp = []
       arr.forEach(item => {
-        if (tmp.length === 0) {
+        if (tmp.length == 0) {
           result.push(tmp)
         }
         tmp.push(item)
-        if (tmp.length === size) {
+        if (tmp.length == size) {
           tmp = []
         }
       })
