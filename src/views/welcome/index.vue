@@ -23,16 +23,17 @@
         <!-- 主区域左侧 -->
         <div class="home-main-left">
           <!-- 轮播图 -->
-              <home-carousel class="home-main-left-carsoul"></home-carousel>
+          <home-carousel class="home-main-left-carsoul" />
           <!-- 助理办公告 -->
-              <div class="home-main-left-Notice">待开发～</div>
+          <div class="home-main-left-Notice">待开发～</div>
         </div>
         <!-- 主区域右侧 -->
         <div class="home-main-right">
           <!-- 今日任务 -->
           <home-task :user-id="userInfo.uid" class="home-task" />
           <!-- 微博 -->
-          <div class="home-main-right-Hot">待开发～</div>
+          <!-- <div class="home-main-right-Hot">待开发～</div> -->
+          <home-hot class="home-main-right-Hot" />
         </div>
       </div>
     </div>
@@ -42,11 +43,12 @@
 <script>
 import { mapGetters } from 'vuex'
 import { accountGetInfo } from '~/api/personMessage'
-import HomeCarousel from './homeCarousel.vue';
+import HomeCarousel from './homeCarousel.vue'
 import HomeTask from './HomeTask.vue'
+import HomeHot from './homeHot.vue'
 export default {
   name: 'Welcome',
-  components: { HomeTask, HomeCarousel },
+  components: { HomeTask, HomeCarousel, HomeHot },
   data() {
     return {
       // 账户信息
@@ -58,19 +60,18 @@ export default {
     ...mapGetters(['userInfo'])
   },
   created() {
-    this.fetchAccountInfo();
+    this.fetchAccountInfo()
     // this.$refs.imgSrc.onerror = (res) => {
     //   console.log(res);
     // }
-
   },
   methods: {
     // 获取账户信息
     async fetchAccountInfo() {
       const result = await accountGetInfo(this.userInfo.uid)
       this.accountInfo = result.data.user
-      console.log(this.accountInfo);
-    },
+      console.log(this.accountInfo)
+    }
     // errorHandler() {
     //   return true;
     // }
@@ -145,15 +146,22 @@ export default {
       width: 100%;
     }
 		.home-main-right-Hot {
-			margin-top: 20px;
+			// margin-top: 20px;
+			// width: 100%;
+			// background-color: #fff;
+			// height: 280px;
+      // display: flex;
+			// justify-content: center;
+			// align-items: center;
+      // font-size: 20px;
+			// font-weight: 700;
+      margin-top: 20px;
+			padding: 20px;
+			box-sizing: border-box;
 			width: 100%;
 			background-color: #fff;
 			height: 280px;
-      display: flex;
-			justify-content: center;
-			align-items: center;
-      font-size: 20px;
-			font-weight: 700;
+			overflow: hidden;
 		}
 	}
 }

@@ -9,9 +9,24 @@ export function searchTask(userId) {
   })
 }
 
+/**
+ * 轮播图查询
+ * @returns
+ */
 export function searchCarousel() {
   return request({
     url: `/inside/inside/inspirational-picture/selectRandomPicture`,
     method: 'get'
+  })
+}
+
+/**
+ * 微博热搜
+ * @returns
+ */
+export function weiboHotSearch() {
+  return request({
+    url: '/inside/inside/homepage/getWeiBoTopApi',
+    method: 'post'
   })
 }
