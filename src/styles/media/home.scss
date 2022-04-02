@@ -1,0 +1,27 @@
+@import './media.scss';
+
+/* 页面宽度小于768px */
+@media screen and (max-width: $sm) {
+	// Breadcrumb 面包屑
+	.home-main-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .home-main-left {
+      width: 100% !important;
+    }
+    .home-main-right {
+      width: 100% !important;
+    }
+    .home-main-right-Hot {
+      margin-bottom: 100px;
+    }
+  }
+}
+
+/* 页面宽度小于1000px */
+@media screen and (max-width: 1000px) {
+	.el-container {
+		flex-direction: row !important;
+	}
+}

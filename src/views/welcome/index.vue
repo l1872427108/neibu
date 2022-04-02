@@ -23,9 +23,9 @@
         <!-- 主区域左侧 -->
         <div class="home-main-left">
           <!-- 轮播图 -->
-          <div class="home-main-left-carsoul">待开发～</div>
+              <home-carousel class="home-main-left-carsoul"></home-carousel>
           <!-- 助理办公告 -->
-          <div class="home-main-left-Notice">待开发～</div>
+              <div class="home-main-left-Notice">待开发～</div>
         </div>
         <!-- 主区域右侧 -->
         <div class="home-main-right">
@@ -42,10 +42,11 @@
 <script>
 import { mapGetters } from 'vuex'
 import { accountGetInfo } from '~/api/personMessage'
+import HomeCarousel from './homeCarousel.vue';
 import HomeTask from './HomeTask.vue'
 export default {
   name: 'Welcome',
-  components: { HomeTask },
+  components: { HomeTask, HomeCarousel },
   data() {
     return {
       // 账户信息
@@ -123,13 +124,7 @@ export default {
 		}
 		.home-main-left-carsoul {
 			width: 100%;
-			height: 300px;
 			background-color: #fff;
-			font-size: 30px;
-			font-weight: 700;
-			display: flex;
-			justify-content: center;
-			align-items: center;
 		}
 
 		.home-main-left-Notice {

@@ -8,3 +8,10 @@ export function searchTask(userId) {
     method: 'get'
   })
 }
+
+export function searchCarousel() {
+  return request({
+    url: `/inside/inside/inspirational-picture/selectRandomPicture`,
+    method: 'get'
+  })
+}
