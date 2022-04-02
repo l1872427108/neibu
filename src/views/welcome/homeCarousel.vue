@@ -4,18 +4,18 @@
       <!-- 轮播图内容包裹区域 -->
       <div class="carousel-wrap">
         <!-- 图片 -->
-        <el-image :src="item.pictureUrl"></el-image>
+        <el-image :src="item.pictureUrl" />
         <!-- 文字 -->
-        <p class="carousel-title">{{item.sentence}}</p>
+        <p class="carousel-title">{{ item.sentence }}</p>
         <!-- 标志 -->
-        <p class="carousel-title-copyright"> <i class="el-icon-minus"></i>puge</p>
+        <p class="carousel-title-copyright"> <i class="el-icon-minus" />puge</p>
       </div>
     </el-carousel-item>
   </el-carousel>
 </template>
 
 <script>
-import { searchCarousel } from '~/api/home';
+import { searchCarousel } from '~/api/home'
 export default {
   name: 'HomeCarousel',
   data() {
@@ -25,14 +25,14 @@ export default {
     }
   },
   created() {
-    this.getCarouselData();
+    this.getCarouselData()
   },
   methods: {
     // 获取轮播图
     async getCarouselData() {
-      const res = await searchCarousel();
-      console.log(res.data.arrayList);
-      this.carouselList = res.data.arrayList;
+      const res = await searchCarousel()
+      console.log(res.data.arrayList)
+      this.carouselList = res.data.arrayList
     }
   }
 }
