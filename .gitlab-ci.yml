@@ -18,7 +18,7 @@ build:
     - id
     - sudo npm install node-sass --unsafe-perm --save-dev
     - npm install
-    - npm run build
+    - npm run test
     - mv dist /home
     - ls
     - rm -rf /home/gitlab-runner/builds
