@@ -5,6 +5,7 @@ before_script:
 stages:
   - build
   - deploy
+
 build:
   before_script:
     - echo "开始打包"
@@ -18,7 +19,7 @@ build:
     - id
     - sudo npm install node-sass --unsafe-perm --save-dev
     - npm install
-    - npm run build
+    - npm run test
     - mv dist /home
     - ls
     - rm -rf /home/gitlab-runner/builds
@@ -87,3 +88,4 @@ prod-deploy:
 
 after_script:
   - echo "----结束上线流程----"
+
