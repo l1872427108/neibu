@@ -6,7 +6,7 @@ stages:
   - build
   - deploy
 
-test-build:
+build:
   before_script:
     - echo "开始打包"
   stage: build
@@ -39,7 +39,6 @@ testprod:
     - rm -rf /home/gitlab-runner/builds
   after_script:
     - echo "部署完成"
-
 
 
 # 线上
