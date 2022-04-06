@@ -16,6 +16,7 @@
         <div class="hone-account-infmation-date">今日是个好天气</div>
       </div>
     </div>
+
     <!-- 首页主区域 -->
     <div class="home-main">
       <!-- 主区域包裹 -->
