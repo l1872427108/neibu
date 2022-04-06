@@ -12,7 +12,7 @@
       >
       <!-- 账户信息 -->
       <div class="hone-account-infmation">
-        <div class="hone-account-infmation-user">欢迎 {{ accountInfo.nickName }}，开始您一天的工作吧！</div>
+        <div class="hone-account-infmation-user">欢迎 {{accountInfo.pugeLevel}} {{ accountInfo.nickName }}，开始您一天的工作吧！</div>
         <div class="hone-account-infmation-date">今日是个好天气</div>
       </div>
     </div>
@@ -64,11 +64,13 @@ export default {
     // this.$refs.imgSrc.onerror = (res) => {
     //   console.log(res);
     // }
+    console.log('==>', this.userInfo);
   },
   methods: {
     // 获取账户信息
     async fetchAccountInfo() {
       const result = await accountGetInfo(this.userInfo.uid)
+      console.log(result);
       this.accountInfo = result.data.user
       console.log(this.accountInfo)
     }
