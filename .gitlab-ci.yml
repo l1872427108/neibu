@@ -6,7 +6,7 @@ stages:
   - build
   - deploy
 
-build:
+test-build:
   before_script:
     - echo "开始打包"
   stage: build
