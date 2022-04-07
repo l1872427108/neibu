@@ -28,10 +28,10 @@
         </el-form-item>
 
         <el-form-item label="报销凭证: " prop="payPicture">
-          <Upload :image-url="formData.payPicture" :class-name="'avatar-uploader'" :extend="'.jpg,.png'" @func="image" />
+          <Upload :image-url="formData.payPicture" :class-name="'avatar-uploader'" :extend="'.jpg,.png'" @updatePhoto="image" />
         </el-form-item>
         <el-form-item label="报销二维码: " prop="payerQrcode">
-          <Upload :image-url="formData.payerQrcode" :class-name="'avatar-uploader'" :extend="'.jpg,.png'" @func="imageQR" />
+          <Upload :image-url="formData.payerQrcode" :class-name="'avatar-uploader'" :extend="'.jpg,.png'" @updatePhoto="imageQR" />
         </el-form-item>
 
         <el-form-item>
@@ -127,6 +127,7 @@ export default {
       })
     },
     image(img) {
+      console.log(img);
       this.formData.payPicture = img
     },
     imageQR(img) {
