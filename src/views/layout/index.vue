@@ -5,7 +5,7 @@
     <side-bar />
     <el-container class="flex-center layout-main layout-backtop">
       <top />
-      <el-scrollbar ref="layoutDefaultsScrollbarRef">
+      <el-scrollbar ref="layoutDefaultsScrollbarRef" v-watermark>
         <keep-alive>
           <router-view
             v-if="$route.meta.keepAlive"
