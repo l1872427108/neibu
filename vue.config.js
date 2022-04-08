@@ -107,6 +107,21 @@ module.exports = {
       })
     console.log(process.env.NODE_ENV)
     config
+      .when(process.env.NODE_ENV === 'test', config => {
+        config.entry('app').clear().add('./src/main-prod.js')
+        config.plugins.delete('prefetch').delete('preload')
+        config.set('externals', {
+          vue: 'Vue',
+          'vue-router': 'VueRouter',
+          axios: 'axios',
+          'element-ui': 'ELEMENT'
+        })
+        config.plugin('html').tap(args => {
+          args[0].isProd = true
+          return args
+        })
+      })
+    config
       .when(process.env.NODE_ENV === 'development', config => {
         config.entry('app').clear().add('./src/main-dev.js')
         config.plugin('html').tap(args => {

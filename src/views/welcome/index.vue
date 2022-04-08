@@ -12,10 +12,15 @@
       >
       <!-- 账户信息 -->
       <div class="hone-account-infmation">
-        <div class="hone-account-infmation-user">欢迎 {{ accountInfo.nickName }}，开始您一天的工作吧！</div>
+        <div class="hone-account-infmation-user">欢迎 {{accountInfo.pugeLevel}} {{ accountInfo.nickName }},开始您一天的工作吧！</div>
         <div class="hone-account-infmation-date">今日是个好天气</div>
       </div>
+
+      <div class="home-account-time">
+        进入普歌 {{currentTime}} 天
+      </div>
     </div>
+
     <!-- 首页主区域 -->
     <div class="home-main">
       <!-- 主区域包裹 -->
@@ -46,6 +51,7 @@ import { accountGetInfo } from '~/api/personMessage'
 import HomeCarousel from './homeCarousel.vue'
 import HomeTask from './HomeTask.vue'
 import HomeHot from './homeHot.vue'
+import {datedifference, toTime} from '../../utils/date/date';
 export default {
   name: 'Welcome',
   components: { HomeTask, HomeCarousel, HomeHot },
@@ -53,7 +59,8 @@ export default {
     return {
       // 账户信息
       accountInfo: {},
-      src: ''
+      src: '',
+      currentTime: 0
     }
   },
   computed: {
@@ -64,13 +71,16 @@ export default {
     // this.$refs.imgSrc.onerror = (res) => {
     //   console.log(res);
     // }
+    console.log('==>', this.accountInfo);
   },
   methods: {
     // 获取账户信息
     async fetchAccountInfo() {
       const result = await accountGetInfo(this.userInfo.uid)
+      console.log(result);
       this.accountInfo = result.data.user
-      console.log(this.accountInfo)
+      console.log(this.accountInfo.gmtCreate, toTime(new Date()));
+      this.currentTime = datedifference(this.accountInfo.gmtCreate, toTime(new Date()));
     }
     // errorHandler() {
     //   return true;
@@ -101,6 +111,11 @@ export default {
 			margin-left: 20px;
 			justify-content: flex-start;
 		}
+    .home-account-time {
+      // display: flex;
+      // // flex-direction:row-reverse
+      margin-left: 400px;
+    }
 		.hone-account-infmation-user {
 			font-size: 20px;
 			font-weight: 700;
