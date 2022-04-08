@@ -1,12 +1,11 @@
 import store from '~/store'
-console.log(store.getters.userInfo.nickName);
 
 
 function watermark() {
   let prevDivId = 0;
 
   const number180 = 180;
-  const names = store.getters.userInfo.nickName;
+  const names = store.getters?.userInfo?.nickName;
   // 生成水印
   const setWatermark = markObj => {
     // 默认设置
