@@ -53,7 +53,9 @@
         </el-card>
       </el-timeline-item>
     </el-timeline>
-    <div v-else class="nodata"><p>暂无数据</p><img src="../../assets/image/nodata.png" alt="" width="100%"></div>
+    <div v-else>
+      <el-empty :image-size="250" />
+    </div>
     <performance-dialog
       v-if="dialogFormVisible"
       :visible="dialogFormVisible"
@@ -190,7 +192,7 @@ export default {
   font-weight: 700;
 }
 ::v-deep .el-timeline-item__timestamp.is-top{
-   margin-bottom: 0;
+    margin-bottom: 0;
     padding-top: 4px;
     padding-left: 20px;
     height: 40px;
@@ -198,19 +200,5 @@ export default {
     font-size: 16px;
     background-color: #eceef1;
     color: black;
-}
-.nodata{
-  position: absolute;
-  left:50%;
-  top: 50%;
-  transform: translate(-50%,-50%);
-  p{
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    font-size: 20px;
-    color: #ccc;
-  }
 }
 </style>
