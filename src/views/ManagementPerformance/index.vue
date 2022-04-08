@@ -53,7 +53,7 @@
         </el-card>
       </el-timeline-item>
     </el-timeline>
-    <el-empty v-else description="暂无申报绩效" />
+    <div v-else><p class="nodata">暂无数据</p><img src="../../assets/image/nodata.png" alt="" width="100%"></div>
     <performance-dialog
       v-if="dialogFormVisible"
       :visible="dialogFormVisible"
@@ -198,5 +198,17 @@ export default {
     font-size: 16px;
     background-color: #eceef1;
     color: black;
+}
+.nodata{
+  position: absolute;
+  left:50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 30px;
+  font-weight: 700;
+  background-image: linear-gradient(red, blue);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
 </style>

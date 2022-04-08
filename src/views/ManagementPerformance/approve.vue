@@ -70,7 +70,7 @@ export default {
   computed: {
     ...mapGetters(['userInfo'])
   },
-  activated: function() {
+  created() {
     this.__init()
   },
   methods: {
