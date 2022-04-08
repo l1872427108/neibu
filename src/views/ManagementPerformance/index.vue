@@ -53,7 +53,10 @@
         </el-card>
       </el-timeline-item>
     </el-timeline>
-    <div v-else class="nodata"><p>暂无数据</p><img src="../../assets/image/nodata.png" alt="" width="100%"></div>
+    <div v-else class="nodata">
+      <p>暂无数据</p>
+      <img src="../../assets/image/nodata.png" alt="" width="100%">
+    </div>
     <performance-dialog
       v-if="dialogFormVisible"
       :visible="dialogFormVisible"
