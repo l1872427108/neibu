@@ -88,5 +88,14 @@ export default {
     email: '邮箱',
     studentNumber: '学号',
     num: '序号'
+  },
+  // 助理办公告
+  notice: {
+    department: '部门',
+    publisher: '发布人',
+    title: '标题',
+    content: '公告内容',
+    gmt_create: '创建时间'
   }
+
 }
