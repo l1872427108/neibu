@@ -34,7 +34,7 @@
         :key="item.id"
         size="large"
         icon="el-icon-more"
-        :timestamp="item.gmtCreate+'  ----------  '+item.gmtModified"
+        :timestamp="item.gmtCreate+'  --------  '+item.gmtModified"
         placement="top"
         color="#009dd9"
       >
