@@ -12,18 +12,21 @@
       <!-- 任务列表 -->
       <ul class="task-list">
         <el-divider />
-        <el-empty v-if="!taskList.length" />
+        <div v-if="!taskList.length">
+          <el-empty></el-empty>
+        </div>
         <!-- 列表项 -->
-        <li v-else v-for="item in taskList" :key="item.id" class="task-list-items" @click="toTaskView">
-          <el-tooltip effect="light" class="item" :content="`截止日期 ${item.lastTime}`" placement="top">
-            <div class="task-list-item">
-              <div>{{ item.title }}</div>
-              <el-button size="mini" :type="taskBtnType(item.state)" :icon="taskBtnIcon(item.state)" circle />
-            </div>
-          </el-tooltip>
-          <el-divider />
-        </li>
-
+        <template v-else>
+          <li v-for="item in taskList" :key="item.id" class="task-list-items" @click="toTaskView">
+            <el-tooltip effect="light" class="item" :content="`截止日期 ${item.lastTime}`" placement="top">
+              <div class="task-list-item">
+                <div>{{ item.title }}</div>
+                <el-button size="mini" :type="taskBtnType(item.state)" :icon="taskBtnIcon(item.state)" circle />
+              </div>
+            </el-tooltip>
+            <el-divider />
+          </li>
+        </template>
       </ul>
     </div>
   </div>
