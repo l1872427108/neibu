@@ -13,6 +13,10 @@ export default {
     Internal: '聚知音',
     applyReimbursement: '财务报销',
     task: '每日任务',
-    noticeDetails: '公告详情'
+    noticeDetails: '公告详情',
+    performance: '绩效管理',
+    declare: '绩效申报',
+    approve: '绩效审批',
+    ranking: '绩效排名'
   }
 }
