@@ -58,6 +58,16 @@ export const publicRoutes = [
           title: 'router.task',
           keepAlive: true
         }
+      },
+      // 公告详情
+      {
+        path: '/noticeDetails',
+        name: 'noticeDetails',
+        component: () => import(/* webpackChunkName:"fileSharing" */'~/views/noticeDetails'),
+        meta: {
+          title: 'router.noticeDetails',
+          keepAlive: true
+        }
       }
     ]
   },

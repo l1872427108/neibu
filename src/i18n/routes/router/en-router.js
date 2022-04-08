@@ -12,6 +12,7 @@ export default {
     center: 'Contract payment',
     Internal: 'Internal informatization',
     applyReimbursement: 'Apply Reimbursement',
-    task: 'Daily Task'
+    task: 'Daily Task',
+    noticeDetails: 'Announcement details' // 公告详情
   }
 }

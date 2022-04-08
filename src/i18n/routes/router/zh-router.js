@@ -12,6 +12,7 @@ export default {
     center: '合同缴费',
     Internal: '聚知音',
     applyReimbursement: '财务报销',
-    task: '每日任务'
+    task: '每日任务',
+    noticeDetails: '公告详情'
   }
 }
