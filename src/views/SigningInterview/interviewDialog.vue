@@ -75,6 +75,7 @@
 
 <script>
 import { getInterviewStep, updateState, setEvaluate } from '~/api/interview'
+import {mapGetters} from 'vuex';
 export default {
   props: {
     dialogVisible: {
@@ -124,7 +125,8 @@ export default {
     disabled() {
       console.log(this.active > this.stepList.length)
       return this.active > this.stepList.length
-    }
+    },
+    ...mapGetters(['common'])
   },
   created() {
     // this.throttledClick = this.throttle(index => {
@@ -134,6 +136,7 @@ export default {
   },
   mounted() {
     this.fetchData()
+    console.log('common', this.common);
   },
   methods: {
     // 获取数据
@@ -150,6 +153,7 @@ export default {
         this.isBtn = false
       }
       this.updateStatus(this.activeNum) // 2
+      this.textarea = this.common;
     },
     // 点击改变步骤条
     stepChange(current) {
@@ -209,6 +213,7 @@ export default {
       this.isBtn = false
     },
     close() {
+      this.$store.commit('common/SET_COMMON', this.textarea)
       this.remoteClose()
     },
     // 数组分块
