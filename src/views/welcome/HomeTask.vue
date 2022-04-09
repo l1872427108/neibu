@@ -12,9 +12,7 @@
       <!-- 任务列表 -->
       <ul class="task-list">
         <el-divider />
-        <div v-if="!taskList.length">
-          <el-empty></el-empty>
-        </div>
+        <img class="task-list-empty" v-if="!taskList.length" src="../../assets/image/empty.png" alt="">
         <!-- 列表项 -->
         <template v-else>
           <li v-for="item in taskList" :key="item.id" class="task-list-items" @click="toTaskView">
@@ -113,9 +111,13 @@ export default {
     justify-content: space-between;
   }
   .task-list {
-    overflow: auto;
+    overflow: scroll;
     height: 100%;
     &::-webkit-scrollbar { width: 0 !important }
+  }
+  .task-list-empty {
+    width: 100%;
+    // height: calc(100% + 20px);
   }
   .task-list-items {
     margin: 20px 0;
