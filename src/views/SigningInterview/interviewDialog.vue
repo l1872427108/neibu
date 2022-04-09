@@ -51,7 +51,7 @@
             </div>
           </div>
         </el-card>
-        <div v-if="stepListValue && stepListValue[0].nowStatue == 0" class="step-list-btn">
+        <div v-if="stepListValue && stepListValue[0].nowStatue === 0" class="step-list-btn">
           <el-button
             v-show="flag"
             size="mini"

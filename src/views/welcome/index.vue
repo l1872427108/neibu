@@ -12,12 +12,8 @@
       >
       <!-- 账户信息 -->
       <div class="hone-account-infmation">
-        <div class="hone-account-infmation-user">欢迎 {{ accountInfo.pugeLevel }} {{ accountInfo.nickName }},开始您一天的工作吧！</div>
-        <div class="hone-account-infmation-date">今日是个好天气</div>
-      </div>
-
-      <div class="home-account-time">
-        进入普歌 {{ currentTime }} 天
+        <div class="hone-account-infmation-user">欢迎 {{accountInfo.pugeLevel}} {{ accountInfo.nickName }},开始您一天的工作吧！</div>
+        <div class="hone-account-infmation-date">进入普歌 {{currentTime}} 天</div>
       </div>
     </div>
 
@@ -134,11 +130,6 @@ export default {
 			margin-left: 20px;
 			justify-content: flex-start;
 		}
-    .home-account-time {
-      // display: flex;
-      // // flex-direction:row-reverse
-      margin-left: 400px;
-    }
 		.hone-account-infmation-user {
 			font-size: 20px;
 			font-weight: 700;
