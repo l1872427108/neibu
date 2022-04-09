@@ -89,5 +89,14 @@ export default {
     email: 'Email',
     studentNumber: 'Student',
     num: 'Num'
+  },
+  // 助理办公告
+  notice: {
+    department: 'Department',
+    publisher: 'Publisher',
+    title: 'Title',
+    content: 'Content',
+    gmt_create: 'Found-time'
   }
+
 }

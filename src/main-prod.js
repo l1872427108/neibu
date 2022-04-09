@@ -10,6 +10,13 @@ const req = require.context('~/assets/svg', false, /\.svg$/)
 const requireAll = requireContext => requireContext.keys().map(requireContext)
 requireAll(req)
 
+import Viewer from 'v-viewer'
+import 'viewerjs/dist/viewer.css'
+Vue.use(Viewer, {
+  defaultOptions: {
+    zIndex: 9999
+  }
+})
 Vue.config.productionTip = false
 
 Vue.prototype.$bus = new Vue()

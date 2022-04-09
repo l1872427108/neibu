@@ -26,7 +26,21 @@
           <!-- 轮播图 -->
           <home-carousel class="home-main-left-carsoul" />
           <!-- 助理办公告 -->
-          <div class="home-main-left-Notice">待开发～</div>
+          <el-card class="home-main-left-Notice">
+            <div slot="header">
+              <span style="font-size:18px">助理办公告</span>
+              <router-link to="/noticeDetails" style="float: right; padding: 3px 0; color: #000">更多</router-link>
+            </div>
+            <el-collapse accordion>
+              <el-collapse-item v-for="(item, index) in noticeList" :key="index">
+                <template
+                  slot="title"
+                ><i class="header-icon el-icon-document" style="padding-right: 10px" /> {{ item.title }}</template>
+                <div class="assistant-content">{{ item.content }}</div>
+              </el-collapse-item>
+            </el-collapse>
+          </el-card>
+
         </div>
         <!-- 主区域右侧 -->
         <div class="home-main-right">
@@ -44,10 +58,12 @@
 <script>
 import { mapGetters } from 'vuex'
 import { accountGetInfo } from '~/api/personMessage'
+// 公告详情
+import { getLookAllBulletin } from '~/api/noticeList'
 import HomeCarousel from './homeCarousel.vue'
 import HomeTask from './HomeTask.vue'
 import HomeHot from './homeHot.vue'
-import {datedifference, toTime} from '../../utils/date/date';
+import { datedifference, toTime } from '../../utils/date/date'
 export default {
   name: 'Welcome',
   components: { HomeTask, HomeCarousel, HomeHot },
@@ -56,7 +72,9 @@ export default {
       // 账户信息
       accountInfo: {},
       src: '',
-      currentTime: 0
+      currentTime: 0,
+      // 公告信息
+      noticeList: []
     }
   },
   computed: {
@@ -64,23 +82,28 @@ export default {
   },
   created() {
     this.fetchAccountInfo()
+    this.getNoticeList()
     // this.$refs.imgSrc.onerror = (res) => {
     //   console.log(res);
     // }
-    console.log('==>', this.accountInfo);
+    console.log('==>', this.accountInfo)
   },
   methods: {
     // 获取账户信息
     async fetchAccountInfo() {
       const result = await accountGetInfo(this.userInfo.uid)
-      console.log(result);
+      console.log(result)
       this.accountInfo = result.data.user
-      console.log(this.accountInfo.gmtCreate, toTime(new Date()));
-      this.currentTime = datedifference(this.accountInfo.gmtCreate, toTime(new Date()));
+      console.log(this.accountInfo.gmtCreate, toTime(new Date()))
+      this.currentTime = datedifference(this.accountInfo.gmtCreate, toTime(new Date()))
+    },
+    // 获取列表信息
+    async getNoticeList() {
+      const result = await getLookAllBulletin({ current: 1, size: 7 })
+      this.noticeList = result.data.bulletinIPage.records
+      console.log(this.noticeList)
     }
-    // errorHandler() {
-    //   return true;
-    // }
+
   }
 }
 </script>
@@ -134,17 +157,30 @@ export default {
 			background-color: #fff;
 		}
 
+    // 助理办公告
 		.home-main-left-Notice {
 			width: 100%;
-			height: 300px;
+			height: 450px;
 			background-color: #fff;
-      display: flex;
 			justify-content: center;
 			align-items: center;
-      font-size: 30px;
+			font-size: 30px;
 			font-weight: 700;
-      margin: 20px 0 50px 0;
+			margin: 20px 0 50px 0;
+			overflow: hidden;
 		}
+		/deep/ .el-card__header {
+			border-bottom: 0px;
+		}
+		/deep/ .el-card__body {
+			padding-top:0px;
+    }
+    .assistant-content {
+			text-overflow: ellipsis;
+			overflow: hidden;
+			white-space: nowrap;
+		}
+
 		.home-main-right {
 			width: 28%;
 		}

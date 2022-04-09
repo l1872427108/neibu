@@ -8,6 +8,13 @@ import '~/permission'
 import '~/directives'
 import '~/plugins/element'
 
+import Viewer from 'v-viewer'
+import 'viewerjs/dist/viewer.css'
+Vue.use(Viewer, {
+  defaultOptions: {
+    zIndex: 9999
+  }
+})
 Vue.config.productionTip = false
 
 Vue.prototype.$bus = new Vue()

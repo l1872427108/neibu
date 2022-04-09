@@ -7,6 +7,7 @@ import Layout from '~/views/layout'
 import payRouter from './modules/UnifiedPayment'
 import compactRouter from './modules/SigningCompact'
 import { routerMode } from '~/config/website'
+import performanceRouter from './modules/PerformanceManage'
 export const publicRoutes = [
   {
     path: '/contract',
@@ -58,11 +59,22 @@ export const publicRoutes = [
           title: 'router.task',
           keepAlive: true
         }
+      },
+      // 公告详情
+      {
+        path: '/noticeDetails',
+        name: 'noticeDetails',
+        component: () => import(/* webpackChunkName:"fileSharing" */'~/views/noticeDetails'),
+        meta: {
+          title: 'router.noticeDetails',
+          keepAlive: true
+        }
       }
     ]
   },
   payRouter,
   compactRouter,
+  performanceRouter,
   {
     path: '/401',
     name: '401',
