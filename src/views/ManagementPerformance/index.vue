@@ -17,7 +17,7 @@
           <span class="item-score">总分:</span>
           <el-tag
             class="declare-btn-shadow score-tag"
-          >{{ newScore }}</el-tag>
+          >{{ (newScore) }}</el-tag>
         </el-badge>
         <el-badge class="item" :max="99">
           <el-button
@@ -121,7 +121,7 @@ export default {
     },
     getScore() {
       getMonthScore(this.userInfo.uid).then(res => {
-        this.newScore = res.data.newScore
+        this.newScore = parseFloat(res.data.newScore).toFixed(2)
       })
     },
     selected(tag) {
