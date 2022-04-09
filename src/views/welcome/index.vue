@@ -15,14 +15,9 @@
       >
       <!-- 账户信息 -->
       <div class="hone-account-infmation">
-        <div class="hone-account-infmation-user">
-          欢迎 {{ accountInfo.pugeLevel }}
-          {{ accountInfo.nickName }},开始您一天的工作吧！
-        </div>
-        <div class="hone-account-infmation-date">今日是个好天气</div>
+        <div class="hone-account-infmation-user">欢迎 {{accountInfo.pugeLevel}} {{ accountInfo.nickName }},开始您一天的工作吧！</div>
+        <div class="hone-account-infmation-date">进入普歌 {{currentTime}} 天</div>
       </div>
-
-      <div class="home-account-time">进入普歌 {{ currentTime }} 天</div>
     </div>
 
     <!-- 首页主区域 -->
@@ -122,49 +117,45 @@ export default {
 
 <style lang="scss" scoped>
 .home {
-  padding: 0;
-  .home-account {
-    height: 140px;
-    background-color: #fff;
-    border-bottom: 1px solid #e8eaec;
-    padding-left: 20px;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    .home-account-img {
-      border-radius: 50%;
-      width: 80px;
-      height: 80px;
-    }
-    .hone-account-infmation {
-      display: flex;
-      flex-direction: column;
-      margin-left: 20px;
-      justify-content: flex-start;
-    }
-    .home-account-time {
-      // display: flex;
-      // // flex-direction:row-reverse
-      margin-left: 400px;
-    }
-    .hone-account-infmation-user {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-    .hone-account-infmation-date {
-      color: #808695;
-      font-size: 14px;
-    }
-  }
-  .home-main {
-    padding: 0 30px;
-    margin-top: 16px;
-    width: inherit;
-    .home-main-wrap {
-      display: flex;
-      justify-content: space-between;
-    }
+	padding: 0;
+	.home-account {
+		height: 140px;
+		background-color: #fff;
+		border-bottom: 1px solid #e8eaec;
+		padding-left: 20px;
+		box-sizing: border-box;
+		display: flex;
+		align-items: center;
+		.home-account-img {
+			border-radius: 50%;
+			width: 80px;
+			height: 80px;
+      object-fit:cover;
+		}
+		.hone-account-infmation {
+			display: flex;
+			flex-direction: column;
+			margin-left: 20px;
+			justify-content: flex-start;
+		}
+		.hone-account-infmation-user {
+			font-size: 20px;
+			font-weight: 700;
+			margin-bottom: 12px;
+		}
+		.hone-account-infmation-date {
+			color: #808695;
+			font-size: 14px;
+		}
+	}
+	.home-main {
+		padding: 0 30px;
+		margin-top: 16px;
+		width: inherit;
+		.home-main-wrap {
+			display: flex;
+			justify-content: space-between;
+		}
 
     .home-main-left {
       width: 70%;
