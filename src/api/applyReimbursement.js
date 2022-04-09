@@ -24,3 +24,29 @@ export function AddReimbursement(data) {
     data
   })
 }
+
+/**
+ * 根据报销单的id查询
+ * @param {*} id  当前报销单的id
+ * @returns
+ */
+
+export function SearchReimbursement(id) {
+  return request({
+    url: `/inside/insideInfo/apply/selectById/${id}`,
+    method: 'get'
+  })
+}
+
+/**
+ * 修改报销单
+ * @param {*} data
+ * @returns
+ */
+export function EditReimbursement(data) {
+  return request({
+    url: '/inside/insideInfo/apply/updateC',
+    method: 'post',
+    data
+  })
+}
