@@ -45,7 +45,7 @@ export default {
     return {
       uploadData: {},
       fileName: '',
-      host: 'http://testoss.puge.net'
+      host: ''
     }
   },
   methods: {

@@ -1,13 +1,13 @@
 <template>
   <div>
     <pdfSign :is-control="isControl" :image="image" class="pdfSign" @showFlag="showFlag" />
-    <div class="wrap">
+    <div class="signature-wrap">
       <signature
         :visible.sync="receiverSignFlag"
         :remote-dialog="remoteDialog"
         @getImage="getImage"
       />
-      <div v-if="show" class="sign">
+      <div v-if="show" class="signature-sign">
         <el-button
           type="primary"
           class=""
@@ -59,11 +59,14 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.wrap {
+<style lang="scss">
+#app {
+  overflow: scroll !important;
+}
+.signature-wrap {
     margin-bottom: 50px;
 }
-.sign {
+.signature-sign {
     display: flex;
     justify-content: flex-start;
     align-content: center;
