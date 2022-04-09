@@ -7,18 +7,22 @@
       <!-- 账户头像 -->
       <img
         class="home-account-img"
-        :src="accountInfo.pugeAvater || 'https://project-resources.puge.net/WechatIMG111.jpeg'"
+        :src="
+          accountInfo.pugeAvater ||
+            'https://project-resources.puge.net/WechatIMG111.jpeg'
+        "
         onerror="onerror=null;src='https://project-resources.puge.net/WechatIMG111.jpeg'"
       >
       <!-- 账户信息 -->
       <div class="hone-account-infmation">
-        <div class="hone-account-infmation-user">欢迎 {{ accountInfo.pugeLevel }} {{ accountInfo.nickName }},开始您一天的工作吧！</div>
+        <div class="hone-account-infmation-user">
+          欢迎 {{ accountInfo.pugeLevel }}
+          {{ accountInfo.nickName }},开始您一天的工作吧！
+        </div>
         <div class="hone-account-infmation-date">今日是个好天气</div>
       </div>
 
-      <div class="home-account-time">
-        进入普歌 {{ currentTime }} 天
-      </div>
+      <div class="home-account-time">进入普歌 {{ currentTime }} 天</div>
     </div>
 
     <!-- 首页主区域 -->
@@ -31,20 +35,22 @@
           <home-carousel class="home-main-left-carsoul" />
           <!-- 助理办公告 -->
           <el-card class="home-main-left-Notice">
-            <div slot="header">
-              <span style="font-size:18px">助理办公告</span>
-              <router-link to="/noticeDetails" style="float: right; padding: 3px 0; color: #000">更多</router-link>
+            <div slot="header" class="clearfix">
+              <span style="font-size: 18px; font-weight: 700">助理办公告</span>
+              <router-link
+                to="/noticeDetails"
+                style="float: right; padding: 3px 0; color: gray"
+              >更多</router-link>
             </div>
-            <el-collapse accordion>
-              <el-collapse-item v-for="(item, index) in noticeList" :key="index">
-                <template
-                  slot="title"
-                ><i class="header-icon el-icon-document" style="padding-right: 10px" /> {{ item.title }}</template>
-                <div class="assistant-content">{{ item.content }}</div>
-              </el-collapse-item>
-            </el-collapse>
+            <div
+              v-for="noticeItem in noticeList"
+              :key="noticeItem"
+              class="notice-text notice-item"
+              v-html="noticeItem.content"
+            >
+              {{ noticeItem.content }}
+            </div>
           </el-card>
-
         </div>
         <!-- 主区域右侧 -->
         <div class="home-main-right">
@@ -99,7 +105,10 @@ export default {
       console.log(result)
       this.accountInfo = result.data.user
       console.log(this.accountInfo.gmtCreate, toTime(new Date()))
-      this.currentTime = datedifference(this.accountInfo.gmtCreate, toTime(new Date()))
+      this.currentTime = datedifference(
+        this.accountInfo.gmtCreate,
+        toTime(new Date())
+      )
     },
     // 获取列表信息
     async getNoticeList() {
@@ -107,114 +116,126 @@ export default {
       this.noticeList = result.data.bulletinIPage.records
       console.log(this.noticeList)
     }
-
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .home {
-	padding: 0;
-	.home-account {
-		height: 140px;
-		background-color: #fff;
-		border-bottom: 1px solid #e8eaec;
-		padding-left: 20px;
-		box-sizing: border-box;
-		display: flex;
-		align-items: center;
-		.home-account-img {
-			border-radius: 50%;
-			width: 80px;
-			height: 80px;
-		}
-		.hone-account-infmation {
-			display: flex;
-			flex-direction: column;
-			margin-left: 20px;
-			justify-content: flex-start;
-		}
+  padding: 0;
+  .home-account {
+    height: 140px;
+    background-color: #fff;
+    border-bottom: 1px solid #e8eaec;
+    padding-left: 20px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    .home-account-img {
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+    }
+    .hone-account-infmation {
+      display: flex;
+      flex-direction: column;
+      margin-left: 20px;
+      justify-content: flex-start;
+    }
     .home-account-time {
       // display: flex;
       // // flex-direction:row-reverse
       margin-left: 400px;
     }
-		.hone-account-infmation-user {
-			font-size: 20px;
-			font-weight: 700;
-			margin-bottom: 12px;
-		}
-		.hone-account-infmation-date {
-			color: #808695;
-			font-size: 14px;
-		}
-	}
-	.home-main {
-		padding: 0 30px;
-		margin-top: 16px;
-		width: inherit;
-		.home-main-wrap {
-			display: flex;
-			justify-content: space-between;
-		}
+    .hone-account-infmation-user {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .hone-account-infmation-date {
+      color: #808695;
+      font-size: 14px;
+    }
+  }
+  .home-main {
+    padding: 0 30px;
+    margin-top: 16px;
+    width: inherit;
+    .home-main-wrap {
+      display: flex;
+      justify-content: space-between;
+    }
 
-		.home-main-left {
-			width: 70%;
-		}
-		.home-main-left-carsoul {
-			width: 100%;
-			background-color: #fff;
-		}
+    .home-main-left {
+      width: 70%;
+    }
+    .home-main-left-carsoul {
+      width: 100%;
+      background-color: #fff;
+    }
 
     // 助理办公告
-		.home-main-left-Notice {
-			width: 100%;
-			height: 450px;
-			background-color: #fff;
-			justify-content: center;
-			align-items: center;
-			font-size: 30px;
-			font-weight: 700;
-			margin: 20px 0 50px 0;
-			overflow: hidden;
-		}
-		/deep/ .el-card__header {
-			border-bottom: 0px;
-		}
-		/deep/ .el-card__body {
-			padding-top:0px;
+    .home-main-left-Notice {
+      width: 100%;
+      height: 450px;
+      background-color: #fff;
+      justify-content: center;
+      align-items: center;
+      font-size: 30px;
+      font-weight: 700;
+      margin: 20px 0 50px 0;
+      overflow: hidden;
     }
-    .assistant-content {
-			text-overflow: ellipsis;
-			overflow: hidden;
-			white-space: nowrap;
-		}
 
-		.home-main-right {
-			width: 28%;
-		}
+    .notice-text {
+      font-size: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .notice-item {
+      margin-bottom: 18px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgb(233, 232, 232);
+    }
+
+    .clearfix:before,
+    .clearfix:after {
+      display: table;
+      content: "";
+    }
+    .clearfix:after {
+      clear: both;
+    }
+
+    .box-card {
+      width: 480px;
+    }
+    .home-main-right {
+      width: 28%;
+    }
     .home-task {
       width: 100%;
     }
-		.home-main-right-Hot {
-			// margin-top: 20px;
-			// width: 100%;
-			// background-color: #fff;
-			// height: 280px;
+    .home-main-right-Hot {
+      // margin-top: 20px;
+      // width: 100%;
+      // background-color: #fff;
+      // height: 280px;
       // display: flex;
-			// justify-content: center;
-			// align-items: center;
+      // justify-content: center;
+      // align-items: center;
       // font-size: 20px;
-			// font-weight: 700;
+      // font-weight: 700;
       margin-top: 20px;
-			padding: 20px;
-			box-sizing: border-box;
-			width: 100%;
-			background-color: #fff;
-			height: 280px;
-			overflow: hidden;
-		}
-	}
+      padding: 20px;
+      box-sizing: border-box;
+      width: 100%;
+      background-color: #fff;
+      height: 280px;
+      overflow: hidden;
+    }
+  }
 }
-
 </style>

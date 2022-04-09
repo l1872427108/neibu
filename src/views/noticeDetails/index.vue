@@ -47,7 +47,7 @@
       <!-- 公告内容 -->
       <el-table-column align="center" prop="content" :label="$t('notice.content')">
         <template slot-scope="scope">
-          <div class="table-content">{{ scope.row.content }}</div>
+          <div class="table-content" v-html="scope.row.content">{{ scope.row.content }}</div>
         </template>
       </el-table-column>
       <!-- 操作 -->
@@ -67,7 +67,7 @@
           {{ noticeForm.title }}
         </h1>
         <!-- 公告内容 -->
-        <p class="notice-content">
+        <p class="notice-content" v-html="noticeForm.content">
           {{ noticeForm.content }}
         </p>
         <!-- 发布人 -->
