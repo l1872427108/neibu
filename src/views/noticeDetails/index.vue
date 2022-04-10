@@ -221,7 +221,6 @@ export default {
   mounted() {},
   created() {
     this.getNotice()
-    this.getNoticeById()
   },
 
   methods: {
