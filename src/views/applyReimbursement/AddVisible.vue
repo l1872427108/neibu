@@ -78,8 +78,7 @@ export default {
       ImageTwoUrl: '',
       rules: {
         name: [
-          { required: true, message: '请输入姓名', trigger: 'blur' },
-          { min: 3, max: 6, message: '长度在 3 到 6 个字符', trigger: 'blur' }
+          { required: true, message: '请输入姓名', trigger: 'blur' }
         ],
         applyProject: [
           { required: true, message: '请输入报销项', trigger: 'change' }
