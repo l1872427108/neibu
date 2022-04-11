@@ -34,7 +34,7 @@
         :key="item.id"
         size="large"
         icon="el-icon-more"
-        :timestamp="item.gmtCreate+'  --------  '+item.gmtModified"
+        :timestamp="'绩效动态 ' + item.gmtCreate"
         placement="top"
         color="#009dd9"
       >
@@ -195,14 +195,14 @@ export default {
   font-weight: 700;
 }
 ::v-deep .el-timeline-item__timestamp.is-top{
-   margin-bottom: 0;
+    margin-bottom: 0;
     padding-top: 4px;
-    padding-left: 20px;
+    padding-left: 10px;
     height: 40px;
     line-height: 40px;
     font-size: 16px;
     background-color: #eceef1;
-    color: black;
+    color: #616c82;
 }
 .nodata{
   position: absolute;

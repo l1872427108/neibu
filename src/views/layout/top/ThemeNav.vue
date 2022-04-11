@@ -105,7 +105,7 @@ export default {
   },
 
   mounted() {
-    console.log('11234565432345432134')
+    // console.log('11234565432345432134')
     listenerfullscreen(this.setScreen)
   },
 
