@@ -36,7 +36,7 @@ const performanceRouter = {
       name: 'ranking',
       component: () => import(/* webpackChunkName:"content" */'~/views/ManagementPerformance/ranking'),
       meta: {
-        title: 'router.declare',
+        title: 'router.ranking',
         icon: 'basic-icon-marketing',
         keepAlive: true
       }

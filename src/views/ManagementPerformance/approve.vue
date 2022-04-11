@@ -11,7 +11,7 @@
           @click="selected(item.state)"
         >{{ item.name }}</el-button>
       </el-badge>
-      <el-input v-model="declareName" placeholder="请输入内容" class="search-declare">
+      <el-input v-model="declareName" placeholder="请输入申请人姓名" class="search-declare">
         <el-button slot="append" icon="el-icon-search" @click="searchDeclare" />
       </el-input>
     </div>
