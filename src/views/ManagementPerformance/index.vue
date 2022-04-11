@@ -1,7 +1,7 @@
 <!--  -->
 <template>
   <div class="">
-    <div class="declare-left declare-btn-flex">
+    <div :class="getScreen() === 0 ? 'declare-left':'declare-left declare-btn-flex'">
       <div>
         <el-badge v-for="item in approveStatus" :key="item.id" class="item" :max="99">
           <el-button
@@ -40,7 +40,7 @@
       >
         <el-card class="declare-card">
           <div class="declare-btn-flex">
-            <div class="declare-content declare-btn-flex">
+            <div class="declare-content declare-btn-flex" :style="getScreen() === 0 ? 'flex-wrap: wrap' : ''">
               绩效项：<p> {{ item.performanceName }} </p>
               分值：<p>{{ item.performanceScore }}</p>
               审批人：<p>{{ item.approverName }}</p>
@@ -69,6 +69,7 @@
 import PerformanceDialog from './components/performanceDialog.vue'
 import { allPerformance, deleteDeclare, getMonthScore } from '~/api/performance'
 import { mapGetters } from 'vuex'
+import { getScreen } from '../../utils/util'
 export default {
   components: { PerformanceDialog },
   data() {
@@ -81,6 +82,7 @@ export default {
       approvalState: '0',
       dialogFormVisible: false,
       newScore: '',
+      getScreen,
       declareList: [],
       num: 0
     }
