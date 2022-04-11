@@ -82,9 +82,9 @@ export default {
     },
     getApproverList() {
       selectDeclare(this.userInfo.uid).then(res => {
-        console.log(res)
+        // console.log(res)
         const list = res.data.declareList
-        console.log(this.declareList)
+        // console.log(this.declareList)
         this.filterList(list)
       })
     },
