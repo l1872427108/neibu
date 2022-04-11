@@ -146,10 +146,10 @@ export default {
     },
     // 提交表单
     submitForm(formName) {
-      console.log(formName)
+      // console.log(formName)
       console.log('this', this.performanceFormData)
       this.$refs[formName].validate((valid) => {
-        console.log('this', this.performanceFormData)
+        // console.log('this', this.performanceFormData)
         if (valid) {
           this.submitData()
         } else {
@@ -187,7 +187,7 @@ export default {
       })
     },
     getNum(e) {
-      console.log(e)
+      // console.log(e)
       // console.log('eee', e[e.length - 1])
       this.performanceFormData.performanceId = e[e.length - 1]
       const labels = this.$refs['labelAll'].getCheckedNodes()[0].pathLabels
@@ -206,7 +206,7 @@ export default {
       })
     },
     submitData() {
-      console.log('111', this.performanceFormData)
+      // console.log('111', this.performanceFormData)
       addDeclare(this.performanceFormData).then(response => {
         this.$message({
           message: '保存成功',
