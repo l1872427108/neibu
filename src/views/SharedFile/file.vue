@@ -100,7 +100,7 @@ export default {
 	methods: {
 		// 路由跳转方法
 	    switchTo(){
-			this.$router.push('/file/collection')
+			this.$router.push('/collection')
 			this.featchData();
 		 },
 		// 分页查询例会

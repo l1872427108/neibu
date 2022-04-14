@@ -8,7 +8,6 @@ import payRouter from './modules/UnifiedPayment'
 import compactRouter from './modules/SigningCompact'
 import { routerMode } from '~/config/website'
 import performanceRouter from './modules/PerformanceManage'
-import file from './modules/fileRouter'
 export const publicRoutes = [
   {
     path: '/contract',
@@ -70,13 +69,30 @@ export const publicRoutes = [
           title: 'router.noticeDetails',
           keepAlive: true
         }
+      },
+      {
+        path: '/fileSharing',
+        name: 'fileSharing',
+        component: () => import(/* webpackChunkName:"interview" */'~/views/SharedFile/file'),
+        meta: {
+            title: 'router.fileSharing',
+            keepAlive: true
+        }
+      },
+      {
+        path: '/collection',
+        name: 'Collection',
+        component: () => import(/* webpackChunkName:"interview" */'~/views/SharedFile/collection'),
+        meta: {
+            title: '我的收藏',
+            keepAlive: true
+        }
       }
     ]
   },
   payRouter,
   compactRouter,
   performanceRouter,
-  file,
   {
     path: '/401',
     name: '401',
