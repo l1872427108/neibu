@@ -96,6 +96,15 @@ export default {
     title: '标题',
     content: '公告内容',
     gmt_create: '创建时间'
+  },
+  task: {
+    PleaseSelectTheTime:'请选择日期:',
+    CreationTime:'创建时间',
+    JobTitle:'任务标题',
+    ContentOfTheTask:'任务内容',
+    TaskStatus:'任务状态',
+    operation:'操作',
+    addtask:'添加任务',
   }
 
 }
