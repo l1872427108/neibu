@@ -71,12 +71,13 @@
 						<el-input v-model="pojo.content" autocomplete="off"></el-input>
 					</el-form-item>
 					<el-form-item label="完成凭证:" prop="voucher" v-if="pojo.state === '1' ? true : false">
-						<el-image
+						<viewer>
+							<img
 							:src="pojo.voucher"
 							class="imgsize"
-							:preview-src-list="[pojo.voucher]"
 							@click="vbs(pojo.voucher)"
 						/>
+						</viewer>
 					</el-form-item>
 				</el-form>
 				<div slot="footer" class="dialog-footer" v-if="pojo.state === '1' ? false : true  && pojo.state !== '2' ?  true: false ">
