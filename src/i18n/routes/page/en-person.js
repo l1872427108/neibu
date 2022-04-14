@@ -97,6 +97,15 @@ export default {
     title: 'Title',
     content: 'Content',
     gmt_create: 'Found-time'
-  }
+  },
+  task: {
+    PleaseSelectTheTime:'SelectTime',
+    CreationTime:'CreationTime',
+    JobTitle:'JobTitle',
+    ContentOfTheTask:'ContentTask',
+    TaskStatus:'TaskStatus',
+    operation:'operation',
+    addtask:'addtask',
+  },
 
 }
