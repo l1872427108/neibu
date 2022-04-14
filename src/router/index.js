@@ -8,6 +8,7 @@ import payRouter from './modules/UnifiedPayment'
 import compactRouter from './modules/SigningCompact'
 import { routerMode } from '~/config/website'
 import performanceRouter from './modules/PerformanceManage'
+import file from './modules/fileRouter'
 export const publicRoutes = [
   {
     path: '/contract',
@@ -75,6 +76,7 @@ export const publicRoutes = [
   payRouter,
   compactRouter,
   performanceRouter,
+  file,
   {
     path: '/401',
     name: '401',
