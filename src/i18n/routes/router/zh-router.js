@@ -17,6 +17,7 @@ export default {
     performance: '绩效管理',
     declare: '绩效申报',
     approve: '绩效审批',
-    ranking: '绩效排名'
+    ranking: '绩效排名',
+    fileSharing: '共享文件'
   }
 }
