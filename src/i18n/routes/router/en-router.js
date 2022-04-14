@@ -17,6 +17,7 @@ export default {
     performance: 'Performance management',
     declare: 'Performance declare',
     approve: 'Performance approve',
-    ranking: 'Performance ranking'
+    ranking: 'Performance ranking',
+    fileSharing: 'File Sharing'
   }
 }
