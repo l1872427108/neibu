@@ -98,6 +98,7 @@ export default {
     content: 'Content',
     gmt_create: 'Found-time'
   },
+  // 每日任务
   task: {
     PleaseSelectTheTime:'SelectTime',
     CreationTime:'CreationTime',
@@ -107,5 +108,16 @@ export default {
     operation:'operation',
     addtask:'addtask',
   },
-
+  // 共享文件
+  fileSharing: {
+    Number:'Number',
+    FileName:'FileName',
+    Label:'Label',
+    FileDescription:'FileDescription',
+    UploadTime:'UploadTime',
+    Uploader:'Uploader',
+    Operation:'Operation',
+    MyCollection:'MyCollection',
+    SharingFile:'SharingFile'
+  }
 }
