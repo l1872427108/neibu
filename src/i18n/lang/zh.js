@@ -41,7 +41,8 @@ export default {
     language: '中英文',
     theme: '主题',
     color: '换色',
-    xws: '闲物室'
+    xws: '闲物室',
+    eliminate:'清除缓存'
   },
   tagsView: {
     refresh: '刷新',

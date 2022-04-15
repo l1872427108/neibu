@@ -97,6 +97,7 @@ export default {
     content: '公告内容',
     gmt_create: '创建时间'
   },
+  //  每日任务
   task: {
     PleaseSelectTheTime:'请选择日期:',
     CreationTime:'创建时间',
@@ -105,6 +106,17 @@ export default {
     TaskStatus:'任务状态',
     operation:'操作',
     addtask:'添加任务',
+  },
+  // 共享文件
+  fileSharing: {
+    Number:'序号',
+    FileName:'文件名',
+    Label:'标签',
+    FileDescription:'文件描述',
+    UploadTime:'上传时间',
+    Uploader:'上传者',
+    Operation:'操作',
+    MyCollection:'我的收藏',
+    SharingFile:'共享文件',
   }
-
 }
