@@ -44,7 +44,9 @@
             size="mini"
             type="primary"
             @click="ReimbursementEdit(scope.row.id)"
+            v-if="scope.row.auditStatus == 2"
           >编辑</el-button>
+          <el-tag type="warning" v-else>锁定</el-tag>
         </template>
       </el-table-column>
     </el-table>

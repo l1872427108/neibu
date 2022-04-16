@@ -75,7 +75,9 @@ export default {
     // this.$refs.imgSrc.onerror = (res) => {
     //   console.log(res);
     // }
-    console.log('==>', this.accountInfo)
+    this.$bus.$on('accountChange', () => {
+      this.fetchAccountInfo()
+    })
   },
   methods: {
     // 获取账户信息

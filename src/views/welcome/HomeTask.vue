@@ -12,7 +12,7 @@
       <!-- 任务列表 -->
       <ul class="task-list">
         <el-divider />
-        <img class="task-list-empty" v-if="!taskList.length" src="../../assets/image/empty.png" alt="">
+        <img class="task-list-empty" v-if="!taskList.length" src="@/assets/image/nodata.png" alt="">
         <!-- 列表项 -->
         <template v-else>
           <li v-for="item in taskList" :key="item.id" class="task-list-items" @click="toTaskView">
