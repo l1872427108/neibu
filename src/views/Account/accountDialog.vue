@@ -1,5 +1,5 @@
 <template>
-  <el-dialog width="60%" :close-on-click-modal="false" :before-close="handleClose" :show-close="true" :title="$t('account.modifyAccount')" :visible.sync="visible">
+  <el-dialog width="75%" :close-on-click-modal="false" :before-close="handleClose" :show-close="true" :title="$t('account.modifyAccount')" :visible.sync="visible">
     <el-form ref="ruleForm" :rules="rules" :model="accountInfo" size="small" label-width="40px" class="mt35 mb35">
       <el-row :gutter="35">
         <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
@@ -147,6 +147,7 @@ export default {
       this.accountInfo.pugeAvater = photo
       this.userInfo.uid && accountPutInfo(this.accountInfo)
         .then(() => {
+          this.$bus.$emit('accountChange', true)
           this.fetchData()
         })
         .catch(() => {

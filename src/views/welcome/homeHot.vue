@@ -3,7 +3,7 @@
   <div class="home-main-hot">
     <h2 class="home-main-hot-title">微博热搜</h2>
     <div class="hot-wrape">
-      <img class="hot-wrape-empty" v-if="!weiboHotList" src="../../assets/image/empty.png" alt="">
+      <img class="hot-wrape-empty" v-if="!weiboHotList" src="@/assets/image/nodata.png" alt="">
       <template v-else>
         <div v-for="(item, index) in weiboHotList" :key="index" class="hot-txt">
           <!-- 微博链接 -->

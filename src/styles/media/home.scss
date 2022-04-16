@@ -23,6 +23,18 @@
       font-weight: normal !important;
     }
   }
+
+  .home-main-left-carsoul {
+    height: 200px;
+    .el-carousel__container {
+      height: 200px;
+
+      .carousel-title-copyright {
+        left: 80%;
+        top: 80%;
+      }
+    }
+  }
 }
 
 /* 页面宽度小于1000px */
