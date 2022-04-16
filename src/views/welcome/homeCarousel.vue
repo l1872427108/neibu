@@ -1,5 +1,5 @@
 <template>
-  <el-carousel>
+  <el-carousel :indicator-position="isShowIndicator ? '' : 'none'">
     <el-carousel-item v-for="item in carouselList" :key="item.id">
       <!-- 轮播图内容包裹区域 -->
       <div class="carousel-wrap">
@@ -21,11 +21,13 @@ export default {
   data() {
     return {
       // 轮播图数据
-      carouselList: []
+      carouselList: [],
+      isShowIndicator: true
     }
   },
   created() {
     this.getCarouselData()
+    this.onLayoutResize();
   },
   methods: {
     // 获取轮播图
@@ -33,6 +35,14 @@ export default {
       const res = await searchCarousel()
       console.log(res.data.arrayList)
       this.carouselList = res.data.arrayList
+    },
+    onLayoutResize() {
+      const clientWidth = document.body.clientWidth
+      if (clientWidth < 1000) {
+        this.isShowIndicator = false
+      } else {
+        this.isShowIndicator = true
+      }
     }
   }
 }
