@@ -23,18 +23,18 @@
 			</div>
 			<!--右侧我的收藏 -->
 			<div class="rightbutton">
-				<el-button @click="switchTo" type="primary">我的收藏</el-button>
+				<el-button @click="switchTo" type="primary"> {{ $t('fileSharing.MyCollection') }}</el-button>
 			</div>
 		</div>
 		<!-- 表格 -->
 		<el-table :data="resp"   border>
-			<el-table-column type="index" align="center" label="序号" width="70" />
-			<el-table-column prop="fileName" align="center" label="文件名"  />
-			<el-table-column prop="label" align="center" label="标签" />
-			<el-table-column prop="summary" align="center" label="文件描述" width="330" />
-			<el-table-column prop="gmtModified" align="center" label="上传时间" />
-			<el-table-column prop="authorName" align="center" label="上传者"  />
-			<el-table-column label="操 作" align="center">
+			<el-table-column type="index" align="center" :label="$t('fileSharing.Number')"  width="100" />
+			<el-table-column prop="fileName" align="center" :label="$t('fileSharing.FileName')"  />
+			<el-table-column prop="label" align="center" :label="$t('fileSharing.Label')" />
+			<el-table-column prop="summary" align="center"  :label="$t('fileSharing.FileDescription')"  width="330" />
+			<el-table-column prop="gmtModified" align="center"  :label="$t('fileSharing.UploadTime')" />
+			<el-table-column prop="authorName" align="center" :label="$t('fileSharing.Uploader')"  />
+			<el-table-column :label="$t('fileSharing.Operation')" align="center">
 				<template slot-scope="scope">
 					<el-button size="mini" type="success" @click="downloadthisfile(scope.row.id)">下 载</el-button>
 					<el-button size="mini" type="primary" 

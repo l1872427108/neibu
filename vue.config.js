@@ -45,7 +45,7 @@ module.exports = {
     port: '8888',
     hotOnly: false,
     disableHostCheck: true,
-    host: 'bzj.puge.net.cn',
+    host: 'lxl.puge.net.cn',
     proxy: projectConfig.devServerProxy
   },
   css: {
