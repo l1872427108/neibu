@@ -83,8 +83,6 @@ prod-deploy:
     - rm -rf /usr/local/puge-prod/inside-dist/*
     - mv /home/dist/* /usr/local/puge-prod/inside-dist/
     - rm -rf /home/dist
-    - echo "重新加载nginx"
-    - /usr/local/webserver/nginx/sbin/nginx -s reload
   after_script:
     - rm -rf /home/gitlab-runner/builds
     - echo "部署完成"
