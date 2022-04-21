@@ -88,5 +88,35 @@ export default {
     email: '邮箱',
     studentNumber: '学号',
     num: '序号'
+  },
+  // 助理办公告
+  notice: {
+    department: '部门',
+    publisher: '发布人',
+    title: '标题',
+    content: '公告内容',
+    gmt_create: '创建时间'
+  },
+  //  每日任务
+  task: {
+    PleaseSelectTheTime:'请选择日期:',
+    CreationTime:'创建时间',
+    JobTitle:'任务标题',
+    ContentOfTheTask:'任务内容',
+    TaskStatus:'任务状态',
+    operation:'操作',
+    addtask:'添加任务',
+  },
+  // 共享文件
+  fileSharing: {
+    Number:'序号',
+    FileName:'文件名',
+    Label:'标签',
+    FileDescription:'文件描述',
+    UploadTime:'上传时间',
+    Uploader:'上传者',
+    Operation:'操作',
+    MyCollection:'我的收藏',
+    SharingFile:'共享文件',
   }
 }

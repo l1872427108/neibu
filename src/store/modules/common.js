@@ -5,7 +5,8 @@ const state = {
   colorName: getStorage(key + '-themeName') || 'theme-default',
   isCollapse: false, // 是否折叠
   isFullScren: false,
-  themeName: getStorage(key + '-themeName') || 'theme-default'
+  themeName: getStorage(key + '-themeName') || 'theme-default',
+  common: ''
 }
 
 const mutations = {
@@ -29,6 +30,10 @@ const mutations = {
   SET_THEME_NAME: (state, themeName) => {
     state.themeName = themeName
     setStorage('themeName', state.themeName)
+  },
+  SET_COMMON: (state, common) => {
+    console.log('common',common);
+    state.common = common;
   }
 }
 

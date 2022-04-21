@@ -59,6 +59,34 @@ export const publicRoutes = [
           title: 'router.task',
           keepAlive: true
         }
+      },
+      // 公告详情
+      {
+        path: '/noticeDetails',
+        name: 'noticeDetails',
+        component: () => import(/* webpackChunkName:"fileSharing" */'~/views/noticeDetails'),
+        meta: {
+          title: 'router.noticeDetails',
+          keepAlive: true
+        }
+      },
+      {
+        path: '/fileSharing',
+        name: 'fileSharing',
+        component: () => import(/* webpackChunkName:"interview" */'~/views/SharedFile/file'),
+        meta: {
+            title: 'router.fileSharing',
+            keepAlive: true
+        }
+      },
+      {
+        path: '/collection',
+        name: 'Collection',
+        component: () => import(/* webpackChunkName:"interview" */'~/views/SharedFile/collection'),
+        meta: {
+            title: '我的收藏',
+            keepAlive: true
+        }
       }
     ]
   },

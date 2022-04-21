@@ -40,7 +40,7 @@
                       </el-col>
                       <el-col :xs="24" :sm="16" class="personal-item mb6">
                         <div class="personal-item-label">{{ $t('person.Birthday') }}：</div>
-                        <div class="personal-item-value">{{ personalForm.pugeBirthday }}</div>
+                        <div class="personal-item-value">{{ pgTime }}</div>
                       </el-col>
                     </el-row>
                   </el-col>
@@ -297,7 +297,8 @@ export default {
         pugeEmail: [{ required: true, message: '请填写正确的邮箱', validator: checkEmail, trigger: 'blur' }],
         mobile: [{ required: true, message: '请填写手机号', validator: checkPhone, trigger: 'blur' }],
         nubmerInfo: [{ required: true, validator: identity, message: '请填写正确的证件号码', trigger: 'blur' }]
-      }
+      },
+      pgTime: ''
     }
   },
   computed: {
@@ -319,6 +320,7 @@ export default {
         .then((res) => {
           if (res.data.peopleInfo) {
             this.personalForm = res.data.peopleInfo
+            this.pgTime = this.personalForm.pugeBirthday;
             this.loading = false
           }
           this.loading = false
@@ -330,6 +332,7 @@ export default {
     },
     submitForm() {
       this.personalForm.pugeBirthday = toTime(this.personalForm.pugeBirthday)
+      this.pgTime = this.personalForm.pugeBirthday
       this.updateData()
     },
     updatePhoto(photo) {

@@ -31,7 +31,6 @@
           <el-tag v-if="scope.row.auditStatus == 2" type="warning">审计中</el-tag>
         </template>
       </el-table-column>
-
       <el-table-column align="center" prop="ifBepaied" :label="$t('apply.Reimbursement')">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.ifBepaied == 1" type="success">已报销</el-tag>
@@ -39,18 +38,28 @@
           <el-tag v-if="scope.row.auditStatus == 2" type="warning">报销中</el-tag>
         </template>
       </el-table-column>
+      <el-table-column label="操作" align="center">
+        <template slot-scope="scope">
+          <el-button
+            size="mini"
+            type="primary"
+            @click="ReimbursementEdit(scope.row.id)"
+            v-if="scope.row.auditStatus == 2"
+          >编辑</el-button>
+          <el-tag type="warning" v-else>锁定</el-tag>
+        </template>
+      </el-table-column>
     </el-table>
 
-    <AddVisible :from-visible="FromVisible" :handle-close="handleClose" />
+    <AddVisible :from-visible="FromVisible" :txt="text" :form-data="formData" :handle-close="handleClose" />
   </div>
 </template>
 
 <script>
 import AddVisible from './AddVisible.vue'
-import { UserIdSearch } from '~/api/applyReimbursement'
+import { UserIdSearch, SearchReimbursement } from '~/api/applyReimbursement'
 import { Cookie, Key } from '~/utils/cache/cookie'
 export default {
-  name: 'PugeCInsideInfoFrontIndex',
   components: {
     AddVisible
   },
@@ -58,7 +67,13 @@ export default {
   data() {
     return {
       FromVisible: false,
-      list: []
+      list: [],
+      formData: {
+        name: '',
+        payPicture: '',
+        payerQrcode: ''
+      },
+      text: ''
     }
   },
   computed: {
@@ -80,9 +95,24 @@ export default {
 
     AddData() {
       this.FromVisible = true
+      this.text = '添加'
     },
+    ReimbursementEdit(id) {
+      SearchReimbursement(id).then(res => {
+        this.FromVisible = true
+        this.text = '修改'
+        this.formData = res.data.applyList[0]
+      })
+    },
+    // 关闭弹框,清除表单
     handleClose() {
       this.FromVisible = false
+      this.formData = {
+        name: '',
+        payPicture: '',
+        payerQrcode: ''
+      }
+      this.text = ''
       this.SearchData()
     }
   }

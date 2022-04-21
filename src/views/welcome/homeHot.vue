@@ -3,16 +3,19 @@
   <div class="home-main-hot">
     <h2 class="home-main-hot-title">微博热搜</h2>
     <div class="hot-wrape">
-      <div v-for="(item, index) in weiboHotList" :key="index" class="hot-txt">
-        <!-- 微博链接 -->
-        <a :href="item.url" target="_blank">
-          <p class="hot-title">#{{ item.hotWord }}#</p>
-          <div class="hot-right">
-            <img src="@/assets/image/hot.png" alt="">
-            <span>{{ item.hotWordNum }}</span>
-          </div>
-        </a>
-      </div>
+      <img class="hot-wrape-empty" v-if="!weiboHotList" src="@/assets/image/nodata.png" alt="">
+      <template v-else>
+        <div v-for="(item, index) in weiboHotList" :key="index" class="hot-txt">
+          <!-- 微博链接 -->
+          <a :href="item.url" target="_blank">
+            <p class="hot-title">#{{ item.hotWord }}#</p>
+            <div class="hot-right">
+              <img src="@/assets/image/hot.png" alt="">
+              <span>{{ item.hotWordNum }}</span>
+            </div>
+          </a>
+        </div>
+      </template>
     </div>
   </div>
 </template>
@@ -61,6 +64,10 @@ export default {
 .hot-wrape {
 	height: 100%;
 	overflow-y: scroll;
+  .hot-wrape-empty {
+    width: 100%;
+    height: 100%;
+  }
 	a {
 		color: #333;
 		text-decoration: none;

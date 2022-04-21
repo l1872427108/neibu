@@ -13,9 +13,11 @@ export default {
     Internal: 'Internal informatization',
     applyReimbursement: 'Apply Reimbursement',
     task: 'Daily Task',
+    noticeDetails: 'Announcement details', // 公告详情
     performance: 'Performance management',
     declare: 'Performance declare',
     approve: 'Performance approve',
-    ranking: 'Performance ranking'
+    ranking: 'Performance ranking',
+    fileSharing: 'File Sharing'
   }
 }

@@ -40,7 +40,8 @@ export default {
     language: 'language',
     theme: 'theme',
     color: 'color',
-    xws: 'Shopping'
+    xws: 'Shopping',
+    eliminate:'eliminate'
   },
   tagsView: {
     refresh: 'refresh',

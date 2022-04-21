@@ -17,6 +17,28 @@
       margin-bottom: 100px;
     }
   }
+  .hone-account-infmation {
+    .hone-account-infmation-user {
+      font-size: 14px !important;
+      font-weight: normal !important;
+    }
+  }
+
+  .home-main-left-carsoul {
+    height: 200px;
+    .el-carousel__container {
+      height: 200px;
+
+      .carousel-title-copyright {
+        left: 80%;
+        top: 80%;
+      }
+      .carousel-title {
+        font-size: 15px;
+        font-weight: normal;
+      }
+    }
+  }
 }
 
 /* 页面宽度小于1000px */

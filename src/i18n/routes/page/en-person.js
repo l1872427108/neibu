@@ -89,5 +89,35 @@ export default {
     email: 'Email',
     studentNumber: 'Student',
     num: 'Num'
+  },
+  // 助理办公告
+  notice: {
+    department: 'Department',
+    publisher: 'Publisher',
+    title: 'Title',
+    content: 'Content',
+    gmt_create: 'Found-time'
+  },
+  // 每日任务
+  task: {
+    PleaseSelectTheTime:'SelectTime',
+    CreationTime:'CreationTime',
+    JobTitle:'JobTitle',
+    ContentOfTheTask:'ContentTask',
+    TaskStatus:'TaskStatus',
+    operation:'operation',
+    addtask:'addtask',
+  },
+  // 共享文件
+  fileSharing: {
+    Number:'Number',
+    FileName:'FileName',
+    Label:'Label',
+    FileDescription:'FileDescription',
+    UploadTime:'UploadTime',
+    Uploader:'Uploader',
+    Operation:'Operation',
+    MyCollection:'MyCollection',
+    SharingFile:'SharingFile'
   }
 }

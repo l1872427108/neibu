@@ -12,18 +12,19 @@
       <!-- 任务列表 -->
       <ul class="task-list">
         <el-divider />
-        <el-empty v-if="!taskList.length" />
+        <img class="task-list-empty" v-if="!taskList.length" src="@/assets/image/nodata.png" alt="">
         <!-- 列表项 -->
-        <li v-else v-for="item in taskList" :key="item.id" class="task-list-items" @click="toTaskView">
-          <el-tooltip effect="light" class="item" :content="`截止日期 ${item.lastTime}`" placement="top">
-            <div class="task-list-item">
-              <div>{{ item.title }}</div>
-              <el-button size="mini" :type="taskBtnType(item.state)" :icon="taskBtnIcon(item.state)" circle />
-            </div>
-          </el-tooltip>
-          <el-divider />
-        </li>
-
+        <template v-else>
+          <li v-for="item in taskList" :key="item.id" class="task-list-items" @click="toTaskView">
+            <el-tooltip effect="light" class="item" :content="`截止日期 ${item.lastTime}`" placement="top">
+              <div class="task-list-item">
+                <div>{{ item.title }}</div>
+                <el-button size="mini" :type="taskBtnType(item.state)" :icon="taskBtnIcon(item.state)" circle />
+              </div>
+            </el-tooltip>
+            <el-divider />
+          </li>
+        </template>
       </ul>
     </div>
   </div>
@@ -110,9 +111,13 @@ export default {
     justify-content: space-between;
   }
   .task-list {
-    overflow: auto;
+    overflow: scroll;
     height: 100%;
     &::-webkit-scrollbar { width: 0 !important }
+  }
+  .task-list-empty {
+    width: 100%;
+    // height: calc(100% + 20px);
   }
   .task-list-items {
     margin: 20px 0;

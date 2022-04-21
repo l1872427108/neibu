@@ -2,6 +2,18 @@
   <div class="layout-navbars-user">
     <el-tooltip
       effect="dark"
+      :content="$t('navbar.eliminate')"
+      placement="bottom"
+    >
+      <div class="top-item layout-navbars-item">
+        <i
+          class="el-icon-refresh"
+          @click="clearAway"
+        />
+      </div>
+    </el-tooltip>
+    <el-tooltip
+      effect="dark"
       :content="$t('navbar.xws')"
       placement="bottom"
     >
@@ -74,6 +86,7 @@
 import { mapGetters } from 'vuex'
 import { fullscreenToggel, listenerfullscreen } from '~/utils/util'
 import topLang from './topLang.vue'
+import {clearTestCache, clearProdCache} from '~/api/clearCache'
 export default {
   components: {
     topLang,
@@ -150,6 +163,17 @@ export default {
     },
     toXws() {
       window.location.href = 'https://xws.puge.cn'
+    },
+    clearAway() {
+      if (process.env.NODE_ENV === 'production') {
+        clearProdCache().then(() => {
+          this.$message.success('清除缓存成功')
+        })
+      } else if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'development') {
+        clearTestCache().then(() => {
+          this.$message.success('清除缓存成功')
+        })
+      }
     }
   }
 }
