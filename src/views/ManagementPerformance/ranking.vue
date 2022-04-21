@@ -20,7 +20,6 @@
       <el-table-column align="center" type="index" label="名次" width="100px" />
       <el-table-column align="center" prop="declareName" label="姓名" />
       <el-table-column align="center" prop="monthScore" label="分值" :formatter="state" />
-      <!-- <el-table-column align="center" prop="approveName" label="审批人" /> -->
     </el-table>
   </div>
 </template>
