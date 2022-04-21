@@ -147,7 +147,7 @@ export default {
     // 提交表单
     submitForm(formName) {
       // console.log(formName)
-      console.log('this', this.performanceFormData)
+      // console.log('this', this.performanceFormData)
       this.$refs[formName].validate((valid) => {
         // console.log('this', this.performanceFormData)
         if (valid) {

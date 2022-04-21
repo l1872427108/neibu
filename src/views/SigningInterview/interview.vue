@@ -89,7 +89,7 @@ export default {
     },
     async handleInterview(index, row) {
       this.interviewId = row.id
-      console.log(index, row)
+      // console.log(index, row)
       this.visible = true
     },
     remoteClose() {

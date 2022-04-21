@@ -19,7 +19,7 @@
           class="list-item"
           @click="checkList()"
         >
-          {{ richTextFormat(item.content) }}
+          {{ richTextFormat(item.title) }}
         </li>
       </ul>
       <p v-if="loading" class="home-list-message">加载中...</p>
