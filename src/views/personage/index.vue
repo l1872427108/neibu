@@ -311,7 +311,7 @@ export default {
     }
   },
   mounted() {
-    console.log('personageDialog')
+    // console.log('personageDialog')
     this.fetchData()
   },
   methods: {

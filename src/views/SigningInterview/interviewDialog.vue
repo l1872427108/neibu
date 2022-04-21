@@ -123,7 +123,7 @@ export default {
       return this.stepList[this.active - 1]
     },
     disabled() {
-      console.log(this.active > this.stepList.length)
+      // console.log(this.active > this.stepList.length)
       return this.active > this.stepList.length
     },
     ...mapGetters(['common'])
