@@ -322,7 +322,8 @@ export default {
 
 .el-tag--dark {
   border: 0px;
-  line-height: 24px;
+  height: 32px;
+  line-height: 32px;
 }
 // 分页
 .el-pagination {
